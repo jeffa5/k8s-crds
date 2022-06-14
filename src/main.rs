@@ -3,18 +3,19 @@ use std::{collections::BTreeMap, fs::File, io::Write};
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps;
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
 
-#[tokio::main]
-async fn main() {
+fn main() {
+    let out_file = "src/lib.rs";
+
     let url = "https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/kube-prometheus-stack/crds/crd-prometheuses.yaml";
-    let bytes = reqwest::get(url).await.unwrap().bytes().await.unwrap();
+    let bytes = reqwest::blocking::get(url).unwrap().bytes().unwrap();
 
     let crd: k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition = serde_yaml::from_slice(&bytes).unwrap();
-    // let yaml: serde_yaml::Value = serde_yaml::from_slice(&bytes).unwrap();
     let spec = crd.spec;
 
     let group = spec.group;
     let kind = spec.names.kind;
-    let mut f = File::create("src/lib.rs").unwrap();
+
+    let mut f = File::create(out_file).unwrap();
 
     for version in spec.versions {
         build_resource(

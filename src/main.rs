@@ -1,25 +1,56 @@
+use std::path::PathBuf;
 use std::{collections::BTreeMap, fs::File, io::Write};
 
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps;
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
 
-fn main() {
+type Crd =
+    k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition;
+
+fn main() -> anyhow::Result<()> {
     let out_file = "src/lib.rs";
 
     let url = "https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/kube-prometheus-stack/crds/crd-prometheuses.yaml";
-    let bytes = reqwest::blocking::get(url).unwrap().bytes().unwrap();
-
-    let crd: k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition = serde_yaml::from_slice(&bytes).unwrap();
-    let spec = crd.spec;
-
-    let group = spec.group;
-    let kind = spec.names.kind;
+    let crd = fetch_resource(url)?;
 
     let mut f = File::create(out_file).unwrap();
 
-    for version in spec.versions {
+    build(&mut f, crd)?;
+
+    Ok(())
+}
+
+pub fn fetch_resource(resource: &str) -> anyhow::Result<Crd> {
+    let bytes = reqwest::blocking::get(resource).unwrap().bytes().unwrap();
+
+    let crd = serde_yaml::from_slice(&bytes)?;
+    Ok(crd)
+}
+
+fn read_resource(file: PathBuf) -> anyhow::Result<Crd> {
+    let f = File::open(file)?;
+
+    let crd = serde_yaml::from_reader(f)?;
+    Ok(crd)
+}
+
+pub fn build_from_url<W: Write>(writer: &mut W, url: String) -> anyhow::Result<()> {
+    let crd = fetch_resource(&url)?;
+    build(writer, crd)
+}
+
+pub fn build_from_path<W: Write>(writer: &mut W, path: PathBuf) -> anyhow::Result<()> {
+    let crd = read_resource(path)?;
+    build(writer, crd)
+}
+
+fn build<W: Write>(writer: &mut W, crd: Crd) -> anyhow::Result<()> {
+    let group = crd.spec.group;
+    let kind = crd.spec.names.kind;
+
+    for version in crd.spec.versions {
         build_resource(
-            &mut f,
+            writer,
             &group,
             &version.name,
             &kind,
@@ -30,9 +61,9 @@ fn main() {
                 .open_api_v3_schema
                 .as_ref()
                 .unwrap(),
-        )
-        .unwrap();
+        )?;
     }
+    Ok(())
 }
 
 fn build_resource<W: Write>(
@@ -65,7 +96,7 @@ use k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
     }
 
     let skippable_meta = ["apiVersion", "kind", "metadata"];
-    for (property, _props) in schema.properties.as_ref().unwrap() {
+    for property in schema.properties.as_ref().unwrap().keys() {
         if skippable_meta.contains(&property.as_str()) {
             continue;
         }
@@ -149,14 +180,14 @@ fn make_struct<W: Write>(f: &mut W, name: &str, props: &JSONSchemaProps) -> anyh
 
     if let Some(properties) = props.properties.as_ref() {
         for (property, props) in properties {
-            let property_typename = camel_case(&property);
+            let property_typename = camel_case(property);
             if let Some(description) = &props.description {
                 for line in description.lines() {
                     writeln!(f, "/// {}", line)?;
                 }
             }
             let ty = match props.type_.as_deref() {
-                Some("object") => format!("{}", property_typename),
+                Some("object") => property_typename,
                 Some("boolean") => "bool".to_owned(),
                 Some("string") => "String".to_owned(),
                 Some("integer") => match props.format.as_deref() {
@@ -210,7 +241,7 @@ fn make_struct<W: Write>(f: &mut W, name: &str, props: &JSONSchemaProps) -> anyh
                 }
                 None => {
                     if let Some(true) = props.x_kubernetes_int_or_string {
-                        format!("k8s_openapi::apimachinery::pkg::util::intstr::IntOrString")
+                        "k8s_openapi::apimachinery::pkg::util::intstr::IntOrString".to_owned()
                     } else {
                         println!("no type given");
                         continue;
@@ -259,19 +290,15 @@ fn camel_case(s: &str) -> String {
             for c in c.to_uppercase() {
                 n.push(c);
             }
-        } else {
-            if c == '_' {
-                found_underscore = true;
-            } else {
-                if found_underscore {
-                    for c in c.to_uppercase() {
-                        n.push(c);
-                    }
-                    found_underscore = false;
-                } else {
-                    n.push(c);
-                }
+        } else if c == '_' {
+            found_underscore = true;
+        } else if found_underscore {
+            for c in c.to_uppercase() {
+                n.push(c);
             }
+            found_underscore = false;
+        } else {
+            n.push(c);
         }
     }
     n

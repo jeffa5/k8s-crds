@@ -4,23 +4,12 @@ use std::{collections::BTreeMap, fs::File, io::Write};
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps;
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
 
+const INDENT: &str = "    ";
+
 type Crd =
     k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition;
 
-fn main() -> anyhow::Result<()> {
-    let out_file = "src/lib.rs";
-
-    let url = "https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/kube-prometheus-stack/crds/crd-prometheuses.yaml";
-    let crd = fetch_resource(url)?;
-
-    let mut f = File::create(out_file).unwrap();
-
-    build(&mut f, crd)?;
-
-    Ok(())
-}
-
-pub fn fetch_resource(resource: &str) -> anyhow::Result<Crd> {
+fn fetch_resource(resource: &str) -> anyhow::Result<Crd> {
     let bytes = reqwest::blocking::get(resource).unwrap().bytes().unwrap();
 
     let crd = serde_yaml::from_slice(&bytes)?;
@@ -34,8 +23,8 @@ fn read_resource(file: PathBuf) -> anyhow::Result<Crd> {
     Ok(crd)
 }
 
-pub fn build_from_url<W: Write>(writer: &mut W, url: String) -> anyhow::Result<()> {
-    let crd = fetch_resource(&url)?;
+pub fn build_from_url<W: Write>(writer: &mut W, url: &str) -> anyhow::Result<()> {
+    let crd = fetch_resource(url)?;
     build(writer, crd)
 }
 
@@ -48,9 +37,12 @@ fn build<W: Write>(writer: &mut W, crd: Crd) -> anyhow::Result<()> {
     let group = crd.spec.group;
     let kind = crd.spec.names.kind;
 
+    writeln!(writer, "pub mod {} {{", dotted_to_snake(&group))?;
     for version in crd.spec.versions {
+        writeln!(writer, "{}pub mod {} {{", INDENT, version.name)?;
         build_resource(
             writer,
+            &INDENT.repeat(2),
             &group,
             &version.name,
             &kind,
@@ -62,12 +54,15 @@ fn build<W: Write>(writer: &mut W, crd: Crd) -> anyhow::Result<()> {
                 .as_ref()
                 .unwrap(),
         )?;
+        writeln!(writer, "{}}}", INDENT)?;
     }
+    writeln!(writer, "}}")?;
     Ok(())
 }
 
 fn build_resource<W: Write>(
     f: &mut W,
+    indent: &str,
     group: &str,
     version: &str,
     kind: &str,
@@ -76,18 +71,20 @@ fn build_resource<W: Write>(
     writeln!(
         f,
         "
-use k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-    "
+{}use k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+    ",
+        indent
     )?;
 
     let description = schema.description.as_deref().unwrap_or_default();
     for line in description.lines() {
-        writeln!(f, "/// {}", line)?;
+        writeln!(f, "{}/// {}", indent, line)?;
     }
     writeln!(
         f,
-        "pub struct {kind} {{
-    pub metadata: ObjectMeta,"
+        "{}pub struct {kind} {{
+{}{}pub metadata: ObjectMeta,",
+        indent, indent, INDENT
     )?;
 
     let mut structs = BTreeMap::new();
@@ -101,48 +98,67 @@ use k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
             continue;
         }
         if property == "type" {
-            writeln!(f, "pub r#{}: {},", property, camel_case(property))?;
+            writeln!(
+                f,
+                "{}{}pub r#{}: {},",
+                indent,
+                INDENT,
+                property,
+                camel_case(property)
+            )?;
         } else {
-            writeln!(f, "pub {}: {},", snake_case(property), camel_case(property))?;
+            writeln!(
+                f,
+                "{}{}pub {}: {},",
+                indent,
+                INDENT,
+                snake_case(property),
+                camel_case(property)
+            )?;
         }
     }
-    writeln!(f, "}}")?;
+    writeln!(
+        f,
+        "{}}}
+",
+        indent
+    )?;
 
     for (property, props) in structs {
         // debugging
         // writeln!(f, "{} {:#?}", property, props)?;
 
-        make_struct(f, &property, &props)?;
+        make_struct(f, indent, &property, &props)?;
     }
 
     let gv = format!("{}/{}", group, version);
     writeln!(
         f,
-        "impl k8s_openapi::Resource for {kind} {{
-    type Scope = k8s_openapi::ClusterResourceScope;
+        "{indent}impl k8s_openapi::Resource for {kind} {{
+    {indent}type Scope = k8s_openapi::ClusterResourceScope;
 
-    const API_VERSION : &'static str = \"{gv}\";
-    const GROUP : &'static str = \"{group}\";
-    const KIND : &'static str = \"{kind}\";
-    const VERSION : &'static str = \"{version}\";
-    const URL_PATH_SEGMENT : &'static str = \"TODO\";
-}}
+    {indent}const API_VERSION : &'static str = \"{gv}\";
+    {indent}const GROUP : &'static str = \"{group}\";
+    {indent}const KIND : &'static str = \"{kind}\";
+    {indent}const VERSION : &'static str = \"{version}\";
+    {indent}const URL_PATH_SEGMENT : &'static str = \"TODO\";
+{indent}}}
 "
     )?;
 
     writeln!(
         f,
-        "impl k8s_openapi::Metadata for {kind} {{
-    type Ty = ObjectMeta;
+        "{indent}impl k8s_openapi::Metadata for {kind} {{
+    {indent}type Ty = ObjectMeta;
 
-    fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {{
-        &self.metadata
-    }}
+    {indent}fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {{
+        {indent}&self.metadata
+    {indent}}}
 
-    fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {{
-        &mut self.metadata
-    }}
-}}
+    {indent}fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {{
+        {indent}&mut self.metadata
+    {indent}}}
+{indent}}}
 "
     )?;
 
@@ -170,20 +186,25 @@ fn get_structs_to_make(
     }
 }
 
-fn make_struct<W: Write>(f: &mut W, name: &str, props: &JSONSchemaProps) -> anyhow::Result<()> {
+fn make_struct<W: Write>(
+    f: &mut W,
+    indent: &str,
+    name: &str,
+    props: &JSONSchemaProps,
+) -> anyhow::Result<()> {
     if let Some(description) = &props.description {
         for line in description.lines() {
-            writeln!(f, "/// {}", line)?;
+            writeln!(f, "{}/// {}", indent, line)?;
         }
     }
-    writeln!(f, "pub struct {} {{", camel_case(name))?;
+    writeln!(f, "{}pub struct {} {{", indent, camel_case(name))?;
 
     if let Some(properties) = props.properties.as_ref() {
         for (property, props) in properties {
             let property_typename = camel_case(property);
             if let Some(description) = &props.description {
                 for line in description.lines() {
-                    writeln!(f, "/// {}", line)?;
+                    writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
                 }
             }
             let ty = match props.type_.as_deref() {
@@ -249,14 +270,25 @@ fn make_struct<W: Write>(f: &mut W, name: &str, props: &JSONSchemaProps) -> anyh
                 }
             };
             if property == "type" {
-                writeln!(f, "pub r#{}: {},", property, ty)?;
+                writeln!(f, "{}{}pub r#{}: {},", indent, INDENT, property, ty)?;
             } else {
-                writeln!(f, "pub {}: {},", snake_case(property), ty)?;
+                writeln!(
+                    f,
+                    "{}{}pub {}: {},",
+                    indent,
+                    INDENT,
+                    snake_case(property),
+                    ty
+                )?;
             }
         }
     }
 
-    writeln!(f, "}}")?;
+    writeln!(
+        f,
+        "{indent}}}
+"
+    )?;
     Ok(())
 }
 
@@ -302,4 +334,8 @@ fn camel_case(s: &str) -> String {
         }
     }
     n
+}
+
+fn dotted_to_snake(s: &str) -> String {
+    s.replace('.', "_")
 }

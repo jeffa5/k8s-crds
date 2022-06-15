@@ -1,3 +1,4 @@
+use std::collections::BTreeSet;
 use std::path::PathBuf;
 use std::{collections::BTreeMap, fs::File, io::Write};
 
@@ -5,6 +6,7 @@ use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSche
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
 
 const INDENT: &str = "    ";
+const OBJECT_META: &str = "k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta";
 
 type Crd =
     k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::CustomResourceDefinition;
@@ -25,38 +27,66 @@ fn read_resource(file: PathBuf) -> anyhow::Result<Crd> {
 
 pub fn build_from_url<W: Write>(writer: &mut W, url: &str) -> anyhow::Result<()> {
     let crd = fetch_resource(url)?;
-    build(writer, crd)
+    build(writer, vec![crd])
+}
+
+pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[&str]) -> anyhow::Result<()> {
+    let mut crds = Vec::new();
+    for url in urls {
+        let crd = fetch_resource(url)?;
+        crds.push(crd);
+    }
+    build(writer, crds)?;
+    Ok(())
 }
 
 pub fn build_from_path<W: Write>(writer: &mut W, path: PathBuf) -> anyhow::Result<()> {
     let crd = read_resource(path)?;
-    build(writer, crd)
+    build(writer, vec![crd])
 }
 
-fn build<W: Write>(writer: &mut W, crd: Crd) -> anyhow::Result<()> {
-    let group = crd.spec.group;
-    let kind = crd.spec.names.kind;
+fn build<W: Write>(writer: &mut W, crds: Vec<Crd>) -> anyhow::Result<()> {
+    let groups = crds
+        .iter()
+        .map(|crd| &crd.spec.group)
+        .collect::<BTreeSet<_>>();
 
-    writeln!(writer, "pub mod {} {{", dotted_to_snake(&group))?;
-    for version in crd.spec.versions {
-        writeln!(writer, "{}pub mod {} {{", INDENT, version.name)?;
-        build_resource(
-            writer,
-            &INDENT.repeat(2),
-            &group,
-            &version.name,
-            &kind,
-            version
-                .schema
-                .as_ref()
-                .unwrap()
-                .open_api_v3_schema
-                .as_ref()
-                .unwrap(),
-        )?;
-        writeln!(writer, "{}}}", INDENT)?;
+    assert_eq!(groups.len(), 1, "only support one group for now");
+
+    let mut crd_map = BTreeMap::new();
+    for crd in crds {
+        for version in crd.spec.versions {
+            crd_map
+                .entry(crd.spec.group.clone())
+                .or_insert_with(|| (crd.spec.names.kind.clone(), BTreeMap::new()))
+                .1
+                .insert(version.name.clone(), version);
+        }
     }
-    writeln!(writer, "}}")?;
+
+    for (group, (kind, version)) in crd_map {
+        writeln!(writer, "pub mod {} {{", dotted_to_snake(&group))?;
+        for (version_name, version_spec) in version {
+            writeln!(writer, "{}pub mod {} {{", INDENT, version_name)?;
+            build_resource(
+                writer,
+                &INDENT.repeat(2),
+                &group,
+                &version_name,
+                &kind,
+                version_spec
+                    .schema
+                    .as_ref()
+                    .unwrap()
+                    .open_api_v3_schema
+                    .as_ref()
+                    .unwrap(),
+            )?;
+            writeln!(writer, "{}}}", INDENT)?;
+        }
+        writeln!(writer, "}}")?;
+    }
+
     Ok(())
 }
 
@@ -68,14 +98,6 @@ fn build_resource<W: Write>(
     kind: &str,
     schema: &JSONSchemaProps,
 ) -> anyhow::Result<()> {
-    writeln!(
-        f,
-        "
-{}use k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-    ",
-        indent
-    )?;
-
     let description = schema.description.as_deref().unwrap_or_default();
     for line in description.lines() {
         writeln!(f, "{}/// {}", indent, line)?;
@@ -83,7 +105,7 @@ fn build_resource<W: Write>(
     writeln!(
         f,
         "{}pub struct {kind} {{
-{}{}pub metadata: ObjectMeta,",
+{}{}pub metadata: {OBJECT_META},",
         indent, indent, INDENT
     )?;
 
@@ -97,7 +119,7 @@ fn build_resource<W: Write>(
         if skippable_meta.contains(&property.as_str()) {
             continue;
         }
-        if property == "type" {
+        if let "type" | "continue" = &**property {
             writeln!(
                 f,
                 "{}{}pub r#{}: {},",
@@ -149,7 +171,7 @@ fn build_resource<W: Write>(
     writeln!(
         f,
         "{indent}impl k8s_openapi::Metadata for {kind} {{
-    {indent}type Ty = ObjectMeta;
+    {indent}type Ty = {OBJECT_META};
 
     {indent}fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {{
         {indent}&self.metadata
@@ -269,7 +291,7 @@ fn make_struct<W: Write>(
                     }
                 }
             };
-            if property == "type" {
+            if let "type" | "continue" = &**property {
                 writeln!(f, "{}{}pub r#{}: {},", indent, INDENT, property, ty)?;
             } else {
                 writeln!(

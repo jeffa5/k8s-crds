@@ -58,30 +58,34 @@ fn build<W: Write>(writer: &mut W, crds: Vec<Crd>) -> anyhow::Result<()> {
         for version in crd.spec.versions {
             crd_map
                 .entry(crd.spec.group.clone())
-                .or_insert_with(|| (crd.spec.names.kind.clone(), BTreeMap::new()))
-                .1
-                .insert(version.name.clone(), version);
+                .or_insert_with(BTreeMap::new)
+                .entry(version.name.clone())
+                .or_insert_with(BTreeMap::new)
+                .entry(crd.spec.names.kind.clone())
+                .or_insert(version);
         }
     }
 
-    for (group, (kind, version)) in crd_map {
+    for (group, version) in crd_map {
         writeln!(writer, "pub mod {} {{", dotted_to_snake(&group))?;
-        for (version_name, version_spec) in version {
+        for (version_name, kinds) in version {
             writeln!(writer, "{}pub mod {} {{", INDENT, version_name)?;
-            build_resource(
-                writer,
-                &INDENT.repeat(2),
-                &group,
-                &version_name,
-                &kind,
-                version_spec
-                    .schema
-                    .as_ref()
-                    .unwrap()
-                    .open_api_v3_schema
-                    .as_ref()
-                    .unwrap(),
-            )?;
+            for (kind, version_spec) in kinds {
+                build_resource(
+                    writer,
+                    &INDENT.repeat(2),
+                    &group,
+                    &version_name,
+                    &kind,
+                    version_spec
+                        .schema
+                        .as_ref()
+                        .unwrap()
+                        .open_api_v3_schema
+                        .as_ref()
+                        .unwrap(),
+                )?;
+            }
             writeln!(writer, "{}}}", INDENT)?;
         }
         writeln!(writer, "}}")?;
@@ -98,6 +102,8 @@ fn build_resource<W: Write>(
     kind: &str,
     schema: &JSONSchemaProps,
 ) -> anyhow::Result<()> {
+    writeln!(f, "{}pub mod {} {{", indent, snake_case(kind))?;
+
     let description = schema.description.as_deref().unwrap_or_default();
     for line in description.lines() {
         writeln!(f, "{}/// {}", indent, line)?;
@@ -119,25 +125,15 @@ fn build_resource<W: Write>(
         if skippable_meta.contains(&property.as_str()) {
             continue;
         }
-        if let "type" | "continue" = &**property {
-            writeln!(
-                f,
-                "{}{}pub r#{}: {},",
-                indent,
-                INDENT,
-                property,
-                camel_case(property)
-            )?;
-        } else {
-            writeln!(
-                f,
-                "{}{}pub {}: {},",
-                indent,
-                INDENT,
-                snake_case(property),
-                camel_case(property)
-            )?;
-        }
+
+        writeln!(
+            f,
+            "{}{}pub {}: {},",
+            indent,
+            INDENT,
+            make_property_name(property),
+            camel_case(property)
+        )?;
     }
     writeln!(
         f,
@@ -184,7 +180,17 @@ fn build_resource<W: Write>(
 "
     )?;
 
+    writeln!(f, "}}")?;
+
     Ok(())
+}
+
+fn make_property_name(name: &str) -> String {
+    if let "type" | "continue" | "for" | "static" = name {
+        format!("r#{}", name)
+    } else {
+        snake_case(name)
+    }
 }
 
 fn get_structs_to_make(
@@ -291,18 +297,14 @@ fn make_struct<W: Write>(
                     }
                 }
             };
-            if let "type" | "continue" = &**property {
-                writeln!(f, "{}{}pub r#{}: {},", indent, INDENT, property, ty)?;
-            } else {
-                writeln!(
-                    f,
-                    "{}{}pub {}: {},",
-                    indent,
-                    INDENT,
-                    snake_case(property),
-                    ty
-                )?;
-            }
+            writeln!(
+                f,
+                "{}{}pub {}: {},",
+                indent,
+                INDENT,
+                make_property_name(property),
+                ty
+            )?;
         }
     }
 

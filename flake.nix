@@ -45,6 +45,9 @@
                 cargo-tarpaulin
                 crate2nix
 
+                openssl
+                pkgconfig
+
                 rnix-lsp
                 nixpkgs-fmt
               ];

@@ -201,7 +201,10 @@ fn get_structs_to_make(
     structs: &mut BTreeMap<String, JSONSchemaProps>,
 ) {
     if let Some("object") = props.type_.as_deref() {
-        structs.insert(camel_case(name), props.clone());
+        let old = structs.insert(camel_case(name), props.clone());
+        if old.is_some() {
+            println!("Overwrote struct! {}", name);
+        }
         if let Some(props) = props.properties.as_ref() {
             for (prop, props) in props {
                 get_structs_to_make(prop, props, structs);
@@ -209,7 +212,10 @@ fn get_structs_to_make(
         }
     }
     if let Some("array") = props.type_.as_deref() {
-        structs.insert(camel_case(name), props.clone());
+        let old = structs.insert(camel_case(name), props.clone());
+        if old.is_some() {
+            println!("Overwrote struct! {}", name);
+        }
         if let Some(JSONSchemaPropsOrArray::Schema(schema)) = props.items.as_ref() {
             get_structs_to_make(&format!("{}Item", name), schema, structs);
         }
@@ -308,6 +314,8 @@ fn make_struct<W: Write>(
                 ty
             )?;
         }
+    } else if props.items.is_none() {
+        println!("Missing properties {} {:?}", name, props);
     }
 
     writeln!(

@@ -217,7 +217,8 @@ fn get_structs_to_make(
             println!("Overwrote struct! {}", name);
         }
         if let Some(JSONSchemaPropsOrArray::Schema(schema)) = props.items.as_ref() {
-            get_structs_to_make(&format!("{}Item", name), schema, structs);
+            let name = format!("{}Item", name);
+            get_structs_to_make(&name, schema, structs);
         }
     }
 }

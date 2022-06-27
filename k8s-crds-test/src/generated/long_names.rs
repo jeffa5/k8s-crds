@@ -3,16 +3,28 @@ pub mod stable_example_com {
         pub mod cron_tab {
             pub struct CronTab {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+                pub a: A,
             }
 
-            pub struct ListItem {
-                pub a: String,
-                pub b: i64,
+            pub struct A {
+                pub b: B,
             }
 
-            pub struct Spec {
-                pub list: Vec<ListItem>,
+            pub struct B {
+                pub c: C,
+            }
+
+            pub struct C {
+                pub d: D,
+                pub f: F,
+            }
+
+            pub struct D {
+                pub e: i64,
+            }
+
+            pub struct F {
+                pub g: String,
             }
 
             impl k8s_openapi::Resource for CronTab {

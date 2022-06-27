@@ -1,4 +1,4 @@
-use std::collections::BTreeSet;
+use std::collections::{BTreeSet, HashSet};
 use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
 
@@ -127,10 +127,33 @@ fn build_resource<W: Write>(
     let mut rename_mapping = BTreeMap::new();
 
     for (n, parents_and_props) in &structs {
-        for (parents, _props) in parents_and_props {
-            let mut name = parents.to_owned();
-            name.push(n.clone());
-            let name = name.join("");
+        let mut names = Vec::new();
+        for (parents, _) in parents_and_props {
+            names.push((parents.clone(), n.clone()));
+        }
+
+        loop {
+            if names.len()
+                == names
+                    .iter()
+                    .map(|(_, n)| n)
+                    .cloned()
+                    .collect::<HashSet<_>>()
+                    .len()
+            {
+                // all unique
+                break;
+            }
+
+            // otherwise go through adding part of the parent to the name.
+            for (parents, name) in &mut names {
+                if let Some(last) = parents.pop() {
+                    *name = format!("{}{}", last, name);
+                }
+            }
+        }
+
+        for ((parents, _), (_, name)) in parents_and_props.iter().zip(names) {
             rename_mapping.insert((parents.clone(), n.clone()), name);
         }
     }

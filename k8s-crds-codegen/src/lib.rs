@@ -1,6 +1,7 @@
 use std::collections::{BTreeSet, HashSet};
 use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
+use tracing::{debug, info};
 
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps;
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
@@ -26,11 +27,13 @@ fn read_resource(file: &Path) -> anyhow::Result<Crd> {
 }
 
 pub fn build_from_url<W: Write>(writer: &mut W, url: &str) -> anyhow::Result<()> {
+    info!(?url, "Building from url");
     let crd = fetch_resource(url)?;
     build(writer, vec![crd])
 }
 
 pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[&str]) -> anyhow::Result<()> {
+    info!(?urls, "Building from urls");
     let mut crds = Vec::new();
     for url in urls {
         let crd = fetch_resource(url)?;
@@ -41,7 +44,9 @@ pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[&str]) -> anyhow::Resul
 }
 
 pub fn build_from_path<W: Write, P: AsRef<Path>>(writer: &mut W, path: P) -> anyhow::Result<()> {
-    let crd = read_resource(path.as_ref())?;
+    let path = path.as_ref();
+    info!(?path, "Building from path");
+    let crd = read_resource(path)?;
     build(writer, vec![crd])
 }
 
@@ -128,6 +133,7 @@ fn build_resource<W: Write>(
 
     for (n, parents_and_props) in &structs {
         let mut names = Vec::new();
+        debug!(?n, len = parents_and_props.len(), "Found items for a name");
         for (parents, _) in parents_and_props {
             names.push((parents.clone(), n.clone()));
         }
@@ -154,6 +160,7 @@ fn build_resource<W: Write>(
         }
 
         for ((parents, _), (_, name)) in parents_and_props.iter().zip(names) {
+            debug!(?parents, ?n, ?name, "Creating rename mapping");
             rename_mapping.insert((parents.clone(), n.clone()), name);
         }
     }

@@ -3,6 +3,8 @@ use std::io::Write;
 use std::process::Command;
 
 fn main() {
+    tracing_subscriber::fmt::init();
+
     let mut names = Vec::new();
 
     let _ = remove_dir_all("k8s-crds-test/src/generated");

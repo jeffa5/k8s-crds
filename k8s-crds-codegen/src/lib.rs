@@ -3,8 +3,10 @@ use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
 use tracing::{debug, info};
 
-use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps;
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
+use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::{
+    JSONSchemaProps, JSONSchemaPropsOrBool,
+};
 
 const INDENT: &str = "    ";
 const OBJECT_META: &str = "k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta";
@@ -370,6 +372,54 @@ fn make_struct<W: Write>(
                 ty
             )?;
         }
+    } else if let Some(JSONSchemaPropsOrBool::Schema(properties)) = &props.additional_properties {
+        if let Some(description) = &props.description {
+            for line in description.lines() {
+                writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
+            }
+        }
+        let value_type = match properties.type_.as_deref() {
+            Some("boolean") => "bool".to_owned(),
+            Some("string") => "String".to_owned(),
+            Some("integer") => match props.format.as_deref() {
+                Some("int32") => "i32".to_owned(),
+                Some("int64") => "i64".to_owned(),
+                Some(f) => {
+                    println!("unhandled format with integer type {}", f);
+                    "()".to_owned()
+                }
+                None => "i64".to_owned(),
+            },
+            Some(t) => {
+                println!("unhandled type {}", t);
+                "()".to_owned()
+            }
+            None => "()".to_owned(),
+        };
+        writeln!(
+            f,
+            "{}{}pub {}: std::collections::HashMap<String, {}>,",
+            indent,
+            INDENT,
+            make_property_name("properties"),
+            value_type
+        )?;
+    } else if Some(JSONSchemaPropsOrBool::Bool(true)) == props.additional_properties
+        || props.additional_properties.is_none()
+    {
+        // defaults to true when missing
+        if let Some(description) = &props.description {
+            for line in description.lines() {
+                writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
+            }
+        }
+        writeln!(
+            f,
+            "{}{}pub {}: std::collections::HashMap<String, String>,",
+            indent,
+            INDENT,
+            make_property_name("properties"),
+        )?;
     } else if props.items.is_none() {
         println!("Missing properties {} {:?}", name, props);
     }

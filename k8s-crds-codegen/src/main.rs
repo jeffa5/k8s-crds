@@ -1,4 +1,5 @@
 use std::fs::File;
+use std::process::Command;
 
 fn main() {
     let urls = [
@@ -14,4 +15,10 @@ fn main() {
 
     let mut out = File::create("k8s-crds/src/lib.rs").unwrap();
     k8s_crds_codegen::build_from_urls(&mut out, &urls).unwrap();
+
+    fmt()
+}
+
+fn fmt() {
+    Command::new("cargo").arg("fmt").status().unwrap();
 }

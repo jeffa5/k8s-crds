@@ -127,7 +127,7 @@ fn build_resource<W: Write>(
     let mut rename_mapping = BTreeMap::new();
 
     for (n, parents_and_props) in &structs {
-        for (parents, props) in parents_and_props {
+        for (parents, _props) in parents_and_props {
             let mut name = parents.to_owned();
             name.push(n.clone());
             let name = name.join("");
@@ -216,7 +216,7 @@ fn get_structs_to_make(
     structs: &mut BTreeMap<String, Vec<(Vec<String>, JSONSchemaProps)>>,
 ) {
     if let Some("object") = props.type_.as_deref() {
-        let old = structs
+        structs
             .entry(camel_case(name))
             .or_default()
             .push((parents.clone(), props.clone()));
@@ -229,14 +229,8 @@ fn get_structs_to_make(
         }
     }
     if let Some("array") = props.type_.as_deref() {
-        let old = structs
-            .entry(camel_case(name))
-            .or_default()
-            .push((parents.clone(), props.clone()));
+        let name = format!("{}Item", camel_case(name));
         if let Some(JSONSchemaPropsOrArray::Schema(schema)) = props.items.as_ref() {
-            let name = format!("{}Item", name);
-            let mut parents = parents.clone();
-            parents.push(camel_case(&name.to_string()));
             get_structs_to_make(parents, &name, schema, structs);
         }
     }
@@ -246,7 +240,7 @@ fn make_struct<W: Write>(
     f: &mut W,
     indent: &str,
     name: &str,
-    parents: Vec<String>,
+    mut parents: Vec<String>,
     props: &JSONSchemaProps,
     rename_mapping: &BTreeMap<(Vec<String>, String), String>,
 ) -> anyhow::Result<()> {
@@ -262,7 +256,6 @@ fn make_struct<W: Write>(
     writeln!(f, "{}pub struct {} {{", indent, struct_name)?;
 
     if let Some(properties) = props.properties.as_ref() {
-        let mut parents = parents.clone();
         parents.push(camel_case(name));
         for (property, props) in properties {
             let property_typename = rename_mapping
@@ -291,7 +284,10 @@ fn make_struct<W: Write>(
                         &props.items
                     {
                         match schema.type_.as_deref() {
-                            Some("object") => format!("{}Item", property_typename.unwrap()),
+                            Some("object") => rename_mapping
+                                .get(&(parents.clone(), camel_case(&format!("{}Item", property))))
+                                .cloned()
+                                .unwrap(),
                             Some("string") => "String".to_owned(),
                             Some("integer") => match schema.format.as_deref() {
                                 Some("int32") => "i32".to_owned(),

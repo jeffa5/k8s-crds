@@ -7,16 +7,20 @@ pub mod stable_example_com {
                 pub obj2: Obj2,
             }
 
-            pub struct A {
+            pub struct Obj1A {
+                pub b: String,
+            }
+
+            pub struct Obj2A {
                 pub c: i64,
             }
 
             pub struct Obj1 {
-                pub a: A,
+                pub a: Obj1A,
             }
 
             pub struct Obj2 {
-                pub a: A,
+                pub a: Obj2A,
             }
 
             impl k8s_openapi::Resource for CronTab {

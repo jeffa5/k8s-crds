@@ -1,5 +1,5 @@
 use std::collections::BTreeSet;
-use std::path::PathBuf;
+use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
 
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaProps;
@@ -18,7 +18,7 @@ fn fetch_resource(resource: &str) -> anyhow::Result<Crd> {
     Ok(crd)
 }
 
-fn read_resource(file: PathBuf) -> anyhow::Result<Crd> {
+fn read_resource(file: &Path) -> anyhow::Result<Crd> {
     let f = File::open(file)?;
 
     let crd = serde_yaml::from_reader(f)?;
@@ -40,8 +40,8 @@ pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[&str]) -> anyhow::Resul
     Ok(())
 }
 
-pub fn build_from_path<W: Write>(writer: &mut W, path: PathBuf) -> anyhow::Result<()> {
-    let crd = read_resource(path)?;
+pub fn build_from_path<W: Write, P: AsRef<Path>>(writer: &mut W, path: P) -> anyhow::Result<()> {
+    let crd = read_resource(path.as_ref())?;
     build(writer, vec![crd])
 }
 
@@ -119,7 +119,19 @@ fn build_resource<W: Write>(
     let skippable_meta = ["apiVersion", "kind", "metadata"];
     for (prop, props) in schema.properties.as_ref().unwrap() {
         if !skippable_meta.contains(&&**prop) {
-            get_structs_to_make(prop, props, &mut structs);
+            get_structs_to_make(vec![], prop, props, &mut structs);
+        }
+    }
+
+    // mapping from old name (and parents) to new full name (camelcase)
+    let mut rename_mapping = BTreeMap::new();
+
+    for (n, parents_and_props) in &structs {
+        for (parents, props) in parents_and_props {
+            let mut name = parents.to_owned();
+            name.push(n.clone());
+            let name = name.join("");
+            rename_mapping.insert((parents.clone(), n.clone()), name);
         }
     }
 
@@ -144,11 +156,13 @@ fn build_resource<W: Write>(
         indent
     )?;
 
-    for (property, props) in structs {
+    for (property, parents_and_props) in structs {
         // debugging
         // writeln!(f, "{} {:#?}", property, props)?;
 
-        make_struct(f, indent, &property, &props)?;
+        for (parents, props) in parents_and_props {
+            make_struct(f, indent, &property, parents, &props, &rename_mapping)?;
+        }
     }
 
     let gv = format!("{}/{}", group, version);
@@ -196,29 +210,34 @@ fn make_property_name(name: &str) -> String {
 }
 
 fn get_structs_to_make(
+    parents: Vec<String>,
     name: &str,
     props: &JSONSchemaProps,
-    structs: &mut BTreeMap<String, JSONSchemaProps>,
+    structs: &mut BTreeMap<String, Vec<(Vec<String>, JSONSchemaProps)>>,
 ) {
     if let Some("object") = props.type_.as_deref() {
-        let old = structs.insert(camel_case(name), props.clone());
-        if old.is_some() {
-            println!("Overwrote struct! {}", name);
-        }
+        let old = structs
+            .entry(camel_case(name))
+            .or_default()
+            .push((parents.clone(), props.clone()));
         if let Some(props) = props.properties.as_ref() {
+            let mut parents = parents.clone();
+            parents.push(camel_case(&name.to_string()));
             for (prop, props) in props {
-                get_structs_to_make(prop, props, structs);
+                get_structs_to_make(parents.clone(), prop, props, structs);
             }
         }
     }
     if let Some("array") = props.type_.as_deref() {
-        let old = structs.insert(camel_case(name), props.clone());
-        if old.is_some() {
-            println!("Overwrote struct! {}", name);
-        }
+        let old = structs
+            .entry(camel_case(name))
+            .or_default()
+            .push((parents.clone(), props.clone()));
         if let Some(JSONSchemaPropsOrArray::Schema(schema)) = props.items.as_ref() {
             let name = format!("{}Item", name);
-            get_structs_to_make(&name, schema, structs);
+            let mut parents = parents.clone();
+            parents.push(camel_case(&name.to_string()));
+            get_structs_to_make(parents, &name, schema, structs);
         }
     }
 }
@@ -227,25 +246,35 @@ fn make_struct<W: Write>(
     f: &mut W,
     indent: &str,
     name: &str,
+    parents: Vec<String>,
     props: &JSONSchemaProps,
+    rename_mapping: &BTreeMap<(Vec<String>, String), String>,
 ) -> anyhow::Result<()> {
     if let Some(description) = &props.description {
         for line in description.lines() {
             writeln!(f, "{}/// {}", indent, line)?;
         }
     }
-    writeln!(f, "{}pub struct {} {{", indent, camel_case(name))?;
+
+    let struct_name = rename_mapping
+        .get(&(parents.clone(), name.to_owned()))
+        .unwrap();
+    writeln!(f, "{}pub struct {} {{", indent, struct_name)?;
 
     if let Some(properties) = props.properties.as_ref() {
+        let mut parents = parents.clone();
+        parents.push(camel_case(name));
         for (property, props) in properties {
-            let property_typename = camel_case(property);
+            let property_typename = rename_mapping
+                .get(&(parents.clone(), camel_case(property)))
+                .cloned();
             if let Some(description) = &props.description {
                 for line in description.lines() {
                     writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
                 }
             }
             let ty = match props.type_.as_deref() {
-                Some("object") => property_typename,
+                Some("object") => property_typename.unwrap(),
                 Some("boolean") => "bool".to_owned(),
                 Some("string") => "String".to_owned(),
                 Some("integer") => match props.format.as_deref() {
@@ -262,7 +291,7 @@ fn make_struct<W: Write>(
                         &props.items
                     {
                         match schema.type_.as_deref() {
-                            Some("object") => format!("{}Item", property_typename),
+                            Some("object") => format!("{}Item", property_typename.unwrap()),
                             Some("string") => "String".to_owned(),
                             Some("integer") => match schema.format.as_deref() {
                                 Some("int32") => "i32".to_owned(),

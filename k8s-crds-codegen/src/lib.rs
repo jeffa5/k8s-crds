@@ -451,7 +451,7 @@ fn camel_case(s: &str) -> String {
 }
 
 fn dotted_to_snake(s: &str) -> String {
-    s.replace('.', "_")
+    s.replace('.', "_").replace('-', "_")
 }
 
 fn array_item_name(s: &str) -> String {

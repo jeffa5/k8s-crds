@@ -275,7 +275,7 @@ fn get_structs_to_make(
         }
     }
     if let Some("array") = props.type_.as_deref() {
-        let name = format!("{}Item", camel_case(name));
+        let name = array_item_name(name);
         if let Some(JSONSchemaPropsOrArray::Schema(schema)) = props.items.as_ref() {
             get_structs_to_make(parents, &name, schema, structs);
         }
@@ -385,12 +385,7 @@ fn get_type(
         },
         Some("array") => {
             let inner_type = if let Some(JSONSchemaPropsOrArray::Schema(schema)) = &props.items {
-                get_type(
-                    parents,
-                    &format!("{}Item", property),
-                    schema,
-                    rename_mapping,
-                )
+                get_type(parents, &array_item_name(property), schema, rename_mapping)
             } else {
                 todo!("missing schema in array");
             };
@@ -457,4 +452,8 @@ fn camel_case(s: &str) -> String {
 
 fn dotted_to_snake(s: &str) -> String {
     s.replace('.', "_")
+}
+
+fn array_item_name(s: &str) -> String {
+    format!("{}Item", camel_case(s))
 }

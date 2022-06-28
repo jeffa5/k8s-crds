@@ -455,5 +455,9 @@ fn dotted_to_snake(s: &str) -> String {
 }
 
 fn array_item_name(s: &str) -> String {
-    format!("{}Item", camel_case(s))
+    if let Some(s) = s.strip_suffix('s') {
+        s.to_owned()
+    } else {
+        format!("{}Item", camel_case(s))
+    }
 }

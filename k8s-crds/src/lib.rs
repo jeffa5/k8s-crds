@@ -21,18 +21,17 @@ pub mod monitoring_coreos_com {
             /// Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace.
             pub struct AlertmanagerConfigNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<SpecAlertmanagerConfigNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<AlertmanagerConfigNamespaceSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecAlertmanagerConfigNamespaceSelectorMatchLabels,
+                pub match_labels: AlertmanagerConfigNamespaceSelectorMatchLabels,
             }
 
             /// AlertmanagerConfigs to be selected for to merge and configure Alertmanager with.
             pub struct AlertmanagerConfigSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecAlertmanagerConfigSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<AlertmanagerConfigSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecAlertmanagerConfigSelectorMatchLabels,
+                pub match_labels: AlertmanagerConfigSelectorMatchLabels,
             }
 
             /// EXPERIMENTAL: alertmanagerConfiguration specifies the global Alertmanager configuration. If defined, it takes precedence over the `configSecret` field. This field may change in future releases.
@@ -136,7 +135,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub secret_file: String,
                 /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-                pub secret_ref: VolumesItemCephfsSecretRef,
+                pub secret_ref: CephfsSecretRef,
                 /// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub user: String,
             }
@@ -148,7 +147,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub read_only: bool,
                 /// Optional: points to a secret object containing parameters used to connect to OpenStack.
-                pub secret_ref: VolumesItemCinderSecretRef,
+                pub secret_ref: CinderSecretRef,
                 /// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub volume_i_d: String,
             }
@@ -251,7 +250,7 @@ pub mod monitoring_coreos_com {
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub readiness_probe: ContainersItemReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: SpecContainersItemResources,
+                pub resources: ContainersItemResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
                 pub security_context: ContainersItemSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -299,7 +298,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-            pub struct SpecStorageVolumeClaimTemplateSpecDataSource {
+            pub struct StorageVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -329,7 +328,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-            pub struct SpecStorageVolumeClaimTemplateSpecDataSourceRef {
+            pub struct StorageVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -453,19 +452,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemLivenessProbeExec {
+            pub struct ContainersItemLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemReadinessProbeExec {
+            pub struct ContainersItemReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemStartupProbeExec {
+            pub struct ContainersItemStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -483,19 +482,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemLivenessProbeExec {
+            pub struct InitContainersItemLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemReadinessProbeExec {
+            pub struct InitContainersItemReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemStartupProbeExec {
+            pub struct InitContainersItemStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -557,7 +556,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-                pub secret_ref: VolumesItemFlexVolumeSecretRef,
+                pub secret_ref: FlexVolumeSecretRef,
             }
 
             /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
@@ -699,11 +698,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemLivenessProbeHttpGet {
+            pub struct ContainersItemLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -713,11 +712,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemReadinessProbeHttpGet {
+            pub struct ContainersItemReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -727,11 +726,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemStartupProbeHttpGet {
+            pub struct ContainersItemStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -769,11 +768,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemLivenessProbeHttpGet {
+            pub struct InitContainersItemLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -783,11 +782,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemReadinessProbeHttpGet {
+            pub struct InitContainersItemReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -797,11 +796,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemStartupProbeHttpGet {
+            pub struct InitContainersItemStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -827,7 +826,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -835,7 +834,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -843,7 +842,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -867,7 +866,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -875,7 +874,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -883,7 +882,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -921,7 +920,7 @@ pub mod monitoring_coreos_com {
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub readiness_probe: InitContainersItemReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: SpecInitContainersItemResources,
+                pub resources: InitContainersItemResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
                 pub security_context: InitContainersItemSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -965,7 +964,7 @@ pub mod monitoring_coreos_com {
                 /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
                 pub read_only: bool,
                 /// CHAP Secret for iSCSI target and initiator authentication
-                pub secret_ref: VolumesItemIscsiSecretRef,
+                pub secret_ref: IscsiSecretRef,
                 /// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
                 pub target_portal: String,
             }
@@ -1037,42 +1036,42 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
-            pub struct AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
-            pub struct AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelector {
+            pub struct TopologySpreadConstraintsItemLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<SpecTopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels,
+                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -1104,7 +1103,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesLimits {
+            pub struct ContainersItemResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1113,7 +1112,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesLimits {
+            pub struct InitContainersItemResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1140,7 +1139,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {
+            pub struct StorageVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1160,13 +1159,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemLivenessProbeExec,
+                pub exec: ContainersItemLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemLivenessProbeHttpGet,
+                pub http_get: ContainersItemLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1174,7 +1173,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1184,13 +1183,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemLivenessProbeExec,
+                pub exec: InitContainersItemLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemLivenessProbeHttpGet,
+                pub http_get: InitContainersItemLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1198,7 +1197,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1206,8 +1205,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPreferenceMatchExpressionsItem
-            {
+            pub struct PreferenceMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1217,8 +1215,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsItemMatchExpressionsItem
-            {
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1228,7 +1225,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1239,7 +1236,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1250,7 +1247,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1261,7 +1258,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1272,7 +1269,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1283,7 +1280,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1294,7 +1291,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1305,7 +1302,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1316,7 +1313,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAlertmanagerConfigNamespaceSelectorMatchExpressionsItem {
+            pub struct AlertmanagerConfigNamespaceSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1326,7 +1323,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAlertmanagerConfigSelectorMatchExpressionsItem {
+            pub struct AlertmanagerConfigSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1346,7 +1343,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1356,7 +1353,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1396,69 +1393,68 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {
+            pub struct AlertmanagerConfigNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAlertmanagerConfigNamespaceSelectorMatchLabels {
-                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAlertmanagerConfigSelectorMatchLabels {
+            pub struct AlertmanagerConfigSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -1470,13 +1466,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -1494,7 +1490,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
-            pub struct SpecStorageVolumeClaimTemplateMetadata {
+            pub struct StorageVolumeClaimTemplateMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: MetadataAnnotations,
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -1512,33 +1508,33 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub struct AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub struct AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
 
             /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -1575,11 +1571,11 @@ pub mod monitoring_coreos_com {
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             pub struct NodeSelectorTermsItem {
-            /// A list of node selector requirements by node's labels.
-            pub match_expressions: Vec<SpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsItemMatchExpressionsItem>,
-            /// A list of node selector requirements by node's fields.
-            pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
-        }
+                /// A list of node selector requirements by node's labels.
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                /// A list of node selector requirements by node's fields.
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+            }
 
             /// Optional: Extra command options if any.
             pub struct Options {
@@ -1737,11 +1733,11 @@ pub mod monitoring_coreos_com {
 
             /// A node selector term, associated with the corresponding weight.
             pub struct Preference {
-            /// A list of node selector requirements by node's labels.
-            pub match_expressions: Vec<SpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPreferenceMatchExpressionsItem>,
-            /// A list of node selector requirements by node's fields.
-            pub match_fields: Vec<PreferenceMatchFieldsItem>,
-        }
+                /// A list of node selector requirements by node's labels.
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                /// A list of node selector requirements by node's fields.
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+            }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
@@ -1807,7 +1803,7 @@ pub mod monitoring_coreos_com {
                 /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
                 pub read_only: bool,
                 /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-                pub secret_ref: VolumesItemRbdSecretRef,
+                pub secret_ref: RbdSecretRef,
                 /// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
                 pub user: String,
             }
@@ -1815,13 +1811,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemReadinessProbeExec,
+                pub exec: ContainersItemReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemReadinessProbeHttpGet,
+                pub http_get: ContainersItemReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1829,7 +1825,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1839,13 +1835,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemReadinessProbeExec,
+                pub exec: InitContainersItemReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemReadinessProbeHttpGet,
+                pub http_get: InitContainersItemReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1853,7 +1849,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1861,7 +1857,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesRequests {
+            pub struct ContainersItemResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1870,7 +1866,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesRequests {
+            pub struct InitContainersItemResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1897,7 +1893,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {
+            pub struct StorageVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1922,22 +1918,24 @@ pub mod monitoring_coreos_com {
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
-            /// A label query over a set of resources, in this case pods.
-            pub label_selector: AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
-            /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub namespace_selector: AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
-            /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
-            pub namespaces: Vec<String>,
-            /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
-            pub topology_key: String,
-        }
+                /// A label query over a set of resources, in this case pods.
+                pub label_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+                /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+                pub namespace_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+                /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+                pub namespaces: Vec<String>,
+                /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+                pub topology_key: String,
+            }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
-            pub label_selector: AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+            pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub namespace_selector: AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+            pub namespace_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
             /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
             pub namespaces: Vec<String>,
             /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
@@ -1985,19 +1983,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResources {
+            pub struct ContainersItemResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecContainersItemResourcesLimits,
+                pub limits: ContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecContainersItemResourcesRequests,
+                pub requests: ContainersItemResourcesRequests,
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResources {
+            pub struct InitContainersItemResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecInitContainersItemResourcesLimits,
+                pub limits: InitContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecInitContainersItemResourcesRequests,
+                pub requests: InitContainersItemResourcesRequests,
             }
 
             /// Define resources requests and limits for single Pods.
@@ -2017,11 +2015,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-            pub struct SpecStorageVolumeClaimTemplateSpecResources {
+            pub struct StorageVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecStorageVolumeClaimTemplateSpecResourcesLimits,
+                pub limits: StorageVolumeClaimTemplateSpecResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecStorageVolumeClaimTemplateSpecResourcesRequests,
+                pub requests: StorageVolumeClaimTemplateSpecResourcesRequests,
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -2043,7 +2041,7 @@ pub mod monitoring_coreos_com {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-                pub secret_ref: VolumesItemScaleIOSecretRef,
+                pub secret_ref: ScaleIOSecretRef,
                 /// Flag to enable/disable SSL communication with Gateway, default false
                 pub ssl_enabled: bool,
                 /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
@@ -2178,43 +2176,43 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-            pub struct VolumesItemCephfsSecretRef {
+            pub struct CephfsSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: points to a secret object containing parameters used to connect to OpenStack.
-            pub struct VolumesItemCinderSecretRef {
+            pub struct CinderSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-            pub struct VolumesItemFlexVolumeSecretRef {
+            pub struct FlexVolumeSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// CHAP Secret for iSCSI target and initiator authentication
-            pub struct VolumesItemIscsiSecretRef {
+            pub struct IscsiSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-            pub struct VolumesItemRbdSecretRef {
+            pub struct RbdSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-            pub struct VolumesItemScaleIOSecretRef {
+            pub struct ScaleIOSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-            pub struct VolumesItemStorageosSecretRef {
+            pub struct StorageosSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
@@ -2307,12 +2305,12 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelector {
+            pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<SpecStorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels,
+                pub match_labels: StorageVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// A label query over volumes to consider for binding.
@@ -2459,17 +2457,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-            pub struct SpecStorageVolumeClaimTemplateSpec {
+            pub struct StorageVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
                 /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-                pub data_source: SpecStorageVolumeClaimTemplateSpecDataSource,
+                pub data_source: StorageVolumeClaimTemplateSpecDataSource,
                 /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-                pub data_source_ref: SpecStorageVolumeClaimTemplateSpecDataSourceRef,
+                pub data_source_ref: StorageVolumeClaimTemplateSpecDataSourceRef,
                 /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-                pub resources: SpecStorageVolumeClaimTemplateSpecResources,
+                pub resources: StorageVolumeClaimTemplateSpecResources,
                 /// A label query over volumes to consider for binding.
-                pub selector: SpecStorageVolumeClaimTemplateSpecSelector,
+                pub selector: StorageVolumeClaimTemplateSpecSelector,
                 /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
                 pub storage_class_name: String,
                 /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -2501,13 +2499,13 @@ pub mod monitoring_coreos_com {
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemStartupProbeExec,
+                pub exec: ContainersItemStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemStartupProbeHttpGet,
+                pub http_get: ContainersItemStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -2515,7 +2513,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -2525,13 +2523,13 @@ pub mod monitoring_coreos_com {
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemStartupProbeExec,
+                pub exec: InitContainersItemStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemStartupProbeHttpGet,
+                pub http_get: InitContainersItemStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -2539,7 +2537,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -2585,7 +2583,7 @@ pub mod monitoring_coreos_com {
                 /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
                 pub ephemeral: StorageEphemeral,
                 /// A PVC spec to be used by the Prometheus StatefulSets.
-                pub volume_claim_template: SpecStorageVolumeClaimTemplate,
+                pub volume_claim_template: StorageVolumeClaimTemplate,
             }
 
             /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
@@ -2595,7 +2593,7 @@ pub mod monitoring_coreos_com {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-                pub secret_ref: VolumesItemStorageosSecretRef,
+                pub secret_ref: StorageosSecretRef,
                 /// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
                 pub volume_name: String,
                 /// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
@@ -2627,7 +2625,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemLivenessProbeTcpSocket {
+            pub struct ContainersItemLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2635,7 +2633,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemReadinessProbeTcpSocket {
+            pub struct ContainersItemReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2643,7 +2641,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemStartupProbeTcpSocket {
+            pub struct ContainersItemStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2667,7 +2665,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemLivenessProbeTcpSocket {
+            pub struct InitContainersItemLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2675,7 +2673,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemReadinessProbeTcpSocket {
+            pub struct InitContainersItemReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2683,7 +2681,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemStartupProbeTcpSocket {
+            pub struct InitContainersItemStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2707,7 +2705,7 @@ pub mod monitoring_coreos_com {
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
             pub struct TopologySpreadConstraintsItem {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-                pub label_selector: SpecTopologySpreadConstraintsItemLabelSelector,
+                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
                 /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
                 pub max_skew: i32,
                 /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
@@ -2758,15 +2756,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// A PVC spec to be used by the Prometheus StatefulSets.
-            pub struct SpecStorageVolumeClaimTemplate {
+            pub struct StorageVolumeClaimTemplate {
                 /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                 pub api_version: String,
                 /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                 pub kind: String,
                 /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
-                pub metadata: SpecStorageVolumeClaimTemplateMetadata,
+                pub metadata: StorageVolumeClaimTemplateMetadata,
                 /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-                pub spec: SpecStorageVolumeClaimTemplateSpec,
+                pub spec: StorageVolumeClaimTemplateSpec,
                 /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub status: VolumeClaimTemplateStatus,
             }
@@ -4019,11 +4017,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct ThanosGrpcServerTlsConfigCa {
+            pub struct GrpcServerTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: ThanosGrpcServerTlsConfigCaConfigMap,
+                pub config_map: GrpcServerTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: ThanosGrpcServerTlsConfigCaSecret,
+                pub secret: GrpcServerTlsConfigCaSecret,
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
@@ -4062,7 +4060,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub secret_file: String,
                 /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-                pub secret_ref: VolumesItemCephfsSecretRef,
+                pub secret_ref: CephfsSecretRef,
                 /// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub user: String,
             }
@@ -4100,11 +4098,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct ThanosGrpcServerTlsConfigCert {
+            pub struct GrpcServerTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: ThanosGrpcServerTlsConfigCertConfigMap,
+                pub config_map: GrpcServerTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: ThanosGrpcServerTlsConfigCertSecret,
+                pub secret: GrpcServerTlsConfigCertSecret,
             }
 
             /// Contains the TLS certificate for the server.
@@ -4122,7 +4120,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub read_only: bool,
                 /// Optional: points to a secret object containing parameters used to connect to OpenStack.
-                pub secret_ref: VolumesItemCinderSecretRef,
+                pub secret_ref: CinderSecretRef,
                 /// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub volume_i_d: String,
             }
@@ -4130,9 +4128,9 @@ pub mod monitoring_coreos_com {
             /// Contains the CA certificate for client certificate authentication to the server.
             pub struct ClientCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WebTlsConfigClientCaConfigMap,
+                pub config_map: ClientCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WebTlsConfigClientCaSecret,
+                pub secret: ClientCaSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
@@ -4301,7 +4299,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct ThanosGrpcServerTlsConfigCaConfigMap {
+            pub struct GrpcServerTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4311,7 +4309,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct ThanosGrpcServerTlsConfigCertConfigMap {
+            pub struct GrpcServerTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4321,7 +4319,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
-            pub struct SpecVolumesItemConfigMap {
+            pub struct VolumesItemConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
@@ -4333,7 +4331,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
-            pub struct VolumesItemProjectedSourcesItemConfigMap {
+            pub struct SourcesItemConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourcesItemConfigMapItemsItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4353,7 +4351,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WebTlsConfigClientCaConfigMap {
+            pub struct ClientCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4423,7 +4421,7 @@ pub mod monitoring_coreos_com {
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub readiness_probe: ContainersItemReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: SpecContainersItemResources,
+                pub resources: ContainersItemResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
                 pub security_context: ContainersItemSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -4511,7 +4509,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-            pub struct SpecStorageVolumeClaimTemplateSpecDataSource {
+            pub struct StorageVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -4541,7 +4539,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-            pub struct SpecStorageVolumeClaimTemplateSpecDataSourceRef {
+            pub struct StorageVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -4689,19 +4687,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemLivenessProbeExec {
+            pub struct ContainersItemLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemReadinessProbeExec {
+            pub struct ContainersItemReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemStartupProbeExec {
+            pub struct ContainersItemStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -4719,19 +4717,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemLivenessProbeExec {
+            pub struct InitContainersItemLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemReadinessProbeExec {
+            pub struct InitContainersItemReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemStartupProbeExec {
+            pub struct InitContainersItemStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -4799,7 +4797,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-                pub secret_ref: VolumesItemFlexVolumeSecretRef,
+                pub secret_ref: FlexVolumeSecretRef,
             }
 
             /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
@@ -4899,11 +4897,11 @@ pub mod monitoring_coreos_com {
             /// GRPCServerTLSConfig configures the gRPC server from which Thanos Querier reads recorded rule data. Note: Currently only the CAFile, CertFile, and KeyFile fields are supported. Maps to the '--grpc-server-tls-*' CLI args.
             pub struct GrpcServerTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: ThanosGrpcServerTlsConfigCa,
+                pub ca: GrpcServerTlsConfigCa,
                 /// Path to the CA cert in the Prometheus container to use for the targets.
                 pub ca_file: String,
                 /// Struct containing the client cert file for the targets.
-                pub cert: ThanosGrpcServerTlsConfigCert,
+                pub cert: GrpcServerTlsConfigCert,
                 /// Path to the client cert file in the Prometheus container for the targets.
                 pub cert_file: String,
                 /// Disable target certificate validation.
@@ -4911,7 +4909,7 @@ pub mod monitoring_coreos_com {
                 /// Path to the client key file in the Prometheus container for the targets.
                 pub key_file: String,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: ThanosGrpcServerTlsConfigKeySecret,
+                pub key_secret: GrpcServerTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
@@ -4973,11 +4971,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemLivenessProbeHttpGet {
+            pub struct ContainersItemLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -4987,11 +4985,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemReadinessProbeHttpGet {
+            pub struct ContainersItemReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5001,11 +4999,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemStartupProbeHttpGet {
+            pub struct ContainersItemStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5043,11 +5041,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemLivenessProbeHttpGet {
+            pub struct InitContainersItemLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5057,11 +5055,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemReadinessProbeHttpGet {
+            pub struct InitContainersItemReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5071,11 +5069,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemStartupProbeHttpGet {
+            pub struct InitContainersItemStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5101,7 +5099,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5109,7 +5107,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5117,7 +5115,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5141,7 +5139,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5149,7 +5147,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5157,7 +5155,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5195,7 +5193,7 @@ pub mod monitoring_coreos_com {
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub readiness_probe: InitContainersItemReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: SpecInitContainersItemResources,
+                pub resources: InitContainersItemResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
                 pub security_context: InitContainersItemSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -5239,7 +5237,7 @@ pub mod monitoring_coreos_com {
                 /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
                 pub read_only: bool,
                 /// CHAP Secret for iSCSI target and initiator authentication
-                pub secret_ref: VolumesItemIscsiSecretRef,
+                pub secret_ref: IscsiSecretRef,
                 /// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
                 pub target_portal: String,
             }
@@ -5349,7 +5347,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct ThanosGrpcServerTlsConfigKeySecret {
+            pub struct GrpcServerTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -5371,42 +5369,42 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
-            pub struct AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
-            pub struct AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelector {
+            pub struct TopologySpreadConstraintsItemLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<SpecTopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels,
+                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -5438,7 +5436,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesLimits {
+            pub struct ContainersItemResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5447,7 +5445,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesLimits {
+            pub struct InitContainersItemResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5474,7 +5472,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {
+            pub struct StorageVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5483,7 +5481,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecThanosResourcesLimits {
+            pub struct ThanosResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5503,13 +5501,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemLivenessProbeExec,
+                pub exec: ContainersItemLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemLivenessProbeHttpGet,
+                pub http_get: ContainersItemLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -5517,7 +5515,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -5527,13 +5525,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemLivenessProbeExec,
+                pub exec: InitContainersItemLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemLivenessProbeHttpGet,
+                pub http_get: InitContainersItemLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -5541,7 +5539,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -5549,8 +5547,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPreferenceMatchExpressionsItem
-            {
+            pub struct PreferenceMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -5560,8 +5557,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsItemMatchExpressionsItem
-            {
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -5571,7 +5567,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5582,7 +5578,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5593,7 +5589,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5604,7 +5600,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5615,7 +5611,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5626,7 +5622,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5637,7 +5633,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5648,7 +5644,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5659,7 +5655,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecPodMonitorNamespaceSelectorMatchExpressionsItem {
+            pub struct PodMonitorNamespaceSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5669,7 +5665,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecPodMonitorSelectorMatchExpressionsItem {
+            pub struct PodMonitorSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5679,7 +5675,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecProbeNamespaceSelectorMatchExpressionsItem {
+            pub struct ProbeNamespaceSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5689,7 +5685,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecProbeSelectorMatchExpressionsItem {
+            pub struct ProbeSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5699,7 +5695,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecRuleNamespaceSelectorMatchExpressionsItem {
+            pub struct RuleNamespaceSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5709,7 +5705,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecRuleSelectorMatchExpressionsItem {
+            pub struct RuleSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5719,7 +5715,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecServiceMonitorNamespaceSelectorMatchExpressionsItem {
+            pub struct ServiceMonitorNamespaceSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5729,7 +5725,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecServiceMonitorSelectorMatchExpressionsItem {
+            pub struct ServiceMonitorSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5749,7 +5745,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5759,7 +5755,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5799,105 +5795,104 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {
+            pub struct PodMonitorNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecPodMonitorNamespaceSelectorMatchLabels {
+            pub struct PodMonitorSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecPodMonitorSelectorMatchLabels {
+            pub struct ProbeNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecProbeNamespaceSelectorMatchLabels {
+            pub struct ProbeSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecProbeSelectorMatchLabels {
+            pub struct RuleNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleNamespaceSelectorMatchLabels {
+            pub struct RuleSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleSelectorMatchLabels {
+            pub struct ServiceMonitorNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecServiceMonitorNamespaceSelectorMatchLabels {
-                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecServiceMonitorSelectorMatchLabels {
+            pub struct ServiceMonitorSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -5909,13 +5904,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -5933,7 +5928,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
-            pub struct SpecStorageVolumeClaimTemplateMetadata {
+            pub struct StorageVolumeClaimTemplateMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: MetadataAnnotations,
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -5959,33 +5954,33 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub struct AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub struct AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
 
             /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -6022,11 +6017,11 @@ pub mod monitoring_coreos_com {
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             pub struct NodeSelectorTermsItem {
-            /// A list of node selector requirements by node's labels.
-            pub match_expressions: Vec<SpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsItemMatchExpressionsItem>,
-            /// A list of node selector requirements by node's fields.
-            pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
-        }
+                /// A list of node selector requirements by node's labels.
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                /// A list of node selector requirements by node's fields.
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+            }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
             pub struct RemoteReadItemOauth2 {
@@ -6175,17 +6170,17 @@ pub mod monitoring_coreos_com {
             /// Namespace's labels to match for PodMonitor discovery. If nil, only check own namespace.
             pub struct PodMonitorNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecPodMonitorNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<PodMonitorNamespaceSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecPodMonitorNamespaceSelectorMatchLabels,
+                pub match_labels: PodMonitorNamespaceSelectorMatchLabels,
             }
 
             /// *Experimental* PodMonitors to be selected for target discovery. *Deprecated:* if neither this nor serviceMonitorSelector are specified, configuration is unmanaged.
             pub struct PodMonitorSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecPodMonitorSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<PodMonitorSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecPodMonitorSelectorMatchLabels,
+                pub match_labels: PodMonitorSelectorMatchLabels,
             }
 
             /// ContainerPort represents a network port in a single container.
@@ -6268,11 +6263,11 @@ pub mod monitoring_coreos_com {
 
             /// A node selector term, associated with the corresponding weight.
             pub struct Preference {
-            /// A list of node selector requirements by node's labels.
-            pub match_expressions: Vec<SpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPreferenceMatchExpressionsItem>,
-            /// A list of node selector requirements by node's fields.
-            pub match_fields: Vec<PreferenceMatchFieldsItem>,
-        }
+                /// A list of node selector requirements by node's labels.
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                /// A list of node selector requirements by node's fields.
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+            }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
@@ -6302,17 +6297,17 @@ pub mod monitoring_coreos_com {
             /// *Experimental* Namespaces to be selected for Probe discovery. If nil, only check own namespace.
             pub struct ProbeNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecProbeNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ProbeNamespaceSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecProbeNamespaceSelectorMatchLabels,
+                pub match_labels: ProbeNamespaceSelectorMatchLabels,
             }
 
             /// *Experimental* Probes to be selected for target discovery.
             pub struct ProbeSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecProbeSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ProbeSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecProbeSelectorMatchLabels,
+                pub match_labels: ProbeSelectorMatchLabels,
             }
 
             /// Items for all in one resources secrets, configmaps, and downward API
@@ -6396,7 +6391,7 @@ pub mod monitoring_coreos_com {
                 /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
                 pub read_only: bool,
                 /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-                pub secret_ref: VolumesItemRbdSecretRef,
+                pub secret_ref: RbdSecretRef,
                 /// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
                 pub user: String,
             }
@@ -6404,13 +6399,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemReadinessProbeExec,
+                pub exec: ContainersItemReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemReadinessProbeHttpGet,
+                pub http_get: ContainersItemReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -6418,7 +6413,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -6428,13 +6423,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemReadinessProbeExec,
+                pub exec: InitContainersItemReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemReadinessProbeHttpGet,
+                pub http_get: InitContainersItemReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -6442,7 +6437,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -6516,7 +6511,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesRequests {
+            pub struct ContainersItemResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6525,7 +6520,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesRequests {
+            pub struct InitContainersItemResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6552,7 +6547,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {
+            pub struct StorageVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6561,7 +6556,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecThanosResourcesRequests {
+            pub struct ThanosResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6586,22 +6581,24 @@ pub mod monitoring_coreos_com {
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
-            /// A label query over a set of resources, in this case pods.
-            pub label_selector: AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
-            /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub namespace_selector: AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
-            /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
-            pub namespaces: Vec<String>,
-            /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
-            pub topology_key: String,
-        }
+                /// A label query over a set of resources, in this case pods.
+                pub label_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+                /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+                pub namespace_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+                /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+                pub namespaces: Vec<String>,
+                /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+                pub topology_key: String,
+            }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
-            pub label_selector: AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+            pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub namespace_selector: AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+            pub namespace_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
             /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
             pub namespaces: Vec<String>,
             /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
@@ -6655,19 +6652,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResources {
+            pub struct ContainersItemResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecContainersItemResourcesLimits,
+                pub limits: ContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecContainersItemResourcesRequests,
+                pub requests: ContainersItemResourcesRequests,
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResources {
+            pub struct InitContainersItemResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecInitContainersItemResourcesLimits,
+                pub limits: InitContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecInitContainersItemResourcesRequests,
+                pub requests: InitContainersItemResourcesRequests,
             }
 
             /// Define resources requests and limits for single Pods.
@@ -6687,19 +6684,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-            pub struct SpecStorageVolumeClaimTemplateSpecResources {
+            pub struct StorageVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecStorageVolumeClaimTemplateSpecResourcesLimits,
+                pub limits: StorageVolumeClaimTemplateSpecResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecStorageVolumeClaimTemplateSpecResourcesRequests,
+                pub requests: StorageVolumeClaimTemplateSpecResourcesRequests,
             }
 
             /// Resources defines the resource requirements for the Thanos sidecar. If not provided, no requests/limits will be set
-            pub struct SpecThanosResources {
+            pub struct ThanosResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecThanosResourcesLimits,
+                pub limits: ThanosResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecThanosResourcesRequests,
+                pub requests: ThanosResourcesRequests,
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -6713,17 +6710,17 @@ pub mod monitoring_coreos_com {
             /// Namespaces to be selected for PrometheusRules discovery. If unspecified, only the same namespace as the Prometheus object is in is used.
             pub struct RuleNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecRuleNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleNamespaceSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecRuleNamespaceSelectorMatchLabels,
+                pub match_labels: RuleNamespaceSelectorMatchLabels,
             }
 
             /// A selector to select which PrometheusRules to mount for loading alerting/recording rules from. Until (excluding) Prometheus Operator v0.24.0 Prometheus Operator will migrate any legacy rule ConfigMaps to PrometheusRule custom resources selected by RuleSelector. Make sure it does not match any config maps that you do not want to be migrated.
             pub struct RuleSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecRuleSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecRuleSelectorMatchLabels,
+                pub match_labels: RuleSelectorMatchLabels,
             }
 
             /// /--rules.*/ command-line arguments.
@@ -6743,7 +6740,7 @@ pub mod monitoring_coreos_com {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-                pub secret_ref: VolumesItemScaleIOSecretRef,
+                pub secret_ref: ScaleIOSecretRef,
                 /// Flag to enable/disable SSL communication with Gateway, default false
                 pub ssl_enabled: bool,
                 /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
@@ -6920,7 +6917,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct ThanosGrpcServerTlsConfigCaSecret {
+            pub struct GrpcServerTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -6930,7 +6927,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct ThanosGrpcServerTlsConfigCertSecret {
+            pub struct GrpcServerTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -6940,7 +6937,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
-            pub struct VolumesItemProjectedSourcesItemSecret {
+            pub struct SourcesItemSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourcesItemSecretItemsItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -6950,7 +6947,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-            pub struct SpecVolumesItemSecret {
+            pub struct VolumesItemSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
@@ -6972,7 +6969,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WebTlsConfigClientCaSecret {
+            pub struct ClientCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -7028,43 +7025,43 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-            pub struct VolumesItemCephfsSecretRef {
+            pub struct CephfsSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: points to a secret object containing parameters used to connect to OpenStack.
-            pub struct VolumesItemCinderSecretRef {
+            pub struct CinderSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-            pub struct VolumesItemFlexVolumeSecretRef {
+            pub struct FlexVolumeSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// CHAP Secret for iSCSI target and initiator authentication
-            pub struct VolumesItemIscsiSecretRef {
+            pub struct IscsiSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-            pub struct VolumesItemRbdSecretRef {
+            pub struct RbdSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-            pub struct VolumesItemScaleIOSecretRef {
+            pub struct ScaleIOSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-            pub struct VolumesItemStorageosSecretRef {
+            pub struct StorageosSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
@@ -7157,12 +7154,12 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelector {
+            pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<SpecStorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels,
+                pub match_labels: StorageVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// A label query over volumes to consider for binding.
@@ -7187,17 +7184,17 @@ pub mod monitoring_coreos_com {
             /// Namespace's labels to match for ServiceMonitor discovery. If nil, only check own namespace.
             pub struct ServiceMonitorNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecServiceMonitorNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ServiceMonitorNamespaceSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecServiceMonitorNamespaceSelectorMatchLabels,
+                pub match_labels: ServiceMonitorNamespaceSelectorMatchLabels,
             }
 
             /// ServiceMonitors to be selected for target discovery. *Deprecated:* if neither this nor podMonitorSelector are specified, configuration is unmanaged.
             pub struct ServiceMonitorSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecServiceMonitorSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ServiceMonitorSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecServiceMonitorSelectorMatchLabels,
+                pub match_labels: ServiceMonitorSelectorMatchLabels,
             }
 
             pub struct ShardStatusesItem {
@@ -7230,11 +7227,11 @@ pub mod monitoring_coreos_com {
             /// Projection that may be projected along with other supported volume types
             pub struct SourcesItem {
                 /// information about the configMap data to project
-                pub config_map: VolumesItemProjectedSourcesItemConfigMap,
+                pub config_map: SourcesItemConfigMap,
                 /// information about the downwardAPI data to project
                 pub downward_a_p_i: SourcesItemDownwardAPI,
                 /// information about the secret data to project
-                pub secret: VolumesItemProjectedSourcesItemSecret,
+                pub secret: SourcesItemSecret,
                 /// information about the serviceAccountToken data to project
                 pub service_account_token: ServiceAccountToken,
             }
@@ -7429,17 +7426,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-            pub struct SpecStorageVolumeClaimTemplateSpec {
+            pub struct StorageVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
                 /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-                pub data_source: SpecStorageVolumeClaimTemplateSpecDataSource,
+                pub data_source: StorageVolumeClaimTemplateSpecDataSource,
                 /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-                pub data_source_ref: SpecStorageVolumeClaimTemplateSpecDataSourceRef,
+                pub data_source_ref: StorageVolumeClaimTemplateSpecDataSourceRef,
                 /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-                pub resources: SpecStorageVolumeClaimTemplateSpecResources,
+                pub resources: StorageVolumeClaimTemplateSpecResources,
                 /// A label query over volumes to consider for binding.
-                pub selector: SpecStorageVolumeClaimTemplateSpecSelector,
+                pub selector: StorageVolumeClaimTemplateSpecSelector,
                 /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
                 pub storage_class_name: String,
                 /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -7471,13 +7468,13 @@ pub mod monitoring_coreos_com {
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemStartupProbeExec,
+                pub exec: ContainersItemStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemStartupProbeHttpGet,
+                pub http_get: ContainersItemStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -7485,7 +7482,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -7495,13 +7492,13 @@ pub mod monitoring_coreos_com {
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemStartupProbeExec,
+                pub exec: InitContainersItemStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemStartupProbeHttpGet,
+                pub http_get: InitContainersItemStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -7509,7 +7506,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -7559,7 +7556,7 @@ pub mod monitoring_coreos_com {
                 /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
                 pub ephemeral: StorageEphemeral,
                 /// A PVC spec to be used by the Prometheus StatefulSets.
-                pub volume_claim_template: SpecStorageVolumeClaimTemplate,
+                pub volume_claim_template: StorageVolumeClaimTemplate,
             }
 
             /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
@@ -7569,7 +7566,7 @@ pub mod monitoring_coreos_com {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-                pub secret_ref: VolumesItemStorageosSecretRef,
+                pub secret_ref: StorageosSecretRef,
                 /// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
                 pub volume_name: String,
                 /// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
@@ -7601,7 +7598,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemLivenessProbeTcpSocket {
+            pub struct ContainersItemLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7609,7 +7606,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemReadinessProbeTcpSocket {
+            pub struct ContainersItemReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7617,7 +7614,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemStartupProbeTcpSocket {
+            pub struct ContainersItemStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7641,7 +7638,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemLivenessProbeTcpSocket {
+            pub struct InitContainersItemLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7649,7 +7646,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemReadinessProbeTcpSocket {
+            pub struct InitContainersItemReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7657,7 +7654,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemStartupProbeTcpSocket {
+            pub struct InitContainersItemStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7689,7 +7686,7 @@ pub mod monitoring_coreos_com {
                 /// ReadyTimeout is the maximum time Thanos sidecar will wait for Prometheus to start. Eg 10m
                 pub ready_timeout: String,
                 /// Resources defines the resource requirements for the Thanos sidecar. If not provided, no requests/limits will be set
-                pub resources: SpecThanosResources,
+                pub resources: ThanosResources,
                 /// SHA of Thanos container image to be deployed. Defaults to the value of `version`. Similar to a tag, but the SHA explicitly deploys an immutable container image. Version and Tag are ignored if SHA is set. Deprecated: use 'image' instead.  The image digest can be specified as part of the image URL.
                 pub sha: String,
                 /// Tag of Thanos sidecar container image to be deployed. Defaults to the value of `version`. Version is ignored if Tag is set. Deprecated: use 'image' instead.  The image tag can be specified as part of the image URL.
@@ -7823,7 +7820,7 @@ pub mod monitoring_coreos_com {
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
             pub struct TopologySpreadConstraintsItem {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-                pub label_selector: SpecTopologySpreadConstraintsItemLabelSelector,
+                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
                 /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
                 pub max_skew: i32,
                 /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
@@ -7914,15 +7911,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// A PVC spec to be used by the Prometheus StatefulSets.
-            pub struct SpecStorageVolumeClaimTemplate {
+            pub struct StorageVolumeClaimTemplate {
                 /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                 pub api_version: String,
                 /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                 pub kind: String,
                 /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
-                pub metadata: SpecStorageVolumeClaimTemplateMetadata,
+                pub metadata: StorageVolumeClaimTemplateMetadata,
                 /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-                pub spec: SpecStorageVolumeClaimTemplateSpec,
+                pub spec: StorageVolumeClaimTemplateSpec,
                 /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub status: VolumeClaimTemplateStatus,
             }
@@ -8031,7 +8028,7 @@ pub mod monitoring_coreos_com {
                 /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub cinder: Cinder,
                 /// ConfigMap represents a configMap that should populate this volume
-                pub config_map: SpecVolumesItemConfigMap,
+                pub config_map: VolumesItemConfigMap,
                 /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
                 pub csi: Csi,
                 /// DownwardAPI represents downward API about the pod that should populate this volume
@@ -8079,7 +8076,7 @@ pub mod monitoring_coreos_com {
                 /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
                 pub scale_i_o: ScaleIO,
                 /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-                pub secret: SpecVolumesItemSecret,
+                pub secret: VolumesItemSecret,
                 /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
                 pub storageos: Storageos,
                 /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -8756,7 +8753,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub secret_file: String,
                 /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-                pub secret_ref: VolumesItemCephfsSecretRef,
+                pub secret_ref: CephfsSecretRef,
                 /// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub user: String,
             }
@@ -8776,7 +8773,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub read_only: bool,
                 /// Optional: points to a secret object containing parameters used to connect to OpenStack.
-                pub secret_ref: VolumesItemCinderSecretRef,
+                pub secret_ref: CinderSecretRef,
                 /// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub volume_i_d: String,
             }
@@ -8899,7 +8896,7 @@ pub mod monitoring_coreos_com {
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub readiness_probe: ContainersItemReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: SpecContainersItemResources,
+                pub resources: ContainersItemResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
                 pub security_context: ContainersItemSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -8947,7 +8944,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-            pub struct SpecStorageVolumeClaimTemplateSpecDataSource {
+            pub struct StorageVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -8977,7 +8974,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-            pub struct SpecStorageVolumeClaimTemplateSpecDataSourceRef {
+            pub struct StorageVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -9113,19 +9110,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemLivenessProbeExec {
+            pub struct ContainersItemLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemReadinessProbeExec {
+            pub struct ContainersItemReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecContainersItemStartupProbeExec {
+            pub struct ContainersItemStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -9143,19 +9140,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemLivenessProbeExec {
+            pub struct InitContainersItemLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemReadinessProbeExec {
+            pub struct InitContainersItemReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct SpecInitContainersItemStartupProbeExec {
+            pub struct InitContainersItemStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -9217,7 +9214,7 @@ pub mod monitoring_coreos_com {
                 /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-                pub secret_ref: VolumesItemFlexVolumeSecretRef,
+                pub secret_ref: FlexVolumeSecretRef,
             }
 
             /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
@@ -9379,11 +9376,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemLivenessProbeHttpGet {
+            pub struct ContainersItemLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9393,11 +9390,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemReadinessProbeHttpGet {
+            pub struct ContainersItemReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9407,11 +9404,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecContainersItemStartupProbeHttpGet {
+            pub struct ContainersItemStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9449,11 +9446,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemLivenessProbeHttpGet {
+            pub struct InitContainersItemLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9463,11 +9460,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemReadinessProbeHttpGet {
+            pub struct InitContainersItemReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9477,11 +9474,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct SpecInitContainersItemStartupProbeHttpGet {
+            pub struct InitContainersItemStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<SpecInitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9507,7 +9504,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9515,7 +9512,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9523,7 +9520,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9547,7 +9544,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9555,7 +9552,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9563,7 +9560,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct SpecInitContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9601,7 +9598,7 @@ pub mod monitoring_coreos_com {
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub readiness_probe: InitContainersItemReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: SpecInitContainersItemResources,
+                pub resources: InitContainersItemResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
                 pub security_context: InitContainersItemSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -9645,7 +9642,7 @@ pub mod monitoring_coreos_com {
                 /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
                 pub read_only: bool,
                 /// CHAP Secret for iSCSI target and initiator authentication
-                pub secret_ref: VolumesItemIscsiSecretRef,
+                pub secret_ref: IscsiSecretRef,
                 /// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
                 pub target_portal: String,
             }
@@ -9727,42 +9724,42 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
-            pub struct AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
 
             /// A label query over a set of resources, in this case pods.
-            pub struct AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelector {
+            pub struct TopologySpreadConstraintsItemLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<SpecTopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels,
+                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
             }
 
             /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
@@ -9800,7 +9797,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesLimits {
+            pub struct ContainersItemResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -9809,7 +9806,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesLimits {
+            pub struct InitContainersItemResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -9836,7 +9833,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {
+            pub struct StorageVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -9856,13 +9853,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemLivenessProbeExec,
+                pub exec: ContainersItemLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemLivenessProbeHttpGet,
+                pub http_get: ContainersItemLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -9870,7 +9867,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -9880,13 +9877,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemLivenessProbeExec,
+                pub exec: InitContainersItemLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemLivenessProbeHttpGet,
+                pub http_get: InitContainersItemLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -9894,7 +9891,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -9902,8 +9899,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPreferenceMatchExpressionsItem
-            {
+            pub struct PreferenceMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -9913,8 +9909,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsItemMatchExpressionsItem
-            {
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -9924,7 +9919,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9935,7 +9930,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9946,7 +9941,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9957,7 +9952,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9968,7 +9963,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9979,7 +9974,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9990,7 +9985,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10001,7 +9996,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10012,7 +10007,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecRuleNamespaceSelectorMatchExpressionsItem {
+            pub struct RuleNamespaceSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10022,7 +10017,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecRuleSelectorMatchExpressionsItem {
+            pub struct RuleSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10042,7 +10037,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10052,7 +10047,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10092,69 +10087,68 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {
+            pub struct RuleNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleNamespaceSelectorMatchLabels {
-                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleSelectorMatchLabels {
+            pub struct RuleSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -10166,13 +10160,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -10190,7 +10184,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
-            pub struct SpecStorageVolumeClaimTemplateMetadata {
+            pub struct StorageVolumeClaimTemplateMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: MetadataAnnotations,
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -10208,33 +10202,33 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub struct AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub struct AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub match_labels: SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
 
             /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -10271,11 +10265,11 @@ pub mod monitoring_coreos_com {
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             pub struct NodeSelectorTermsItem {
-            /// A list of node selector requirements by node's labels.
-            pub match_expressions: Vec<SpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsItemMatchExpressionsItem>,
-            /// A list of node selector requirements by node's fields.
-            pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
-        }
+                /// A list of node selector requirements by node's labels.
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                /// A list of node selector requirements by node's fields.
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+            }
 
             /// ObjectStorageConfig configures object storage in Thanos. Alternative to ObjectStorageConfigFile, and lower order priority.
             pub struct ObjectStorageConfig {
@@ -10443,11 +10437,11 @@ pub mod monitoring_coreos_com {
 
             /// A node selector term, associated with the corresponding weight.
             pub struct Preference {
-            /// A list of node selector requirements by node's labels.
-            pub match_expressions: Vec<SpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPreferenceMatchExpressionsItem>,
-            /// A list of node selector requirements by node's fields.
-            pub match_fields: Vec<PreferenceMatchFieldsItem>,
-        }
+                /// A list of node selector requirements by node's labels.
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                /// A list of node selector requirements by node's fields.
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+            }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
@@ -10531,7 +10525,7 @@ pub mod monitoring_coreos_com {
                 /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
                 pub read_only: bool,
                 /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-                pub secret_ref: VolumesItemRbdSecretRef,
+                pub secret_ref: RbdSecretRef,
                 /// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
                 pub user: String,
             }
@@ -10539,13 +10533,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemReadinessProbeExec,
+                pub exec: ContainersItemReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemReadinessProbeHttpGet,
+                pub http_get: ContainersItemReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -10553,7 +10547,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -10563,13 +10557,13 @@ pub mod monitoring_coreos_com {
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemReadinessProbeExec,
+                pub exec: InitContainersItemReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemReadinessProbeHttpGet,
+                pub http_get: InitContainersItemReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -10577,7 +10571,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -10585,7 +10579,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesRequests {
+            pub struct ContainersItemResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -10594,7 +10588,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesRequests {
+            pub struct InitContainersItemResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -10621,7 +10615,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {
+            pub struct StorageVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -10646,22 +10640,24 @@ pub mod monitoring_coreos_com {
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
-            /// A label query over a set of resources, in this case pods.
-            pub label_selector: AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
-            /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub namespace_selector: AffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
-            /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
-            pub namespaces: Vec<String>,
-            /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
-            pub topology_key: String,
-        }
+                /// A label query over a set of resources, in this case pods.
+                pub label_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+                /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+                pub namespace_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+                /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+                pub namespaces: Vec<String>,
+                /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+                pub topology_key: String,
+            }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
-            pub label_selector: AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+            pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-            pub namespace_selector: AffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+            pub namespace_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
             /// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
             pub namespaces: Vec<String>,
             /// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
@@ -10709,19 +10705,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResources {
+            pub struct ContainersItemResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecContainersItemResourcesLimits,
+                pub limits: ContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecContainersItemResourcesRequests,
+                pub requests: ContainersItemResourcesRequests,
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResources {
+            pub struct InitContainersItemResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecInitContainersItemResourcesLimits,
+                pub limits: InitContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecInitContainersItemResourcesRequests,
+                pub requests: InitContainersItemResourcesRequests,
             }
 
             /// Resources defines the resource requirements for single Pods. If not provided, no requests/limits will be set
@@ -10741,11 +10737,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-            pub struct SpecStorageVolumeClaimTemplateSpecResources {
+            pub struct StorageVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecStorageVolumeClaimTemplateSpecResourcesLimits,
+                pub limits: StorageVolumeClaimTemplateSpecResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecStorageVolumeClaimTemplateSpecResourcesRequests,
+                pub requests: StorageVolumeClaimTemplateSpecResourcesRequests,
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -10759,17 +10755,17 @@ pub mod monitoring_coreos_com {
             /// Namespaces to be selected for Rules discovery. If unspecified, only the same namespace as the ThanosRuler object is in is used.
             pub struct RuleNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecRuleNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleNamespaceSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecRuleNamespaceSelectorMatchLabels,
+                pub match_labels: RuleNamespaceSelectorMatchLabels,
             }
 
             /// A label selector to select which PrometheusRules to mount for alerting and recording.
             pub struct RuleSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<SpecRuleSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecRuleSelectorMatchLabels,
+                pub match_labels: RuleSelectorMatchLabels,
             }
 
             /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
@@ -10783,7 +10779,7 @@ pub mod monitoring_coreos_com {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-                pub secret_ref: VolumesItemScaleIOSecretRef,
+                pub secret_ref: ScaleIOSecretRef,
                 /// Flag to enable/disable SSL communication with Gateway, default false
                 pub ssl_enabled: bool,
                 /// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
@@ -10938,43 +10934,43 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-            pub struct VolumesItemCephfsSecretRef {
+            pub struct CephfsSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: points to a secret object containing parameters used to connect to OpenStack.
-            pub struct VolumesItemCinderSecretRef {
+            pub struct CinderSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-            pub struct VolumesItemFlexVolumeSecretRef {
+            pub struct FlexVolumeSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// CHAP Secret for iSCSI target and initiator authentication
-            pub struct VolumesItemIscsiSecretRef {
+            pub struct IscsiSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-            pub struct VolumesItemRbdSecretRef {
+            pub struct RbdSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-            pub struct VolumesItemScaleIOSecretRef {
+            pub struct ScaleIOSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-            pub struct VolumesItemStorageosSecretRef {
+            pub struct StorageosSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
@@ -11067,12 +11063,12 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelector {
+            pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<SpecStorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels,
+                pub match_labels: StorageVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// A label query over volumes to consider for binding.
@@ -11222,17 +11218,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-            pub struct SpecStorageVolumeClaimTemplateSpec {
+            pub struct StorageVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
                 /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-                pub data_source: SpecStorageVolumeClaimTemplateSpecDataSource,
+                pub data_source: StorageVolumeClaimTemplateSpecDataSource,
                 /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-                pub data_source_ref: SpecStorageVolumeClaimTemplateSpecDataSourceRef,
+                pub data_source_ref: StorageVolumeClaimTemplateSpecDataSourceRef,
                 /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-                pub resources: SpecStorageVolumeClaimTemplateSpecResources,
+                pub resources: StorageVolumeClaimTemplateSpecResources,
                 /// A label query over volumes to consider for binding.
-                pub selector: SpecStorageVolumeClaimTemplateSpecSelector,
+                pub selector: StorageVolumeClaimTemplateSpecSelector,
                 /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
                 pub storage_class_name: String,
                 /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -11264,13 +11260,13 @@ pub mod monitoring_coreos_com {
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecContainersItemStartupProbeExec,
+                pub exec: ContainersItemStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: ContainersItemStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecContainersItemStartupProbeHttpGet,
+                pub http_get: ContainersItemStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -11278,7 +11274,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -11288,13 +11284,13 @@ pub mod monitoring_coreos_com {
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct InitContainersItemStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: SpecInitContainersItemStartupProbeExec,
+                pub exec: InitContainersItemStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
                 pub grpc: InitContainersItemStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: SpecInitContainersItemStartupProbeHttpGet,
+                pub http_get: InitContainersItemStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -11302,7 +11298,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: SpecInitContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -11348,7 +11344,7 @@ pub mod monitoring_coreos_com {
                 /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
                 pub ephemeral: StorageEphemeral,
                 /// A PVC spec to be used by the Prometheus StatefulSets.
-                pub volume_claim_template: SpecStorageVolumeClaimTemplate,
+                pub volume_claim_template: StorageVolumeClaimTemplate,
             }
 
             /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
@@ -11358,7 +11354,7 @@ pub mod monitoring_coreos_com {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
                 /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-                pub secret_ref: VolumesItemStorageosSecretRef,
+                pub secret_ref: StorageosSecretRef,
                 /// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
                 pub volume_name: String,
                 /// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
@@ -11390,7 +11386,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemLivenessProbeTcpSocket {
+            pub struct ContainersItemLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11398,7 +11394,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemReadinessProbeTcpSocket {
+            pub struct ContainersItemReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11406,7 +11402,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecContainersItemStartupProbeTcpSocket {
+            pub struct ContainersItemStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11430,7 +11426,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemLivenessProbeTcpSocket {
+            pub struct InitContainersItemLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11438,7 +11434,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemReadinessProbeTcpSocket {
+            pub struct InitContainersItemReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11446,7 +11442,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct SpecInitContainersItemStartupProbeTcpSocket {
+            pub struct InitContainersItemStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11470,7 +11466,7 @@ pub mod monitoring_coreos_com {
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
             pub struct TopologySpreadConstraintsItem {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-                pub label_selector: SpecTopologySpreadConstraintsItemLabelSelector,
+                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
                 /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
                 pub max_skew: i32,
                 /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
@@ -11531,15 +11527,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// A PVC spec to be used by the Prometheus StatefulSets.
-            pub struct SpecStorageVolumeClaimTemplate {
+            pub struct StorageVolumeClaimTemplate {
                 /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                 pub api_version: String,
                 /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                 pub kind: String,
                 /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
-                pub metadata: SpecStorageVolumeClaimTemplateMetadata,
+                pub metadata: StorageVolumeClaimTemplateMetadata,
                 /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-                pub spec: SpecStorageVolumeClaimTemplateSpec,
+                pub spec: StorageVolumeClaimTemplateSpec,
                 /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub status: VolumeClaimTemplateStatus,
             }
@@ -12083,11 +12079,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigCa {
+            pub struct EmailConfigsItemTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: ReceiversItemEmailConfigsItemTlsConfigCaConfigMap,
+                pub config_map: EmailConfigsItemTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: ReceiversItemEmailConfigsItemTlsConfigCaSecret,
+                pub secret: EmailConfigsItemTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
@@ -12163,11 +12159,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigCert {
+            pub struct EmailConfigsItemTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: ReceiversItemEmailConfigsItemTlsConfigCertConfigMap,
+                pub config_map: EmailConfigsItemTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: ReceiversItemEmailConfigsItemTlsConfigCertSecret,
+                pub secret: EmailConfigsItemTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
@@ -12405,7 +12401,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigCaConfigMap {
+            pub struct EmailConfigsItemTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12415,7 +12411,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigCertConfigMap {
+            pub struct EmailConfigsItemTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12851,7 +12847,7 @@ pub mod monitoring_coreos_com {
                 /// The text body of the email notification.
                 pub text: String,
                 /// TLS configuration
-                pub tls_config: ReceiversItemEmailConfigsItemTlsConfig,
+                pub tls_config: EmailConfigsItemTlsConfig,
                 /// The email address to send notifications to.
                 pub to: String,
             }
@@ -13098,7 +13094,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigKeySecret {
+            pub struct EmailConfigsItemTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13620,7 +13616,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigCaSecret {
+            pub struct EmailConfigsItemTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13630,7 +13626,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct ReceiversItemEmailConfigsItemTlsConfigCertSecret {
+            pub struct EmailConfigsItemTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14078,15 +14074,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration
-            pub struct ReceiversItemEmailConfigsItemTlsConfig {
+            pub struct EmailConfigsItemTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: ReceiversItemEmailConfigsItemTlsConfigCa,
+                pub ca: EmailConfigsItemTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: ReceiversItemEmailConfigsItemTlsConfigCert,
+                pub cert: EmailConfigsItemTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: ReceiversItemEmailConfigsItemTlsConfigKeySecret,
+                pub key_secret: EmailConfigsItemTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }

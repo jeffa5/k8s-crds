@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "k8s-crds",
     "k8s-crds-codegen",
     "k8s-crds-test",
+    "crds/*",
 ]

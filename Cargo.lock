@@ -340,13 +340,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "k8s-crds"
-version = "0.1.0"
-dependencies = [
- "k8s-openapi",
-]
-
-[[package]]
 name = "k8s-crds-codegen"
 version = "0.1.0"
 dependencies = [
@@ -383,6 +376,13 @@ dependencies = [
  "serde-value",
  "serde_json",
  "url",
+]
+
+[[package]]
+name = "kube-prometheus-stack-crds"
+version = "0.1.0"
+dependencies = [
+ "k8s-openapi",
 ]
 
 [[package]]

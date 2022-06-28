@@ -34,7 +34,7 @@ pub fn build_from_url<W: Write>(writer: &mut W, url: &str) -> anyhow::Result<()>
     build(writer, vec![crd])
 }
 
-pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[&str]) -> anyhow::Result<()> {
+pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[String]) -> anyhow::Result<()> {
     info!(?urls, "Building from urls");
     let mut crds = Vec::new();
     for url in urls {

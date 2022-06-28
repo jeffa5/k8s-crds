@@ -1,0 +1,12 @@
+[package]
+name = "k8s-crds"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+kube-prometheus-stack-crds = { version = "0.1.0", path = "../crds/kube-prometheus-stack-crds", optional = true }
+cert-manager-crds = { version = "0.1.0", path = "../crds/cert-manager-crds", optional = true }
+
+[features]
+cert-manager = ["cert-manager-crds"]
+kube-prometheus-stack = ["kube-prometheus-stack-crds"]

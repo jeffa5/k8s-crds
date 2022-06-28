@@ -347,6 +347,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "k8s-crds"
+version = "0.1.0"
+dependencies = [
+ "cert-manager-crds",
+ "kube-prometheus-stack-crds",
+]
+
+[[package]]
 name = "k8s-crds-codegen"
 version = "0.1.0"
 dependencies = [

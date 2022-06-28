@@ -2,5 +2,6 @@
 members = [
     "k8s-crds-codegen",
     "k8s-crds-test",
+    "k8s-crds",
     "crds/*",
 ]

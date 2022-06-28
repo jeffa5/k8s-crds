@@ -42,13 +42,25 @@ pub mod monitoring_coreos_com {
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-            pub struct AllocatedResources {}
+            pub struct AllocatedResources {
+                /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-            pub struct PodMetadataAnnotations {}
+            pub struct PodMetadataAnnotations {
+                /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-            pub struct MetadataAnnotations {}
+            pub struct MetadataAnnotations {
+                /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
             pub struct AwsElasticBlockStore {
@@ -105,7 +117,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// Represents the actual resources of the underlying volume.
-            pub struct Capacity {}
+            pub struct Capacity {
+                /// Represents the actual resources of the underlying volume.
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
             pub struct Cephfs {
@@ -1058,10 +1076,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-            pub struct PodMetadataLabels {}
+            pub struct PodMetadataLabels {
+                /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-            pub struct MetadataLabels {}
+            pub struct MetadataLabels {
+                /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
             pub struct ContainersItemLifecycle {
@@ -1080,22 +1104,58 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesLimits {}
+            pub struct SpecContainersItemResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesLimits {}
+            pub struct SpecInitContainersItemResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecResourcesLimits {}
+            pub struct SpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemLivenessProbe {
@@ -1337,56 +1397,101 @@ pub mod monitoring_coreos_com {
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAlertmanagerConfigNamespaceSelectorMatchLabels {}
+            pub struct SpecAlertmanagerConfigNamespaceSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecAlertmanagerConfigSelectorMatchLabels {}
+            pub struct SpecAlertmanagerConfigSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {}
+            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct StorageEphemeralVolumeClaimTemplateMetadata {}
+            pub struct StorageEphemeralVolumeClaimTemplateMetadata {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
             pub struct SpecStorageVolumeClaimTemplateMetadata {
@@ -1399,7 +1504,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
@@ -1460,7 +1568,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define which Nodes the Pods are scheduled on.
-            pub struct NodeSelector {}
+            pub struct NodeSelector {
+                /// Define which Nodes the Pods are scheduled on.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             pub struct NodeSelectorTermsItem {
@@ -1471,7 +1582,10 @@ pub mod monitoring_coreos_com {
         }
 
             /// Optional: Extra command options if any.
-            pub struct Options {}
+            pub struct Options {
+                /// Optional: Extra command options if any.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
             pub struct PersistentVolumeClaim {
@@ -1747,22 +1861,58 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesRequests {}
+            pub struct SpecContainersItemResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesRequests {}
+            pub struct SpecInitContainersItemResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecResourcesRequests {}
+            pub struct SpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
@@ -2591,7 +2741,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-            pub struct VolumeAttributes {}
+            pub struct VolumeAttributes {
+                /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -2945,7 +3098,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
-            pub struct EndpointParams {}
+            pub struct EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Secret containing the client key file for the targets.
             pub struct KeySecret {
@@ -2968,7 +3124,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct MatchLabels {}
+            pub struct MatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
             pub struct MetricRelabelingsItem {
@@ -3011,7 +3170,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional HTTP URL parameters
-            pub struct Params {}
+            pub struct Params {
+                /// Optional HTTP URL parameters
+                pub properties: std::collections::HashMap<String, Vec<String>>,
+            }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
             pub struct Password {
@@ -3299,7 +3461,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
-            pub struct EndpointParams {}
+            pub struct EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// ingress defines the Ingress objects to probe and the relabeling configuration. If `staticConfig` is also defined, `staticConfig` takes precedence.
             pub struct Ingress {
@@ -3322,7 +3487,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Labels assigned to all metrics scraped from the targets.
-            pub struct Labels {}
+            pub struct Labels {
+                /// Labels assigned to all metrics scraped from the targets.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             pub struct MatchExpressionsItem {
@@ -3335,7 +3503,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct MatchLabels {}
+            pub struct MatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
             pub struct MetricRelabelingsItem {
@@ -3674,13 +3845,25 @@ pub mod monitoring_coreos_com {
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-            pub struct AllocatedResources {}
+            pub struct AllocatedResources {
+                /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-            pub struct PodMetadataAnnotations {}
+            pub struct PodMetadataAnnotations {
+                /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-            pub struct MetadataAnnotations {}
+            pub struct MetadataAnnotations {
+                /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// APIServerConfig allows specifying a host and auth methods to access apiserver. If left empty, Prometheus is assumed to run inside of the cluster and will discover API servers automatically and use the pod's CA certificate and bearer token file at /var/run/secrets/kubernetes.io/serviceaccount/.
             pub struct ApiserverConfig {
@@ -3860,7 +4043,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// Represents the actual resources of the underlying volume.
-            pub struct Capacity {}
+            pub struct Capacity {
+                /// Represents the actual resources of the underlying volume.
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
             pub struct Cephfs {
@@ -4402,10 +4591,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
-            pub struct RemoteReadItemOauth2EndpointParams {}
+            pub struct RemoteReadItemOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct RemoteWriteItemOauth2EndpointParams {}
+            pub struct RemoteWriteItemOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
             pub struct ContainersItemEnvFromItem {
@@ -4542,7 +4737,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// The labels to add to any time series or alerts when communicating with external systems (federation, remote storage, Alertmanager).
-            pub struct ExternalLabels {}
+            pub struct ExternalLabels {
+                /// The labels to add to any time series or alerts when communicating with external systems (federation, remote storage, Alertmanager).
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
             pub struct Fc {
@@ -4719,10 +4917,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Custom HTTP headers to be sent along with each remote read request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.26.0 and newer.
-            pub struct RemoteReadItemHeaders {}
+            pub struct RemoteReadItemHeaders {
+                /// Custom HTTP headers to be sent along with each remote read request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.26.0 and newer.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Custom HTTP headers to be sent along with each remote write request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.25.0 and newer.
-            pub struct RemoteWriteItemHeaders {}
+            pub struct RemoteWriteItemHeaders {
+                /// Custom HTTP headers to be sent along with each remote write request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.25.0 and newer.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
             pub struct HostAliasesItem {
@@ -5206,10 +5410,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-            pub struct PodMetadataLabels {}
+            pub struct PodMetadataLabels {
+                /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-            pub struct MetadataLabels {}
+            pub struct MetadataLabels {
+                /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
             pub struct ContainersItemLifecycle {
@@ -5228,25 +5438,67 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesLimits {}
+            pub struct SpecContainersItemResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesLimits {}
+            pub struct SpecInitContainersItemResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecResourcesLimits {}
+            pub struct SpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecThanosResourcesLimits {}
+            pub struct SpecThanosResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemLivenessProbe {
@@ -5548,74 +5800,137 @@ pub mod monitoring_coreos_com {
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecPodMonitorNamespaceSelectorMatchLabels {}
+            pub struct SpecPodMonitorNamespaceSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecPodMonitorSelectorMatchLabels {}
+            pub struct SpecPodMonitorSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecProbeNamespaceSelectorMatchLabels {}
+            pub struct SpecProbeNamespaceSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecProbeSelectorMatchLabels {}
+            pub struct SpecProbeSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleNamespaceSelectorMatchLabels {}
+            pub struct SpecRuleNamespaceSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleSelectorMatchLabels {}
+            pub struct SpecRuleSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecServiceMonitorNamespaceSelectorMatchLabels {}
+            pub struct SpecServiceMonitorNamespaceSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecServiceMonitorSelectorMatchLabels {}
+            pub struct SpecServiceMonitorSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {}
+            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct StorageEphemeralVolumeClaimTemplateMetadata {}
+            pub struct StorageEphemeralVolumeClaimTemplateMetadata {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
             pub struct SpecStorageVolumeClaimTemplateMetadata {
@@ -5628,7 +5943,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// MetadataConfig configures the sending of series metadata to the remote storage.
             pub struct MetadataConfig {
@@ -5697,7 +6015,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define which Nodes the Pods are scheduled on.
-            pub struct NodeSelector {}
+            pub struct NodeSelector {
+                /// Define which Nodes the Pods are scheduled on.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             pub struct NodeSelectorTermsItem {
@@ -5746,7 +6067,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: Extra command options if any.
-            pub struct Options {}
+            pub struct Options {
+                /// Optional: Extra command options if any.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
             pub struct ApiserverConfigBasicAuthPassword {
@@ -6192,25 +6516,67 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesRequests {}
+            pub struct SpecContainersItemResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesRequests {}
+            pub struct SpecInitContainersItemResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecResourcesRequests {}
+            pub struct SpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecThanosResourcesRequests {}
+            pub struct SpecThanosResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
@@ -6243,7 +6609,10 @@ pub mod monitoring_coreos_com {
         }
 
             /// An optional list of equality matchers which have to be present in a selector to query the remote read endpoint.
-            pub struct RequiredMatchers {}
+            pub struct RequiredMatchers {
+                /// An optional list of equality matchers which have to be present in a selector to query the remote read endpoint.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
             pub struct ContainersItemEnvItemValueFromResourceFieldRef {
@@ -7528,7 +7897,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-            pub struct VolumeAttributes {}
+            pub struct VolumeAttributes {
+                /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -7817,7 +8189,9 @@ pub mod monitoring_coreos_com {
                 pub spec: Spec,
             }
 
-            pub struct Annotations {}
+            pub struct Annotations {
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// RuleGroup is a list of sequentially evaluated recording and alerting rules. Note: PartialResponseStrategy is only used by ThanosRuler and will be ignored by Prometheus instances.  Valid values for this field are 'warn' or 'abort'.  More info: https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md#partial-response
             pub struct GroupsItem {
@@ -7827,7 +8201,9 @@ pub mod monitoring_coreos_com {
                 pub rules: Vec<RulesItem>,
             }
 
-            pub struct Labels {}
+            pub struct Labels {
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Rule describes an alerting or recording rule See Prometheus documentation: [alerting](https://www.prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) or [recording](https://www.prometheus.io/docs/prometheus/latest/configuration/recording_rules/#recording-rules) rule
             pub struct RulesItem {
@@ -7975,7 +8351,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
-            pub struct EndpointParams {}
+            pub struct EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Endpoint defines a scrapeable endpoint serving Prometheus metrics.
             pub struct EndpointsItem {
@@ -8040,7 +8419,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct MatchLabels {}
+            pub struct MatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
             pub struct MetricRelabelingsItem {
@@ -8083,7 +8465,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional HTTP URL parameters
-            pub struct Params {}
+            pub struct Params {
+                /// Optional HTTP URL parameters
+                pub properties: std::collections::HashMap<String, Vec<String>>,
+            }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
             pub struct Password {
@@ -8269,13 +8654,25 @@ pub mod monitoring_coreos_com {
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-            pub struct AllocatedResources {}
+            pub struct AllocatedResources {
+                /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-            pub struct PodMetadataAnnotations {}
+            pub struct PodMetadataAnnotations {
+                /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-            pub struct MetadataAnnotations {}
+            pub struct MetadataAnnotations {
+                /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
             pub struct AwsElasticBlockStore {
@@ -8340,7 +8737,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// Represents the actual resources of the underlying volume.
-            pub struct Capacity {}
+            pub struct Capacity {
+                /// Represents the actual resources of the underlying volume.
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
             pub struct Cephfs {
@@ -9363,13 +9766,22 @@ pub mod monitoring_coreos_com {
             }
 
             /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
-            pub struct SpecLabels {}
+            pub struct SpecLabels {
+                /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-            pub struct PodMetadataLabels {}
+            pub struct PodMetadataLabels {
+                /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-            pub struct MetadataLabels {}
+            pub struct MetadataLabels {
+                /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
             pub struct ContainersItemLifecycle {
@@ -9388,22 +9800,58 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesLimits {}
+            pub struct SpecContainersItemResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesLimits {}
+            pub struct SpecInitContainersItemResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecResourcesLimits {}
+            pub struct SpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct SpecStorageVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
             pub struct ContainersItemLivenessProbe {
@@ -9645,56 +10093,101 @@ pub mod monitoring_coreos_com {
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct AffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub struct SpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {}
+            {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleNamespaceSelectorMatchLabels {}
+            pub struct SpecRuleNamespaceSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecRuleSelectorMatchLabels {}
+            pub struct SpecRuleSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct SpecStorageVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {}
+            pub struct SpecTopologySpreadConstraintsItemLabelSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+                /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct StorageEphemeralVolumeClaimTemplateMetadata {}
+            pub struct StorageEphemeralVolumeClaimTemplateMetadata {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
             pub struct SpecStorageVolumeClaimTemplateMetadata {
@@ -9707,7 +10200,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
@@ -9768,7 +10264,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define which Nodes the Pods are scheduled on.
-            pub struct NodeSelector {}
+            pub struct NodeSelector {
+                /// Define which Nodes the Pods are scheduled on.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             pub struct NodeSelectorTermsItem {
@@ -9789,7 +10288,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: Extra command options if any.
-            pub struct Options {}
+            pub struct Options {
+                /// Optional: Extra command options if any.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
             pub struct PersistentVolumeClaim {
@@ -10083,22 +10585,58 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecContainersItemResourcesRequests {}
+            pub struct SpecContainersItemResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecInitContainersItemResourcesRequests {}
+            pub struct SpecInitContainersItemResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecResourcesRequests {}
+            pub struct SpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct SpecStorageVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {}
+            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
@@ -10976,7 +11514,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-            pub struct VolumeAttributes {}
+            pub struct VolumeAttributes {
+                /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -11272,7 +11813,10 @@ pub mod monitoring_coreos_com {
             }
 
             /// SNS message attributes.
-            pub struct Attributes {}
+            pub struct Attributes {
+                /// SNS message attributes.
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// The secret's key that contains the password to use for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
             pub struct AuthPassword {
@@ -12313,31 +12857,58 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
-            pub struct OpsgenieConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct OpsgenieConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct PagerdutyConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct PagerdutyConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct PushoverConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct PushoverConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct SlackConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct SlackConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct SnsConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct SnsConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct TelegramConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct TelegramConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct VictoropsConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct VictoropsConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct WebhookConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct WebhookConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// Parameters to append to the token URL
-            pub struct WechatConfigsItemHttpConfigOauth2EndpointParams {}
+            pub struct WechatConfigsItemHttpConfigOauth2EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
+            }
 
             /// SlackField configures a single Slack field that is sent with each notification. Each field must contain a title, value, and optionally, a boolean value to indicate if the field is short enough to be displayed next to other fields designated as short. See https://api.slack.com/docs/message-attachments#fields for more information.
             pub struct FieldsItem {
@@ -13034,7 +13605,8 @@ pub mod monitoring_coreos_com {
                 pub receiver: String,
                 /// How long to wait before repeating the last notification. Must match the regular expression`^(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?$` Example: "4h"
                 pub repeat_interval: String,
-                // Child routes.
+                /// Child routes.
+                pub routes: Vec<std::collections::HashMap<String, String>>,
             }
 
             /// The secret's key that contains the PagerDuty integration key (when using Events API v2). Either this field or `serviceKey` needs to be defined. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.

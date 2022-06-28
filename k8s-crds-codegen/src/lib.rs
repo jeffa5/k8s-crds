@@ -290,79 +290,12 @@ fn make_struct<W: Write>(
     if let Some(properties) = props.properties.as_ref() {
         parents.push(camel_case(name));
         for (property, props) in properties {
-            let property_typename = rename_mapping
-                .get(&(parents.clone(), camel_case(property)))
-                .cloned();
             if let Some(description) = &props.description {
                 for line in description.lines() {
                     writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
                 }
             }
-            let ty = match props.type_.as_deref() {
-                Some("object") => property_typename.unwrap(),
-                Some("boolean") => "bool".to_owned(),
-                Some("string") => "String".to_owned(),
-                Some("integer") => match props.format.as_deref() {
-                    Some("int32") => "i32".to_owned(),
-                    Some("int64") => "i64".to_owned(),
-                    Some(f) => {
-                        println!("unhandled format with integer type {}", f);
-                        continue;
-                    }
-                    None => "i64".to_owned(),
-                },
-                Some("array") => {
-                    let inner_type = if let Some(JSONSchemaPropsOrArray::Schema(schema)) =
-                        &props.items
-                    {
-                        match schema.type_.as_deref() {
-                            Some("object") => rename_mapping
-                                .get(&(parents.clone(), camel_case(&format!("{}Item", property))))
-                                .cloned()
-                                .unwrap(),
-                            Some("string") => "String".to_owned(),
-                            Some("integer") => match schema.format.as_deref() {
-                                Some("int32") => "i32".to_owned(),
-                                Some("int64") => "i64".to_owned(),
-                                Some(f) => {
-                                    println!("unhandled format with integer type {} in array", f);
-                                    continue;
-                                }
-                                None => {
-                                    println!("no format given with integer in array");
-                                    continue;
-                                }
-                            },
-                            Some(i) => {
-                                println!("unhandled inner type {} in array", i);
-                                continue;
-                            }
-                            None => {
-                                println!("Missing inner type in array");
-                                continue;
-                            }
-                        }
-                    } else {
-                        println!("missing schema in array");
-                        continue;
-                    };
-                    format!("Vec<{}>", inner_type)
-                    // println!("skipping array");
-                    // continue;
-                }
-                Some(t) => {
-                    println!("unhandled type {}", t);
-                    continue;
-                }
-                None => {
-                    if let Some(true) = props.x_kubernetes_int_or_string {
-                        "k8s_openapi::apimachinery::pkg::util::intstr::IntOrString".to_owned()
-                    } else {
-                        println!("no type given");
-                        continue;
-                    }
-                }
-            };
+            let ty = get_type(parents.clone(), property, props, rename_mapping);
             writeln!(
                 f,
                 "{}{}pub {}: {},",
@@ -378,24 +311,7 @@ fn make_struct<W: Write>(
                 writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
             }
         }
-        let value_type = match properties.type_.as_deref() {
-            Some("boolean") => "bool".to_owned(),
-            Some("string") => "String".to_owned(),
-            Some("integer") => match props.format.as_deref() {
-                Some("int32") => "i32".to_owned(),
-                Some("int64") => "i64".to_owned(),
-                Some(f) => {
-                    println!("unhandled format with integer type {}", f);
-                    "()".to_owned()
-                }
-                None => "i64".to_owned(),
-            },
-            Some(t) => {
-                println!("unhandled type {}", t);
-                "()".to_owned()
-            }
-            None => "()".to_owned(),
-        };
+        let value_type = get_type(parents, "properties", properties, rename_mapping);
         writeln!(
             f,
             "{}{}pub {}: std::collections::HashMap<String, {}>,",
@@ -430,6 +346,55 @@ fn make_struct<W: Write>(
 "
     )?;
     Ok(())
+}
+
+fn get_type(
+    parents: Vec<String>,
+    property: &str,
+    props: &JSONSchemaProps,
+    rename_mapping: &BTreeMap<(Vec<String>, String), String>,
+) -> String {
+    match props.type_.as_deref() {
+        Some("object") => rename_mapping
+            .get(&(parents, camel_case(property)))
+            .cloned()
+            .unwrap(),
+        Some("boolean") => "bool".to_owned(),
+        Some("string") => "String".to_owned(),
+        Some("integer") => match props.format.as_deref() {
+            Some("int32") => "i32".to_owned(),
+            Some("int64") => "i64".to_owned(),
+            Some(f) => {
+                todo!("unhandled format with integer type {}", f);
+            }
+            None => "i64".to_owned(),
+        },
+        Some("array") => {
+            let inner_type = if let Some(JSONSchemaPropsOrArray::Schema(schema)) = &props.items {
+                get_type(
+                    parents,
+                    &format!("{}Item", property),
+                    schema,
+                    rename_mapping,
+                )
+            } else {
+                todo!("missing schema in array");
+            };
+            format!("Vec<{}>", inner_type)
+        }
+        Some(t) => {
+            todo!("unhandled type {}", t);
+        }
+        None => {
+            if let Some(true) = props.x_kubernetes_int_or_string {
+                "k8s_openapi::apimachinery::pkg::util::intstr::IntOrString".to_owned()
+            } else if Some(true) == props.x_kubernetes_preserve_unknown_fields {
+                "std::collections::HashMap<String, String>".to_owned()
+            } else {
+                todo!("no type given");
+            }
+        }
+    }
 }
 
 fn snake_case(s: &str) -> String {

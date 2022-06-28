@@ -1,4 +1,4 @@
-use std::collections::BTreeSet;
+use k8s_openapi::serde::Deserialize;
 use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
 use tracing::{debug, info};
@@ -21,11 +21,15 @@ fn fetch_resource(resource: &str) -> anyhow::Result<Crd> {
     Ok(crd)
 }
 
-fn read_resource(file: &Path) -> anyhow::Result<Crd> {
+fn read_resource(file: &Path) -> anyhow::Result<Vec<Crd>> {
     let f = File::open(file)?;
 
-    let crd = serde_yaml::from_reader(f)?;
-    Ok(crd)
+    let mut crds = Vec::new();
+    for document in serde_yaml::Deserializer::from_reader(f) {
+        let crd = Crd::deserialize(document)?;
+        crds.push(crd);
+    }
+    Ok(crds)
 }
 
 pub fn build_from_url<W: Write>(writer: &mut W, url: &str) -> anyhow::Result<()> {
@@ -48,18 +52,25 @@ pub fn build_from_urls<W: Write>(writer: &mut W, urls: &[String]) -> anyhow::Res
 pub fn build_from_path<W: Write, P: AsRef<Path>>(writer: &mut W, path: P) -> anyhow::Result<()> {
     let path = path.as_ref();
     info!(?path, "Building from path");
-    let crd = read_resource(path)?;
-    build(writer, vec![crd])
+    let crds = read_resource(path)?;
+    build(writer, crds)
+}
+
+pub fn build_from_paths<W: Write, P: AsRef<Path>>(
+    writer: &mut W,
+    paths: Vec<P>,
+) -> anyhow::Result<()> {
+    let mut crds = Vec::new();
+    for path in paths {
+        let path = path.as_ref();
+        info!(?path, "Building from path");
+        let mut crd = read_resource(path)?;
+        crds.append(&mut crd);
+    }
+    build(writer, crds)
 }
 
 fn build<W: Write>(writer: &mut W, crds: Vec<Crd>) -> anyhow::Result<()> {
-    let groups = crds
-        .iter()
-        .map(|crd| &crd.spec.group)
-        .collect::<BTreeSet<_>>();
-
-    assert_eq!(groups.len(), 1, "only support one group for now");
-
     let mut crd_map = BTreeMap::new();
     for crd in crds {
         for version in crd.spec.versions {

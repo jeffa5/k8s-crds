@@ -2,6 +2,8 @@ use std::fs::File;
 use std::process::Command;
 
 fn main() {
+    tracing_subscriber::fmt::init();
+
     let urls = [
         "https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/kube-prometheus-stack/crds/crd-alertmanagerconfigs.yaml",
         "https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/kube-prometheus-stack/crds/crd-alertmanagers.yaml",

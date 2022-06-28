@@ -1,4 +1,4 @@
-use std::collections::{BTreeSet, HashSet};
+use std::collections::BTreeSet;
 use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
 use tracing::{debug, info};
@@ -134,37 +134,11 @@ fn build_resource<W: Write>(
     let mut rename_mapping = BTreeMap::new();
 
     for (n, parents_and_props) in &structs {
-        let mut names = Vec::new();
-        debug!(?n, len = parents_and_props.len(), "Found items for a name");
-        for (parents, _) in parents_and_props {
-            names.push((parents.clone(), n.clone()));
-        }
-
-        loop {
-            if names.len()
-                == names
-                    .iter()
-                    .map(|(_, n)| n)
-                    .cloned()
-                    .collect::<HashSet<_>>()
-                    .len()
-            {
-                // all unique
-                break;
-            }
-
-            // otherwise go through adding part of the parent to the name.
-            for (parents, name) in &mut names {
-                if let Some(last) = parents.pop() {
-                    *name = format!("{}{}", last, name);
-                }
-            }
-        }
-
-        for ((parents, _), (_, name)) in parents_and_props.iter().zip(names) {
-            debug!(?parents, ?n, ?name, "Creating rename mapping");
-            rename_mapping.insert((parents.clone(), n.clone()), name);
-        }
+        make_unique_names(
+            &parents_and_props.iter().map(|(p, _)| p).collect::<Vec<_>>(),
+            n,
+            &mut rename_mapping,
+        )
     }
 
     for property in schema.properties.as_ref().unwrap().keys() {
@@ -231,6 +205,46 @@ fn build_resource<W: Write>(
     writeln!(f, "}}")?;
 
     Ok(())
+}
+
+fn make_unique_names(
+    parents: &[&Vec<String>],
+    n: &str,
+    rename_mapping: &mut BTreeMap<(Vec<String>, String), String>,
+) {
+    let mut names = Vec::new();
+    debug!(?n, len = parents.len(), "Found items for a name");
+    for &parents in parents {
+        names.push((parents.clone(), n.to_owned()));
+    }
+
+    loop {
+        let mut counts = BTreeMap::<_, u32>::new();
+        for (_, name) in &names {
+            *counts.entry(name.clone()).or_default() += 1;
+        }
+
+        if names.len() == counts.len() {
+            // all unique
+            break;
+        }
+
+        debug!(?names,names_len=?names.len(), non_unique=?counts.len(), "Still have non-unique names");
+
+        // otherwise go through adding part of the parent to the name.
+        for (parents, name) in &mut names {
+            if counts.get(name).unwrap() > &1 {
+                if let Some(last) = parents.pop() {
+                    *name = format!("{}{}", last, name);
+                }
+            }
+        }
+    }
+
+    for (&parents, (_, name)) in parents.iter().zip(names) {
+        debug!(?parents, ?n, ?name, "Creating rename mapping");
+        rename_mapping.insert((parents.clone(), n.to_owned()), name);
+    }
 }
 
 fn make_property_name(name: &str) -> String {

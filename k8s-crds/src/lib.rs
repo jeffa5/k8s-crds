@@ -21,7 +21,7 @@ pub mod monitoring_coreos_com {
             /// Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace.
             pub struct AlertmanagerConfigNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<AlertmanagerConfigNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<AlertmanagerConfigNamespaceSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: AlertmanagerConfigNamespaceSelectorMatchLabels,
             }
@@ -29,7 +29,7 @@ pub mod monitoring_coreos_com {
             /// AlertmanagerConfigs to be selected for to merge and configure Alertmanager with.
             pub struct AlertmanagerConfigSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<AlertmanagerConfigSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<AlertmanagerConfigSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: AlertmanagerConfigSelectorMatchLabels,
             }
@@ -100,7 +100,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextCapabilities {
+            pub struct ContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
                 /// Removed capabilities
@@ -108,7 +108,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextCapabilities {
+            pub struct InitContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
                 /// Removed capabilities
@@ -153,7 +153,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimCondition contails details about state of pvc
-            pub struct ConditionsItem {
+            pub struct Condition {
                 /// Last time we probed the condition.
                 pub last_probe_time: String,
                 /// Last time the condition transitioned from one status to another.
@@ -168,11 +168,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
-            pub struct VolumesItemConfigMap {
+            pub struct VolumeConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<VolumesItemConfigMapItemsItem>,
+                pub items: Vec<VolumeConfigMapItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap or its keys must be defined
@@ -180,9 +180,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
-            pub struct SourcesItemConfigMap {
+            pub struct SourceConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemConfigMapItemsItem>,
+                pub items: Vec<SourceConfigMapItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap or its keys must be defined
@@ -190,7 +190,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
-            pub struct ContainersItemEnvItemValueFromConfigMapKeyRef {
+            pub struct ContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -200,7 +200,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
-            pub struct InitContainersItemEnvItemValueFromConfigMapKeyRef {
+            pub struct InitContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -210,7 +210,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
-            pub struct ContainersItemEnvFromItemConfigMapRef {
+            pub struct ContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap must be defined
@@ -218,7 +218,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
-            pub struct InitContainersItemEnvFromItemConfigMapRef {
+            pub struct InitContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap must be defined
@@ -226,35 +226,35 @@ pub mod monitoring_coreos_com {
             }
 
             /// A single application container that you want to run within a pod.
-            pub struct ContainersItem {
+            pub struct Container {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
                 /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub command: Vec<String>,
                 /// List of environment variables to set in the container. Cannot be updated.
-                pub env: Vec<ContainersItemEnvItem>,
+                pub env: Vec<ContainerEnvItem>,
                 /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-                pub env_from: Vec<ContainersItemEnvFromItem>,
+                pub env_from: Vec<ContainerEnvFromItem>,
                 /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
                 pub image: String,
                 /// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
                 pub image_pull_policy: String,
                 /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-                pub lifecycle: ContainersItemLifecycle,
+                pub lifecycle: ContainerLifecycle,
                 /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub liveness_probe: ContainersItemLivenessProbe,
+                pub liveness_probe: ContainerLivenessProbe,
                 /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
                 pub name: String,
                 /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-                pub ports: Vec<ContainersItemPortsItem>,
+                pub ports: Vec<ContainerPort>,
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub readiness_probe: ContainersItemReadinessProbe,
+                pub readiness_probe: ContainerReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: ContainersItemResources,
+                pub resources: ContainerResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-                pub security_context: ContainersItemSecurityContext,
+                pub security_context: ContainerSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub startup_probe: ContainersItemStartupProbe,
+                pub startup_probe: ContainerStartupProbe,
                 /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
                 pub stdin: bool,
                 /// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
@@ -266,9 +266,9 @@ pub mod monitoring_coreos_com {
                 /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
                 pub tty: bool,
                 /// volumeDevices is the list of block devices to be used by the container.
-                pub volume_devices: Vec<ContainersItemVolumeDevicesItem>,
+                pub volume_devices: Vec<ContainerVolumeDevice>,
                 /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-                pub volume_mounts: Vec<ContainersItemVolumeMountsItem>,
+                pub volume_mounts: Vec<ContainerVolumeMount>,
                 /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
                 pub working_dir: String,
             }
@@ -308,7 +308,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecDataSource {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -338,7 +338,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecDataSourceRef {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -348,17 +348,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPI represents downward API about the pod that should populate this volume
-            pub struct VolumesItemDownwardAPI {
+            pub struct VolumeDownwardAPI {
                 /// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// Items is a list of downward API volume file
-                pub items: Vec<VolumesItemDownwardAPIItemsItem>,
+                pub items: Vec<VolumeDownwardAPIItem>,
             }
 
             /// information about the downwardAPI data to project
-            pub struct SourcesItemDownwardAPI {
+            pub struct SourceDownwardAPI {
                 /// Items is a list of DownwardAPIVolume file
-                pub items: Vec<SourcesItemDownwardAPIItemsItem>,
+                pub items: Vec<SourceDownwardAPIItem>,
             }
 
             /// EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
@@ -370,7 +370,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-            pub struct VolumesItemEmptyDir {
+            pub struct VolumeEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
                 /// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
@@ -378,43 +378,43 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
-            pub struct ContainersItemEnvFromItem {
+            pub struct ContainerEnvFromItem {
                 /// The ConfigMap to select from
-                pub config_map_ref: ContainersItemEnvFromItemConfigMapRef,
+                pub config_map_ref: ContainerEnvFromItemConfigMapRef,
                 /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
                 pub prefix: String,
                 /// The Secret to select from
-                pub secret_ref: ContainersItemEnvFromItemSecretRef,
+                pub secret_ref: ContainerEnvFromItemSecretRef,
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
-            pub struct InitContainersItemEnvFromItem {
+            pub struct InitContainerEnvFromItem {
                 /// The ConfigMap to select from
-                pub config_map_ref: InitContainersItemEnvFromItemConfigMapRef,
+                pub config_map_ref: InitContainerEnvFromItemConfigMapRef,
                 /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
                 pub prefix: String,
                 /// The Secret to select from
-                pub secret_ref: InitContainersItemEnvFromItemSecretRef,
+                pub secret_ref: InitContainerEnvFromItemSecretRef,
             }
 
             /// EnvVar represents an environment variable present in a Container.
-            pub struct ContainersItemEnvItem {
+            pub struct ContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
                 /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
                 pub value: String,
                 /// Source for the environment variable's value. Cannot be used if value is not empty.
-                pub value_from: ContainersItemEnvItemValueFrom,
+                pub value_from: ContainerEnvItemValueFrom,
             }
 
             /// EnvVar represents an environment variable present in a Container.
-            pub struct InitContainersItemEnvItem {
+            pub struct InitContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
                 /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
                 pub value: String,
                 /// Source for the environment variable's value. Cannot be used if value is not empty.
-                pub value_from: InitContainersItemEnvItemValueFrom,
+                pub value_from: InitContainerEnvItemValueFrom,
             }
 
             /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
@@ -431,70 +431,70 @@ pub mod monitoring_coreos_com {
             ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
             ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
             ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-            pub struct VolumesItemEphemeral {
+            pub struct VolumeEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
                 ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
                 ///  Required, must not be nil.
-                pub volume_claim_template: VolumesItemEphemeralVolumeClaimTemplate,
+                pub volume_claim_template: VolumeEphemeralVolumeClaimTemplate,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLifecyclePostStartExec {
+            pub struct ContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLifecyclePreStopExec {
+            pub struct ContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLivenessProbeExec {
+            pub struct ContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemReadinessProbeExec {
+            pub struct ContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemStartupProbeExec {
+            pub struct ContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLifecyclePostStartExec {
+            pub struct InitContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLifecyclePreStopExec {
+            pub struct InitContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLivenessProbeExec {
+            pub struct InitContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemReadinessProbeExec {
+            pub struct InitContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemStartupProbeExec {
+            pub struct InitContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -514,7 +514,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-            pub struct ContainersItemEnvItemValueFromFieldRef {
+            pub struct ContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -522,7 +522,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-            pub struct InitContainersItemEnvItemValueFromFieldRef {
+            pub struct InitContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -530,7 +530,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-            pub struct VolumesItemDownwardAPIItemsItemFieldRef {
+            pub struct VolumeDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -538,7 +538,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-            pub struct SourcesItemDownwardAPIItemsItemFieldRef {
+            pub struct SourceDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -600,7 +600,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemLivenessProbeGrpc {
+            pub struct ContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -609,7 +609,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemReadinessProbeGrpc {
+            pub struct ContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -618,7 +618,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemStartupProbeGrpc {
+            pub struct ContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -627,7 +627,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemLivenessProbeGrpc {
+            pub struct InitContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -636,7 +636,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemReadinessProbeGrpc {
+            pub struct InitContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -645,7 +645,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemStartupProbeGrpc {
+            pub struct InitContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -654,7 +654,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
-            pub struct HostAliasesItem {
+            pub struct HostAliase {
                 /// Hostnames for the above IP address.
                 pub hostnames: Vec<String>,
                 /// IP address of the host file entry.
@@ -670,11 +670,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLifecyclePostStartHttpGet {
+            pub struct ContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLifecyclePostStartHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -684,11 +684,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLifecyclePreStopHttpGet {
+            pub struct ContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLifecyclePreStopHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -698,11 +698,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLivenessProbeHttpGet {
+            pub struct ContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLivenessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -712,11 +712,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemReadinessProbeHttpGet {
+            pub struct ContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerReadinessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -726,11 +726,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemStartupProbeHttpGet {
+            pub struct ContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerStartupProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -740,11 +740,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLifecyclePostStartHttpGet {
+            pub struct InitContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLifecyclePostStartHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -754,11 +754,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLifecyclePreStopHttpGet {
+            pub struct InitContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLifecyclePreStopHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -768,11 +768,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLivenessProbeHttpGet {
+            pub struct InitContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLivenessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -782,11 +782,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemReadinessProbeHttpGet {
+            pub struct InitContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerReadinessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -796,11 +796,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemStartupProbeHttpGet {
+            pub struct InitContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerStartupProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -810,7 +810,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+            pub struct ContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -818,7 +818,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+            pub struct ContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -826,7 +826,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct ContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -834,7 +834,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct ContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -842,7 +842,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct ContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -850,7 +850,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+            pub struct InitContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -858,7 +858,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+            pub struct InitContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -866,7 +866,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -874,7 +874,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -882,7 +882,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -890,41 +890,41 @@ pub mod monitoring_coreos_com {
             }
 
             /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
-            pub struct ImagePullSecretsItem {
+            pub struct ImagePullSecret {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// A single application container that you want to run within a pod.
-            pub struct InitContainersItem {
+            pub struct InitContainer {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
                 /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub command: Vec<String>,
                 /// List of environment variables to set in the container. Cannot be updated.
-                pub env: Vec<InitContainersItemEnvItem>,
+                pub env: Vec<InitContainerEnvItem>,
                 /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-                pub env_from: Vec<InitContainersItemEnvFromItem>,
+                pub env_from: Vec<InitContainerEnvFromItem>,
                 /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
                 pub image: String,
                 /// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
                 pub image_pull_policy: String,
                 /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-                pub lifecycle: InitContainersItemLifecycle,
+                pub lifecycle: InitContainerLifecycle,
                 /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub liveness_probe: InitContainersItemLivenessProbe,
+                pub liveness_probe: InitContainerLivenessProbe,
                 /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
                 pub name: String,
                 /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-                pub ports: Vec<InitContainersItemPortsItem>,
+                pub ports: Vec<InitContainerPort>,
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub readiness_probe: InitContainersItemReadinessProbe,
+                pub readiness_probe: InitContainerReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: InitContainersItemResources,
+                pub resources: InitContainerResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-                pub security_context: InitContainersItemSecurityContext,
+                pub security_context: InitContainerSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub startup_probe: InitContainersItemStartupProbe,
+                pub startup_probe: InitContainerStartupProbe,
                 /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
                 pub stdin: bool,
                 /// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
@@ -936,9 +936,9 @@ pub mod monitoring_coreos_com {
                 /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
                 pub tty: bool,
                 /// volumeDevices is the list of block devices to be used by the container.
-                pub volume_devices: Vec<InitContainersItemVolumeDevicesItem>,
+                pub volume_devices: Vec<InitContainerVolumeDevice>,
                 /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-                pub volume_mounts: Vec<InitContainersItemVolumeMountsItem>,
+                pub volume_mounts: Vec<InitContainerVolumeMount>,
                 /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
                 pub working_dir: String,
             }
@@ -970,7 +970,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct VolumesItemConfigMapItemsItem {
+            pub struct VolumeConfigMapItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -980,19 +980,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
-            pub struct VolumesItemDownwardAPIItemsItem {
+            pub struct VolumeDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-                pub field_ref: VolumesItemDownwardAPIItemsItemFieldRef,
+                pub field_ref: VolumeDownwardAPIItemFieldRef,
                 /// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub mode: i32,
                 /// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
                 pub path: String,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-                pub resource_field_ref: VolumesItemDownwardAPIItemsItemResourceFieldRef,
+                pub resource_field_ref: VolumeDownwardAPIItemResourceFieldRef,
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct SourcesItemConfigMapItemsItem {
+            pub struct SourceConfigMapItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -1002,19 +1002,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
-            pub struct SourcesItemDownwardAPIItemsItem {
+            pub struct SourceDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-                pub field_ref: SourcesItemDownwardAPIItemsItemFieldRef,
+                pub field_ref: SourceDownwardAPIItemFieldRef,
                 /// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub mode: i32,
                 /// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
                 pub path: String,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-                pub resource_field_ref: SourcesItemDownwardAPIItemsItemResourceFieldRef,
+                pub resource_field_ref: SourceDownwardAPIItemResourceFieldRef,
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct SourcesItemSecretItemsItem {
+            pub struct SourceSecretItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -1024,7 +1024,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct VolumesItemSecretItemsItem {
+            pub struct VolumeSecretItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -1036,7 +1036,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -1044,7 +1044,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -1052,7 +1052,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -1060,18 +1060,17 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-            pub struct TopologySpreadConstraintsItemLabelSelector {
+            pub struct TopologySpreadConstraintLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<TopologySpreadConstraintLabelSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
+                pub match_labels: TopologySpreadConstraintLabelSelectorMatchLabels,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -1087,23 +1086,23 @@ pub mod monitoring_coreos_com {
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-            pub struct ContainersItemLifecycle {
+            pub struct ContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub post_start: ContainersItemLifecyclePostStart,
+                pub post_start: ContainerLifecyclePostStart,
                 /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub pre_stop: ContainersItemLifecyclePreStop,
+                pub pre_stop: ContainerLifecyclePreStop,
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-            pub struct InitContainersItemLifecycle {
+            pub struct InitContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub post_start: InitContainersItemLifecyclePostStart,
+                pub post_start: InitContainerLifecyclePostStart,
                 /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub pre_stop: InitContainersItemLifecyclePreStop,
+                pub pre_stop: InitContainerLifecyclePreStop,
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResourcesLimits {
+            pub struct ContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1112,7 +1111,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResourcesLimits {
+            pub struct InitContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1148,7 +1147,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1157,15 +1156,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemLivenessProbe {
+            pub struct ContainerLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLivenessProbeExec,
+                pub exec: ContainerLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemLivenessProbeGrpc,
+                pub grpc: ContainerLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLivenessProbeHttpGet,
+                pub http_get: ContainerLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1173,7 +1172,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: ContainerLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1181,15 +1180,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemLivenessProbe {
+            pub struct InitContainerLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLivenessProbeExec,
+                pub exec: InitContainerLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemLivenessProbeGrpc,
+                pub grpc: InitContainerLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLivenessProbeHttpGet,
+                pub http_get: InitContainerLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1197,7 +1196,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: InitContainerLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1205,7 +1204,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PreferenceMatchExpressionsItem {
+            pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1215,7 +1214,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct NodeSelectorTermsItemMatchExpressionsItem {
+            pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1225,7 +1224,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1236,7 +1235,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1247,7 +1246,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1258,7 +1257,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1269,7 +1268,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1280,7 +1279,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1291,7 +1290,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1302,7 +1301,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1313,7 +1312,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AlertmanagerConfigNamespaceSelectorMatchExpressionsItem {
+            pub struct AlertmanagerConfigNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1323,7 +1322,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct AlertmanagerConfigSelectorMatchExpressionsItem {
+            pub struct AlertmanagerConfigSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1333,7 +1332,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1343,7 +1342,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1353,7 +1352,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+            pub struct TopologySpreadConstraintLabelSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1363,7 +1362,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -1373,7 +1372,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PreferenceMatchFieldsItem {
+            pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1383,7 +1382,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct NodeSelectorTermsItemMatchFieldsItem {
+            pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1472,13 +1471,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
+            pub struct TopologySpreadConstraintLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -1500,7 +1499,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
+            pub struct VolumeEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -1508,7 +1507,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -1516,7 +1515,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -1524,7 +1523,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -1532,7 +1531,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -1570,11 +1569,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
-            pub struct NodeSelectorTermsItem {
+            pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+                pub match_fields: Vec<NodeSelectorTermMatchField>,
             }
 
             /// Optional: Extra command options if any.
@@ -1654,7 +1653,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
-            pub struct ContainersItemPortsItem {
+            pub struct ContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
                 /// What host IP to bind the external port to.
@@ -1668,7 +1667,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
-            pub struct InitContainersItemPortsItem {
+            pub struct InitContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
                 /// What host IP to bind the external port to.
@@ -1692,51 +1691,51 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct ContainersItemLifecyclePostStart {
+            pub struct ContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLifecyclePostStartExec,
+                pub exec: ContainerLifecyclePostStartExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLifecyclePostStartHttpGet,
+                pub http_get: ContainerLifecyclePostStartHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: ContainersItemLifecyclePostStartTcpSocket,
+                pub tcp_socket: ContainerLifecyclePostStartTcpSocket,
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct InitContainersItemLifecyclePostStart {
+            pub struct InitContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLifecyclePostStartExec,
+                pub exec: InitContainerLifecyclePostStartExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLifecyclePostStartHttpGet,
+                pub http_get: InitContainerLifecyclePostStartHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: InitContainersItemLifecyclePostStartTcpSocket,
+                pub tcp_socket: InitContainerLifecyclePostStartTcpSocket,
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct ContainersItemLifecyclePreStop {
+            pub struct ContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLifecyclePreStopExec,
+                pub exec: ContainerLifecyclePreStopExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLifecyclePreStopHttpGet,
+                pub http_get: ContainerLifecyclePreStopHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: ContainersItemLifecyclePreStopTcpSocket,
+                pub tcp_socket: ContainerLifecyclePreStopTcpSocket,
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct InitContainersItemLifecyclePreStop {
+            pub struct InitContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLifecyclePreStopExec,
+                pub exec: InitContainerLifecyclePreStopExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLifecyclePreStopHttpGet,
+                pub http_get: InitContainerLifecyclePreStopHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: InitContainersItemLifecyclePreStopTcpSocket,
+                pub tcp_socket: InitContainerLifecyclePreStopTcpSocket,
             }
 
             /// A node selector term, associated with the corresponding weight.
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                pub match_expressions: Vec<PreferenceMatchExpression>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+                pub match_fields: Vec<PreferenceMatchField>,
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -1769,7 +1768,7 @@ pub mod monitoring_coreos_com {
                 /// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// list of volume projections
-                pub sources: Vec<SourcesItem>,
+                pub sources: Vec<Source>,
             }
 
             /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
@@ -1809,15 +1808,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemReadinessProbe {
+            pub struct ContainerReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemReadinessProbeExec,
+                pub exec: ContainerReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemReadinessProbeGrpc,
+                pub grpc: ContainerReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemReadinessProbeHttpGet,
+                pub http_get: ContainerReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1825,7 +1824,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: ContainerReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1833,15 +1832,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemReadinessProbe {
+            pub struct InitContainerReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemReadinessProbeExec,
+                pub exec: InitContainerReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemReadinessProbeGrpc,
+                pub grpc: InitContainerReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemReadinessProbeHttpGet,
+                pub http_get: InitContainerReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -1849,7 +1848,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: InitContainerReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -1857,7 +1856,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResourcesRequests {
+            pub struct ContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1866,7 +1865,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResourcesRequests {
+            pub struct InitContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1902,7 +1901,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -1913,7 +1912,7 @@ pub mod monitoring_coreos_com {
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
-                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
+                pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -1943,7 +1942,7 @@ pub mod monitoring_coreos_com {
         }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-            pub struct ContainersItemEnvItemValueFromResourceFieldRef {
+            pub struct ContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -1953,7 +1952,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-            pub struct InitContainersItemEnvItemValueFromResourceFieldRef {
+            pub struct InitContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -1963,7 +1962,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-            pub struct VolumesItemDownwardAPIItemsItemResourceFieldRef {
+            pub struct VolumeDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -1973,7 +1972,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-            pub struct SourcesItemDownwardAPIItemsItemResourceFieldRef {
+            pub struct SourceDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -1983,19 +1982,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResources {
+            pub struct ContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: ContainersItemResourcesLimits,
+                pub limits: ContainerResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: ContainersItemResourcesRequests,
+                pub requests: ContainerResourcesRequests,
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResources {
+            pub struct InitContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: InitContainersItemResourcesLimits,
+                pub limits: InitContainerResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: InitContainersItemResourcesRequests,
+                pub requests: InitContainerResourcesRequests,
             }
 
             /// Define resources requests and limits for single Pods.
@@ -2023,11 +2022,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResources {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits,
+                pub limits: VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests,
+                pub requests: VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests,
             }
 
             /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
@@ -2055,7 +2054,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextSeLinuxOptions {
+            pub struct ContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
                 /// Role is a SELinux role label that applies to the container.
@@ -2067,7 +2066,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextSeLinuxOptions {
+            pub struct InitContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
                 /// Role is a SELinux role label that applies to the container.
@@ -2091,7 +2090,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextSeccompProfile {
+            pub struct ContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
                 /// type indicates which kind of seccomp profile will be applied. Valid options are:
@@ -2100,7 +2099,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextSeccompProfile {
+            pub struct InitContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
                 /// type indicates which kind of seccomp profile will be applied. Valid options are:
@@ -2118,9 +2117,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
-            pub struct SourcesItemSecret {
+            pub struct SourceSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemSecretItemsItem>,
+                pub items: Vec<SourceSecretItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret or its key must be defined
@@ -2128,11 +2127,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-            pub struct VolumesItemSecret {
+            pub struct VolumeSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<VolumesItemSecretItemsItem>,
+                pub items: Vec<VolumeSecretItem>,
                 /// Specify whether the Secret or its keys must be defined
                 pub optional: bool,
                 /// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
@@ -2140,7 +2139,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
-            pub struct ContainersItemEnvItemValueFromSecretKeyRef {
+            pub struct ContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -2150,7 +2149,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
-            pub struct InitContainersItemEnvItemValueFromSecretKeyRef {
+            pub struct InitContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -2160,7 +2159,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
-            pub struct ContainersItemEnvFromItemSecretRef {
+            pub struct ContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret must be defined
@@ -2168,7 +2167,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
-            pub struct InitContainersItemEnvFromItemSecretRef {
+            pub struct InitContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret must be defined
@@ -2218,11 +2217,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-            pub struct ContainersItemSecurityContext {
+            pub struct ContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
                 /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-                pub capabilities: ContainersItemSecurityContextCapabilities,
+                pub capabilities: ContainerSecurityContextCapabilities,
                 /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
                 pub privileged: bool,
                 /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -2236,19 +2235,19 @@ pub mod monitoring_coreos_com {
                 /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
                 pub run_as_user: i64,
                 /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: ContainersItemSecurityContextSeLinuxOptions,
+                pub se_linux_options: ContainerSecurityContextSeLinuxOptions,
                 /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: ContainersItemSecurityContextSeccompProfile,
+                pub seccomp_profile: ContainerSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: ContainersItemSecurityContextWindowsOptions,
+                pub windows_options: ContainerSecurityContextWindowsOptions,
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-            pub struct InitContainersItemSecurityContext {
+            pub struct InitContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
                 /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-                pub capabilities: InitContainersItemSecurityContextCapabilities,
+                pub capabilities: InitContainerSecurityContextCapabilities,
                 /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
                 pub privileged: bool,
                 /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -2262,11 +2261,11 @@ pub mod monitoring_coreos_com {
                 /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
                 pub run_as_user: i64,
                 /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
+                pub se_linux_options: InitContainerSecurityContextSeLinuxOptions,
                 /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
+                pub seccomp_profile: InitContainerSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: InitContainersItemSecurityContextWindowsOptions,
+                pub windows_options: InitContainerSecurityContextWindowsOptions,
             }
 
             /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
@@ -2290,7 +2289,7 @@ pub mod monitoring_coreos_com {
                 /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
                 pub supplemental_groups: Vec<i64>,
                 /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
-                pub sysctls: Vec<SysctlsItem>,
+                pub sysctls: Vec<Sysctl>,
                 /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
                 pub windows_options: SpecSecurityContextWindowsOptions,
             }
@@ -2299,7 +2298,7 @@ pub mod monitoring_coreos_com {
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
             }
@@ -2307,19 +2306,18 @@ pub mod monitoring_coreos_com {
             /// A label query over volumes to consider for binding.
             pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: StorageVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// A label query over volumes to consider for binding.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelector {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
+                pub match_labels: VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// information about the serviceAccountToken data to project
@@ -2333,13 +2331,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// Projection that may be projected along with other supported volume types
-            pub struct SourcesItem {
+            pub struct Source {
                 /// information about the configMap data to project
-                pub config_map: SourcesItemConfigMap,
+                pub config_map: SourceConfigMap,
                 /// information about the downwardAPI data to project
-                pub downward_a_p_i: SourcesItemDownwardAPI,
+                pub downward_a_p_i: SourceDownwardAPI,
                 /// information about the secret data to project
-                pub secret: SourcesItemSecret,
+                pub secret: SourceSecret,
                 /// information about the serviceAccountToken data to project
                 pub service_account_token: ServiceAccountToken,
             }
@@ -2373,19 +2371,19 @@ pub mod monitoring_coreos_com {
                 ///  If either the secret or the `alertmanager.yaml` key is missing, the operator provisions an Alertmanager configuration with one empty receiver (effectively dropping alert notifications).
                 pub config_secret: String,
                 /// Containers allows injecting additional containers. This is meant to allow adding an authentication proxy to an Alertmanager pod. Containers described here modify an operator generated container if they share the same name and modifications are done via a strategic merge patch. The current container names are: `alertmanager` and `config-reloader`. Overriding containers is entirely outside the scope of what the maintainers will support and by doing so, you accept that this behaviour may break at any time without notice.
-                pub containers: Vec<ContainersItem>,
+                pub containers: Vec<Container>,
                 /// The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name.
                 pub external_url: String,
                 /// ForceEnableClusterMode ensures Alertmanager does not deactivate the cluster mode when running with a single replica. Use case is e.g. spanning an Alertmanager cluster across Kubernetes clusters with a single replica in each.
                 pub force_enable_cluster_mode: bool,
                 /// Pods' hostAliases configuration
-                pub host_aliases: Vec<HostAliasesItem>,
+                pub host_aliases: Vec<HostAliase>,
                 /// Image if specified has precedence over baseImage, tag and sha combinations. Specifying the version is still necessary to ensure the Prometheus Operator knows what version of Alertmanager is being configured.
                 pub image: String,
                 /// An optional list of references to secrets in the same namespace to use for pulling prometheus and alertmanager images from registries see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod
-                pub image_pull_secrets: Vec<ImagePullSecretsItem>,
+                pub image_pull_secrets: Vec<ImagePullSecret>,
                 /// InitContainers allows adding initContainers to the pod definition. Those can be used to e.g. fetch secrets for injection into the Alertmanager configuration from external sources. Any errors during the execution of an initContainer will lead to a restart of the Pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ Using initContainers for any use case other then secret fetching is entirely outside the scope of what the maintainers will support and by doing so, you accept that this behaviour may break at any time without notice.
-                pub init_containers: Vec<InitContainersItem>,
+                pub init_containers: Vec<InitContainer>,
                 /// ListenLocal makes the Alertmanager server listen on loopback, so that it does not bind against the Pod IP. Note this is only for the Alertmanager UI, not the gossip communication.
                 pub listen_local: bool,
                 /// Log format for Alertmanager to be configured with.
@@ -2425,15 +2423,15 @@ pub mod monitoring_coreos_com {
                 /// Tag of Alertmanager container image to be deployed. Defaults to the value of `version`. Version is ignored if Tag is set. Deprecated: use 'image' instead.  The image tag can be specified as part of the image URL.
                 pub tag: String,
                 /// If specified, the pod's tolerations.
-                pub tolerations: Vec<TolerationsItem>,
+                pub tolerations: Vec<Toleration>,
                 /// If specified, the pod's topology spread constraints.
-                pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
+                pub topology_spread_constraints: Vec<TopologySpreadConstraint>,
                 /// Version the cluster should be on.
                 pub version: String,
                 /// VolumeMounts allows configuration of additional VolumeMounts on the output StatefulSet definition. VolumeMounts specified will be appended to other VolumeMounts in the alertmanager container, that are generated as a result of StorageSpec objects.
-                pub volume_mounts: Vec<SpecVolumeMountsItem>,
+                pub volume_mounts: Vec<SpecVolumeMount>,
                 /// Volumes allows configuration of additional volumes on the output StatefulSet definition. Volumes specified will be appended to other volumes that are generated as a result of StorageSpec objects.
-                pub volumes: Vec<VolumesItem>,
+                pub volumes: Vec<Volume>,
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
@@ -2477,17 +2475,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpec {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
                 /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-                pub data_source: VolumesItemEphemeralVolumeClaimTemplateSpecDataSource,
+                pub data_source: VolumeEphemeralVolumeClaimTemplateSpecDataSource,
                 /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-                pub data_source_ref: VolumesItemEphemeralVolumeClaimTemplateSpecDataSourceRef,
+                pub data_source_ref: VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef,
                 /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-                pub resources: VolumesItemEphemeralVolumeClaimTemplateSpecResources,
+                pub resources: VolumeEphemeralVolumeClaimTemplateSpecResources,
                 /// A label query over volumes to consider for binding.
-                pub selector: VolumesItemEphemeralVolumeClaimTemplateSpecSelector,
+                pub selector: VolumeEphemeralVolumeClaimTemplateSpecSelector,
                 /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
                 pub storage_class_name: String,
                 /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -2497,15 +2495,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemStartupProbe {
+            pub struct ContainerStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemStartupProbeExec,
+                pub exec: ContainerStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemStartupProbeGrpc,
+                pub grpc: ContainerStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemStartupProbeHttpGet,
+                pub http_get: ContainerStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -2513,7 +2511,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: ContainerStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -2521,15 +2519,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemStartupProbe {
+            pub struct InitContainerStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemStartupProbeExec,
+                pub exec: InitContainerStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemStartupProbeGrpc,
+                pub grpc: InitContainerStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemStartupProbeHttpGet,
+                pub http_get: InitContainerStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -2537,7 +2535,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: InitContainerStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -2553,7 +2551,7 @@ pub mod monitoring_coreos_com {
                 /// Represents the actual resources of the underlying volume.
                 pub capacity: Capacity,
                 /// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
-                pub conditions: Vec<ConditionsItem>,
+                pub conditions: Vec<Condition>,
                 /// Phase represents the current phase of PersistentVolumeClaim.
                 pub phase: String,
                 /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -2601,7 +2599,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sysctl defines a kernel parameter to be set
-            pub struct SysctlsItem {
+            pub struct Sysctl {
                 /// Name of a property to set
                 pub name: String,
                 /// Value of a property to set
@@ -2609,7 +2607,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct ContainersItemLifecyclePostStartTcpSocket {
+            pub struct ContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2617,7 +2615,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct ContainersItemLifecyclePreStopTcpSocket {
+            pub struct ContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2625,7 +2623,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemLivenessProbeTcpSocket {
+            pub struct ContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2633,7 +2631,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemReadinessProbeTcpSocket {
+            pub struct ContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2641,7 +2639,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemStartupProbeTcpSocket {
+            pub struct ContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2649,7 +2647,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct InitContainersItemLifecyclePostStartTcpSocket {
+            pub struct InitContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2657,7 +2655,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct InitContainersItemLifecyclePreStopTcpSocket {
+            pub struct InitContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2665,7 +2663,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemLivenessProbeTcpSocket {
+            pub struct InitContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2673,7 +2671,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemReadinessProbeTcpSocket {
+            pub struct InitContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2681,7 +2679,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemStartupProbeTcpSocket {
+            pub struct InitContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -2689,7 +2687,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
-            pub struct TolerationsItem {
+            pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
                 /// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
@@ -2703,9 +2701,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
-            pub struct TopologySpreadConstraintsItem {
+            pub struct TopologySpreadConstraint {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
+                pub label_selector: TopologySpreadConstraintLabelSelector,
                 /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
                 pub max_skew: i32,
                 /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
@@ -2715,27 +2713,95 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
-            pub struct ContainersItemEnvItemValueFrom {
+            pub struct ContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
-                pub config_map_key_ref: ContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub config_map_key_ref: ContainerEnvItemValueFromConfigMapKeyRef,
                 /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-                pub field_ref: ContainersItemEnvItemValueFromFieldRef,
+                pub field_ref: ContainerEnvItemValueFromFieldRef,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-                pub resource_field_ref: ContainersItemEnvItemValueFromResourceFieldRef,
+                pub resource_field_ref: ContainerEnvItemValueFromResourceFieldRef,
                 /// Selects a key of a secret in the pod's namespace
-                pub secret_key_ref: ContainersItemEnvItemValueFromSecretKeyRef,
+                pub secret_key_ref: ContainerEnvItemValueFromSecretKeyRef,
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
-            pub struct InitContainersItemEnvItemValueFrom {
+            pub struct InitContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
-                pub config_map_key_ref: InitContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub config_map_key_ref: InitContainerEnvItemValueFromConfigMapKeyRef,
                 /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-                pub field_ref: InitContainersItemEnvItemValueFromFieldRef,
+                pub field_ref: InitContainerEnvItemValueFromFieldRef,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-                pub resource_field_ref: InitContainersItemEnvItemValueFromResourceFieldRef,
+                pub resource_field_ref: InitContainerEnvItemValueFromResourceFieldRef,
                 /// Selects a key of a secret in the pod's namespace
-                pub secret_key_ref: InitContainersItemEnvItemValueFromSecretKeyRef,
+                pub secret_key_ref: InitContainerEnvItemValueFromSecretKeyRef,
+            }
+
+            /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+            pub struct Volume {
+                /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+                pub aws_elastic_block_store: AwsElasticBlockStore,
+                /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+                pub azure_disk: AzureDisk,
+                /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+                pub azure_file: AzureFile,
+                /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+                pub cephfs: Cephfs,
+                /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+                pub cinder: Cinder,
+                /// ConfigMap represents a configMap that should populate this volume
+                pub config_map: VolumeConfigMap,
+                /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+                pub csi: Csi,
+                /// DownwardAPI represents downward API about the pod that should populate this volume
+                pub downward_a_p_i: VolumeDownwardAPI,
+                /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+                pub empty_dir: VolumeEmptyDir,
+                /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+                ///  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a PersistentVolumeClaim (see EphemeralVolumeSource for more information on the connection between this volume type and PersistentVolumeClaim).
+                ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+                ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+                ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+                pub ephemeral: VolumeEphemeral,
+                /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+                pub fc: Fc,
+                /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+                pub flex_volume: FlexVolume,
+                /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+                pub flocker: Flocker,
+                /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+                pub gce_persistent_disk: GcePersistentDisk,
+                /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+                pub git_repo: GitRepo,
+                /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+                pub glusterfs: Glusterfs,
+                /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
+                pub host_path: HostPath,
+                /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+                pub iscsi: Iscsi,
+                /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                pub name: String,
+                /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+                pub nfs: Nfs,
+                /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                pub persistent_volume_claim: PersistentVolumeClaim,
+                /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+                pub photon_persistent_disk: PhotonPersistentDisk,
+                /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+                pub portworx_volume: PortworxVolume,
+                /// Items for all in one resources secrets, configmaps, and downward API
+                pub projected: Projected,
+                /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+                pub quobyte: Quobyte,
+                /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+                pub rbd: Rbd,
+                /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+                pub scale_i_o: ScaleIO,
+                /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+                pub secret: VolumeSecret,
+                /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+                pub storageos: Storageos,
+                /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+                pub vsphere_volume: VsphereVolume,
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
@@ -2773,15 +2839,15 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
-            pub struct VolumesItemEphemeralVolumeClaimTemplate {
+            pub struct VolumeEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub metadata: VolumesItemEphemeralVolumeClaimTemplateMetadata,
+                pub metadata: VolumeEphemeralVolumeClaimTemplateMetadata,
                 /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-                pub spec: VolumesItemEphemeralVolumeClaimTemplateSpec,
+                pub spec: VolumeEphemeralVolumeClaimTemplateSpec,
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
-            pub struct ContainersItemVolumeDevicesItem {
+            pub struct ContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
@@ -2789,7 +2855,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
-            pub struct InitContainersItemVolumeDevicesItem {
+            pub struct InitContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
@@ -2797,7 +2863,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct ContainersItemVolumeMountsItem {
+            pub struct ContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -2813,7 +2879,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct InitContainersItemVolumeMountsItem {
+            pub struct InitContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -2829,7 +2895,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct SpecVolumeMountsItem {
+            pub struct SpecVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -2842,74 +2908,6 @@ pub mod monitoring_coreos_com {
                 pub sub_path: String,
                 /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
                 pub sub_path_expr: String,
-            }
-
-            /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
-            pub struct VolumesItem {
-                /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-                pub aws_elastic_block_store: AwsElasticBlockStore,
-                /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-                pub azure_disk: AzureDisk,
-                /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-                pub azure_file: AzureFile,
-                /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-                pub cephfs: Cephfs,
-                /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-                pub cinder: Cinder,
-                /// ConfigMap represents a configMap that should populate this volume
-                pub config_map: VolumesItemConfigMap,
-                /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
-                pub csi: Csi,
-                /// DownwardAPI represents downward API about the pod that should populate this volume
-                pub downward_a_p_i: VolumesItemDownwardAPI,
-                /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-                pub empty_dir: VolumesItemEmptyDir,
-                /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
-                ///  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a PersistentVolumeClaim (see EphemeralVolumeSource for more information on the connection between this volume type and PersistentVolumeClaim).
-                ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
-                ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
-                ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-                pub ephemeral: VolumesItemEphemeral,
-                /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-                pub fc: Fc,
-                /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-                pub flex_volume: FlexVolume,
-                /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
-                pub flocker: Flocker,
-                /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-                pub gce_persistent_disk: GcePersistentDisk,
-                /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-                pub git_repo: GitRepo,
-                /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-                pub glusterfs: Glusterfs,
-                /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
-                pub host_path: HostPath,
-                /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
-                pub iscsi: Iscsi,
-                /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                pub name: String,
-                /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-                pub nfs: Nfs,
-                /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-                pub persistent_volume_claim: PersistentVolumeClaim,
-                /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-                pub photon_persistent_disk: PhotonPersistentDisk,
-                /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
-                pub portworx_volume: PortworxVolume,
-                /// Items for all in one resources secrets, configmaps, and downward API
-                pub projected: Projected,
-                /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-                pub quobyte: Quobyte,
-                /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-                pub rbd: Rbd,
-                /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
-                pub scale_i_o: ScaleIO,
-                /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-                pub secret: VolumesItemSecret,
-                /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
-                pub storageos: Storageos,
-                /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
-                pub vsphere_volume: VsphereVolume,
             }
 
             /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -2925,7 +2923,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-            pub struct ContainersItemSecurityContextWindowsOptions {
+            pub struct ContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
                 /// GMSACredentialSpecName is the name of the GMSA credential spec to use.
@@ -2937,7 +2935,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-            pub struct InitContainersItemSecurityContextWindowsOptions {
+            pub struct InitContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
                 /// GMSACredentialSpecName is the name of the GMSA credential spec to use.
@@ -3112,7 +3110,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct MatchExpressionsItem {
+            pub struct MatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -3128,7 +3126,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct MetricRelabelingsItem {
+            pub struct MetricRelabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -3184,7 +3182,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PodMetricsEndpoint defines a scrapeable endpoint of a Kubernetes Pod serving Prometheus metrics.
-            pub struct PodMetricsEndpointsItem {
+            pub struct PodMetricsEndpoint {
                 /// Authorization section for this endpoint
                 pub authorization: Authorization,
                 /// BasicAuth allow an endpoint to authenticate over basic authentication. More info: https://prometheus.io/docs/operating/configuration/#endpoint
@@ -3200,7 +3198,7 @@ pub mod monitoring_coreos_com {
                 /// Interval at which metrics should be scraped If not specified Prometheus' global scrape interval is used.
                 pub interval: String,
                 /// MetricRelabelConfigs to apply to samples before ingestion.
-                pub metric_relabelings: Vec<MetricRelabelingsItem>,
+                pub metric_relabelings: Vec<MetricRelabeling>,
                 /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
                 pub oauth2: Oauth2,
                 /// Optional HTTP URL parameters
@@ -3212,7 +3210,7 @@ pub mod monitoring_coreos_com {
                 /// ProxyURL eg http://proxyserver:2195 Directs scrapes to proxy through this endpoint.
                 pub proxy_url: String,
                 /// RelabelConfigs to apply to samples before scraping. Prometheus Operator automatically adds relabelings for a few standard Kubernetes fields. The original scrape job's name is available via the `__tmp_prometheus_job_name` label. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-                pub relabelings: Vec<RelabelingsItem>,
+                pub relabelings: Vec<Relabeling>,
                 /// HTTP scheme to use for scraping.
                 pub scheme: String,
                 /// Timeout after which the scrape is ended If not specified, the Prometheus global scrape interval is used.
@@ -3224,7 +3222,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct RelabelingsItem {
+            pub struct Relabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -3274,7 +3272,7 @@ pub mod monitoring_coreos_com {
             /// Selector to select Pod objects.
             pub struct Selector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<MatchExpressionsItem>,
+                pub match_expressions: Vec<MatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3294,7 +3292,7 @@ pub mod monitoring_coreos_com {
                 /// Selector to select which namespaces the Endpoints objects are discovered from.
                 pub namespace_selector: NamespaceSelector,
                 /// A list of endpoints allowed as part of this PodMonitor.
-                pub pod_metrics_endpoints: Vec<PodMetricsEndpointsItem>,
+                pub pod_metrics_endpoints: Vec<PodMetricsEndpoint>,
                 /// PodTargetLabels transfers labels on the Kubernetes Pod onto the target.
                 pub pod_target_labels: Vec<String>,
                 /// SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
@@ -3469,7 +3467,7 @@ pub mod monitoring_coreos_com {
                 /// From which namespaces to select Ingress objects.
                 pub namespace_selector: NamespaceSelector,
                 /// RelabelConfigs to apply to the label set of the target before it gets scraped. The original ingress address is available via the `__tmp_prometheus_ingress_address` label. It can be used to customize the probed URL. The original scrape job's name is available via the `__tmp_prometheus_job_name` label. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-                pub relabeling_configs: Vec<IngressRelabelingConfigsItem>,
+                pub relabeling_configs: Vec<IngressRelabelingConfig>,
                 /// Selector to select the Ingress objects.
                 pub selector: Selector,
             }
@@ -3491,7 +3489,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct MatchExpressionsItem {
+            pub struct MatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -3507,7 +3505,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct MetricRelabelingsItem {
+            pub struct MetricRelabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -3569,7 +3567,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct IngressRelabelingConfigsItem {
+            pub struct IngressRelabelingConfig {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -3587,7 +3585,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct StaticConfigRelabelingConfigsItem {
+            pub struct StaticConfigRelabelingConfig {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -3637,7 +3635,7 @@ pub mod monitoring_coreos_com {
             /// Selector to select the Ingress objects.
             pub struct Selector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<MatchExpressionsItem>,
+                pub match_expressions: Vec<MatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3661,7 +3659,7 @@ pub mod monitoring_coreos_com {
                 /// Per-scrape limit on length of labels value that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
                 pub label_value_length_limit: i64,
                 /// MetricRelabelConfigs to apply to samples before ingestion.
-                pub metric_relabelings: Vec<MetricRelabelingsItem>,
+                pub metric_relabelings: Vec<MetricRelabeling>,
                 /// The module to use for probing specifying how to probe the target. Example module configuring in the blackbox exporter: https://github.com/prometheus/blackbox_exporter/blob/master/example.yml
                 pub module: String,
                 /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
@@ -3685,7 +3683,7 @@ pub mod monitoring_coreos_com {
                 /// Labels assigned to all metrics scraped from the targets.
                 pub labels: Labels,
                 /// RelabelConfigs to apply to the label set of the targets before it gets scraped. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-                pub relabeling_configs: Vec<StaticConfigRelabelingConfigsItem>,
+                pub relabeling_configs: Vec<StaticConfigRelabelingConfig>,
                 /// The list of hosts to probe.
                 pub r#static: Vec<String>,
             }
@@ -3815,15 +3813,15 @@ pub mod monitoring_coreos_com {
             /// Define details regarding alerting.
             pub struct Alerting {
                 /// AlertmanagerEndpoints Prometheus should fire alerts against.
-                pub alertmanagers: Vec<AlertmanagersItem>,
+                pub alertmanagers: Vec<Alertmanager>,
             }
 
             /// AlertmanagerEndpoints defines a selection of a single Endpoints object containing alertmanager IPs to fire alerts against.
-            pub struct AlertmanagersItem {
+            pub struct Alertmanager {
                 /// Version of the Alertmanager API that Prometheus uses to send alerts. It can be "v1" or "v2".
                 pub api_version: String,
                 /// Authorization section for this alertmanager endpoint
-                pub authorization: AlertmanagersItemAuthorization,
+                pub authorization: AlertmanagerAuthorization,
                 /// BearerTokenFile to read from filesystem to use when authenticating to Alertmanager.
                 pub bearer_token_file: String,
                 /// Name of Endpoints object in Namespace.
@@ -3839,7 +3837,7 @@ pub mod monitoring_coreos_com {
                 /// Timeout is a per-target Alertmanager timeout when pushing alerts.
                 pub timeout: String,
                 /// TLS Config to use for alertmanager connection.
-                pub tls_config: AlertmanagersItemTlsConfig,
+                pub tls_config: AlertmanagerTlsConfig,
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -3885,9 +3883,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization section for this alertmanager endpoint
-            pub struct AlertmanagersItemAuthorization {
+            pub struct AlertmanagerAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: AlertmanagersItemAuthorizationCredentials,
+                pub credentials: AlertmanagerAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
@@ -3985,11 +3983,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct AlertmanagersItemTlsConfigCa {
+            pub struct AlertmanagerTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: AlertmanagersItemTlsConfigCaConfigMap,
+                pub config_map: AlertmanagerTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: AlertmanagersItemTlsConfigCaSecret,
+                pub secret: AlertmanagerTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
@@ -4025,7 +4023,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextCapabilities {
+            pub struct ContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
                 /// Removed capabilities
@@ -4033,7 +4031,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextCapabilities {
+            pub struct InitContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
                 /// Removed capabilities
@@ -4066,11 +4064,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct AlertmanagersItemTlsConfigCert {
+            pub struct AlertmanagerTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: AlertmanagersItemTlsConfigCertConfigMap,
+                pub config_map: AlertmanagerTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: AlertmanagersItemTlsConfigCertSecret,
+                pub secret: AlertmanagerTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
@@ -4170,7 +4168,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimCondition contails details about state of pvc
-            pub struct VolumeClaimTemplateStatusConditionsItem {
+            pub struct VolumeClaimTemplateStatusCondition {
                 /// Last time we probed the condition.
                 pub last_probe_time: String,
                 /// Last time the condition transitioned from one status to another.
@@ -4185,7 +4183,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PrometheusCondition represents the state of the resources associated with the Prometheus resource.
-            pub struct StatusConditionsItem {
+            pub struct StatusCondition {
                 /// lastTransitionTime is the time of the last update to the current status property.
                 pub last_transition_time: String,
                 /// Human-readable message indicating details for the condition's last transition.
@@ -4199,7 +4197,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct AlertmanagersItemTlsConfigCaConfigMap {
+            pub struct AlertmanagerTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4209,7 +4207,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct AlertmanagersItemTlsConfigCertConfigMap {
+            pub struct AlertmanagerTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4319,11 +4317,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
-            pub struct VolumesItemConfigMap {
+            pub struct VolumeConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<VolumesItemConfigMapItemsItem>,
+                pub items: Vec<VolumeConfigMapItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap or its keys must be defined
@@ -4331,9 +4329,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
-            pub struct SourcesItemConfigMap {
+            pub struct SourceConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemConfigMapItemsItem>,
+                pub items: Vec<SourceConfigMapItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap or its keys must be defined
@@ -4361,7 +4359,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
-            pub struct ContainersItemEnvItemValueFromConfigMapKeyRef {
+            pub struct ContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4371,7 +4369,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
-            pub struct InitContainersItemEnvItemValueFromConfigMapKeyRef {
+            pub struct InitContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4381,7 +4379,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
-            pub struct ContainersItemEnvFromItemConfigMapRef {
+            pub struct ContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap must be defined
@@ -4389,7 +4387,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
-            pub struct InitContainersItemEnvFromItemConfigMapRef {
+            pub struct InitContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap must be defined
@@ -4397,35 +4395,35 @@ pub mod monitoring_coreos_com {
             }
 
             /// A single application container that you want to run within a pod.
-            pub struct ContainersItem {
+            pub struct Container {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
                 /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub command: Vec<String>,
                 /// List of environment variables to set in the container. Cannot be updated.
-                pub env: Vec<ContainersItemEnvItem>,
+                pub env: Vec<ContainerEnvItem>,
                 /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-                pub env_from: Vec<ContainersItemEnvFromItem>,
+                pub env_from: Vec<ContainerEnvFromItem>,
                 /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
                 pub image: String,
                 /// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
                 pub image_pull_policy: String,
                 /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-                pub lifecycle: ContainersItemLifecycle,
+                pub lifecycle: ContainerLifecycle,
                 /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub liveness_probe: ContainersItemLivenessProbe,
+                pub liveness_probe: ContainerLivenessProbe,
                 /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
                 pub name: String,
                 /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-                pub ports: Vec<ContainersItemPortsItem>,
+                pub ports: Vec<ContainerPort>,
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub readiness_probe: ContainersItemReadinessProbe,
+                pub readiness_probe: ContainerReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: ContainersItemResources,
+                pub resources: ContainerResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-                pub security_context: ContainersItemSecurityContext,
+                pub security_context: ContainerSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub startup_probe: ContainersItemStartupProbe,
+                pub startup_probe: ContainerStartupProbe,
                 /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
                 pub stdin: bool,
                 /// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
@@ -4437,15 +4435,15 @@ pub mod monitoring_coreos_com {
                 /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
                 pub tty: bool,
                 /// volumeDevices is the list of block devices to be used by the container.
-                pub volume_devices: Vec<ContainersItemVolumeDevicesItem>,
+                pub volume_devices: Vec<ContainerVolumeDevice>,
                 /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-                pub volume_mounts: Vec<ContainersItemVolumeMountsItem>,
+                pub volume_mounts: Vec<ContainerVolumeMount>,
                 /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
                 pub working_dir: String,
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct AlertmanagersItemAuthorizationCredentials {
+            pub struct AlertmanagerAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -4519,7 +4517,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecDataSource {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -4549,7 +4547,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecDataSourceRef {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -4559,17 +4557,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPI represents downward API about the pod that should populate this volume
-            pub struct VolumesItemDownwardAPI {
+            pub struct VolumeDownwardAPI {
                 /// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// Items is a list of downward API volume file
-                pub items: Vec<VolumesItemDownwardAPIItemsItem>,
+                pub items: Vec<VolumeDownwardAPIItem>,
             }
 
             /// information about the downwardAPI data to project
-            pub struct SourcesItemDownwardAPI {
+            pub struct SourceDownwardAPI {
                 /// Items is a list of DownwardAPIVolume file
-                pub items: Vec<SourcesItemDownwardAPIItemsItem>,
+                pub items: Vec<SourceDownwardAPIItem>,
             }
 
             /// EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
@@ -4581,7 +4579,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-            pub struct VolumesItemEmptyDir {
+            pub struct VolumeEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
                 /// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
@@ -4601,43 +4599,43 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
-            pub struct ContainersItemEnvFromItem {
+            pub struct ContainerEnvFromItem {
                 /// The ConfigMap to select from
-                pub config_map_ref: ContainersItemEnvFromItemConfigMapRef,
+                pub config_map_ref: ContainerEnvFromItemConfigMapRef,
                 /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
                 pub prefix: String,
                 /// The Secret to select from
-                pub secret_ref: ContainersItemEnvFromItemSecretRef,
+                pub secret_ref: ContainerEnvFromItemSecretRef,
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
-            pub struct InitContainersItemEnvFromItem {
+            pub struct InitContainerEnvFromItem {
                 /// The ConfigMap to select from
-                pub config_map_ref: InitContainersItemEnvFromItemConfigMapRef,
+                pub config_map_ref: InitContainerEnvFromItemConfigMapRef,
                 /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
                 pub prefix: String,
                 /// The Secret to select from
-                pub secret_ref: InitContainersItemEnvFromItemSecretRef,
+                pub secret_ref: InitContainerEnvFromItemSecretRef,
             }
 
             /// EnvVar represents an environment variable present in a Container.
-            pub struct ContainersItemEnvItem {
+            pub struct ContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
                 /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
                 pub value: String,
                 /// Source for the environment variable's value. Cannot be used if value is not empty.
-                pub value_from: ContainersItemEnvItemValueFrom,
+                pub value_from: ContainerEnvItemValueFrom,
             }
 
             /// EnvVar represents an environment variable present in a Container.
-            pub struct InitContainersItemEnvItem {
+            pub struct InitContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
                 /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
                 pub value: String,
                 /// Source for the environment variable's value. Cannot be used if value is not empty.
-                pub value_from: InitContainersItemEnvItemValueFrom,
+                pub value_from: InitContainerEnvItemValueFrom,
             }
 
             /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
@@ -4654,12 +4652,12 @@ pub mod monitoring_coreos_com {
             ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
             ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
             ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-            pub struct VolumesItemEphemeral {
+            pub struct VolumeEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
                 ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
                 ///  Required, must not be nil.
-                pub volume_claim_template: VolumesItemEphemeralVolumeClaimTemplate,
+                pub volume_claim_template: VolumeEphemeralVolumeClaimTemplate,
             }
 
             /// ObjectReference references a PodMonitor, ServiceMonitor, Probe or PrometheusRule object.
@@ -4675,61 +4673,61 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLifecyclePostStartExec {
+            pub struct ContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLifecyclePreStopExec {
+            pub struct ContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLivenessProbeExec {
+            pub struct ContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemReadinessProbeExec {
+            pub struct ContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemStartupProbeExec {
+            pub struct ContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLifecyclePostStartExec {
+            pub struct InitContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLifecyclePreStopExec {
+            pub struct InitContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLivenessProbeExec {
+            pub struct InitContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemReadinessProbeExec {
+            pub struct InitContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemStartupProbeExec {
+            pub struct InitContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -4755,7 +4753,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-            pub struct ContainersItemEnvItemValueFromFieldRef {
+            pub struct ContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -4763,7 +4761,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-            pub struct InitContainersItemEnvItemValueFromFieldRef {
+            pub struct InitContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -4771,7 +4769,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-            pub struct VolumesItemDownwardAPIItemsItemFieldRef {
+            pub struct VolumeDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -4779,7 +4777,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-            pub struct SourcesItemDownwardAPIItemsItemFieldRef {
+            pub struct SourceDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -4841,7 +4839,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemLivenessProbeGrpc {
+            pub struct ContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -4850,7 +4848,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemReadinessProbeGrpc {
+            pub struct ContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -4859,7 +4857,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemStartupProbeGrpc {
+            pub struct ContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -4868,7 +4866,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemLivenessProbeGrpc {
+            pub struct InitContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -4877,7 +4875,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemReadinessProbeGrpc {
+            pub struct InitContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -4886,7 +4884,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemStartupProbeGrpc {
+            pub struct InitContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -4927,7 +4925,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
-            pub struct HostAliasesItem {
+            pub struct HostAliase {
                 /// Hostnames for the above IP address.
                 pub hostnames: Vec<String>,
                 /// IP address of the host file entry.
@@ -4943,11 +4941,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLifecyclePostStartHttpGet {
+            pub struct ContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLifecyclePostStartHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -4957,11 +4955,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLifecyclePreStopHttpGet {
+            pub struct ContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLifecyclePreStopHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -4971,11 +4969,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLivenessProbeHttpGet {
+            pub struct ContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLivenessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -4985,11 +4983,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemReadinessProbeHttpGet {
+            pub struct ContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerReadinessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -4999,11 +4997,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemStartupProbeHttpGet {
+            pub struct ContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerStartupProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5013,11 +5011,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLifecyclePostStartHttpGet {
+            pub struct InitContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLifecyclePostStartHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5027,11 +5025,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLifecyclePreStopHttpGet {
+            pub struct InitContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLifecyclePreStopHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5041,11 +5039,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLivenessProbeHttpGet {
+            pub struct InitContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLivenessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5055,11 +5053,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemReadinessProbeHttpGet {
+            pub struct InitContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerReadinessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5069,11 +5067,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemStartupProbeHttpGet {
+            pub struct InitContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerStartupProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -5083,7 +5081,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+            pub struct ContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5091,7 +5089,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+            pub struct ContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5099,7 +5097,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct ContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5107,7 +5105,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct ContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5115,7 +5113,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct ContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5123,7 +5121,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+            pub struct InitContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5131,7 +5129,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+            pub struct InitContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5139,7 +5137,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5147,7 +5145,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5155,7 +5153,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -5163,41 +5161,41 @@ pub mod monitoring_coreos_com {
             }
 
             /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
-            pub struct ImagePullSecretsItem {
+            pub struct ImagePullSecret {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// A single application container that you want to run within a pod.
-            pub struct InitContainersItem {
+            pub struct InitContainer {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
                 /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub command: Vec<String>,
                 /// List of environment variables to set in the container. Cannot be updated.
-                pub env: Vec<InitContainersItemEnvItem>,
+                pub env: Vec<InitContainerEnvItem>,
                 /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-                pub env_from: Vec<InitContainersItemEnvFromItem>,
+                pub env_from: Vec<InitContainerEnvFromItem>,
                 /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
                 pub image: String,
                 /// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
                 pub image_pull_policy: String,
                 /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-                pub lifecycle: InitContainersItemLifecycle,
+                pub lifecycle: InitContainerLifecycle,
                 /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub liveness_probe: InitContainersItemLivenessProbe,
+                pub liveness_probe: InitContainerLivenessProbe,
                 /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
                 pub name: String,
                 /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-                pub ports: Vec<InitContainersItemPortsItem>,
+                pub ports: Vec<InitContainerPort>,
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub readiness_probe: InitContainersItemReadinessProbe,
+                pub readiness_probe: InitContainerReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: InitContainersItemResources,
+                pub resources: InitContainerResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-                pub security_context: InitContainersItemSecurityContext,
+                pub security_context: InitContainerSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub startup_probe: InitContainersItemStartupProbe,
+                pub startup_probe: InitContainerStartupProbe,
                 /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
                 pub stdin: bool,
                 /// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
@@ -5209,9 +5207,9 @@ pub mod monitoring_coreos_com {
                 /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
                 pub tty: bool,
                 /// volumeDevices is the list of block devices to be used by the container.
-                pub volume_devices: Vec<InitContainersItemVolumeDevicesItem>,
+                pub volume_devices: Vec<InitContainerVolumeDevice>,
                 /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-                pub volume_mounts: Vec<InitContainersItemVolumeMountsItem>,
+                pub volume_mounts: Vec<InitContainerVolumeMount>,
                 /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
                 pub working_dir: String,
             }
@@ -5243,7 +5241,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct VolumesItemConfigMapItemsItem {
+            pub struct VolumeConfigMapItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -5253,19 +5251,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
-            pub struct VolumesItemDownwardAPIItemsItem {
+            pub struct VolumeDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-                pub field_ref: VolumesItemDownwardAPIItemsItemFieldRef,
+                pub field_ref: VolumeDownwardAPIItemFieldRef,
                 /// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub mode: i32,
                 /// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
                 pub path: String,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-                pub resource_field_ref: VolumesItemDownwardAPIItemsItemResourceFieldRef,
+                pub resource_field_ref: VolumeDownwardAPIItemResourceFieldRef,
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct SourcesItemConfigMapItemsItem {
+            pub struct SourceConfigMapItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -5275,19 +5273,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
-            pub struct SourcesItemDownwardAPIItemsItem {
+            pub struct SourceDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-                pub field_ref: SourcesItemDownwardAPIItemsItemFieldRef,
+                pub field_ref: SourceDownwardAPIItemFieldRef,
                 /// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub mode: i32,
                 /// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
                 pub path: String,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-                pub resource_field_ref: SourcesItemDownwardAPIItemsItemResourceFieldRef,
+                pub resource_field_ref: SourceDownwardAPIItemResourceFieldRef,
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct SourcesItemSecretItemsItem {
+            pub struct SourceSecretItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -5297,7 +5295,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct VolumesItemSecretItemsItem {
+            pub struct VolumeSecretItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -5307,7 +5305,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct AlertmanagersItemTlsConfigKeySecret {
+            pub struct AlertmanagerTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -5369,7 +5367,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -5377,7 +5375,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -5385,7 +5383,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -5393,18 +5391,17 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-            pub struct TopologySpreadConstraintsItemLabelSelector {
+            pub struct TopologySpreadConstraintLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<TopologySpreadConstraintLabelSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
+                pub match_labels: TopologySpreadConstraintLabelSelectorMatchLabels,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
@@ -5420,23 +5417,23 @@ pub mod monitoring_coreos_com {
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-            pub struct ContainersItemLifecycle {
+            pub struct ContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub post_start: ContainersItemLifecyclePostStart,
+                pub post_start: ContainerLifecyclePostStart,
                 /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub pre_stop: ContainersItemLifecyclePreStop,
+                pub pre_stop: ContainerLifecyclePreStop,
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-            pub struct InitContainersItemLifecycle {
+            pub struct InitContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub post_start: InitContainersItemLifecyclePostStart,
+                pub post_start: InitContainerLifecyclePostStart,
                 /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub pre_stop: InitContainersItemLifecyclePreStop,
+                pub pre_stop: InitContainerLifecyclePreStop,
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResourcesLimits {
+            pub struct ContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5445,7 +5442,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResourcesLimits {
+            pub struct InitContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5490,7 +5487,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -5499,15 +5496,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemLivenessProbe {
+            pub struct ContainerLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLivenessProbeExec,
+                pub exec: ContainerLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemLivenessProbeGrpc,
+                pub grpc: ContainerLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLivenessProbeHttpGet,
+                pub http_get: ContainerLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -5515,7 +5512,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: ContainerLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -5523,15 +5520,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemLivenessProbe {
+            pub struct InitContainerLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLivenessProbeExec,
+                pub exec: InitContainerLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemLivenessProbeGrpc,
+                pub grpc: InitContainerLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLivenessProbeHttpGet,
+                pub http_get: InitContainerLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -5539,7 +5536,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: InitContainerLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -5547,7 +5544,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PreferenceMatchExpressionsItem {
+            pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -5557,7 +5554,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct NodeSelectorTermsItemMatchExpressionsItem {
+            pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -5567,7 +5564,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5578,7 +5575,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5589,7 +5586,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5600,7 +5597,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5611,7 +5608,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5622,7 +5619,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5633,7 +5630,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5644,7 +5641,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5655,7 +5652,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodMonitorNamespaceSelectorMatchExpressionsItem {
+            pub struct PodMonitorNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5665,7 +5662,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodMonitorSelectorMatchExpressionsItem {
+            pub struct PodMonitorSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5675,7 +5672,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct ProbeNamespaceSelectorMatchExpressionsItem {
+            pub struct ProbeNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5685,7 +5682,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct ProbeSelectorMatchExpressionsItem {
+            pub struct ProbeSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5695,7 +5692,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct RuleNamespaceSelectorMatchExpressionsItem {
+            pub struct RuleNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5705,7 +5702,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct RuleSelectorMatchExpressionsItem {
+            pub struct RuleSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5715,7 +5712,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct ServiceMonitorNamespaceSelectorMatchExpressionsItem {
+            pub struct ServiceMonitorNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5725,7 +5722,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct ServiceMonitorSelectorMatchExpressionsItem {
+            pub struct ServiceMonitorSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5735,7 +5732,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5745,7 +5742,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5755,7 +5752,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+            pub struct TopologySpreadConstraintLabelSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5765,7 +5762,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -5775,7 +5772,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PreferenceMatchFieldsItem {
+            pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -5785,7 +5782,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct NodeSelectorTermsItemMatchFieldsItem {
+            pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -5910,13 +5907,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
+            pub struct TopologySpreadConstraintLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -5938,7 +5935,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
+            pub struct VolumeEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -5954,7 +5951,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -5962,7 +5959,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -5970,7 +5967,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -5978,7 +5975,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -6016,11 +6013,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
-            pub struct NodeSelectorTermsItem {
+            pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+                pub match_fields: Vec<NodeSelectorTermMatchField>,
             }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
@@ -6170,7 +6167,7 @@ pub mod monitoring_coreos_com {
             /// Namespace's labels to match for PodMonitor discovery. If nil, only check own namespace.
             pub struct PodMonitorNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<PodMonitorNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<PodMonitorNamespaceSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: PodMonitorNamespaceSelectorMatchLabels,
             }
@@ -6178,13 +6175,13 @@ pub mod monitoring_coreos_com {
             /// *Experimental* PodMonitors to be selected for target discovery. *Deprecated:* if neither this nor serviceMonitorSelector are specified, configuration is unmanaged.
             pub struct PodMonitorSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<PodMonitorSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<PodMonitorSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: PodMonitorSelectorMatchLabels,
             }
 
             /// ContainerPort represents a network port in a single container.
-            pub struct ContainersItemPortsItem {
+            pub struct ContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
                 /// What host IP to bind the external port to.
@@ -6198,7 +6195,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
-            pub struct InitContainersItemPortsItem {
+            pub struct InitContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
                 /// What host IP to bind the external port to.
@@ -6222,51 +6219,51 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct ContainersItemLifecyclePostStart {
+            pub struct ContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLifecyclePostStartExec,
+                pub exec: ContainerLifecyclePostStartExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLifecyclePostStartHttpGet,
+                pub http_get: ContainerLifecyclePostStartHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: ContainersItemLifecyclePostStartTcpSocket,
+                pub tcp_socket: ContainerLifecyclePostStartTcpSocket,
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct InitContainersItemLifecyclePostStart {
+            pub struct InitContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLifecyclePostStartExec,
+                pub exec: InitContainerLifecyclePostStartExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLifecyclePostStartHttpGet,
+                pub http_get: InitContainerLifecyclePostStartHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: InitContainersItemLifecyclePostStartTcpSocket,
+                pub tcp_socket: InitContainerLifecyclePostStartTcpSocket,
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct ContainersItemLifecyclePreStop {
+            pub struct ContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLifecyclePreStopExec,
+                pub exec: ContainerLifecyclePreStopExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLifecyclePreStopHttpGet,
+                pub http_get: ContainerLifecyclePreStopHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: ContainersItemLifecyclePreStopTcpSocket,
+                pub tcp_socket: ContainerLifecyclePreStopTcpSocket,
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct InitContainersItemLifecyclePreStop {
+            pub struct InitContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLifecyclePreStopExec,
+                pub exec: InitContainerLifecyclePreStopExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLifecyclePreStopHttpGet,
+                pub http_get: InitContainerLifecyclePreStopHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: InitContainersItemLifecyclePreStopTcpSocket,
+                pub tcp_socket: InitContainerLifecyclePreStopTcpSocket,
             }
 
             /// A node selector term, associated with the corresponding weight.
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                pub match_expressions: Vec<PreferenceMatchExpression>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+                pub match_fields: Vec<PreferenceMatchField>,
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -6297,7 +6294,7 @@ pub mod monitoring_coreos_com {
             /// *Experimental* Namespaces to be selected for Probe discovery. If nil, only check own namespace.
             pub struct ProbeNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<ProbeNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ProbeNamespaceSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: ProbeNamespaceSelectorMatchLabels,
             }
@@ -6305,7 +6302,7 @@ pub mod monitoring_coreos_com {
             /// *Experimental* Probes to be selected for target discovery.
             pub struct ProbeSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<ProbeSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ProbeSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: ProbeSelectorMatchLabels,
             }
@@ -6315,7 +6312,7 @@ pub mod monitoring_coreos_com {
                 /// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// list of volume projections
-                pub sources: Vec<SourcesItem>,
+                pub sources: Vec<Source>,
             }
 
             /// PrometheusRuleExcludeConfig enables users to configure excluded PrometheusRule names and their namespaces to be ignored while enforcing namespace label for alerts and metrics.
@@ -6397,15 +6394,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemReadinessProbe {
+            pub struct ContainerReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemReadinessProbeExec,
+                pub exec: ContainerReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemReadinessProbeGrpc,
+                pub grpc: ContainerReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemReadinessProbeHttpGet,
+                pub http_get: ContainerReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -6413,7 +6410,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: ContainerReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -6421,15 +6418,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemReadinessProbe {
+            pub struct InitContainerReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemReadinessProbeExec,
+                pub exec: InitContainerReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemReadinessProbeGrpc,
+                pub grpc: InitContainerReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemReadinessProbeHttpGet,
+                pub http_get: InitContainerReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -6437,7 +6434,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: InitContainerReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -6507,11 +6504,11 @@ pub mod monitoring_coreos_com {
                 /// The URL of the endpoint to send samples to.
                 pub url: String,
                 /// The list of remote write relabel configurations.
-                pub write_relabel_configs: Vec<WriteRelabelConfigsItem>,
+                pub write_relabel_configs: Vec<WriteRelabelConfig>,
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResourcesRequests {
+            pub struct ContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6520,7 +6517,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResourcesRequests {
+            pub struct InitContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6565,7 +6562,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -6576,7 +6573,7 @@ pub mod monitoring_coreos_com {
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
-                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
+                pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -6612,7 +6609,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-            pub struct ContainersItemEnvItemValueFromResourceFieldRef {
+            pub struct ContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -6622,7 +6619,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-            pub struct InitContainersItemEnvItemValueFromResourceFieldRef {
+            pub struct InitContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -6632,7 +6629,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-            pub struct VolumesItemDownwardAPIItemsItemResourceFieldRef {
+            pub struct VolumeDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -6642,7 +6639,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-            pub struct SourcesItemDownwardAPIItemsItemResourceFieldRef {
+            pub struct SourceDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -6652,19 +6649,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResources {
+            pub struct ContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: ContainersItemResourcesLimits,
+                pub limits: ContainerResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: ContainersItemResourcesRequests,
+                pub requests: ContainerResourcesRequests,
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResources {
+            pub struct InitContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: InitContainersItemResourcesLimits,
+                pub limits: InitContainerResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: InitContainersItemResourcesRequests,
+                pub requests: InitContainerResourcesRequests,
             }
 
             /// Define resources requests and limits for single Pods.
@@ -6700,17 +6697,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResources {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits,
+                pub limits: VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests,
+                pub requests: VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests,
             }
 
             /// Namespaces to be selected for PrometheusRules discovery. If unspecified, only the same namespace as the Prometheus object is in is used.
             pub struct RuleNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<RuleNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleNamespaceSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: RuleNamespaceSelectorMatchLabels,
             }
@@ -6718,7 +6715,7 @@ pub mod monitoring_coreos_com {
             /// A selector to select which PrometheusRules to mount for loading alerting/recording rules from. Until (excluding) Prometheus Operator v0.24.0 Prometheus Operator will migrate any legacy rule ConfigMaps to PrometheusRule custom resources selected by RuleSelector. Make sure it does not match any config maps that you do not want to be migrated.
             pub struct RuleSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<RuleSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: RuleSelectorMatchLabels,
             }
@@ -6754,7 +6751,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextSeLinuxOptions {
+            pub struct ContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
                 /// Role is a SELinux role label that applies to the container.
@@ -6766,7 +6763,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextSeLinuxOptions {
+            pub struct InitContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
                 /// Role is a SELinux role label that applies to the container.
@@ -6790,7 +6787,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextSeccompProfile {
+            pub struct ContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
                 /// type indicates which kind of seccomp profile will be applied. Valid options are:
@@ -6799,7 +6796,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextSeccompProfile {
+            pub struct InitContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
                 /// type indicates which kind of seccomp profile will be applied. Valid options are:
@@ -6817,7 +6814,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct AlertmanagersItemTlsConfigCaSecret {
+            pub struct AlertmanagerTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -6827,7 +6824,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct AlertmanagersItemTlsConfigCertSecret {
+            pub struct AlertmanagerTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -6937,9 +6934,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
-            pub struct SourcesItemSecret {
+            pub struct SourceSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemSecretItemsItem>,
+                pub items: Vec<SourceSecretItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret or its key must be defined
@@ -6947,11 +6944,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-            pub struct VolumesItemSecret {
+            pub struct VolumeSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<VolumesItemSecretItemsItem>,
+                pub items: Vec<VolumeSecretItem>,
                 /// Specify whether the Secret or its keys must be defined
                 pub optional: bool,
                 /// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
@@ -6989,7 +6986,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
-            pub struct ContainersItemEnvItemValueFromSecretKeyRef {
+            pub struct ContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -6999,7 +6996,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
-            pub struct InitContainersItemEnvItemValueFromSecretKeyRef {
+            pub struct InitContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -7009,7 +7006,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
-            pub struct ContainersItemEnvFromItemSecretRef {
+            pub struct ContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret must be defined
@@ -7017,7 +7014,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
-            pub struct InitContainersItemEnvFromItemSecretRef {
+            pub struct InitContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret must be defined
@@ -7067,11 +7064,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-            pub struct ContainersItemSecurityContext {
+            pub struct ContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
                 /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-                pub capabilities: ContainersItemSecurityContextCapabilities,
+                pub capabilities: ContainerSecurityContextCapabilities,
                 /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
                 pub privileged: bool,
                 /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -7085,19 +7082,19 @@ pub mod monitoring_coreos_com {
                 /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
                 pub run_as_user: i64,
                 /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: ContainersItemSecurityContextSeLinuxOptions,
+                pub se_linux_options: ContainerSecurityContextSeLinuxOptions,
                 /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: ContainersItemSecurityContextSeccompProfile,
+                pub seccomp_profile: ContainerSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: ContainersItemSecurityContextWindowsOptions,
+                pub windows_options: ContainerSecurityContextWindowsOptions,
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-            pub struct InitContainersItemSecurityContext {
+            pub struct InitContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
                 /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-                pub capabilities: InitContainersItemSecurityContextCapabilities,
+                pub capabilities: InitContainerSecurityContextCapabilities,
                 /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
                 pub privileged: bool,
                 /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -7111,11 +7108,11 @@ pub mod monitoring_coreos_com {
                 /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
                 pub run_as_user: i64,
                 /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
+                pub se_linux_options: InitContainerSecurityContextSeLinuxOptions,
                 /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
+                pub seccomp_profile: InitContainerSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: InitContainersItemSecurityContextWindowsOptions,
+                pub windows_options: InitContainerSecurityContextWindowsOptions,
             }
 
             /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
@@ -7139,7 +7136,7 @@ pub mod monitoring_coreos_com {
                 /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
                 pub supplemental_groups: Vec<i64>,
                 /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
-                pub sysctls: Vec<SysctlsItem>,
+                pub sysctls: Vec<Sysctl>,
                 /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
                 pub windows_options: SpecSecurityContextWindowsOptions,
             }
@@ -7148,7 +7145,7 @@ pub mod monitoring_coreos_com {
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
             }
@@ -7156,19 +7153,18 @@ pub mod monitoring_coreos_com {
             /// A label query over volumes to consider for binding.
             pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: StorageVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// A label query over volumes to consider for binding.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelector {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
+                pub match_labels: VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// information about the serviceAccountToken data to project
@@ -7184,7 +7180,7 @@ pub mod monitoring_coreos_com {
             /// Namespace's labels to match for ServiceMonitor discovery. If nil, only check own namespace.
             pub struct ServiceMonitorNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<ServiceMonitorNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ServiceMonitorNamespaceSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: ServiceMonitorNamespaceSelectorMatchLabels,
             }
@@ -7192,12 +7188,12 @@ pub mod monitoring_coreos_com {
             /// ServiceMonitors to be selected for target discovery. *Deprecated:* if neither this nor podMonitorSelector are specified, configuration is unmanaged.
             pub struct ServiceMonitorSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<ServiceMonitorSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<ServiceMonitorSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: ServiceMonitorSelectorMatchLabels,
             }
 
-            pub struct ShardStatusesItem {
+            pub struct ShardStatuse {
                 /// Total number of available pods (ready for at least minReadySeconds) targeted by this shard.
                 pub available_replicas: i32,
                 /// Total number of pods targeted by this shard.
@@ -7225,13 +7221,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// Projection that may be projected along with other supported volume types
-            pub struct SourcesItem {
+            pub struct Source {
                 /// information about the configMap data to project
-                pub config_map: SourcesItemConfigMap,
+                pub config_map: SourceConfigMap,
                 /// information about the downwardAPI data to project
-                pub downward_a_p_i: SourcesItemDownwardAPI,
+                pub downward_a_p_i: SourceDownwardAPI,
                 /// information about the secret data to project
-                pub secret: SourcesItemSecret,
+                pub secret: SourceSecret,
                 /// information about the serviceAccountToken data to project
                 pub service_account_token: ServiceAccountToken,
             }
@@ -7259,7 +7255,7 @@ pub mod monitoring_coreos_com {
                 /// ConfigMaps is a list of ConfigMaps in the same namespace as the Prometheus object, which shall be mounted into the Prometheus Pods. The ConfigMaps are mounted into /etc/prometheus/configmaps/<configmap-name>.
                 pub config_maps: Vec<String>,
                 /// Containers allows injecting additional containers or modifying operator generated containers. This can be used to allow adding an authentication proxy to a Prometheus pod or to change the behavior of an operator generated container. Containers described here modify an operator generated container if they share the same name and modifications are done via a strategic merge patch. The current container names are: `prometheus`, `config-reloader`, and `thanos-sidecar`. Overriding containers is entirely outside the scope of what the maintainers will support and by doing so, you accept that this behaviour may break at any time without notice.
-                pub containers: Vec<ContainersItem>,
+                pub containers: Vec<Container>,
                 /// Disable prometheus compaction.
                 pub disable_compaction: bool,
                 /// Enable access to prometheus web admin API. Defaults to the value of `false`. WARNING: Enabling the admin APIs enables mutating endpoints, to delete data, shutdown Prometheus, and more. Enabling this should be done with care and the user is advised to add additional authentication authorization via a proxy to ensure only clients authorized to perform these actions can do so. For more information see https://prometheus.io/docs/prometheus/latest/querying/api/#tsdb-admin-apis
@@ -7293,15 +7289,15 @@ pub mod monitoring_coreos_com {
                 /// The external URL the Prometheus instances will be available under. This is necessary to generate correct URLs. This is necessary if Prometheus is not served from root of a DNS name.
                 pub external_url: String,
                 /// Pods' hostAliases configuration
-                pub host_aliases: Vec<HostAliasesItem>,
+                pub host_aliases: Vec<HostAliase>,
                 /// IgnoreNamespaceSelectors if set to true will ignore NamespaceSelector settings from all PodMonitor, ServiceMonitor and Probe objects. They will only discover endpoints within their current namespace. Defaults to false.
                 pub ignore_namespace_selectors: bool,
                 /// Image if specified has precedence over baseImage, tag and sha combinations. Specifying the version is still necessary to ensure the Prometheus Operator knows what version of Prometheus is being configured.
                 pub image: String,
                 /// An optional list of references to secrets in the same namespace to use for pulling prometheus and alertmanager images from registries see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod
-                pub image_pull_secrets: Vec<ImagePullSecretsItem>,
+                pub image_pull_secrets: Vec<ImagePullSecret>,
                 /// InitContainers allows adding initContainers to the pod definition. Those can be used to e.g. fetch secrets for injection into the Prometheus configuration from external sources. Any errors during the execution of an initContainer will lead to a restart of the Pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ InitContainers described here modify an operator generated init containers if they share the same name and modifications are done via a strategic merge patch. The current init container name is: `init-config-reloader`. Overriding init containers is entirely outside the scope of what the maintainers will support and by doing so, you accept that this behaviour may break at any time without notice.
-                pub init_containers: Vec<InitContainersItem>,
+                pub init_containers: Vec<InitContainer>,
                 /// ListenLocal makes the Prometheus server listen on loopback, so that it does not bind against the Pod IP.
                 pub listen_local: bool,
                 /// Log format for Prometheus to be configured with.
@@ -7390,15 +7386,15 @@ pub mod monitoring_coreos_com {
                 ///  This is experimental and may change significantly without backward compatibility in any release.
                 pub thanos: Thanos,
                 /// If specified, the pod's tolerations.
-                pub tolerations: Vec<TolerationsItem>,
+                pub tolerations: Vec<Toleration>,
                 /// If specified, the pod's topology spread constraints.
-                pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
+                pub topology_spread_constraints: Vec<TopologySpreadConstraint>,
                 /// Version of Prometheus to be deployed.
                 pub version: String,
                 /// VolumeMounts allows configuration of additional VolumeMounts on the output StatefulSet definition. VolumeMounts specified will be appended to other VolumeMounts in the prometheus container, that are generated as a result of StorageSpec objects.
-                pub volume_mounts: Vec<SpecVolumeMountsItem>,
+                pub volume_mounts: Vec<SpecVolumeMount>,
                 /// Volumes allows configuration of additional volumes on the output StatefulSet definition. Volumes specified will be appended to other volumes that are generated as a result of StorageSpec objects.
-                pub volumes: Vec<VolumesItem>,
+                pub volumes: Vec<Volume>,
                 /// Enable compression of the write-ahead log using Snappy. This flag is only available in versions of Prometheus >= 2.11.0.
                 pub wal_compression: bool,
                 /// WebSpec defines the web command line flags when starting Prometheus.
@@ -7446,17 +7442,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpec {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
                 /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-                pub data_source: VolumesItemEphemeralVolumeClaimTemplateSpecDataSource,
+                pub data_source: VolumeEphemeralVolumeClaimTemplateSpecDataSource,
                 /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-                pub data_source_ref: VolumesItemEphemeralVolumeClaimTemplateSpecDataSourceRef,
+                pub data_source_ref: VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef,
                 /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-                pub resources: VolumesItemEphemeralVolumeClaimTemplateSpecResources,
+                pub resources: VolumeEphemeralVolumeClaimTemplateSpecResources,
                 /// A label query over volumes to consider for binding.
-                pub selector: VolumesItemEphemeralVolumeClaimTemplateSpecSelector,
+                pub selector: VolumeEphemeralVolumeClaimTemplateSpecSelector,
                 /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
                 pub storage_class_name: String,
                 /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -7466,15 +7462,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemStartupProbe {
+            pub struct ContainerStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemStartupProbeExec,
+                pub exec: ContainerStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemStartupProbeGrpc,
+                pub grpc: ContainerStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemStartupProbeHttpGet,
+                pub http_get: ContainerStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -7482,7 +7478,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: ContainerStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -7490,15 +7486,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemStartupProbe {
+            pub struct InitContainerStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemStartupProbeExec,
+                pub exec: InitContainerStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemStartupProbeGrpc,
+                pub grpc: InitContainerStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemStartupProbeHttpGet,
+                pub http_get: InitContainerStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -7506,7 +7502,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: InitContainerStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -7522,7 +7518,7 @@ pub mod monitoring_coreos_com {
                 /// Represents the actual resources of the underlying volume.
                 pub capacity: Capacity,
                 /// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
-                pub conditions: Vec<VolumeClaimTemplateStatusConditionsItem>,
+                pub conditions: Vec<VolumeClaimTemplateStatusCondition>,
                 /// Phase represents the current phase of PersistentVolumeClaim.
                 pub phase: String,
                 /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -7534,13 +7530,13 @@ pub mod monitoring_coreos_com {
                 /// Total number of available pods (ready for at least minReadySeconds) targeted by this Prometheus deployment.
                 pub available_replicas: i32,
                 /// The current state of the Prometheus deployment.
-                pub conditions: Vec<StatusConditionsItem>,
+                pub conditions: Vec<StatusCondition>,
                 /// Represents whether any actions on the underlying managed objects are being performed. Only delete actions will be performed.
                 pub paused: bool,
                 /// Total number of non-terminated pods targeted by this Prometheus deployment (their labels match the selector).
                 pub replicas: i32,
                 /// The list has one entry per shard. Each entry provides a summary of the shard status.
-                pub shard_statuses: Vec<ShardStatusesItem>,
+                pub shard_statuses: Vec<ShardStatuse>,
                 /// Total number of unavailable pods targeted by this Prometheus deployment.
                 pub unavailable_replicas: i32,
                 /// Total number of non-terminated pods targeted by this Prometheus deployment that have the desired version spec.
@@ -7574,7 +7570,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sysctl defines a kernel parameter to be set
-            pub struct SysctlsItem {
+            pub struct Sysctl {
                 /// Name of a property to set
                 pub name: String,
                 /// Value of a property to set
@@ -7582,7 +7578,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct ContainersItemLifecyclePostStartTcpSocket {
+            pub struct ContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7590,7 +7586,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct ContainersItemLifecyclePreStopTcpSocket {
+            pub struct ContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7598,7 +7594,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemLivenessProbeTcpSocket {
+            pub struct ContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7606,7 +7602,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemReadinessProbeTcpSocket {
+            pub struct ContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7614,7 +7610,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemStartupProbeTcpSocket {
+            pub struct ContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7622,7 +7618,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct InitContainersItemLifecyclePostStartTcpSocket {
+            pub struct InitContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7630,7 +7626,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct InitContainersItemLifecyclePreStopTcpSocket {
+            pub struct InitContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7638,7 +7634,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemLivenessProbeTcpSocket {
+            pub struct InitContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7646,7 +7642,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemReadinessProbeTcpSocket {
+            pub struct InitContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7654,7 +7650,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemStartupProbeTcpSocket {
+            pub struct InitContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -7698,17 +7694,17 @@ pub mod monitoring_coreos_com {
                 /// Version describes the version of Thanos to use.
                 pub version: String,
                 /// VolumeMounts allows configuration of additional VolumeMounts on the output StatefulSet definition. VolumeMounts specified will be appended to other VolumeMounts in the thanos-sidecar container.
-                pub volume_mounts: Vec<ThanosVolumeMountsItem>,
+                pub volume_mounts: Vec<ThanosVolumeMount>,
             }
 
             /// TLS Config to use for alertmanager connection.
-            pub struct AlertmanagersItemTlsConfig {
+            pub struct AlertmanagerTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: AlertmanagersItemTlsConfigCa,
+                pub ca: AlertmanagerTlsConfigCa,
                 /// Path to the CA cert in the Prometheus container to use for the targets.
                 pub ca_file: String,
                 /// Struct containing the client cert file for the targets.
-                pub cert: AlertmanagersItemTlsConfigCert,
+                pub cert: AlertmanagerTlsConfigCert,
                 /// Path to the client cert file in the Prometheus container for the targets.
                 pub cert_file: String,
                 /// Disable target certificate validation.
@@ -7716,7 +7712,7 @@ pub mod monitoring_coreos_com {
                 /// Path to the client key file in the Prometheus container for the targets.
                 pub key_file: String,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: AlertmanagersItemTlsConfigKeySecret,
+                pub key_secret: AlertmanagerTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
@@ -7804,7 +7800,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
-            pub struct TolerationsItem {
+            pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
                 /// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
@@ -7818,9 +7814,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
-            pub struct TopologySpreadConstraintsItem {
+            pub struct TopologySpreadConstraint {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
+                pub label_selector: TopologySpreadConstraintLabelSelector,
                 /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
                 pub max_skew: i32,
                 /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
@@ -7870,27 +7866,95 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
-            pub struct ContainersItemEnvItemValueFrom {
+            pub struct ContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
-                pub config_map_key_ref: ContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub config_map_key_ref: ContainerEnvItemValueFromConfigMapKeyRef,
                 /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-                pub field_ref: ContainersItemEnvItemValueFromFieldRef,
+                pub field_ref: ContainerEnvItemValueFromFieldRef,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-                pub resource_field_ref: ContainersItemEnvItemValueFromResourceFieldRef,
+                pub resource_field_ref: ContainerEnvItemValueFromResourceFieldRef,
                 /// Selects a key of a secret in the pod's namespace
-                pub secret_key_ref: ContainersItemEnvItemValueFromSecretKeyRef,
+                pub secret_key_ref: ContainerEnvItemValueFromSecretKeyRef,
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
-            pub struct InitContainersItemEnvItemValueFrom {
+            pub struct InitContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
-                pub config_map_key_ref: InitContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub config_map_key_ref: InitContainerEnvItemValueFromConfigMapKeyRef,
                 /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-                pub field_ref: InitContainersItemEnvItemValueFromFieldRef,
+                pub field_ref: InitContainerEnvItemValueFromFieldRef,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-                pub resource_field_ref: InitContainersItemEnvItemValueFromResourceFieldRef,
+                pub resource_field_ref: InitContainerEnvItemValueFromResourceFieldRef,
                 /// Selects a key of a secret in the pod's namespace
-                pub secret_key_ref: InitContainersItemEnvItemValueFromSecretKeyRef,
+                pub secret_key_ref: InitContainerEnvItemValueFromSecretKeyRef,
+            }
+
+            /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+            pub struct Volume {
+                /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+                pub aws_elastic_block_store: AwsElasticBlockStore,
+                /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+                pub azure_disk: AzureDisk,
+                /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+                pub azure_file: AzureFile,
+                /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+                pub cephfs: Cephfs,
+                /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+                pub cinder: Cinder,
+                /// ConfigMap represents a configMap that should populate this volume
+                pub config_map: VolumeConfigMap,
+                /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+                pub csi: Csi,
+                /// DownwardAPI represents downward API about the pod that should populate this volume
+                pub downward_a_p_i: VolumeDownwardAPI,
+                /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+                pub empty_dir: VolumeEmptyDir,
+                /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+                ///  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a PersistentVolumeClaim (see EphemeralVolumeSource for more information on the connection between this volume type and PersistentVolumeClaim).
+                ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+                ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+                ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+                pub ephemeral: VolumeEphemeral,
+                /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+                pub fc: Fc,
+                /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+                pub flex_volume: FlexVolume,
+                /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+                pub flocker: Flocker,
+                /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+                pub gce_persistent_disk: GcePersistentDisk,
+                /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+                pub git_repo: GitRepo,
+                /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+                pub glusterfs: Glusterfs,
+                /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
+                pub host_path: HostPath,
+                /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+                pub iscsi: Iscsi,
+                /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                pub name: String,
+                /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+                pub nfs: Nfs,
+                /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                pub persistent_volume_claim: PersistentVolumeClaim,
+                /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+                pub photon_persistent_disk: PhotonPersistentDisk,
+                /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+                pub portworx_volume: PortworxVolume,
+                /// Items for all in one resources secrets, configmaps, and downward API
+                pub projected: Projected,
+                /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+                pub quobyte: Quobyte,
+                /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+                pub rbd: Rbd,
+                /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+                pub scale_i_o: ScaleIO,
+                /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+                pub secret: VolumeSecret,
+                /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+                pub storageos: Storageos,
+                /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+                pub vsphere_volume: VsphereVolume,
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
@@ -7928,15 +7992,15 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
-            pub struct VolumesItemEphemeralVolumeClaimTemplate {
+            pub struct VolumeEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub metadata: VolumesItemEphemeralVolumeClaimTemplateMetadata,
+                pub metadata: VolumeEphemeralVolumeClaimTemplateMetadata,
                 /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-                pub spec: VolumesItemEphemeralVolumeClaimTemplateSpec,
+                pub spec: VolumeEphemeralVolumeClaimTemplateSpec,
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
-            pub struct ContainersItemVolumeDevicesItem {
+            pub struct ContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
@@ -7944,7 +8008,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
-            pub struct InitContainersItemVolumeDevicesItem {
+            pub struct InitContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
@@ -7952,7 +8016,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct ContainersItemVolumeMountsItem {
+            pub struct ContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -7968,7 +8032,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct InitContainersItemVolumeMountsItem {
+            pub struct InitContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -7984,7 +8048,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct ThanosVolumeMountsItem {
+            pub struct ThanosVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -8000,7 +8064,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct SpecVolumeMountsItem {
+            pub struct SpecVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -8013,74 +8077,6 @@ pub mod monitoring_coreos_com {
                 pub sub_path: String,
                 /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
                 pub sub_path_expr: String,
-            }
-
-            /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
-            pub struct VolumesItem {
-                /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-                pub aws_elastic_block_store: AwsElasticBlockStore,
-                /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-                pub azure_disk: AzureDisk,
-                /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-                pub azure_file: AzureFile,
-                /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-                pub cephfs: Cephfs,
-                /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-                pub cinder: Cinder,
-                /// ConfigMap represents a configMap that should populate this volume
-                pub config_map: VolumesItemConfigMap,
-                /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
-                pub csi: Csi,
-                /// DownwardAPI represents downward API about the pod that should populate this volume
-                pub downward_a_p_i: VolumesItemDownwardAPI,
-                /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-                pub empty_dir: VolumesItemEmptyDir,
-                /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
-                ///  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a PersistentVolumeClaim (see EphemeralVolumeSource for more information on the connection between this volume type and PersistentVolumeClaim).
-                ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
-                ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
-                ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-                pub ephemeral: VolumesItemEphemeral,
-                /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-                pub fc: Fc,
-                /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-                pub flex_volume: FlexVolume,
-                /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
-                pub flocker: Flocker,
-                /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-                pub gce_persistent_disk: GcePersistentDisk,
-                /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-                pub git_repo: GitRepo,
-                /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-                pub glusterfs: Glusterfs,
-                /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
-                pub host_path: HostPath,
-                /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
-                pub iscsi: Iscsi,
-                /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                pub name: String,
-                /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-                pub nfs: Nfs,
-                /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-                pub persistent_volume_claim: PersistentVolumeClaim,
-                /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-                pub photon_persistent_disk: PhotonPersistentDisk,
-                /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
-                pub portworx_volume: PortworxVolume,
-                /// Items for all in one resources secrets, configmaps, and downward API
-                pub projected: Projected,
-                /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-                pub quobyte: Quobyte,
-                /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-                pub rbd: Rbd,
-                /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
-                pub scale_i_o: ScaleIO,
-                /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-                pub secret: VolumesItemSecret,
-                /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
-                pub storageos: Storageos,
-                /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
-                pub vsphere_volume: VsphereVolume,
             }
 
             /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -8104,7 +8100,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-            pub struct ContainersItemSecurityContextWindowsOptions {
+            pub struct ContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
                 /// GMSACredentialSpecName is the name of the GMSA credential spec to use.
@@ -8116,7 +8112,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-            pub struct InitContainersItemSecurityContextWindowsOptions {
+            pub struct InitContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
                 /// GMSACredentialSpecName is the name of the GMSA credential spec to use.
@@ -8140,7 +8136,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct WriteRelabelConfigsItem {
+            pub struct WriteRelabelConfig {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -8191,11 +8187,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// RuleGroup is a list of sequentially evaluated recording and alerting rules. Note: PartialResponseStrategy is only used by ThanosRuler and will be ignored by Prometheus instances.  Valid values for this field are 'warn' or 'abort'.  More info: https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md#partial-response
-            pub struct GroupsItem {
+            pub struct Group {
                 pub interval: String,
                 pub name: String,
                 pub partial_response_strategy: String,
-                pub rules: Vec<RulesItem>,
+                pub rules: Vec<Rule>,
             }
 
             pub struct Labels {
@@ -8203,7 +8199,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Rule describes an alerting or recording rule See Prometheus documentation: [alerting](https://www.prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) or [recording](https://www.prometheus.io/docs/prometheus/latest/configuration/recording_rules/#recording-rules) rule
-            pub struct RulesItem {
+            pub struct Rule {
                 pub alert: String,
                 pub annotations: Annotations,
                 pub expr: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
@@ -8215,7 +8211,7 @@ pub mod monitoring_coreos_com {
             /// Specification of desired alerting rule definitions for Prometheus.
             pub struct Spec {
                 /// Content of Prometheus rule file
-                pub groups: Vec<GroupsItem>,
+                pub groups: Vec<Group>,
             }
 
             impl k8s_openapi::Resource for PrometheusRule {
@@ -8347,14 +8343,8 @@ pub mod monitoring_coreos_com {
                 pub optional: bool,
             }
 
-            /// Parameters to append to the token URL
-            pub struct EndpointParams {
-                /// Parameters to append to the token URL
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
             /// Endpoint defines a scrapeable endpoint serving Prometheus metrics.
-            pub struct EndpointsItem {
+            pub struct Endpoint {
                 /// Authorization section for this endpoint
                 pub authorization: Authorization,
                 /// BasicAuth allow an endpoint to authenticate over basic authentication More info: https://prometheus.io/docs/operating/configuration/#endpoints
@@ -8372,7 +8362,7 @@ pub mod monitoring_coreos_com {
                 /// Interval at which metrics should be scraped If not specified Prometheus' global scrape interval is used.
                 pub interval: String,
                 /// MetricRelabelConfigs to apply to samples before ingestion.
-                pub metric_relabelings: Vec<MetricRelabelingsItem>,
+                pub metric_relabelings: Vec<MetricRelabeling>,
                 /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
                 pub oauth2: Oauth2,
                 /// Optional HTTP URL parameters
@@ -8384,7 +8374,7 @@ pub mod monitoring_coreos_com {
                 /// ProxyURL eg http://proxyserver:2195 Directs scrapes to proxy through this endpoint.
                 pub proxy_url: String,
                 /// RelabelConfigs to apply to samples before scraping. Prometheus Operator automatically adds relabelings for a few standard Kubernetes fields. The original scrape job's name is available via the `__tmp_prometheus_job_name` label. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-                pub relabelings: Vec<RelabelingsItem>,
+                pub relabelings: Vec<Relabeling>,
                 /// HTTP scheme to use for scraping.
                 pub scheme: String,
                 /// Timeout after which the scrape is ended If not specified, the Prometheus global scrape timeout is used unless it is less than `Interval` in which the latter is used.
@@ -8393,6 +8383,12 @@ pub mod monitoring_coreos_com {
                 pub target_port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
                 /// TLS configuration to use when scraping the endpoint
                 pub tls_config: TlsConfig,
+            }
+
+            /// Parameters to append to the token URL
+            pub struct EndpointParams {
+                /// Parameters to append to the token URL
+                pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Secret containing the client key file for the targets.
@@ -8406,7 +8402,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct MatchExpressionsItem {
+            pub struct MatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -8422,7 +8418,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct MetricRelabelingsItem {
+            pub struct MetricRelabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -8478,7 +8474,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
-            pub struct RelabelingsItem {
+            pub struct Relabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
                 /// Modulus to take of the hash of the source label values.
@@ -8528,7 +8524,7 @@ pub mod monitoring_coreos_com {
             /// Selector to select Endpoints objects.
             pub struct Selector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<MatchExpressionsItem>,
+                pub match_expressions: Vec<MatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -8536,7 +8532,7 @@ pub mod monitoring_coreos_com {
             /// Specification of desired Service selection for target discovery by Prometheus.
             pub struct Spec {
                 /// A list of endpoints allowed as part of this ServiceMonitor.
-                pub endpoints: Vec<EndpointsItem>,
+                pub endpoints: Vec<Endpoint>,
                 /// Chooses the label of the Kubernetes `Endpoints`. Its value will be used for the `job`-label's value of the created metrics.
                 ///  Default & fallback value: the name of the respective Kubernetes `Endpoint`.
                 pub job_label: String,
@@ -8718,7 +8714,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextCapabilities {
+            pub struct ContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
                 /// Removed capabilities
@@ -8726,7 +8722,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextCapabilities {
+            pub struct InitContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
                 /// Removed capabilities
@@ -8779,7 +8775,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimCondition contails details about state of pvc
-            pub struct ConditionsItem {
+            pub struct Condition {
                 /// Last time we probed the condition.
                 pub last_probe_time: String,
                 /// Last time the condition transitioned from one status to another.
@@ -8814,11 +8810,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
-            pub struct VolumesItemConfigMap {
+            pub struct VolumeConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<VolumesItemConfigMapItemsItem>,
+                pub items: Vec<VolumeConfigMapItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap or its keys must be defined
@@ -8826,9 +8822,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
-            pub struct SourcesItemConfigMap {
+            pub struct SourceConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemConfigMapItemsItem>,
+                pub items: Vec<SourceConfigMapItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap or its keys must be defined
@@ -8836,7 +8832,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
-            pub struct ContainersItemEnvItemValueFromConfigMapKeyRef {
+            pub struct ContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -8846,7 +8842,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
-            pub struct InitContainersItemEnvItemValueFromConfigMapKeyRef {
+            pub struct InitContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -8856,7 +8852,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
-            pub struct ContainersItemEnvFromItemConfigMapRef {
+            pub struct ContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap must be defined
@@ -8864,7 +8860,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
-            pub struct InitContainersItemEnvFromItemConfigMapRef {
+            pub struct InitContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the ConfigMap must be defined
@@ -8872,35 +8868,35 @@ pub mod monitoring_coreos_com {
             }
 
             /// A single application container that you want to run within a pod.
-            pub struct ContainersItem {
+            pub struct Container {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
                 /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub command: Vec<String>,
                 /// List of environment variables to set in the container. Cannot be updated.
-                pub env: Vec<ContainersItemEnvItem>,
+                pub env: Vec<ContainerEnvItem>,
                 /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-                pub env_from: Vec<ContainersItemEnvFromItem>,
+                pub env_from: Vec<ContainerEnvFromItem>,
                 /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
                 pub image: String,
                 /// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
                 pub image_pull_policy: String,
                 /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-                pub lifecycle: ContainersItemLifecycle,
+                pub lifecycle: ContainerLifecycle,
                 /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub liveness_probe: ContainersItemLivenessProbe,
+                pub liveness_probe: ContainerLivenessProbe,
                 /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
                 pub name: String,
                 /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-                pub ports: Vec<ContainersItemPortsItem>,
+                pub ports: Vec<ContainerPort>,
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub readiness_probe: ContainersItemReadinessProbe,
+                pub readiness_probe: ContainerReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: ContainersItemResources,
+                pub resources: ContainerResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-                pub security_context: ContainersItemSecurityContext,
+                pub security_context: ContainerSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub startup_probe: ContainersItemStartupProbe,
+                pub startup_probe: ContainerStartupProbe,
                 /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
                 pub stdin: bool,
                 /// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
@@ -8912,9 +8908,9 @@ pub mod monitoring_coreos_com {
                 /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
                 pub tty: bool,
                 /// volumeDevices is the list of block devices to be used by the container.
-                pub volume_devices: Vec<ContainersItemVolumeDevicesItem>,
+                pub volume_devices: Vec<ContainerVolumeDevice>,
                 /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-                pub volume_mounts: Vec<ContainersItemVolumeMountsItem>,
+                pub volume_mounts: Vec<ContainerVolumeMount>,
                 /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
                 pub working_dir: String,
             }
@@ -8954,7 +8950,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecDataSource {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -8984,7 +8980,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecDataSourceRef {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
                 /// Kind is the type of resource being referenced
@@ -8994,17 +8990,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPI represents downward API about the pod that should populate this volume
-            pub struct VolumesItemDownwardAPI {
+            pub struct VolumeDownwardAPI {
                 /// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// Items is a list of downward API volume file
-                pub items: Vec<VolumesItemDownwardAPIItemsItem>,
+                pub items: Vec<VolumeDownwardAPIItem>,
             }
 
             /// information about the downwardAPI data to project
-            pub struct SourcesItemDownwardAPI {
+            pub struct SourceDownwardAPI {
                 /// Items is a list of DownwardAPIVolume file
-                pub items: Vec<SourcesItemDownwardAPIItemsItem>,
+                pub items: Vec<SourceDownwardAPIItem>,
             }
 
             /// EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
@@ -9016,7 +9012,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-            pub struct VolumesItemEmptyDir {
+            pub struct VolumeEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
                 /// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
@@ -9024,43 +9020,43 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
-            pub struct ContainersItemEnvFromItem {
+            pub struct ContainerEnvFromItem {
                 /// The ConfigMap to select from
-                pub config_map_ref: ContainersItemEnvFromItemConfigMapRef,
+                pub config_map_ref: ContainerEnvFromItemConfigMapRef,
                 /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
                 pub prefix: String,
                 /// The Secret to select from
-                pub secret_ref: ContainersItemEnvFromItemSecretRef,
+                pub secret_ref: ContainerEnvFromItemSecretRef,
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
-            pub struct InitContainersItemEnvFromItem {
+            pub struct InitContainerEnvFromItem {
                 /// The ConfigMap to select from
-                pub config_map_ref: InitContainersItemEnvFromItemConfigMapRef,
+                pub config_map_ref: InitContainerEnvFromItemConfigMapRef,
                 /// An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
                 pub prefix: String,
                 /// The Secret to select from
-                pub secret_ref: InitContainersItemEnvFromItemSecretRef,
+                pub secret_ref: InitContainerEnvFromItemSecretRef,
             }
 
             /// EnvVar represents an environment variable present in a Container.
-            pub struct ContainersItemEnvItem {
+            pub struct ContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
                 /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
                 pub value: String,
                 /// Source for the environment variable's value. Cannot be used if value is not empty.
-                pub value_from: ContainersItemEnvItemValueFrom,
+                pub value_from: ContainerEnvItemValueFrom,
             }
 
             /// EnvVar represents an environment variable present in a Container.
-            pub struct InitContainersItemEnvItem {
+            pub struct InitContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
                 /// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
                 pub value: String,
                 /// Source for the environment variable's value. Cannot be used if value is not empty.
-                pub value_from: InitContainersItemEnvItemValueFrom,
+                pub value_from: InitContainerEnvItemValueFrom,
             }
 
             /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
@@ -9077,12 +9073,12 @@ pub mod monitoring_coreos_com {
             ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
             ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
             ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-            pub struct VolumesItemEphemeral {
+            pub struct VolumeEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
                 ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
                 ///  Required, must not be nil.
-                pub volume_claim_template: VolumesItemEphemeralVolumeClaimTemplate,
+                pub volume_claim_template: VolumeEphemeralVolumeClaimTemplate,
             }
 
             /// ObjectReference references a PodMonitor, ServiceMonitor, Probe or PrometheusRule object.
@@ -9098,61 +9094,61 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLifecyclePostStartExec {
+            pub struct ContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLifecyclePreStopExec {
+            pub struct ContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemLivenessProbeExec {
+            pub struct ContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemReadinessProbeExec {
+            pub struct ContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct ContainersItemStartupProbeExec {
+            pub struct ContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLifecyclePostStartExec {
+            pub struct InitContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLifecyclePreStopExec {
+            pub struct InitContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemLivenessProbeExec {
+            pub struct InitContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemReadinessProbeExec {
+            pub struct InitContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
-            pub struct InitContainersItemStartupProbeExec {
+            pub struct InitContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
@@ -9172,7 +9168,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-            pub struct ContainersItemEnvItemValueFromFieldRef {
+            pub struct ContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -9180,7 +9176,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-            pub struct InitContainersItemEnvItemValueFromFieldRef {
+            pub struct InitContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -9188,7 +9184,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-            pub struct VolumesItemDownwardAPIItemsItemFieldRef {
+            pub struct VolumeDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -9196,7 +9192,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-            pub struct SourcesItemDownwardAPIItemsItemFieldRef {
+            pub struct SourceDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
                 /// Path of the field to select in the specified API version.
@@ -9258,7 +9254,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemLivenessProbeGrpc {
+            pub struct ContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -9267,7 +9263,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemReadinessProbeGrpc {
+            pub struct ContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -9276,7 +9272,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct ContainersItemStartupProbeGrpc {
+            pub struct ContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -9285,7 +9281,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemLivenessProbeGrpc {
+            pub struct InitContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -9294,7 +9290,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemReadinessProbeGrpc {
+            pub struct InitContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -9303,7 +9299,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-            pub struct InitContainersItemStartupProbeGrpc {
+            pub struct InitContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
                 /// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -9332,7 +9328,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
-            pub struct HostAliasesItem {
+            pub struct HostAliase {
                 /// Hostnames for the above IP address.
                 pub hostnames: Vec<String>,
                 /// IP address of the host file entry.
@@ -9348,11 +9344,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLifecyclePostStartHttpGet {
+            pub struct ContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLifecyclePostStartHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9362,11 +9358,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLifecyclePreStopHttpGet {
+            pub struct ContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLifecyclePreStopHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9376,11 +9372,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemLivenessProbeHttpGet {
+            pub struct ContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerLivenessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9390,11 +9386,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemReadinessProbeHttpGet {
+            pub struct ContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerReadinessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9404,11 +9400,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct ContainersItemStartupProbeHttpGet {
+            pub struct ContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<ContainerStartupProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9418,11 +9414,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLifecyclePostStartHttpGet {
+            pub struct InitContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLifecyclePostStartHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9432,11 +9428,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLifecyclePreStopHttpGet {
+            pub struct InitContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLifecyclePreStopHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9446,11 +9442,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemLivenessProbeHttpGet {
+            pub struct InitContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerLivenessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9460,11 +9456,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemReadinessProbeHttpGet {
+            pub struct InitContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerReadinessProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9474,11 +9470,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
-            pub struct InitContainersItemStartupProbeHttpGet {
+            pub struct InitContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
                 /// Custom headers to set in the request. HTTP allows repeated headers.
-                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub http_headers: Vec<InitContainerStartupProbeHttpGetHttpHeader>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -9488,7 +9484,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+            pub struct ContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9496,7 +9492,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+            pub struct ContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9504,7 +9500,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct ContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9512,7 +9508,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct ContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9520,7 +9516,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct ContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9528,7 +9524,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+            pub struct InitContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9536,7 +9532,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+            pub struct InitContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9544,7 +9540,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9552,7 +9548,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9560,7 +9556,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
-            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
+            pub struct InitContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
                 /// The header field value
@@ -9568,41 +9564,41 @@ pub mod monitoring_coreos_com {
             }
 
             /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
-            pub struct ImagePullSecretsItem {
+            pub struct ImagePullSecret {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// A single application container that you want to run within a pod.
-            pub struct InitContainersItem {
+            pub struct InitContainer {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
                 /// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub command: Vec<String>,
                 /// List of environment variables to set in the container. Cannot be updated.
-                pub env: Vec<InitContainersItemEnvItem>,
+                pub env: Vec<InitContainerEnvItem>,
                 /// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-                pub env_from: Vec<InitContainersItemEnvFromItem>,
+                pub env_from: Vec<InitContainerEnvFromItem>,
                 /// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
                 pub image: String,
                 /// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
                 pub image_pull_policy: String,
                 /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-                pub lifecycle: InitContainersItemLifecycle,
+                pub lifecycle: InitContainerLifecycle,
                 /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub liveness_probe: InitContainersItemLivenessProbe,
+                pub liveness_probe: InitContainerLivenessProbe,
                 /// Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
                 pub name: String,
                 /// List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
-                pub ports: Vec<InitContainersItemPortsItem>,
+                pub ports: Vec<InitContainerPort>,
                 /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub readiness_probe: InitContainersItemReadinessProbe,
+                pub readiness_probe: InitContainerReadinessProbe,
                 /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub resources: InitContainersItemResources,
+                pub resources: InitContainerResources,
                 /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-                pub security_context: InitContainersItemSecurityContext,
+                pub security_context: InitContainerSecurityContext,
                 /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-                pub startup_probe: InitContainersItemStartupProbe,
+                pub startup_probe: InitContainerStartupProbe,
                 /// Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
                 pub stdin: bool,
                 /// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
@@ -9614,9 +9610,9 @@ pub mod monitoring_coreos_com {
                 /// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
                 pub tty: bool,
                 /// volumeDevices is the list of block devices to be used by the container.
-                pub volume_devices: Vec<InitContainersItemVolumeDevicesItem>,
+                pub volume_devices: Vec<InitContainerVolumeDevice>,
                 /// Pod volumes to mount into the container's filesystem. Cannot be updated.
-                pub volume_mounts: Vec<InitContainersItemVolumeMountsItem>,
+                pub volume_mounts: Vec<InitContainerVolumeMount>,
                 /// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
                 pub working_dir: String,
             }
@@ -9648,7 +9644,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct VolumesItemConfigMapItemsItem {
+            pub struct VolumeConfigMapItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -9658,19 +9654,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
-            pub struct VolumesItemDownwardAPIItemsItem {
+            pub struct VolumeDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-                pub field_ref: VolumesItemDownwardAPIItemsItemFieldRef,
+                pub field_ref: VolumeDownwardAPIItemFieldRef,
                 /// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub mode: i32,
                 /// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
                 pub path: String,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-                pub resource_field_ref: VolumesItemDownwardAPIItemsItemResourceFieldRef,
+                pub resource_field_ref: VolumeDownwardAPIItemResourceFieldRef,
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct SourcesItemConfigMapItemsItem {
+            pub struct SourceConfigMapItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -9680,19 +9676,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
-            pub struct SourcesItemDownwardAPIItemsItem {
+            pub struct SourceDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
-                pub field_ref: SourcesItemDownwardAPIItemsItemFieldRef,
+                pub field_ref: SourceDownwardAPIItemFieldRef,
                 /// Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub mode: i32,
                 /// Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
                 pub path: String,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-                pub resource_field_ref: SourcesItemDownwardAPIItemsItemResourceFieldRef,
+                pub resource_field_ref: SourceDownwardAPIItemResourceFieldRef,
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct SourcesItemSecretItemsItem {
+            pub struct SourceSecretItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -9702,7 +9698,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
-            pub struct VolumesItemSecretItemsItem {
+            pub struct VolumeSecretItem {
                 /// The key to project.
                 pub key: String,
                 /// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -9724,7 +9720,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -9732,7 +9728,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -9740,7 +9736,7 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -9748,18 +9744,17 @@ pub mod monitoring_coreos_com {
             /// A label query over a set of resources, in this case pods.
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-            pub struct TopologySpreadConstraintsItemLabelSelector {
+            pub struct TopologySpreadConstraintLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<TopologySpreadConstraintLabelSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
+                pub match_labels: TopologySpreadConstraintLabelSelectorMatchLabels,
             }
 
             /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
@@ -9781,23 +9776,23 @@ pub mod monitoring_coreos_com {
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-            pub struct ContainersItemLifecycle {
+            pub struct ContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub post_start: ContainersItemLifecyclePostStart,
+                pub post_start: ContainerLifecyclePostStart,
                 /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub pre_stop: ContainersItemLifecyclePreStop,
+                pub pre_stop: ContainerLifecyclePreStop,
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
-            pub struct InitContainersItemLifecycle {
+            pub struct InitContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub post_start: InitContainersItemLifecyclePostStart,
+                pub post_start: InitContainerLifecyclePostStart,
                 /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-                pub pre_stop: InitContainersItemLifecyclePreStop,
+                pub pre_stop: InitContainerLifecyclePreStop,
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResourcesLimits {
+            pub struct ContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -9806,7 +9801,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResourcesLimits {
+            pub struct InitContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -9842,7 +9837,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -9851,15 +9846,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemLivenessProbe {
+            pub struct ContainerLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLivenessProbeExec,
+                pub exec: ContainerLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemLivenessProbeGrpc,
+                pub grpc: ContainerLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLivenessProbeHttpGet,
+                pub http_get: ContainerLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -9867,7 +9862,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: ContainerLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -9875,15 +9870,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemLivenessProbe {
+            pub struct InitContainerLivenessProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLivenessProbeExec,
+                pub exec: InitContainerLivenessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemLivenessProbeGrpc,
+                pub grpc: InitContainerLivenessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLivenessProbeHttpGet,
+                pub http_get: InitContainerLivenessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -9891,7 +9886,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
+                pub tcp_socket: InitContainerLivenessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -9899,7 +9894,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PreferenceMatchExpressionsItem {
+            pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -9909,7 +9904,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct NodeSelectorTermsItemMatchExpressionsItem {
+            pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -9919,7 +9914,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9930,7 +9925,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9941,7 +9936,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9952,7 +9947,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9963,7 +9958,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9974,7 +9969,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9985,7 +9980,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -9996,7 +9991,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10007,7 +10002,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct RuleNamespaceSelectorMatchExpressionsItem {
+            pub struct RuleNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10017,7 +10012,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct RuleSelectorMatchExpressionsItem {
+            pub struct RuleSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10027,7 +10022,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10037,7 +10032,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10047,7 +10042,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+            pub struct TopologySpreadConstraintLabelSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10057,7 +10052,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
                 /// operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
@@ -10067,7 +10062,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct PreferenceMatchFieldsItem {
+            pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -10077,7 +10072,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-            pub struct NodeSelectorTermsItemMatchFieldsItem {
+            pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -10166,13 +10161,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
+            pub struct TopologySpreadConstraintLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -10194,7 +10189,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
+            pub struct VolumeEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -10202,7 +10197,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -10210,7 +10205,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -10218,7 +10213,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -10226,7 +10221,7 @@ pub mod monitoring_coreos_com {
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -10264,11 +10259,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
-            pub struct NodeSelectorTermsItem {
+            pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+                pub match_fields: Vec<NodeSelectorTermMatchField>,
             }
 
             /// ObjectStorageConfig configures object storage in Thanos. Alternative to ObjectStorageConfigFile, and lower order priority.
@@ -10358,7 +10353,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
-            pub struct ContainersItemPortsItem {
+            pub struct ContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
                 /// What host IP to bind the external port to.
@@ -10372,7 +10367,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
-            pub struct InitContainersItemPortsItem {
+            pub struct InitContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
                 /// What host IP to bind the external port to.
@@ -10396,51 +10391,51 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct ContainersItemLifecyclePostStart {
+            pub struct ContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLifecyclePostStartExec,
+                pub exec: ContainerLifecyclePostStartExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLifecyclePostStartHttpGet,
+                pub http_get: ContainerLifecyclePostStartHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: ContainersItemLifecyclePostStartTcpSocket,
+                pub tcp_socket: ContainerLifecyclePostStartTcpSocket,
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct InitContainersItemLifecyclePostStart {
+            pub struct InitContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLifecyclePostStartExec,
+                pub exec: InitContainerLifecyclePostStartExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLifecyclePostStartHttpGet,
+                pub http_get: InitContainerLifecyclePostStartHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: InitContainersItemLifecyclePostStartTcpSocket,
+                pub tcp_socket: InitContainerLifecyclePostStartTcpSocket,
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct ContainersItemLifecyclePreStop {
+            pub struct ContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemLifecyclePreStopExec,
+                pub exec: ContainerLifecyclePreStopExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemLifecyclePreStopHttpGet,
+                pub http_get: ContainerLifecyclePreStopHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: ContainersItemLifecyclePreStopTcpSocket,
+                pub tcp_socket: ContainerLifecyclePreStopTcpSocket,
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-            pub struct InitContainersItemLifecyclePreStop {
+            pub struct InitContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemLifecyclePreStopExec,
+                pub exec: InitContainerLifecyclePreStopExec,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemLifecyclePreStopHttpGet,
+                pub http_get: InitContainerLifecyclePreStopHttpGet,
                 /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-                pub tcp_socket: InitContainersItemLifecyclePreStopTcpSocket,
+                pub tcp_socket: InitContainerLifecyclePreStopTcpSocket,
             }
 
             /// A node selector term, associated with the corresponding weight.
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                pub match_expressions: Vec<PreferenceMatchExpression>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+                pub match_fields: Vec<PreferenceMatchField>,
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -10473,7 +10468,7 @@ pub mod monitoring_coreos_com {
                 /// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// list of volume projections
-                pub sources: Vec<SourcesItem>,
+                pub sources: Vec<Source>,
             }
 
             /// PrometheusRuleExcludeConfig enables users to configure excluded PrometheusRule names and their namespaces to be ignored while enforcing namespace label for alerts and metrics.
@@ -10531,15 +10526,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemReadinessProbe {
+            pub struct ContainerReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemReadinessProbeExec,
+                pub exec: ContainerReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemReadinessProbeGrpc,
+                pub grpc: ContainerReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemReadinessProbeHttpGet,
+                pub http_get: ContainerReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -10547,7 +10542,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: ContainerReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -10555,15 +10550,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemReadinessProbe {
+            pub struct InitContainerReadinessProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemReadinessProbeExec,
+                pub exec: InitContainerReadinessProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemReadinessProbeGrpc,
+                pub grpc: InitContainerReadinessProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemReadinessProbeHttpGet,
+                pub http_get: InitContainerReadinessProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -10571,7 +10566,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
+                pub tcp_socket: InitContainerReadinessProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -10579,7 +10574,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResourcesRequests {
+            pub struct ContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -10588,7 +10583,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResourcesRequests {
+            pub struct InitContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -10624,7 +10619,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
                     String,
@@ -10635,7 +10630,7 @@ pub mod monitoring_coreos_com {
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
-                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
+                pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -10665,7 +10660,7 @@ pub mod monitoring_coreos_com {
         }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-            pub struct ContainersItemEnvItemValueFromResourceFieldRef {
+            pub struct ContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -10675,7 +10670,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-            pub struct InitContainersItemEnvItemValueFromResourceFieldRef {
+            pub struct InitContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -10685,7 +10680,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-            pub struct VolumesItemDownwardAPIItemsItemResourceFieldRef {
+            pub struct VolumeDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -10695,7 +10690,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
-            pub struct SourcesItemDownwardAPIItemsItemResourceFieldRef {
+            pub struct SourceDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
                 /// Specifies the output format of the exposed resources, defaults to "1"
@@ -10705,19 +10700,19 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct ContainersItemResources {
+            pub struct ContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: ContainersItemResourcesLimits,
+                pub limits: ContainerResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: ContainersItemResourcesRequests,
+                pub requests: ContainerResourcesRequests,
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-            pub struct InitContainersItemResources {
+            pub struct InitContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: InitContainersItemResourcesLimits,
+                pub limits: InitContainerResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: InitContainersItemResourcesRequests,
+                pub requests: InitContainerResourcesRequests,
             }
 
             /// Resources defines the resource requirements for single Pods. If not provided, no requests/limits will be set
@@ -10745,17 +10740,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecResources {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: VolumesItemEphemeralVolumeClaimTemplateSpecResourcesLimits,
+                pub limits: VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: VolumesItemEphemeralVolumeClaimTemplateSpecResourcesRequests,
+                pub requests: VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests,
             }
 
             /// Namespaces to be selected for Rules discovery. If unspecified, only the same namespace as the ThanosRuler object is in is used.
             pub struct RuleNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<RuleNamespaceSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleNamespaceSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: RuleNamespaceSelectorMatchLabels,
             }
@@ -10763,7 +10758,7 @@ pub mod monitoring_coreos_com {
             /// A label selector to select which PrometheusRules to mount for alerting and recording.
             pub struct RuleSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions: Vec<RuleSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<RuleSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: RuleSelectorMatchLabels,
             }
@@ -10793,7 +10788,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextSeLinuxOptions {
+            pub struct ContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
                 /// Role is a SELinux role label that applies to the container.
@@ -10805,7 +10800,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextSeLinuxOptions {
+            pub struct InitContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
                 /// Role is a SELinux role label that applies to the container.
@@ -10829,7 +10824,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-            pub struct ContainersItemSecurityContextSeccompProfile {
+            pub struct ContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
                 /// type indicates which kind of seccomp profile will be applied. Valid options are:
@@ -10838,7 +10833,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-            pub struct InitContainersItemSecurityContextSeccompProfile {
+            pub struct InitContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
                 /// type indicates which kind of seccomp profile will be applied. Valid options are:
@@ -10876,9 +10871,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
-            pub struct SourcesItemSecret {
+            pub struct SourceSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemSecretItemsItem>,
+                pub items: Vec<SourceSecretItem>,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret or its key must be defined
@@ -10886,11 +10881,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-            pub struct VolumesItemSecret {
+            pub struct VolumeSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<VolumesItemSecretItemsItem>,
+                pub items: Vec<VolumeSecretItem>,
                 /// Specify whether the Secret or its keys must be defined
                 pub optional: bool,
                 /// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
@@ -10898,7 +10893,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
-            pub struct ContainersItemEnvItemValueFromSecretKeyRef {
+            pub struct ContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -10908,7 +10903,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
-            pub struct InitContainersItemEnvItemValueFromSecretKeyRef {
+            pub struct InitContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -10918,7 +10913,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
-            pub struct ContainersItemEnvFromItemSecretRef {
+            pub struct ContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret must be defined
@@ -10926,7 +10921,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
-            pub struct InitContainersItemEnvFromItemSecretRef {
+            pub struct InitContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
                 /// Specify whether the Secret must be defined
@@ -10976,11 +10971,11 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-            pub struct ContainersItemSecurityContext {
+            pub struct ContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
                 /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-                pub capabilities: ContainersItemSecurityContextCapabilities,
+                pub capabilities: ContainerSecurityContextCapabilities,
                 /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
                 pub privileged: bool,
                 /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -10994,19 +10989,19 @@ pub mod monitoring_coreos_com {
                 /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
                 pub run_as_user: i64,
                 /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: ContainersItemSecurityContextSeLinuxOptions,
+                pub se_linux_options: ContainerSecurityContextSeLinuxOptions,
                 /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: ContainersItemSecurityContextSeccompProfile,
+                pub seccomp_profile: ContainerSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: ContainersItemSecurityContextWindowsOptions,
+                pub windows_options: ContainerSecurityContextWindowsOptions,
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-            pub struct InitContainersItemSecurityContext {
+            pub struct InitContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
                 /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
-                pub capabilities: InitContainersItemSecurityContextCapabilities,
+                pub capabilities: InitContainerSecurityContextCapabilities,
                 /// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
                 pub privileged: bool,
                 /// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
@@ -11020,11 +11015,11 @@ pub mod monitoring_coreos_com {
                 /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
                 pub run_as_user: i64,
                 /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
+                pub se_linux_options: InitContainerSecurityContextSeLinuxOptions,
                 /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
+                pub seccomp_profile: InitContainerSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: InitContainersItemSecurityContextWindowsOptions,
+                pub windows_options: InitContainerSecurityContextWindowsOptions,
             }
 
             /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
@@ -11048,7 +11043,7 @@ pub mod monitoring_coreos_com {
                 /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
                 pub supplemental_groups: Vec<i64>,
                 /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
-                pub sysctls: Vec<SysctlsItem>,
+                pub sysctls: Vec<Sysctl>,
                 /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
                 pub windows_options: SpecSecurityContextWindowsOptions,
             }
@@ -11057,7 +11052,7 @@ pub mod monitoring_coreos_com {
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
             }
@@ -11065,19 +11060,18 @@ pub mod monitoring_coreos_com {
             /// A label query over volumes to consider for binding.
             pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-                pub match_expressions:
-                    Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                pub match_expressions: Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: StorageVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// A label query over volumes to consider for binding.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpecSelector {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
-                    Vec<VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchExpressionsItem>,
+                    Vec<VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression>,
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-                pub match_labels: VolumesItemEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
+                pub match_labels: VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels,
             }
 
             /// information about the serviceAccountToken data to project
@@ -11091,13 +11085,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// Projection that may be projected along with other supported volume types
-            pub struct SourcesItem {
+            pub struct Source {
                 /// information about the configMap data to project
-                pub config_map: SourcesItemConfigMap,
+                pub config_map: SourceConfigMap,
                 /// information about the downwardAPI data to project
-                pub downward_a_p_i: SourcesItemDownwardAPI,
+                pub downward_a_p_i: SourceDownwardAPI,
                 /// information about the secret data to project
-                pub secret: SourcesItemSecret,
+                pub secret: SourceSecret,
                 /// information about the serviceAccountToken data to project
                 pub service_account_token: ServiceAccountToken,
             }
@@ -11119,7 +11113,7 @@ pub mod monitoring_coreos_com {
                 /// Define URLs to send alerts to Alertmanager.  For Thanos v0.10.0 and higher, AlertManagersConfig should be used instead.  Note: this field will be ignored if AlertManagersConfig is specified. Maps to the `alertmanagers.url` arg.
                 pub alertmanagers_url: Vec<String>,
                 /// Containers allows injecting additional containers or modifying operator generated containers. This can be used to allow adding an authentication proxy to a ThanosRuler pod or to change the behavior of an operator generated container. Containers described here modify an operator generated container if they share the same name and modifications are done via a strategic merge patch. The current container names are: `thanos-ruler` and `config-reloader`. Overriding containers is entirely outside the scope of what the maintainers will support and by doing so, you accept that this behaviour may break at any time without notice.
-                pub containers: Vec<ContainersItem>,
+                pub containers: Vec<Container>,
                 /// EnforcedNamespaceLabel enforces adding a namespace label of origin for each alert and metric that is user created. The label value will always be the namespace of the object that is being created.
                 pub enforced_namespace_label: String,
                 /// Interval between consecutive evaluations.
@@ -11131,13 +11125,13 @@ pub mod monitoring_coreos_com {
                 /// GRPCServerTLSConfig configures the gRPC server from which Thanos Querier reads recorded rule data. Note: Currently only the CAFile, CertFile, and KeyFile fields are supported. Maps to the '--grpc-server-tls-*' CLI args.
                 pub grpc_server_tls_config: GrpcServerTlsConfig,
                 /// Pods' hostAliases configuration
-                pub host_aliases: Vec<HostAliasesItem>,
+                pub host_aliases: Vec<HostAliase>,
                 /// Thanos container image URL.
                 pub image: String,
                 /// An optional list of references to secrets in the same namespace to use for pulling thanos images from registries see http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod
-                pub image_pull_secrets: Vec<ImagePullSecretsItem>,
+                pub image_pull_secrets: Vec<ImagePullSecret>,
                 /// InitContainers allows adding initContainers to the pod definition. Those can be used to e.g. fetch secrets for injection into the ThanosRuler configuration from external sources. Any errors during the execution of an initContainer will lead to a restart of the Pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ Using initContainers for any use case other then secret fetching is entirely outside the scope of what the maintainers will support and by doing so, you accept that this behaviour may break at any time without notice.
-                pub init_containers: Vec<InitContainersItem>,
+                pub init_containers: Vec<InitContainer>,
                 /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
                 pub labels: SpecLabels,
                 /// ListenLocal makes the Thanos ruler listen on loopback, so that it does not bind against the Pod IP.
@@ -11188,13 +11182,13 @@ pub mod monitoring_coreos_com {
                 /// Storage spec to specify how storage shall be used.
                 pub storage: Storage,
                 /// If specified, the pod's tolerations.
-                pub tolerations: Vec<TolerationsItem>,
+                pub tolerations: Vec<Toleration>,
                 /// If specified, the pod's topology spread constraints.
-                pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
+                pub topology_spread_constraints: Vec<TopologySpreadConstraint>,
                 /// TracingConfig configures tracing in Thanos. This is an experimental feature, it may change in any upcoming release in a breaking way.
                 pub tracing_config: TracingConfig,
                 /// Volumes allows configuration of additional volumes on the output StatefulSet definition. Volumes specified will be appended to other volumes that are generated as a result of StorageSpec objects.
-                pub volumes: Vec<VolumesItem>,
+                pub volumes: Vec<Volume>,
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
@@ -11238,17 +11232,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-            pub struct VolumesItemEphemeralVolumeClaimTemplateSpec {
+            pub struct VolumeEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
                 /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-                pub data_source: VolumesItemEphemeralVolumeClaimTemplateSpecDataSource,
+                pub data_source: VolumeEphemeralVolumeClaimTemplateSpecDataSource,
                 /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-                pub data_source_ref: VolumesItemEphemeralVolumeClaimTemplateSpecDataSourceRef,
+                pub data_source_ref: VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef,
                 /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-                pub resources: VolumesItemEphemeralVolumeClaimTemplateSpecResources,
+                pub resources: VolumeEphemeralVolumeClaimTemplateSpecResources,
                 /// A label query over volumes to consider for binding.
-                pub selector: VolumesItemEphemeralVolumeClaimTemplateSpecSelector,
+                pub selector: VolumeEphemeralVolumeClaimTemplateSpecSelector,
                 /// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
                 pub storage_class_name: String,
                 /// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
@@ -11258,15 +11252,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct ContainersItemStartupProbe {
+            pub struct ContainerStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: ContainersItemStartupProbeExec,
+                pub exec: ContainerStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: ContainersItemStartupProbeGrpc,
+                pub grpc: ContainerStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: ContainersItemStartupProbeHttpGet,
+                pub http_get: ContainerStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -11274,7 +11268,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: ContainerStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -11282,15 +11276,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-            pub struct InitContainersItemStartupProbe {
+            pub struct InitContainerStartupProbe {
                 /// Exec specifies the action to take.
-                pub exec: InitContainersItemStartupProbeExec,
+                pub exec: InitContainerStartupProbeExec,
                 /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
                 pub failure_threshold: i32,
                 /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-                pub grpc: InitContainersItemStartupProbeGrpc,
+                pub grpc: InitContainerStartupProbeGrpc,
                 /// HTTPGet specifies the http request to perform.
-                pub http_get: InitContainersItemStartupProbeHttpGet,
+                pub http_get: InitContainerStartupProbeHttpGet,
                 /// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
                 pub initial_delay_seconds: i32,
                 /// How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -11298,7 +11292,7 @@ pub mod monitoring_coreos_com {
                 /// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
                 pub success_threshold: i32,
                 /// TCPSocket specifies an action involving a TCP port.
-                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
+                pub tcp_socket: InitContainerStartupProbeTcpSocket,
                 /// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
                 pub termination_grace_period_seconds: i64,
                 /// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -11314,7 +11308,7 @@ pub mod monitoring_coreos_com {
                 /// Represents the actual resources of the underlying volume.
                 pub capacity: Capacity,
                 /// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
-                pub conditions: Vec<ConditionsItem>,
+                pub conditions: Vec<Condition>,
                 /// Phase represents the current phase of PersistentVolumeClaim.
                 pub phase: String,
                 /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -11362,7 +11356,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sysctl defines a kernel parameter to be set
-            pub struct SysctlsItem {
+            pub struct Sysctl {
                 /// Name of a property to set
                 pub name: String,
                 /// Value of a property to set
@@ -11370,7 +11364,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct ContainersItemLifecyclePostStartTcpSocket {
+            pub struct ContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11378,7 +11372,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct ContainersItemLifecyclePreStopTcpSocket {
+            pub struct ContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11386,7 +11380,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemLivenessProbeTcpSocket {
+            pub struct ContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11394,7 +11388,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemReadinessProbeTcpSocket {
+            pub struct ContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11402,7 +11396,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct ContainersItemStartupProbeTcpSocket {
+            pub struct ContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11410,7 +11404,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct InitContainersItemLifecyclePostStartTcpSocket {
+            pub struct InitContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11418,7 +11412,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
-            pub struct InitContainersItemLifecyclePreStopTcpSocket {
+            pub struct InitContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11426,7 +11420,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemLivenessProbeTcpSocket {
+            pub struct InitContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11434,7 +11428,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemReadinessProbeTcpSocket {
+            pub struct InitContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11442,7 +11436,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
-            pub struct InitContainersItemStartupProbeTcpSocket {
+            pub struct InitContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
@@ -11450,7 +11444,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
-            pub struct TolerationsItem {
+            pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
                 /// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
@@ -11464,9 +11458,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
-            pub struct TopologySpreadConstraintsItem {
+            pub struct TopologySpreadConstraint {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
+                pub label_selector: TopologySpreadConstraintLabelSelector,
                 /// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
                 pub max_skew: i32,
                 /// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
@@ -11486,27 +11480,95 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
-            pub struct ContainersItemEnvItemValueFrom {
+            pub struct ContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
-                pub config_map_key_ref: ContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub config_map_key_ref: ContainerEnvItemValueFromConfigMapKeyRef,
                 /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-                pub field_ref: ContainersItemEnvItemValueFromFieldRef,
+                pub field_ref: ContainerEnvItemValueFromFieldRef,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-                pub resource_field_ref: ContainersItemEnvItemValueFromResourceFieldRef,
+                pub resource_field_ref: ContainerEnvItemValueFromResourceFieldRef,
                 /// Selects a key of a secret in the pod's namespace
-                pub secret_key_ref: ContainersItemEnvItemValueFromSecretKeyRef,
+                pub secret_key_ref: ContainerEnvItemValueFromSecretKeyRef,
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
-            pub struct InitContainersItemEnvItemValueFrom {
+            pub struct InitContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
-                pub config_map_key_ref: InitContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub config_map_key_ref: InitContainerEnvItemValueFromConfigMapKeyRef,
                 /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
-                pub field_ref: InitContainersItemEnvItemValueFromFieldRef,
+                pub field_ref: InitContainerEnvItemValueFromFieldRef,
                 /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
-                pub resource_field_ref: InitContainersItemEnvItemValueFromResourceFieldRef,
+                pub resource_field_ref: InitContainerEnvItemValueFromResourceFieldRef,
                 /// Selects a key of a secret in the pod's namespace
-                pub secret_key_ref: InitContainersItemEnvItemValueFromSecretKeyRef,
+                pub secret_key_ref: InitContainerEnvItemValueFromSecretKeyRef,
+            }
+
+            /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+            pub struct Volume {
+                /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+                pub aws_elastic_block_store: AwsElasticBlockStore,
+                /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+                pub azure_disk: AzureDisk,
+                /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+                pub azure_file: AzureFile,
+                /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+                pub cephfs: Cephfs,
+                /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+                pub cinder: Cinder,
+                /// ConfigMap represents a configMap that should populate this volume
+                pub config_map: VolumeConfigMap,
+                /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+                pub csi: Csi,
+                /// DownwardAPI represents downward API about the pod that should populate this volume
+                pub downward_a_p_i: VolumeDownwardAPI,
+                /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+                pub empty_dir: VolumeEmptyDir,
+                /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+                ///  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a PersistentVolumeClaim (see EphemeralVolumeSource for more information on the connection between this volume type and PersistentVolumeClaim).
+                ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+                ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+                ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+                pub ephemeral: VolumeEphemeral,
+                /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+                pub fc: Fc,
+                /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+                pub flex_volume: FlexVolume,
+                /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+                pub flocker: Flocker,
+                /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+                pub gce_persistent_disk: GcePersistentDisk,
+                /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+                pub git_repo: GitRepo,
+                /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+                pub glusterfs: Glusterfs,
+                /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
+                pub host_path: HostPath,
+                /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+                pub iscsi: Iscsi,
+                /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                pub name: String,
+                /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+                pub nfs: Nfs,
+                /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+                pub persistent_volume_claim: PersistentVolumeClaim,
+                /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+                pub photon_persistent_disk: PhotonPersistentDisk,
+                /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+                pub portworx_volume: PortworxVolume,
+                /// Items for all in one resources secrets, configmaps, and downward API
+                pub projected: Projected,
+                /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+                pub quobyte: Quobyte,
+                /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+                pub rbd: Rbd,
+                /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+                pub scale_i_o: ScaleIO,
+                /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+                pub secret: VolumeSecret,
+                /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+                pub storageos: Storageos,
+                /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+                pub vsphere_volume: VsphereVolume,
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
@@ -11544,15 +11606,15 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
-            pub struct VolumesItemEphemeralVolumeClaimTemplate {
+            pub struct VolumeEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub metadata: VolumesItemEphemeralVolumeClaimTemplateMetadata,
+                pub metadata: VolumeEphemeralVolumeClaimTemplateMetadata,
                 /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-                pub spec: VolumesItemEphemeralVolumeClaimTemplateSpec,
+                pub spec: VolumeEphemeralVolumeClaimTemplateSpec,
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
-            pub struct ContainersItemVolumeDevicesItem {
+            pub struct ContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
@@ -11560,7 +11622,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
-            pub struct InitContainersItemVolumeDevicesItem {
+            pub struct InitContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
@@ -11568,7 +11630,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct ContainersItemVolumeMountsItem {
+            pub struct ContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -11584,7 +11646,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
-            pub struct InitContainersItemVolumeMountsItem {
+            pub struct InitContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -11597,74 +11659,6 @@ pub mod monitoring_coreos_com {
                 pub sub_path: String,
                 /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
                 pub sub_path_expr: String,
-            }
-
-            /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
-            pub struct VolumesItem {
-                /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-                pub aws_elastic_block_store: AwsElasticBlockStore,
-                /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-                pub azure_disk: AzureDisk,
-                /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-                pub azure_file: AzureFile,
-                /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-                pub cephfs: Cephfs,
-                /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-                pub cinder: Cinder,
-                /// ConfigMap represents a configMap that should populate this volume
-                pub config_map: VolumesItemConfigMap,
-                /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
-                pub csi: Csi,
-                /// DownwardAPI represents downward API about the pod that should populate this volume
-                pub downward_a_p_i: VolumesItemDownwardAPI,
-                /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-                pub empty_dir: VolumesItemEmptyDir,
-                /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
-                ///  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a PersistentVolumeClaim (see EphemeralVolumeSource for more information on the connection between this volume type and PersistentVolumeClaim).
-                ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
-                ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
-                ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-                pub ephemeral: VolumesItemEphemeral,
-                /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-                pub fc: Fc,
-                /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-                pub flex_volume: FlexVolume,
-                /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
-                pub flocker: Flocker,
-                /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-                pub gce_persistent_disk: GcePersistentDisk,
-                /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-                pub git_repo: GitRepo,
-                /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-                pub glusterfs: Glusterfs,
-                /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
-                pub host_path: HostPath,
-                /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
-                pub iscsi: Iscsi,
-                /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                pub name: String,
-                /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-                pub nfs: Nfs,
-                /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-                pub persistent_volume_claim: PersistentVolumeClaim,
-                /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-                pub photon_persistent_disk: PhotonPersistentDisk,
-                /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
-                pub portworx_volume: PortworxVolume,
-                /// Items for all in one resources secrets, configmaps, and downward API
-                pub projected: Projected,
-                /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-                pub quobyte: Quobyte,
-                /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-                pub rbd: Rbd,
-                /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
-                pub scale_i_o: ScaleIO,
-                /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-                pub secret: VolumesItemSecret,
-                /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
-                pub storageos: Storageos,
-                /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
-                pub vsphere_volume: VsphereVolume,
             }
 
             /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
@@ -11680,7 +11674,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-            pub struct ContainersItemSecurityContextWindowsOptions {
+            pub struct ContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
                 /// GMSACredentialSpecName is the name of the GMSA credential spec to use.
@@ -11692,7 +11686,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-            pub struct InitContainersItemSecurityContextWindowsOptions {
+            pub struct InitContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
                 /// GMSACredentialSpecName is the name of the GMSA credential spec to use.
@@ -11757,7 +11751,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// SlackAction configures a single Slack action that is sent with each notification. See https://api.slack.com/docs/message-attachments#action_fields and https://api.slack.com/docs/message-buttons for more information.
-            pub struct ActionsItem {
+            pub struct Action {
                 /// SlackConfirmationField protect users from destructive actions or particularly distinguished decisions by asking them to confirm their button click one more time. See https://api.slack.com/docs/interactive-message-field-guide#confirmation_fields for more information.
                 pub confirm: Confirm,
                 pub name: String,
@@ -11769,7 +11763,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the OpsGenie API key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct OpsgenieConfigsItemApiKey {
+            pub struct OpsgenieConfigApiKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -11779,7 +11773,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the API key to use when talking to the VictorOps API. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct VictoropsConfigsItemApiKey {
+            pub struct VictoropsConfigApiKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -11835,151 +11829,151 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct OpsgenieConfigsItemHttpConfigAuthorization {
+            pub struct OpsgenieConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: OpsgenieConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: OpsgenieConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct PagerdutyConfigsItemHttpConfigAuthorization {
+            pub struct PagerdutyConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: PagerdutyConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: PagerdutyConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct PushoverConfigsItemHttpConfigAuthorization {
+            pub struct PushoverConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: PushoverConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: PushoverConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct SlackConfigsItemHttpConfigAuthorization {
+            pub struct SlackConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: SlackConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: SlackConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct SnsConfigsItemHttpConfigAuthorization {
+            pub struct SnsConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: SnsConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: SnsConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct TelegramConfigsItemHttpConfigAuthorization {
+            pub struct TelegramConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: TelegramConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: TelegramConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct VictoropsConfigsItemHttpConfigAuthorization {
+            pub struct VictoropsConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: VictoropsConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: VictoropsConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct WebhookConfigsItemHttpConfigAuthorization {
+            pub struct WebhookConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: WebhookConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: WebhookConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-            pub struct WechatConfigsItemHttpConfigAuthorization {
+            pub struct WechatConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
-                pub credentials: WechatConfigsItemHttpConfigAuthorizationCredentials,
+                pub credentials: WechatConfigHttpConfigAuthorizationCredentials,
                 /// Set the authentication type. Defaults to Bearer, Basic will cause an error
                 pub r#type: String,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct OpsgenieConfigsItemHttpConfigBasicAuth {
+            pub struct OpsgenieConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: OpsgenieConfigsItemHttpConfigBasicAuthPassword,
+                pub password: OpsgenieConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: OpsgenieConfigsItemHttpConfigBasicAuthUsername,
+                pub username: OpsgenieConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct PagerdutyConfigsItemHttpConfigBasicAuth {
+            pub struct PagerdutyConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: PagerdutyConfigsItemHttpConfigBasicAuthPassword,
+                pub password: PagerdutyConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: PagerdutyConfigsItemHttpConfigBasicAuthUsername,
+                pub username: PagerdutyConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct PushoverConfigsItemHttpConfigBasicAuth {
+            pub struct PushoverConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: PushoverConfigsItemHttpConfigBasicAuthPassword,
+                pub password: PushoverConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: PushoverConfigsItemHttpConfigBasicAuthUsername,
+                pub username: PushoverConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct SlackConfigsItemHttpConfigBasicAuth {
+            pub struct SlackConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: SlackConfigsItemHttpConfigBasicAuthPassword,
+                pub password: SlackConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: SlackConfigsItemHttpConfigBasicAuthUsername,
+                pub username: SlackConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct SnsConfigsItemHttpConfigBasicAuth {
+            pub struct SnsConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: SnsConfigsItemHttpConfigBasicAuthPassword,
+                pub password: SnsConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: SnsConfigsItemHttpConfigBasicAuthUsername,
+                pub username: SnsConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct TelegramConfigsItemHttpConfigBasicAuth {
+            pub struct TelegramConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: TelegramConfigsItemHttpConfigBasicAuthPassword,
+                pub password: TelegramConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: TelegramConfigsItemHttpConfigBasicAuthUsername,
+                pub username: TelegramConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct VictoropsConfigsItemHttpConfigBasicAuth {
+            pub struct VictoropsConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: VictoropsConfigsItemHttpConfigBasicAuthPassword,
+                pub password: VictoropsConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: VictoropsConfigsItemHttpConfigBasicAuthUsername,
+                pub username: VictoropsConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct WebhookConfigsItemHttpConfigBasicAuth {
+            pub struct WebhookConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: WebhookConfigsItemHttpConfigBasicAuthPassword,
+                pub password: WebhookConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: WebhookConfigsItemHttpConfigBasicAuthUsername,
+                pub username: WebhookConfigHttpConfigBasicAuthUsername,
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-            pub struct WechatConfigsItemHttpConfigBasicAuth {
+            pub struct WechatConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
-                pub password: WechatConfigsItemHttpConfigBasicAuthPassword,
+                pub password: WechatConfigHttpConfigBasicAuthPassword,
                 /// The secret in the service monitor namespace that contains the username for authentication.
-                pub username: WechatConfigsItemHttpConfigBasicAuthUsername,
+                pub username: WechatConfigHttpConfigBasicAuthUsername,
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct OpsgenieConfigsItemHttpConfigBearerTokenSecret {
+            pub struct OpsgenieConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -11989,7 +11983,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct PagerdutyConfigsItemHttpConfigBearerTokenSecret {
+            pub struct PagerdutyConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -11999,7 +11993,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct PushoverConfigsItemHttpConfigBearerTokenSecret {
+            pub struct PushoverConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12009,7 +12003,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct SlackConfigsItemHttpConfigBearerTokenSecret {
+            pub struct SlackConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12019,7 +12013,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct SnsConfigsItemHttpConfigBearerTokenSecret {
+            pub struct SnsConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12029,7 +12023,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct TelegramConfigsItemHttpConfigBearerTokenSecret {
+            pub struct TelegramConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12039,7 +12033,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct VictoropsConfigsItemHttpConfigBearerTokenSecret {
+            pub struct VictoropsConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12049,7 +12043,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct WebhookConfigsItemHttpConfigBearerTokenSecret {
+            pub struct WebhookConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12059,7 +12053,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-            pub struct WechatConfigsItemHttpConfigBearerTokenSecret {
+            pub struct WechatConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12079,239 +12073,239 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct EmailConfigsItemTlsConfigCa {
+            pub struct EmailConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: EmailConfigsItemTlsConfigCaConfigMap,
+                pub config_map: EmailConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: EmailConfigsItemTlsConfigCaSecret,
+                pub secret: EmailConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigCa {
+            pub struct OpsgenieConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: OpsgenieConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: OpsgenieConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: OpsgenieConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: OpsgenieConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigCa {
+            pub struct PagerdutyConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: PagerdutyConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: PagerdutyConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: PagerdutyConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: PagerdutyConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigCa {
+            pub struct PushoverConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: PushoverConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: PushoverConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: PushoverConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: PushoverConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigCa {
+            pub struct SlackConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: SlackConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: SlackConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: SlackConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: SlackConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigCa {
+            pub struct SnsConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: SnsConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: SnsConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: SnsConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: SnsConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigCa {
+            pub struct TelegramConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: TelegramConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: TelegramConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: TelegramConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: TelegramConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigCa {
+            pub struct VictoropsConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: VictoropsConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: VictoropsConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: VictoropsConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: VictoropsConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigCa {
+            pub struct WebhookConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WebhookConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: WebhookConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WebhookConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: WebhookConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the CA cert to use for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigCa {
+            pub struct WechatConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WechatConfigsItemHttpConfigTlsConfigCaConfigMap,
+                pub config_map: WechatConfigHttpConfigTlsConfigCaConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WechatConfigsItemHttpConfigTlsConfigCaSecret,
+                pub secret: WechatConfigHttpConfigTlsConfigCaSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct EmailConfigsItemTlsConfigCert {
+            pub struct EmailConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: EmailConfigsItemTlsConfigCertConfigMap,
+                pub config_map: EmailConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: EmailConfigsItemTlsConfigCertSecret,
+                pub secret: EmailConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigCert {
+            pub struct OpsgenieConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: OpsgenieConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: OpsgenieConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: OpsgenieConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: OpsgenieConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigCert {
+            pub struct PagerdutyConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: PagerdutyConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: PagerdutyConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: PagerdutyConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: PagerdutyConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigCert {
+            pub struct PushoverConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: PushoverConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: PushoverConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: PushoverConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: PushoverConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigCert {
+            pub struct SlackConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: SlackConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: SlackConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: SlackConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: SlackConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigCert {
+            pub struct SnsConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: SnsConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: SnsConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: SnsConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: SnsConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigCert {
+            pub struct TelegramConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: TelegramConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: TelegramConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: TelegramConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: TelegramConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigCert {
+            pub struct VictoropsConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: VictoropsConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: VictoropsConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: VictoropsConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: VictoropsConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigCert {
+            pub struct WebhookConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WebhookConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: WebhookConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WebhookConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: WebhookConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// Struct containing the client cert file for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigCert {
+            pub struct WechatConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WechatConfigsItemHttpConfigTlsConfigCertConfigMap,
+                pub config_map: WechatConfigHttpConfigTlsConfigCertConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WechatConfigsItemHttpConfigTlsConfigCertSecret,
+                pub secret: WechatConfigHttpConfigTlsConfigCertSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct OpsgenieConfigsItemHttpConfigOauth2ClientId {
+            pub struct OpsgenieConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: OpsgenieConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: OpsgenieConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: OpsgenieConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: OpsgenieConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct PagerdutyConfigsItemHttpConfigOauth2ClientId {
+            pub struct PagerdutyConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: PagerdutyConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: PagerdutyConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: PagerdutyConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: PagerdutyConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct PushoverConfigsItemHttpConfigOauth2ClientId {
+            pub struct PushoverConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: PushoverConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: PushoverConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: PushoverConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: PushoverConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct SlackConfigsItemHttpConfigOauth2ClientId {
+            pub struct SlackConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: SlackConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: SlackConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: SlackConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: SlackConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct SnsConfigsItemHttpConfigOauth2ClientId {
+            pub struct SnsConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: SnsConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: SnsConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: SnsConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: SnsConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct TelegramConfigsItemHttpConfigOauth2ClientId {
+            pub struct TelegramConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: TelegramConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: TelegramConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: TelegramConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: TelegramConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct VictoropsConfigsItemHttpConfigOauth2ClientId {
+            pub struct VictoropsConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: VictoropsConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: VictoropsConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: VictoropsConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: VictoropsConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct WebhookConfigsItemHttpConfigOauth2ClientId {
+            pub struct WebhookConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WebhookConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: WebhookConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WebhookConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: WebhookConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret or configmap containing the OAuth2 client id
-            pub struct WechatConfigsItemHttpConfigOauth2ClientId {
+            pub struct WechatConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
-                pub config_map: WechatConfigsItemHttpConfigOauth2ClientIdConfigMap,
+                pub config_map: WechatConfigHttpConfigOauth2ClientIdConfigMap,
                 /// Secret containing data to use for the targets.
-                pub secret: WechatConfigsItemHttpConfigOauth2ClientIdSecret,
+                pub secret: WechatConfigHttpConfigOauth2ClientIdSecret,
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct OpsgenieConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct OpsgenieConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12321,7 +12315,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct PagerdutyConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct PagerdutyConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12331,7 +12325,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct PushoverConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct PushoverConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12341,7 +12335,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct SlackConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct SlackConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12351,7 +12345,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct SnsConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct SnsConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12361,7 +12355,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct TelegramConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct TelegramConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12371,7 +12365,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct VictoropsConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct VictoropsConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12381,7 +12375,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct WebhookConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct WebhookConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12391,7 +12385,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
-            pub struct WechatConfigsItemHttpConfigOauth2ClientSecret {
+            pub struct WechatConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12401,7 +12395,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct EmailConfigsItemTlsConfigCaConfigMap {
+            pub struct EmailConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12411,7 +12405,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct EmailConfigsItemTlsConfigCertConfigMap {
+            pub struct EmailConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12421,7 +12415,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct OpsgenieConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12431,7 +12425,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct OpsgenieConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12441,7 +12435,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct OpsgenieConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12451,7 +12445,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct PagerdutyConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12461,7 +12455,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct PagerdutyConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12471,7 +12465,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct PagerdutyConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12481,7 +12475,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct PushoverConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12491,7 +12485,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct PushoverConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12501,7 +12495,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct PushoverConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12511,7 +12505,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct SlackConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct SlackConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12521,7 +12515,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct SlackConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12531,7 +12525,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct SlackConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12541,7 +12535,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct SnsConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct SnsConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12551,7 +12545,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct SnsConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12561,7 +12555,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct SnsConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12571,7 +12565,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct TelegramConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12581,7 +12575,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct TelegramConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12591,7 +12585,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct TelegramConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12601,7 +12595,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct VictoropsConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12611,7 +12605,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct VictoropsConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12621,7 +12615,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct VictoropsConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12631,7 +12625,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct WebhookConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12641,7 +12635,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct WebhookConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12651,7 +12645,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct WebhookConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12661,7 +12655,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WechatConfigsItemHttpConfigOauth2ClientIdConfigMap {
+            pub struct WechatConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12671,7 +12665,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigCaConfigMap {
+            pub struct WechatConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12681,7 +12675,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigCertConfigMap {
+            pub struct WechatConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12699,7 +12693,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct OpsgenieConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct OpsgenieConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12709,7 +12703,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct PagerdutyConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct PagerdutyConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12719,7 +12713,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct PushoverConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct PushoverConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12729,7 +12723,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct SlackConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct SlackConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12739,7 +12733,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct SnsConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct SnsConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12749,7 +12743,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct TelegramConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct TelegramConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12759,7 +12753,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct VictoropsConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct VictoropsConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12769,7 +12763,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct WebhookConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct WebhookConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12779,7 +12773,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
-            pub struct WechatConfigsItemHttpConfigAuthorizationCredentials {
+            pub struct WechatConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -12789,7 +12783,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
-            pub struct CustomFieldsItem {
+            pub struct CustomField {
                 /// Key of the tuple.
                 pub key: String,
                 /// Value of the tuple.
@@ -12805,7 +12799,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
-            pub struct OpsgenieConfigsItemDetailsItem {
+            pub struct OpsgenieConfigDetail {
                 /// Key of the tuple.
                 pub key: String,
                 /// Value of the tuple.
@@ -12813,7 +12807,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
-            pub struct PagerdutyConfigsItemDetailsItem {
+            pub struct PagerdutyConfigDetail {
                 /// Key of the tuple.
                 pub key: String,
                 /// Value of the tuple.
@@ -12821,7 +12815,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmailConfig configures notifications via Email.
-            pub struct EmailConfigsItem {
+            pub struct EmailConfig {
                 /// The identity to use for authentication.
                 pub auth_identity: String,
                 /// The secret's key that contains the password to use for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
@@ -12833,7 +12827,7 @@ pub mod monitoring_coreos_com {
                 /// The sender address.
                 pub from: String,
                 /// Further headers email header key/value pairs. Overrides any headers previously set by the notification implementation.
-                pub headers: Vec<HeadersItem>,
+                pub headers: Vec<Header>,
                 /// The hostname to identify to the SMTP server.
                 pub hello: String,
                 /// The HTML body of the email notification.
@@ -12847,74 +12841,74 @@ pub mod monitoring_coreos_com {
                 /// The text body of the email notification.
                 pub text: String,
                 /// TLS configuration
-                pub tls_config: EmailConfigsItemTlsConfig,
+                pub tls_config: EmailConfigTlsConfig,
                 /// The email address to send notifications to.
                 pub to: String,
             }
 
             /// Parameters to append to the token URL
-            pub struct OpsgenieConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct OpsgenieConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct PagerdutyConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct PagerdutyConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct PushoverConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct PushoverConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct SlackConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct SlackConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct SnsConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct SnsConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct TelegramConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct TelegramConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct VictoropsConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct VictoropsConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct WebhookConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct WebhookConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
-            pub struct WechatConfigsItemHttpConfigOauth2EndpointParams {
+            pub struct WechatConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// SlackField configures a single Slack field that is sent with each notification. Each field must contain a title, value, and optionally, a boolean value to indicate if the field is short enough to be displayed next to other fields designated as short. See https://api.slack.com/docs/message-attachments#fields for more information.
-            pub struct FieldsItem {
+            pub struct Field {
                 pub short: bool,
                 pub title: String,
                 pub value: String,
             }
 
             /// KeyValue defines a (key, value) tuple.
-            pub struct HeadersItem {
+            pub struct Header {
                 /// Key of the tuple.
                 pub key: String,
                 /// Value of the tuple.
@@ -12922,169 +12916,169 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
-            pub struct OpsgenieConfigsItemHttpConfig {
+            pub struct OpsgenieConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: OpsgenieConfigsItemHttpConfigAuthorization,
+                pub authorization: OpsgenieConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: OpsgenieConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: OpsgenieConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: OpsgenieConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: OpsgenieConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: OpsgenieConfigsItemHttpConfigOauth2,
+                pub oauth2: OpsgenieConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: OpsgenieConfigsItemHttpConfigTlsConfig,
+                pub tls_config: OpsgenieConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct PagerdutyConfigsItemHttpConfig {
+            pub struct PagerdutyConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: PagerdutyConfigsItemHttpConfigAuthorization,
+                pub authorization: PagerdutyConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: PagerdutyConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: PagerdutyConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: PagerdutyConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: PagerdutyConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: PagerdutyConfigsItemHttpConfigOauth2,
+                pub oauth2: PagerdutyConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: PagerdutyConfigsItemHttpConfigTlsConfig,
+                pub tls_config: PagerdutyConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct PushoverConfigsItemHttpConfig {
+            pub struct PushoverConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: PushoverConfigsItemHttpConfigAuthorization,
+                pub authorization: PushoverConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: PushoverConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: PushoverConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: PushoverConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: PushoverConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: PushoverConfigsItemHttpConfigOauth2,
+                pub oauth2: PushoverConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: PushoverConfigsItemHttpConfigTlsConfig,
+                pub tls_config: PushoverConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct SlackConfigsItemHttpConfig {
+            pub struct SlackConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: SlackConfigsItemHttpConfigAuthorization,
+                pub authorization: SlackConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: SlackConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: SlackConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: SlackConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: SlackConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: SlackConfigsItemHttpConfigOauth2,
+                pub oauth2: SlackConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: SlackConfigsItemHttpConfigTlsConfig,
+                pub tls_config: SlackConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct SnsConfigsItemHttpConfig {
+            pub struct SnsConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: SnsConfigsItemHttpConfigAuthorization,
+                pub authorization: SnsConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: SnsConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: SnsConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: SnsConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: SnsConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: SnsConfigsItemHttpConfigOauth2,
+                pub oauth2: SnsConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: SnsConfigsItemHttpConfigTlsConfig,
+                pub tls_config: SnsConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct TelegramConfigsItemHttpConfig {
+            pub struct TelegramConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: TelegramConfigsItemHttpConfigAuthorization,
+                pub authorization: TelegramConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: TelegramConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: TelegramConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: TelegramConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: TelegramConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: TelegramConfigsItemHttpConfigOauth2,
+                pub oauth2: TelegramConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: TelegramConfigsItemHttpConfigTlsConfig,
+                pub tls_config: TelegramConfigHttpConfigTlsConfig,
             }
 
             /// The HTTP client's configuration.
-            pub struct VictoropsConfigsItemHttpConfig {
+            pub struct VictoropsConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: VictoropsConfigsItemHttpConfigAuthorization,
+                pub authorization: VictoropsConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: VictoropsConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: VictoropsConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: VictoropsConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: VictoropsConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: VictoropsConfigsItemHttpConfigOauth2,
+                pub oauth2: VictoropsConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: VictoropsConfigsItemHttpConfigTlsConfig,
+                pub tls_config: VictoropsConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct WebhookConfigsItemHttpConfig {
+            pub struct WebhookConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: WebhookConfigsItemHttpConfigAuthorization,
+                pub authorization: WebhookConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: WebhookConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: WebhookConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: WebhookConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: WebhookConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: WebhookConfigsItemHttpConfigOauth2,
+                pub oauth2: WebhookConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: WebhookConfigsItemHttpConfigTlsConfig,
+                pub tls_config: WebhookConfigHttpConfigTlsConfig,
             }
 
             /// HTTP client configuration.
-            pub struct WechatConfigsItemHttpConfig {
+            pub struct WechatConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
-                pub authorization: WechatConfigsItemHttpConfigAuthorization,
+                pub authorization: WechatConfigHttpConfigAuthorization,
                 /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
-                pub basic_auth: WechatConfigsItemHttpConfigBasicAuth,
+                pub basic_auth: WechatConfigHttpConfigBasicAuth,
                 /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub bearer_token_secret: WechatConfigsItemHttpConfigBearerTokenSecret,
+                pub bearer_token_secret: WechatConfigHttpConfigBearerTokenSecret,
                 /// FollowRedirects specifies whether the client should follow HTTP 3xx redirects.
                 pub follow_redirects: bool,
                 /// OAuth2 client credentials used to fetch a token for the targets.
-                pub oauth2: WechatConfigsItemHttpConfigOauth2,
+                pub oauth2: WechatConfigHttpConfigOauth2,
                 /// Optional proxy URL.
                 pub proxy_u_r_l: String,
                 /// TLS configuration for the client.
-                pub tls_config: WechatConfigsItemHttpConfigTlsConfig,
+                pub tls_config: WechatConfigHttpConfigTlsConfig,
             }
 
             /// InhibitRule defines an inhibition rule that allows to mute alerts when other alerts are already firing. See https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule
-            pub struct InhibitRulesItem {
+            pub struct InhibitRule {
                 /// Labels that must have an equal value in the source and target alert for the inhibition to take effect.
                 pub equal: Vec<String>,
                 /// Matchers for which one or more alerts have to exist for the inhibition to take effect. The operator enforces that the alert matches the resource’s namespace.
@@ -13094,7 +13088,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct EmailConfigsItemTlsConfigKeySecret {
+            pub struct EmailConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13104,7 +13098,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct OpsgenieConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13114,7 +13108,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct PagerdutyConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13124,7 +13118,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct PushoverConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13134,7 +13128,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct SlackConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13144,7 +13138,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct SnsConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13154,7 +13148,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct TelegramConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13164,7 +13158,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct VictoropsConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13174,7 +13168,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct WebhookConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13184,7 +13178,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigKeySecret {
+            pub struct WechatConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13194,7 +13188,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Matcher defines how to match on alert's labels.
-            pub struct MatchersItem {
+            pub struct Matcher {
                 /// Match operation available with AlertManager >= v0.22.0 and takes precedence over Regex (deprecated) if non-empty.
                 pub match_type: String,
                 /// Label to match.
@@ -13206,21 +13200,21 @@ pub mod monitoring_coreos_com {
             }
 
             /// MuteTimeInterval specifies the periods in time when notifications will be muted
-            pub struct MuteTimeIntervalsItem {
+            pub struct MuteTimeInterval {
                 /// Name of the time interval
                 pub name: String,
                 /// TimeIntervals is a list of TimeInterval
-                pub time_intervals: Vec<TimeIntervalsItem>,
+                pub time_intervals: Vec<TimeInterval>,
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigOauth2 {
+            pub struct OpsgenieConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: OpsgenieConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: OpsgenieConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: OpsgenieConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: OpsgenieConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: OpsgenieConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: OpsgenieConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13228,13 +13222,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigOauth2 {
+            pub struct PagerdutyConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: PagerdutyConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: PagerdutyConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: PagerdutyConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: PagerdutyConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: PagerdutyConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: PagerdutyConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13242,13 +13236,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct PushoverConfigsItemHttpConfigOauth2 {
+            pub struct PushoverConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: PushoverConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: PushoverConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: PushoverConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: PushoverConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: PushoverConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: PushoverConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13256,13 +13250,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct SlackConfigsItemHttpConfigOauth2 {
+            pub struct SlackConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: SlackConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: SlackConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: SlackConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: SlackConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: SlackConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: SlackConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13270,13 +13264,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct SnsConfigsItemHttpConfigOauth2 {
+            pub struct SnsConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: SnsConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: SnsConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: SnsConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: SnsConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: SnsConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: SnsConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13284,13 +13278,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct TelegramConfigsItemHttpConfigOauth2 {
+            pub struct TelegramConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: TelegramConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: TelegramConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: TelegramConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: TelegramConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: TelegramConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: TelegramConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13298,13 +13292,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct VictoropsConfigsItemHttpConfigOauth2 {
+            pub struct VictoropsConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: VictoropsConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: VictoropsConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: VictoropsConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: VictoropsConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: VictoropsConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: VictoropsConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13312,13 +13306,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct WebhookConfigsItemHttpConfigOauth2 {
+            pub struct WebhookConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: WebhookConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: WebhookConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: WebhookConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: WebhookConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: WebhookConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: WebhookConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13326,13 +13320,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
-            pub struct WechatConfigsItemHttpConfigOauth2 {
+            pub struct WechatConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
-                pub client_id: WechatConfigsItemHttpConfigOauth2ClientId,
+                pub client_id: WechatConfigHttpConfigOauth2ClientId,
                 /// The secret containing the OAuth2 client secret
-                pub client_secret: WechatConfigsItemHttpConfigOauth2ClientSecret,
+                pub client_secret: WechatConfigHttpConfigOauth2ClientSecret,
                 /// Parameters to append to the token URL
-                pub endpoint_params: WechatConfigsItemHttpConfigOauth2EndpointParams,
+                pub endpoint_params: WechatConfigHttpConfigOauth2EndpointParams,
                 /// OAuth2 scopes used for the token request
                 pub scopes: Vec<String>,
                 /// The URL to fetch the token from
@@ -13340,21 +13334,21 @@ pub mod monitoring_coreos_com {
             }
 
             /// OpsGenieConfig configures notifications via OpsGenie. See https://prometheus.io/docs/alerting/latest/configuration/#opsgenie_config
-            pub struct OpsgenieConfigsItem {
+            pub struct OpsgenieConfig {
                 /// Comma separated list of actions that will be available for the alert.
                 pub actions: String,
                 /// The secret's key that contains the OpsGenie API key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub api_key: OpsgenieConfigsItemApiKey,
+                pub api_key: OpsgenieConfigApiKey,
                 /// The URL to send OpsGenie API requests to.
                 pub api_u_r_l: String,
                 /// Description of the incident.
                 pub description: String,
                 /// A set of arbitrary key/value pairs that provide further detail about the incident.
-                pub details: Vec<OpsgenieConfigsItemDetailsItem>,
+                pub details: Vec<OpsgenieConfigDetail>,
                 /// Optional field that can be used to specify which domain alert is related to.
                 pub entity: String,
                 /// HTTP client configuration.
-                pub http_config: OpsgenieConfigsItemHttpConfig,
+                pub http_config: OpsgenieConfigHttpConfig,
                 /// Alert text limited to 130 characters.
                 pub message: String,
                 /// Additional alert note.
@@ -13362,7 +13356,7 @@ pub mod monitoring_coreos_com {
                 /// Priority level of alert. Possible values are P1, P2, P3, P4, and P5.
                 pub priority: String,
                 /// List of responders responsible for notifications.
-                pub responders: Vec<RespondersItem>,
+                pub responders: Vec<Responder>,
                 /// Whether or not to notify about resolved alerts.
                 pub send_resolved: bool,
                 /// Backlink to the sender of the notification.
@@ -13374,7 +13368,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PagerDutyImageConfig attaches images to an incident
-            pub struct PagerDutyImageConfigsItem {
+            pub struct PagerDutyImageConfig {
                 /// Alt is the optional alternative text for the image.
                 pub alt: String,
                 /// Optional URL; makes the image a clickable link.
@@ -13384,7 +13378,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PagerDutyLinkConfig attaches text links to an incident
-            pub struct PagerDutyLinkConfigsItem {
+            pub struct PagerDutyLinkConfig {
                 /// Text that describes the purpose of the link, and can be used as the link's text.
                 pub alt: String,
                 /// Href is the URL of the link to be attached
@@ -13392,7 +13386,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// PagerDutyConfig configures notifications via PagerDuty. See https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config
-            pub struct PagerdutyConfigsItem {
+            pub struct PagerdutyConfig {
                 /// The class/type of the event.
                 pub class: String,
                 /// Client identification.
@@ -13404,15 +13398,15 @@ pub mod monitoring_coreos_com {
                 /// Description of the incident.
                 pub description: String,
                 /// Arbitrary key/value pairs that provide further detail about the incident.
-                pub details: Vec<PagerdutyConfigsItemDetailsItem>,
+                pub details: Vec<PagerdutyConfigDetail>,
                 /// A cluster or grouping of sources.
                 pub group: String,
                 /// HTTP client configuration.
-                pub http_config: PagerdutyConfigsItemHttpConfig,
+                pub http_config: PagerdutyConfigHttpConfig,
                 /// A list of image details to attach that provide further detail about an incident.
-                pub pager_duty_image_configs: Vec<PagerDutyImageConfigsItem>,
+                pub pager_duty_image_configs: Vec<PagerDutyImageConfig>,
                 /// A list of link details to attach that provide further detail about an incident.
-                pub pager_duty_link_configs: Vec<PagerDutyLinkConfigsItem>,
+                pub pager_duty_link_configs: Vec<PagerDutyLinkConfig>,
                 /// The secret's key that contains the PagerDuty integration key (when using Events API v2). Either this field or `serviceKey` needs to be defined. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
                 pub routing_key: RoutingKey,
                 /// Whether or not to notify about resolved alerts.
@@ -13426,7 +13420,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct OpsgenieConfigsItemHttpConfigBasicAuthPassword {
+            pub struct OpsgenieConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13436,7 +13430,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct PagerdutyConfigsItemHttpConfigBasicAuthPassword {
+            pub struct PagerdutyConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13446,7 +13440,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct PushoverConfigsItemHttpConfigBasicAuthPassword {
+            pub struct PushoverConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13456,7 +13450,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct SlackConfigsItemHttpConfigBasicAuthPassword {
+            pub struct SlackConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13466,7 +13460,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct SnsConfigsItemHttpConfigBasicAuthPassword {
+            pub struct SnsConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13476,7 +13470,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct TelegramConfigsItemHttpConfigBasicAuthPassword {
+            pub struct TelegramConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13486,7 +13480,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct VictoropsConfigsItemHttpConfigBasicAuthPassword {
+            pub struct VictoropsConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13496,7 +13490,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct WebhookConfigsItemHttpConfigBasicAuthPassword {
+            pub struct WebhookConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13506,7 +13500,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
-            pub struct WechatConfigsItemHttpConfigBasicAuthPassword {
+            pub struct WechatConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13516,13 +13510,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// PushoverConfig configures notifications via Pushover. See https://prometheus.io/docs/alerting/latest/configuration/#pushover_config
-            pub struct PushoverConfigsItem {
+            pub struct PushoverConfig {
                 /// How long your notification will continue to be retried for, unless the user acknowledges the notification.
                 pub expire: String,
                 /// Whether notification message is HTML or plain text.
                 pub html: bool,
                 /// HTTP client configuration.
-                pub http_config: PushoverConfigsItemHttpConfig,
+                pub http_config: PushoverConfigHttpConfig,
                 /// Notification message.
                 pub message: String,
                 /// Priority, see https://pushover.net/api#priority
@@ -13546,33 +13540,33 @@ pub mod monitoring_coreos_com {
             }
 
             /// Receiver defines one or more notification integrations.
-            pub struct ReceiversItem {
+            pub struct Receiver {
                 /// List of Email configurations.
-                pub email_configs: Vec<EmailConfigsItem>,
+                pub email_configs: Vec<EmailConfig>,
                 /// Name of the receiver. Must be unique across all items from the list.
                 pub name: String,
                 /// List of OpsGenie configurations.
-                pub opsgenie_configs: Vec<OpsgenieConfigsItem>,
+                pub opsgenie_configs: Vec<OpsgenieConfig>,
                 /// List of PagerDuty configurations.
-                pub pagerduty_configs: Vec<PagerdutyConfigsItem>,
+                pub pagerduty_configs: Vec<PagerdutyConfig>,
                 /// List of Pushover configurations.
-                pub pushover_configs: Vec<PushoverConfigsItem>,
+                pub pushover_configs: Vec<PushoverConfig>,
                 /// List of Slack configurations.
-                pub slack_configs: Vec<SlackConfigsItem>,
+                pub slack_configs: Vec<SlackConfig>,
                 /// List of SNS configurations
-                pub sns_configs: Vec<SnsConfigsItem>,
+                pub sns_configs: Vec<SnsConfig>,
                 /// List of Telegram configurations.
-                pub telegram_configs: Vec<TelegramConfigsItem>,
+                pub telegram_configs: Vec<TelegramConfig>,
                 /// List of VictorOps configurations.
-                pub victorops_configs: Vec<VictoropsConfigsItem>,
+                pub victorops_configs: Vec<VictoropsConfig>,
                 /// List of webhook configurations.
-                pub webhook_configs: Vec<WebhookConfigsItem>,
+                pub webhook_configs: Vec<WebhookConfig>,
                 /// List of WeChat configurations.
-                pub wechat_configs: Vec<WechatConfigsItem>,
+                pub wechat_configs: Vec<WechatConfig>,
             }
 
             /// OpsGenieConfigResponder defines a responder to an incident. One of `id`, `name` or `username` has to be defined.
-            pub struct RespondersItem {
+            pub struct Responder {
                 /// ID of the responder.
                 pub id: String,
                 /// Name of the responder.
@@ -13594,7 +13588,7 @@ pub mod monitoring_coreos_com {
                 /// How long to wait before sending the initial notification. Must match the regular expression`^(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?$` Example: "30s"
                 pub group_wait: String,
                 /// List of matchers that the alert’s labels should match. For the first level route, the operator removes any existing equality and regexp matcher on the `namespace` label and adds a `namespace: <object namespace>` matcher.
-                pub matchers: Vec<MatchersItem>,
+                pub matchers: Vec<Matcher>,
                 /// Note: this comment applies to the field definition above but appears below otherwise it gets included in the generated manifest. CRD schema doesn't support self-referential types for now (see https://github.com/kubernetes/kubernetes/issues/62872). We have to use an alternative type to circumvent the limitation. The downside is that the Kube API can't validate the data beyond the fact that it is a valid JSON representation. MuteTimeIntervals is a list of MuteTimeInterval names that will mute this route when matched,
                 pub mute_time_intervals: Vec<String>,
                 /// Name of the receiver for this route. If not empty, it should be listed in the `receivers` field.
@@ -13616,7 +13610,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct EmailConfigsItemTlsConfigCaSecret {
+            pub struct EmailConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13626,7 +13620,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct EmailConfigsItemTlsConfigCertSecret {
+            pub struct EmailConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13636,7 +13630,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct OpsgenieConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13646,7 +13640,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct OpsgenieConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13656,7 +13650,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct OpsgenieConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13666,7 +13660,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct PagerdutyConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13676,7 +13670,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct PagerdutyConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13686,7 +13680,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct PagerdutyConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13696,7 +13690,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct PushoverConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13706,7 +13700,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct PushoverConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13716,7 +13710,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct PushoverConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct PushoverConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13726,7 +13720,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct SlackConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct SlackConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13736,7 +13730,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct SlackConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13746,7 +13740,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct SlackConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct SlackConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13756,7 +13750,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct SnsConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct SnsConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13766,7 +13760,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct SnsConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13776,7 +13770,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct SnsConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct SnsConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13786,7 +13780,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct TelegramConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13796,7 +13790,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct TelegramConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13806,7 +13800,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct TelegramConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct TelegramConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13816,7 +13810,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct VictoropsConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13826,7 +13820,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct VictoropsConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13836,7 +13830,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct VictoropsConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13846,7 +13840,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct WebhookConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13856,7 +13850,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct WebhookConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13866,7 +13860,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WebhookConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct WebhookConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13876,7 +13870,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WechatConfigsItemHttpConfigOauth2ClientIdSecret {
+            pub struct WechatConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13886,7 +13880,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigCaSecret {
+            pub struct WechatConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13896,7 +13890,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
-            pub struct WechatConfigsItemHttpConfigTlsConfigCertSecret {
+            pub struct WechatConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -13940,9 +13934,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// SlackConfig configures notifications via Slack. See https://prometheus.io/docs/alerting/latest/configuration/#slack_config
-            pub struct SlackConfigsItem {
+            pub struct SlackConfig {
                 /// A list of Slack actions that are sent with each notification.
-                pub actions: Vec<ActionsItem>,
+                pub actions: Vec<Action>,
                 /// The secret's key that contains the Slack webhook URL. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
                 pub api_u_r_l: ApiURL,
                 pub callback_id: String,
@@ -13951,10 +13945,10 @@ pub mod monitoring_coreos_com {
                 pub color: String,
                 pub fallback: String,
                 /// A list of Slack fields that are sent with each notification.
-                pub fields: Vec<FieldsItem>,
+                pub fields: Vec<Field>,
                 pub footer: String,
                 /// HTTP client configuration.
-                pub http_config: SlackConfigsItemHttpConfig,
+                pub http_config: SlackConfigHttpConfig,
                 pub icon_emoji: String,
                 pub icon_u_r_l: String,
                 pub image_u_r_l: String,
@@ -13972,13 +13966,13 @@ pub mod monitoring_coreos_com {
             }
 
             /// SNSConfig configures notifications via AWS SNS. See https://prometheus.io/docs/alerting/latest/configuration/#sns_configs
-            pub struct SnsConfigsItem {
+            pub struct SnsConfig {
                 /// The SNS API URL i.e. https://sns.us-east-2.amazonaws.com. If not specified, the SNS API URL from the SNS SDK will be used.
                 pub api_u_r_l: String,
                 /// SNS message attributes.
                 pub attributes: Attributes,
                 /// HTTP client configuration.
-                pub http_config: SnsConfigsItemHttpConfig,
+                pub http_config: SnsConfigHttpConfig,
                 /// The message content of the SNS notification.
                 pub message: String,
                 /// Phone number if message is delivered via SMS in E.164 format. If you don't specify this value, you must specify a value for the TopicARN or TargetARN.
@@ -14010,11 +14004,11 @@ pub mod monitoring_coreos_com {
             /// AlertmanagerConfigSpec is a specification of the desired behavior of the Alertmanager configuration. By definition, the Alertmanager configuration only applies to alerts for which the `namespace` label is equal to the namespace of the AlertmanagerConfig resource.
             pub struct Spec {
                 /// List of inhibition rules. The rules will only apply to alerts matching the resource’s namespace.
-                pub inhibit_rules: Vec<InhibitRulesItem>,
+                pub inhibit_rules: Vec<InhibitRule>,
                 /// List of MuteTimeInterval specifying when the routes should be muted.
-                pub mute_time_intervals: Vec<MuteTimeIntervalsItem>,
+                pub mute_time_intervals: Vec<MuteTimeInterval>,
                 /// List of receivers.
-                pub receivers: Vec<ReceiversItem>,
+                pub receivers: Vec<Receiver>,
                 /// The Alertmanager route definition for alerts matching the resource’s namespace. If present, it will be added to the generated Alertmanager configuration as a first-level route.
                 pub route: Route,
             }
@@ -14032,7 +14026,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// TelegramConfig configures notifications via Telegram. See https://prometheus.io/docs/alerting/latest/configuration/#telegram_config
-            pub struct TelegramConfigsItem {
+            pub struct TelegramConfig {
                 /// The Telegram API URL i.e. https://api.telegram.org. If not specified, default API URL will be used.
                 pub api_u_r_l: String,
                 /// Telegram bot token The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
@@ -14042,7 +14036,7 @@ pub mod monitoring_coreos_com {
                 /// Disable telegram notifications
                 pub disable_notifications: bool,
                 /// HTTP client configuration.
-                pub http_config: TelegramConfigsItemHttpConfig,
+                pub http_config: TelegramConfigHttpConfig,
                 /// Message template
                 pub message: String,
                 /// Parse mode for telegram message
@@ -14051,164 +14045,164 @@ pub mod monitoring_coreos_com {
                 pub send_resolved: bool,
             }
 
-            /// TimeInterval describes intervals of time
-            pub struct TimeIntervalsItem {
-                /// DaysOfMonth is a list of DayOfMonthRange
-                pub days_of_month: Vec<DaysOfMonthItem>,
-                /// Months is a list of MonthRange
-                pub months: Vec<String>,
-                /// Times is a list of TimeRange
-                pub times: Vec<TimesItem>,
-                /// Weekdays is a list of WeekdayRange
-                pub weekdays: Vec<String>,
-                /// Years is a list of YearRange
-                pub years: Vec<String>,
-            }
-
             /// TimeRange defines a start and end time in 24hr format
-            pub struct TimesItem {
+            pub struct Time {
                 /// EndTime is the end time in 24hr format.
                 pub end_time: String,
                 /// StartTime is the start time in 24hr format.
                 pub start_time: String,
             }
 
+            /// TimeInterval describes intervals of time
+            pub struct TimeInterval {
+                /// DaysOfMonth is a list of DayOfMonthRange
+                pub days_of_month: Vec<DaysOfMonthItem>,
+                /// Months is a list of MonthRange
+                pub months: Vec<String>,
+                /// Times is a list of TimeRange
+                pub times: Vec<Time>,
+                /// Weekdays is a list of WeekdayRange
+                pub weekdays: Vec<String>,
+                /// Years is a list of YearRange
+                pub years: Vec<String>,
+            }
+
             /// TLS configuration
-            pub struct EmailConfigsItemTlsConfig {
+            pub struct EmailConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: EmailConfigsItemTlsConfigCa,
+                pub ca: EmailConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: EmailConfigsItemTlsConfigCert,
+                pub cert: EmailConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: EmailConfigsItemTlsConfigKeySecret,
+                pub key_secret: EmailConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct OpsgenieConfigsItemHttpConfigTlsConfig {
+            pub struct OpsgenieConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: OpsgenieConfigsItemHttpConfigTlsConfigCa,
+                pub ca: OpsgenieConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: OpsgenieConfigsItemHttpConfigTlsConfigCert,
+                pub cert: OpsgenieConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: OpsgenieConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: OpsgenieConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct PagerdutyConfigsItemHttpConfigTlsConfig {
+            pub struct PagerdutyConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: PagerdutyConfigsItemHttpConfigTlsConfigCa,
+                pub ca: PagerdutyConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: PagerdutyConfigsItemHttpConfigTlsConfigCert,
+                pub cert: PagerdutyConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: PagerdutyConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: PagerdutyConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct PushoverConfigsItemHttpConfigTlsConfig {
+            pub struct PushoverConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: PushoverConfigsItemHttpConfigTlsConfigCa,
+                pub ca: PushoverConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: PushoverConfigsItemHttpConfigTlsConfigCert,
+                pub cert: PushoverConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: PushoverConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: PushoverConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct SlackConfigsItemHttpConfigTlsConfig {
+            pub struct SlackConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: SlackConfigsItemHttpConfigTlsConfigCa,
+                pub ca: SlackConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: SlackConfigsItemHttpConfigTlsConfigCert,
+                pub cert: SlackConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: SlackConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: SlackConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct SnsConfigsItemHttpConfigTlsConfig {
+            pub struct SnsConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: SnsConfigsItemHttpConfigTlsConfigCa,
+                pub ca: SnsConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: SnsConfigsItemHttpConfigTlsConfigCert,
+                pub cert: SnsConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: SnsConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: SnsConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct TelegramConfigsItemHttpConfigTlsConfig {
+            pub struct TelegramConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: TelegramConfigsItemHttpConfigTlsConfigCa,
+                pub ca: TelegramConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: TelegramConfigsItemHttpConfigTlsConfigCert,
+                pub cert: TelegramConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: TelegramConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: TelegramConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct VictoropsConfigsItemHttpConfigTlsConfig {
+            pub struct VictoropsConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: VictoropsConfigsItemHttpConfigTlsConfigCa,
+                pub ca: VictoropsConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: VictoropsConfigsItemHttpConfigTlsConfigCert,
+                pub cert: VictoropsConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: VictoropsConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: VictoropsConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct WebhookConfigsItemHttpConfigTlsConfig {
+            pub struct WebhookConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: WebhookConfigsItemHttpConfigTlsConfigCa,
+                pub ca: WebhookConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: WebhookConfigsItemHttpConfigTlsConfigCert,
+                pub cert: WebhookConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: WebhookConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: WebhookConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
 
             /// TLS configuration for the client.
-            pub struct WechatConfigsItemHttpConfigTlsConfig {
+            pub struct WechatConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
-                pub ca: WechatConfigsItemHttpConfigTlsConfigCa,
+                pub ca: WechatConfigHttpConfigTlsConfigCa,
                 /// Struct containing the client cert file for the targets.
-                pub cert: WechatConfigsItemHttpConfigTlsConfigCert,
+                pub cert: WechatConfigHttpConfigTlsConfigCert,
                 /// Disable target certificate validation.
                 pub insecure_skip_verify: bool,
                 /// Secret containing the client key file for the targets.
-                pub key_secret: WechatConfigsItemHttpConfigTlsConfigKeySecret,
+                pub key_secret: WechatConfigHttpConfigTlsConfigKeySecret,
                 /// Used to verify the hostname for the targets.
                 pub server_name: String,
             }
@@ -14244,7 +14238,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct OpsgenieConfigsItemHttpConfigBasicAuthUsername {
+            pub struct OpsgenieConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14254,7 +14248,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct PagerdutyConfigsItemHttpConfigBasicAuthUsername {
+            pub struct PagerdutyConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14264,7 +14258,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct PushoverConfigsItemHttpConfigBasicAuthUsername {
+            pub struct PushoverConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14274,7 +14268,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct SlackConfigsItemHttpConfigBasicAuthUsername {
+            pub struct SlackConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14284,7 +14278,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct SnsConfigsItemHttpConfigBasicAuthUsername {
+            pub struct SnsConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14294,7 +14288,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct TelegramConfigsItemHttpConfigBasicAuthUsername {
+            pub struct TelegramConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14304,7 +14298,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct VictoropsConfigsItemHttpConfigBasicAuthUsername {
+            pub struct VictoropsConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14314,7 +14308,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct WebhookConfigsItemHttpConfigBasicAuthUsername {
+            pub struct WebhookConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14324,7 +14318,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
-            pub struct WechatConfigsItemHttpConfigBasicAuthUsername {
+            pub struct WechatConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
@@ -14334,17 +14328,17 @@ pub mod monitoring_coreos_com {
             }
 
             /// VictorOpsConfig configures notifications via VictorOps. See https://prometheus.io/docs/alerting/latest/configuration/#victorops_config
-            pub struct VictoropsConfigsItem {
+            pub struct VictoropsConfig {
                 /// The secret's key that contains the API key to use when talking to the VictorOps API. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
-                pub api_key: VictoropsConfigsItemApiKey,
+                pub api_key: VictoropsConfigApiKey,
                 /// The VictorOps API URL.
                 pub api_url: String,
                 /// Additional custom fields for notification.
-                pub custom_fields: Vec<CustomFieldsItem>,
+                pub custom_fields: Vec<CustomField>,
                 /// Contains summary of the alerted problem.
                 pub entity_display_name: String,
                 /// The HTTP client's configuration.
-                pub http_config: VictoropsConfigsItemHttpConfig,
+                pub http_config: VictoropsConfigHttpConfig,
                 /// Describes the behavior of the alert (CRITICAL, WARNING, INFO).
                 pub message_type: String,
                 /// The monitoring tool the state message is from.
@@ -14358,9 +14352,9 @@ pub mod monitoring_coreos_com {
             }
 
             /// WebhookConfig configures notifications via a generic receiver supporting the webhook payload. See https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
-            pub struct WebhookConfigsItem {
+            pub struct WebhookConfig {
                 /// HTTP client configuration.
-                pub http_config: WebhookConfigsItemHttpConfig,
+                pub http_config: WebhookConfigHttpConfig,
                 /// Maximum number of alerts to be sent per webhook message. When 0, all alerts are included.
                 pub max_alerts: i32,
                 /// Whether or not to notify about resolved alerts.
@@ -14372,7 +14366,7 @@ pub mod monitoring_coreos_com {
             }
 
             /// WeChatConfig configures notifications via WeChat. See https://prometheus.io/docs/alerting/latest/configuration/#wechat_config
-            pub struct WechatConfigsItem {
+            pub struct WechatConfig {
                 pub agent_i_d: String,
                 /// The secret's key that contains the WeChat API key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
                 pub api_secret: ApiSecret,
@@ -14381,7 +14375,7 @@ pub mod monitoring_coreos_com {
                 /// The corp id for authentication.
                 pub corp_i_d: String,
                 /// HTTP client configuration.
-                pub http_config: WechatConfigsItemHttpConfig,
+                pub http_config: WechatConfigHttpConfig,
                 /// API request data as defined by the WeChat API.
                 pub message: String,
                 pub message_type: String,

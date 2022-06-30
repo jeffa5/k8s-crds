@@ -126,6 +126,9 @@ fn build_resource<W: Write>(
     for line in description.lines() {
         writeln!(f, "{}/// {}", indent, line)?;
     }
+
+    write_derives(f)?;
+
     writeln!(
         f,
         "{}pub struct {kind} {{
@@ -310,6 +313,9 @@ fn make_struct<W: Write>(
     let struct_name = rename_mapping
         .get(&(parents.clone(), name.to_owned()))
         .unwrap();
+
+    write_derives(f)?;
+
     writeln!(f, "{}pub struct {} {{", indent, struct_name)?;
 
     if let Some(properties) = props.properties.as_ref() {
@@ -471,4 +477,13 @@ fn array_item_name(s: &str) -> String {
     } else {
         format!("{}Item", camel_case(s))
     }
+}
+
+fn write_derives<W: Write>(f: &mut W) -> anyhow::Result<()> {
+    let derives = ["serde::Serialize", "serde::Deserialize", "Debug"];
+
+    writeln!(f, "#[derive({})]", derives.join(", "))?;
+    writeln!(f, "#[serde(rename_all = \"camelCase\")]")?;
+
+    Ok(())
 }

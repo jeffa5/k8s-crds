@@ -43,6 +43,7 @@
                 cargo-flamegraph
                 cargo-deny
                 cargo-tarpaulin
+                cargo-insta
                 crate2nix
 
                 openssl

@@ -1,0 +1,13 @@
+---
+source: k8s-crds-test/src/lib.rs
+assertion_line: 28
+expression: s
+---
+---
+metadata:
+  name: test
+spec:
+  cronSpec: "* * * * *"
+  image: nginx
+  replicas: 2
+

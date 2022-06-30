@@ -1,0 +1,15 @@
+---
+source: k8s-crds-test/src/lib.rs
+assertion_line: 48
+expression: s
+---
+---
+metadata:
+  name: test
+obj1:
+  a:
+    b: BB
+obj2:
+  a:
+    c: 4
+

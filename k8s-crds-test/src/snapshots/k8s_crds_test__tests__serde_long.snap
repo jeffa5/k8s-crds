@@ -1,0 +1,16 @@
+---
+source: k8s-crds-test/src/lib.rs
+assertion_line: 72
+expression: s
+---
+---
+metadata:
+  name: test
+a:
+  b:
+    c:
+      d:
+        e: 2
+      f:
+        g: gg
+

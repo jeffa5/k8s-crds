@@ -262,7 +262,7 @@ fn make_unique_names(
 }
 
 fn make_property_name(name: &str) -> String {
-    if let "type" | "continue" | "for" | "static" = name {
+    if let "type" | "continue" | "for" | "static" | "ref" = name {
         format!("r#{}", name)
     } else {
         snake_case(name)

@@ -2,6 +2,8 @@ pub mod acme_cert_manager_io {
     pub mod v1 {
         pub mod challenge {
             /// Challenge is a type to represent a Challenge request with an ACME server
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Challenge {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -9,6 +11,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccessTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -17,6 +21,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccountSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -25,6 +31,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AcmeDNS {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub account_secret_ref: AccountSecretRef,
@@ -32,6 +40,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// If specified, the pod's scheduling constraints
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Affinity {
                 /// Describes node affinity scheduling rules for the pod.
                 pub node_affinity: NodeAffinity,
@@ -42,6 +52,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the Akamai DNS zone management API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Akamai {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub access_token_secret_ref: AccessTokenSecretRef,
@@ -53,18 +65,24 @@ pub mod acme_cert_manager_io {
             }
 
             /// Annotations that should be added to the created ACME HTTP01 solver ingress.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadataAnnotations {
                 /// Annotations that should be added to the created ACME HTTP01 solver ingress.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Annotations that should be added to the create ACME HTTP01 solver pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadataAnnotations {
                 /// Annotations that should be added to the create ACME HTTP01 solver pods.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -73,6 +91,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// API token used to authenticate with Cloudflare.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -81,6 +101,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the Microsoft Azure DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDNS {
                 /// if both this and ClientSecret are left unset MSI will be used
                 pub client_i_d: String,
@@ -101,6 +123,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AkamaiClientSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -109,6 +133,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// if both this and ClientID are left unset MSI will be used
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDNSClientSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -117,6 +143,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -125,6 +153,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the Google Cloud DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudDNS {
                 /// HostedZoneName is an optional field that tells cert-manager in which Cloud DNS zone the challenge record has to be created. If left empty cert-manager will automatically choose a zone.
                 pub hosted_zone_name: String,
@@ -134,6 +164,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the Cloudflare API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cloudflare {
                 /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
                 pub api_key_secret_ref: ApiKeySecretRef,
@@ -144,12 +176,16 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the DigitalOcean DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Digitalocean {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub token_secret_ref: TokenSecretRef,
             }
 
             /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Dns01 {
                 /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
                 pub acme_d_n_s: AcmeDNS,
@@ -174,6 +210,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GatewayHTTPRoute {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub labels: GatewayHTTPRouteLabels,
@@ -184,6 +222,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Configures cert-manager to attempt to complete authorizations by performing the HTTP01 challenge flow. It is not possible to obtain certificates for wildcard domain names (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Http01 {
                 /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
                 pub gateway_h_t_t_p_route: GatewayHTTPRoute,
@@ -192,6 +232,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The ingress based HTTP01 challenge solver will solve challenges by creating or modifying Ingress resources in order to route requests for '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are provisioned by cert-manager for each Challenge to be completed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ingress {
                 /// The ingress class to use when creating Ingress resources to solve ACME challenges that use this challenge solver. Only one of 'class' or 'name' may be specified.
                 pub class: String,
@@ -206,12 +248,16 @@ pub mod acme_cert_manager_io {
             }
 
             /// Optional ingress template used to configure the ACME challenge solver ingress used for HTTP01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplate {
                 /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
                 pub metadata: IngressTemplateMetadata,
             }
 
             /// References a properly configured ACME-type Issuer which should be used to create this Challenge. If the Issuer does not exist, processing will be retried. If the Issuer is not an 'ACME' Issuer, an error will be returned and the Challenge will be marked as failed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IssuerRef {
                 /// Group of the resource being referred to.
                 pub group: String,
@@ -222,6 +268,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -230,6 +278,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -238,6 +288,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -246,6 +298,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -254,24 +308,32 @@ pub mod acme_cert_manager_io {
         }
 
             /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GatewayHTTPRouteLabels {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Labels that should be added to the created ACME HTTP01 solver ingress.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadataLabels {
                 /// Labels that should be added to the created ACME HTTP01 solver ingress.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Labels that should be added to the created ACME HTTP01 solver pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadataLabels {
                 /// Labels that should be added to the created ACME HTTP01 solver pods.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// managed identity configuration, can not be used at the same time as clientID, clientSecretSecretRef or tenantID
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ManagedIdentity {
                 /// client ID of the managed identity, can not be used at the same time as resourceID
                 pub client_i_d: String,
@@ -280,6 +342,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -290,6 +354,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -300,6 +366,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -311,6 +379,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -322,6 +392,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -333,6 +405,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -344,6 +418,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -355,6 +431,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -366,6 +444,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -377,6 +457,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -388,6 +470,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -398,6 +482,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -408,6 +494,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -415,6 +503,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -422,12 +512,16 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -435,6 +529,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -442,6 +538,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -449,6 +547,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -456,6 +556,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -463,12 +565,16 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label selector that is used to refine the set of certificate's that this challenge solver will apply to.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SelectorMatchLabels {
                 /// A label selector that is used to refine the set of certificate's that this challenge solver will apply to.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadata {
                 /// Annotations that should be added to the created ACME HTTP01 solver ingress.
                 pub annotations: IngressTemplateMetadataAnnotations,
@@ -477,6 +583,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadata {
                 /// Annotations that should be added to the create ACME HTTP01 solver pods.
                 pub annotations: PodTemplateMetadataAnnotations,
@@ -485,6 +593,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -493,6 +603,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -501,6 +613,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -509,6 +623,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -517,6 +633,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// Describes node affinity scheduling rules for the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -527,12 +645,16 @@ pub mod acme_cert_manager_io {
             }
 
             /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelector {
                 /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
@@ -543,6 +665,8 @@ pub mod acme_cert_manager_io {
             /// ParentRef identifies an API object (usually a Gateway) that can be considered a parent of this resource (usually a route). The only kind of parent resource with "Core" support is Gateway. This API may be extended in the future to support additional kinds of parent resources, such as HTTPRoute.
             ///  The API object must be valid in the cluster; the Group and Kind must be registered in the cluster for this reference to be valid.
             ///  References to objects with invalid Group and Kind are not valid, and must be rejected by the implementation, with appropriate Conditions set on the containing object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ParentRef {
                 /// Group is the group of the referent.
                 ///  Support: Core
@@ -565,6 +689,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -575,6 +701,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -587,6 +715,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -599,6 +729,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -609,6 +741,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Optional pod template used to configure the ACME challenge solver pods used for HTTP01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplate {
                 /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
                 pub metadata: PodTemplateMetadata,
@@ -617,6 +751,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A node selector term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<PreferenceMatchExpression>,
@@ -625,6 +761,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A node selector term, associated with the corresponding weight.
                 pub preference: Preference,
@@ -633,6 +771,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// Required. A pod affinity term, associated with the corresponding weight.
                 pub pod_affinity_term:
@@ -642,6 +782,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
             /// Required. A pod affinity term, associated with the corresponding weight.
             pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
@@ -650,12 +792,16 @@ pub mod acme_cert_manager_io {
         }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
                 pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A label query over a set of resources, in this case pods.
                 pub label_selector:
@@ -670,6 +816,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
@@ -682,6 +830,8 @@ pub mod acme_cert_manager_io {
         }
 
             /// Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rfc2136 {
                 /// The IP address or hostname of an authoritative DNS server supporting RFC2136 in the form host:port. If the host is an IPv6 address it must be enclosed in square brackets (e.g [2001:db8::1]) ; port is optional. This field is required.
                 pub nameserver: String,
@@ -694,6 +844,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Use the AWS Route53 API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Route53 {
                 /// The AccessKeyID is used for authentication. If not set we fall-back to using env vars, shared credentials file or AWS Instance metadata see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
                 pub access_key_i_d: String,
@@ -708,6 +860,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The SecretAccessKey is used for authentication. If not set we fall-back to using env vars, shared credentials file or AWS Instance metadata https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SecretAccessKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -716,6 +870,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Selector selects a set of DNSNames on the Certificate resource that should be solved using this challenge solver. If not specified, the solver will be treated as the 'default' solver with the lowest priority, i.e. if any other solver has a more specific match, it will be used instead.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 /// List of DNSNames that this solver will be used to solve. If specified and a match is found, a dnsNames selector will take precedence over a dnsZones selector. If multiple solvers match with the same dnsNames value, the solver with the most matching labels in matchLabels will be selected. If neither has more matches, the solver defined earlier in the list will be selected.
                 pub dns_names: Vec<String>,
@@ -726,6 +882,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceAccountSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -734,6 +892,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Contains the domain solving configuration that should be used to solve this challenge resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Solver {
                 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
                 pub dns01: Dns01,
@@ -743,6 +903,8 @@ pub mod acme_cert_manager_io {
                 pub selector: Selector,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The URL to the ACME Authorization resource that this challenge is a part of.
                 pub authorization_u_r_l: String,
@@ -765,6 +927,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// PodSpec defines overrides for the HTTP01 challenge solver pod. Only the 'priorityClassName', 'nodeSelector', 'affinity', 'serviceAccountName' and 'tolerations' fields are supported currently. All other fields will be ignored.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateSpec {
                 /// If specified, the pod's scheduling constraints
                 pub affinity: Affinity,
@@ -778,6 +942,8 @@ pub mod acme_cert_manager_io {
                 pub tolerations: Vec<Toleration>,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// presented will be set to true if the challenge values for this challenge are currently 'presented'. This *does not* imply the self check is passing. Only that the values have been 'submitted' for the appropriate challenge mechanism (i.e. the DNS01 TXT record has been presented, or the HTTP01 configuration has been configured).
                 pub presented: bool,
@@ -790,6 +956,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -798,6 +966,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
@@ -812,6 +982,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// The name of the secret containing the TSIG value. If ``tsigKeyName`` is defined, this field is required.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TsigSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -820,6 +992,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Configure an external webhook based DNS01 challenge solver to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Webhook {
                 /// Additional configuration that should be passed to the webhook apiserver when challenges are processed. This can contain arbitrary JSON data. Secret values should not be specified in this stanza. If secret values are needed (e.g. credentials for a DNS service), you should use a SecretKeySelector to reference a Secret resource. For details on the schema of this field, consult the webhook provider implementation's documentation.
                 pub config: std::collections::HashMap<String, String>,
@@ -853,6 +1027,8 @@ pub mod acme_cert_manager_io {
         }
         pub mod order {
             /// Order is a type to represent an Order with an ACME server
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Order {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -860,6 +1036,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// ACMEAuthorization contains data returned from the ACME server on an authorization that must be completed in order validate a DNS name on an ACME Order resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Authorization {
                 /// Challenges specifies the challenge types offered by the ACME server. One of these challenge types will be selected when validating the DNS name and an appropriate Challenge resource will be created to perform the ACME challenge process.
                 pub challenges: Vec<Challenge>,
@@ -874,6 +1052,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// Challenge specifies a challenge offered by the ACME server for an Order. An appropriate Challenge resource can be created to perform the ACME challenge process.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Challenge {
                 /// Token is the token that must be presented for this challenge. This is used to compute the 'key' that must also be presented.
                 pub token: String,
@@ -884,6 +1064,8 @@ pub mod acme_cert_manager_io {
             }
 
             /// IssuerRef references a properly configured ACME-type Issuer which should be used to create this Order. If the Issuer does not exist, processing will be retried. If the Issuer is not an 'ACME' Issuer, an error will be returned and the Order will be marked as failed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IssuerRef {
                 /// Group of the resource being referred to.
                 pub group: String,
@@ -893,6 +1075,8 @@ pub mod acme_cert_manager_io {
                 pub name: String,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// CommonName is the common name as specified on the DER encoded CSR. If specified, this value must also be present in `dnsNames` or `ipAddresses`. This field must match the corresponding field on the DER encoded CSR.
                 pub common_name: String,
@@ -908,6 +1092,8 @@ pub mod acme_cert_manager_io {
                 pub request: String,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Authorizations contains data returned from the ACME server on what authorizations must be completed in order to validate the DNS names specified on the Order.
                 pub authorizations: Vec<Authorization>,
@@ -954,6 +1140,8 @@ pub mod cert_manager_io {
         pub mod certificate {
             /// A Certificate resource should be created to ensure an up to date and signed x509 certificate is stored in the Kubernetes Secret resource named in `spec.secretName`.
             ///  The stored certificate will be renewed before it expires (as configured by `spec.renewBefore`).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Certificate {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -961,18 +1149,24 @@ pub mod cert_manager_io {
             }
 
             /// CertificateAdditionalOutputFormat defines an additional output format of a Certificate resource. These contain supplementary data formats of the signed certificate chain and paired private key.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AdditionalOutputFormat {
                 /// Type is the name of the format type that should be written to the Certificate's target Secret.
                 pub r#type: String,
             }
 
             /// Annotations is a key value map to be copied to the target Kubernetes Secret.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Annotations {
                 /// Annotations is a key value map to be copied to the target Kubernetes Secret.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// CertificateCondition contains condition information for an Certificate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Condition {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
@@ -989,6 +1183,8 @@ pub mod cert_manager_io {
             }
 
             /// IssuerRef is a reference to the issuer for this certificate. If the `kind` field is not set, or set to `Issuer`, an Issuer resource with the given name in the same namespace as the Certificate will be used. If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer with the provided name will be used. The `name` field in this stanza is required at all times.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IssuerRef {
                 /// Group of the resource being referred to.
                 pub group: String,
@@ -999,6 +1195,8 @@ pub mod cert_manager_io {
             }
 
             /// JKS configures options for storing a JKS keystore in the `spec.secretName` Secret resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Jks {
                 /// Create enables JKS keystore creation for the Certificate. If true, a file named `keystore.jks` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance. A file named `truststore.jks` will also be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef` containing the issuing Certificate Authority
                 pub create: bool,
@@ -1007,6 +1205,8 @@ pub mod cert_manager_io {
             }
 
             /// Keystores configures additional keystore output formats stored in the `secretName` Secret resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Keystores {
                 /// JKS configures options for storing a JKS keystore in the `spec.secretName` Secret resource.
                 pub jks: Jks,
@@ -1015,12 +1215,16 @@ pub mod cert_manager_io {
             }
 
             /// Labels is a key value map to be copied to the target Kubernetes Secret.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 /// Labels is a key value map to be copied to the target Kubernetes Secret.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the JKS keystore.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct JksPasswordSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1029,6 +1233,8 @@ pub mod cert_manager_io {
             }
 
             /// PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the PKCS12 keystore.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Pkcs12PasswordSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1037,6 +1243,8 @@ pub mod cert_manager_io {
             }
 
             /// PKCS12 configures options for storing a PKCS12 keystore in the `spec.secretName` Secret resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Pkcs12 {
                 /// Create enables PKCS12 keystore creation for the Certificate. If true, a file named `keystore.p12` will be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef`. The keystore file will only be updated upon re-issuance. A file named `truststore.p12` will also be created in the target Secret resource, encrypted using the password stored in `passwordSecretRef` containing the issuing Certificate Authority
                 pub create: bool,
@@ -1045,6 +1253,8 @@ pub mod cert_manager_io {
             }
 
             /// Options to control private keys used for the Certificate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PrivateKey {
                 /// Algorithm is the private key algorithm of the corresponding private key for this certificate. If provided, allowed values are either `RSA`,`Ed25519` or `ECDSA` If `algorithm` is specified and `size` is not provided, key size of 256 will be used for `ECDSA` key algorithm and key size of 2048 will be used for `RSA` key algorithm. key size is ignored when using the `Ed25519` key algorithm.
                 pub algorithm: String,
@@ -1057,6 +1267,8 @@ pub mod cert_manager_io {
             }
 
             /// SecretTemplate defines annotations and labels to be copied to the Certificate's Secret. Labels and annotations on the Secret will be changed as they appear on the SecretTemplate when added or removed. SecretTemplate annotations are added in conjunction with, and cannot overwrite, the base set of annotations cert-manager sets on the Certificate's Secret.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SecretTemplate {
                 /// Annotations is a key value map to be copied to the target Kubernetes Secret.
                 pub annotations: Annotations,
@@ -1065,6 +1277,8 @@ pub mod cert_manager_io {
             }
 
             /// Desired state of the Certificate resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AdditionalOutputFormats defines extra output formats of the private key and signed certificate chain to be written to this Certificate's target Secret. This is an Alpha Feature and is only enabled with the `--feature-gates=AdditionalCertificateOutputFormats=true` option on both the controller and webhook components.
                 pub additional_output_formats: Vec<AdditionalOutputFormat>,
@@ -1105,6 +1319,8 @@ pub mod cert_manager_io {
             }
 
             /// Status of the Certificate. This is set and managed automatically.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// List of status conditions to indicate the status of certificates. Known condition types are `Ready` and `Issuing`.
                 pub conditions: Vec<Condition>,
@@ -1128,6 +1344,8 @@ pub mod cert_manager_io {
             }
 
             /// Full X509 name specification (https://golang.org/pkg/crypto/x509/pkix/#Name).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Subject {
                 /// Countries to be used on the Certificate.
                 pub countries: Vec<String>,
@@ -1173,6 +1391,8 @@ pub mod cert_manager_io {
             /// A CertificateRequest is used to request a signed certificate from one of the configured issuers.
             ///  All fields within the CertificateRequest's `spec` are immutable after creation. A CertificateRequest will either succeed or fail, as denoted by its `status.state` field.
             ///  A CertificateRequest is a one-shot resource, meaning it represents a single point in time request for a certificate and cannot be re-used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertificateRequest {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1180,6 +1400,8 @@ pub mod cert_manager_io {
             }
 
             /// CertificateRequestCondition contains condition information for a CertificateRequest.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Condition {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
@@ -1194,12 +1416,16 @@ pub mod cert_manager_io {
             }
 
             /// Extra contains extra attributes of the user that created the CertificateRequest. Populated by the cert-manager webhook on creation and immutable.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Extra {
                 /// Extra contains extra attributes of the user that created the CertificateRequest. Populated by the cert-manager webhook on creation and immutable.
                 pub properties: std::collections::HashMap<String, Vec<String>>,
             }
 
             /// IssuerRef is a reference to the issuer for this CertificateRequest.  If the `kind` field is not set, or set to `Issuer`, an Issuer resource with the given name in the same namespace as the CertificateRequest will be used.  If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer with the provided name will be used. The `name` field in this stanza is required at all times. The group field refers to the API group of the issuer which defaults to `cert-manager.io` if empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IssuerRef {
                 /// Group of the resource being referred to.
                 pub group: String,
@@ -1210,6 +1436,8 @@ pub mod cert_manager_io {
             }
 
             /// Desired state of the CertificateRequest resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The requested 'duration' (i.e. lifetime) of the Certificate. This option may be ignored/overridden by some issuer types.
                 pub duration: String,
@@ -1232,6 +1460,8 @@ pub mod cert_manager_io {
             }
 
             /// Status of the CertificateRequest. This is set and managed automatically.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// The PEM encoded x509 certificate of the signer, also known as the CA (Certificate Authority). This is set on a best-effort basis by different issuers. If not set, the CA is assumed to be unknown/not available.
                 pub ca: String,
@@ -1267,6 +1497,8 @@ pub mod cert_manager_io {
         }
         pub mod cluster_issuer {
             /// A ClusterIssuer represents a certificate issuing authority which can be referenced as part of `issuerRef` fields. It is similar to an Issuer, however it is cluster-scoped and therefore can be referenced by resources that exist in *any* namespace, not just the same namespace as the referent.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClusterIssuer {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1274,6 +1506,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccessTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1282,6 +1516,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccountSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1290,6 +1526,8 @@ pub mod cert_manager_io {
             }
 
             /// ACME configures this issuer to communicate with a RFC8555 (ACME) server to obtain signed x509 certificates.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecAcme {
                 /// Enables or disables generating a new ACME account key. If true, the Issuer resource will *not* request a new account but will expect the account key to be supplied via an existing secret. If false, the cert-manager system will generate a new ACME account key for the Issuer. Defaults to false.
                 pub disable_account_key_generation: bool,
@@ -1312,6 +1550,8 @@ pub mod cert_manager_io {
             }
 
             /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StatusAcme {
                 /// LastRegisteredEmail is the email associated with the latest registered ACME account, in order to track changes made to registered account associated with the  Issuer
                 pub last_registered_email: String,
@@ -1320,6 +1560,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AcmeDNS {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub account_secret_ref: AccountSecretRef,
@@ -1327,6 +1569,8 @@ pub mod cert_manager_io {
             }
 
             /// If specified, the pod's scheduling constraints
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Affinity {
                 /// Describes node affinity scheduling rules for the pod.
                 pub node_affinity: NodeAffinity,
@@ -1337,6 +1581,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Akamai DNS zone management API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Akamai {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub access_token_secret_ref: AccessTokenSecretRef,
@@ -1348,18 +1594,24 @@ pub mod cert_manager_io {
             }
 
             /// Annotations that should be added to the created ACME HTTP01 solver ingress.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadataAnnotations {
                 /// Annotations that should be added to the created ACME HTTP01 solver ingress.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Annotations that should be added to the create ACME HTTP01 solver pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadataAnnotations {
                 /// Annotations that should be added to the create ACME HTTP01 solver pods.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1368,6 +1620,8 @@ pub mod cert_manager_io {
             }
 
             /// API token used to authenticate with Cloudflare.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudflareApiTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1376,6 +1630,8 @@ pub mod cert_manager_io {
             }
 
             /// APITokenSecretRef is a secret key selector for the Venafi Cloud API token.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudApiTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1384,6 +1640,8 @@ pub mod cert_manager_io {
             }
 
             /// AppRole authenticates with Vault using the App Role auth mechanism, with the role and secret stored in a Kubernetes Secret resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AppRole {
                 /// Path where the App Role authentication backend is mounted in Vault, e.g: "approle"
                 pub path: String,
@@ -1394,6 +1652,8 @@ pub mod cert_manager_io {
             }
 
             /// Auth configures how cert-manager authenticates with the Vault server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Auth {
                 /// AppRole authenticates with Vault using the App Role auth mechanism, with the role and secret stored in a Kubernetes Secret resource.
                 pub app_role: AppRole,
@@ -1404,6 +1664,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Microsoft Azure DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDNS {
                 /// if both this and ClientSecret are left unset MSI will be used
                 pub client_i_d: String,
@@ -1424,6 +1686,8 @@ pub mod cert_manager_io {
             }
 
             /// CA configures this issuer to sign certificates using a signing CA keypair stored in a Secret resource. This is used to build internal PKIs that are managed by cert-manager.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ca {
                 /// The CRL distribution points is an X.509 v3 certificate extension which identifies the location of the CRL from which the revocation of this certificate can be checked. If not set, certificates will be issued without distribution points set.
                 pub crl_distribution_points: Vec<String>,
@@ -1434,6 +1698,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AkamaiClientSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1442,6 +1708,8 @@ pub mod cert_manager_io {
             }
 
             /// if both this and ClientID are left unset MSI will be used
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDNSClientSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1450,6 +1718,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1458,6 +1728,8 @@ pub mod cert_manager_io {
             }
 
             /// Cloud specifies the Venafi cloud configuration settings. Only one of TPP or Cloud may be specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cloud {
                 /// APITokenSecretRef is a secret key selector for the Venafi Cloud API token.
                 pub api_token_secret_ref: CloudApiTokenSecretRef,
@@ -1466,6 +1738,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Google Cloud DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudDNS {
                 /// HostedZoneName is an optional field that tells cert-manager in which Cloud DNS zone the challenge record has to be created. If left empty cert-manager will automatically choose a zone.
                 pub hosted_zone_name: String,
@@ -1475,6 +1749,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Cloudflare API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cloudflare {
                 /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
                 pub api_key_secret_ref: ApiKeySecretRef,
@@ -1485,6 +1761,8 @@ pub mod cert_manager_io {
             }
 
             /// IssuerCondition contains condition information for an Issuer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Condition {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
@@ -1501,18 +1779,24 @@ pub mod cert_manager_io {
             }
 
             /// CredentialsRef is a reference to a Secret containing the username and password for the TPP server. The secret must contain two keys, 'username' and 'password'.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CredentialsRef {
                 /// Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                 pub name: String,
             }
 
             /// Use the DigitalOcean DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Digitalocean {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub token_secret_ref: DigitaloceanTokenSecretRef,
             }
 
             /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Dns01 {
                 /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
                 pub acme_d_n_s: AcmeDNS,
@@ -1537,6 +1821,8 @@ pub mod cert_manager_io {
             }
 
             /// ExternalAccountBinding is a reference to a CA external account of the ACME server. If set, upon registration cert-manager will attempt to associate the given external account credentials with the registered ACME account.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ExternalAccountBinding {
                 /// Deprecated: keyAlgorithm field exists for historical compatibility reasons and should not be used. The algorithm is now hardcoded to HS256 in golang/x/crypto/acme.
                 pub key_algorithm: String,
@@ -1547,6 +1833,8 @@ pub mod cert_manager_io {
             }
 
             /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GatewayHTTPRoute {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub labels: GatewayHTTPRouteLabels,
@@ -1557,6 +1845,8 @@ pub mod cert_manager_io {
             }
 
             /// Configures cert-manager to attempt to complete authorizations by performing the HTTP01 challenge flow. It is not possible to obtain certificates for wildcard domain names (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Http01 {
                 /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
                 pub gateway_h_t_t_p_route: GatewayHTTPRoute,
@@ -1565,6 +1855,8 @@ pub mod cert_manager_io {
             }
 
             /// The ingress based HTTP01 challenge solver will solve challenges by creating or modifying Ingress resources in order to route requests for '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are provisioned by cert-manager for each Challenge to be completed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ingress {
                 /// The ingress class to use when creating Ingress resources to solve ACME challenges that use this challenge solver. Only one of 'class' or 'name' may be specified.
                 pub class: String,
@@ -1579,12 +1871,16 @@ pub mod cert_manager_io {
             }
 
             /// Optional ingress template used to configure the ACME challenge solver ingress used for HTTP01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplate {
                 /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
                 pub metadata: IngressTemplateMetadata,
             }
 
             /// keySecretRef is a Secret Key Selector referencing a data item in a Kubernetes Secret which holds the symmetric MAC key of the External Account Binding. The `key` is the index string that is paired with the key data in the Secret and should not be confused with the key data itself, or indeed with the External Account Binding keyID above. The secret key stored in the Secret **must** be un-padded, base64 URL encoded data.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -1593,6 +1889,8 @@ pub mod cert_manager_io {
             }
 
             /// Kubernetes authenticates with Vault by passing the ServiceAccount token stored in the named Secret resource to the Vault server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Kubernetes {
                 /// The Vault mountPath here is the mount path to use when authenticating with Vault. For example, setting a value to `/v1/auth/foo`, will use the path `/v1/auth/foo/login` to authenticate with Vault. If unspecified, the default value "/v1/auth/kubernetes" will be used.
                 pub mount_path: String,
@@ -1603,6 +1901,8 @@ pub mod cert_manager_io {
             }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -1611,6 +1911,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -1619,6 +1921,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -1627,6 +1931,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -1635,24 +1941,32 @@ pub mod cert_manager_io {
         }
 
             /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GatewayHTTPRouteLabels {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Labels that should be added to the created ACME HTTP01 solver ingress.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadataLabels {
                 /// Labels that should be added to the created ACME HTTP01 solver ingress.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Labels that should be added to the created ACME HTTP01 solver pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadataLabels {
                 /// Labels that should be added to the created ACME HTTP01 solver pods.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// managed identity configuration, can not be used at the same time as clientID, clientSecretSecretRef or tenantID
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ManagedIdentity {
                 /// client ID of the managed identity, can not be used at the same time as resourceID
                 pub client_i_d: String,
@@ -1661,6 +1975,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1671,6 +1987,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1681,6 +1999,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1692,6 +2012,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1703,6 +2025,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1714,6 +2038,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1725,6 +2051,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1736,6 +2064,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1747,6 +2077,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1758,6 +2090,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1769,6 +2103,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1779,6 +2115,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1789,6 +2127,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1796,6 +2136,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1803,12 +2145,16 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1816,6 +2162,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1823,6 +2171,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1830,6 +2180,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1837,6 +2189,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1844,12 +2198,16 @@ pub mod cert_manager_io {
             }
 
             /// A label selector that is used to refine the set of certificate's that this challenge solver will apply to.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SelectorMatchLabels {
                 /// A label selector that is used to refine the set of certificate's that this challenge solver will apply to.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadata {
                 /// Annotations that should be added to the created ACME HTTP01 solver ingress.
                 pub annotations: IngressTemplateMetadataAnnotations,
@@ -1858,6 +2216,8 @@ pub mod cert_manager_io {
             }
 
             /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadata {
                 /// Annotations that should be added to the create ACME HTTP01 solver pods.
                 pub annotations: PodTemplateMetadataAnnotations,
@@ -1866,6 +2226,8 @@ pub mod cert_manager_io {
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -1874,6 +2236,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -1882,6 +2246,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -1890,6 +2256,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -1898,6 +2266,8 @@ pub mod cert_manager_io {
         }
 
             /// Describes node affinity scheduling rules for the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -1908,12 +2278,16 @@ pub mod cert_manager_io {
             }
 
             /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelector {
                 /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
@@ -1924,6 +2298,8 @@ pub mod cert_manager_io {
             /// ParentRef identifies an API object (usually a Gateway) that can be considered a parent of this resource (usually a route). The only kind of parent resource with "Core" support is Gateway. This API may be extended in the future to support additional kinds of parent resources, such as HTTPRoute.
             ///  The API object must be valid in the cluster; the Group and Kind must be registered in the cluster for this reference to be valid.
             ///  References to objects with invalid Group and Kind are not valid, and must be rejected by the implementation, with appropriate Conditions set on the containing object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ParentRef {
                 /// Group is the group of the referent.
                 ///  Support: Core
@@ -1946,6 +2322,8 @@ pub mod cert_manager_io {
             }
 
             /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -1956,6 +2334,8 @@ pub mod cert_manager_io {
             }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -1968,6 +2348,8 @@ pub mod cert_manager_io {
         }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -1980,6 +2362,8 @@ pub mod cert_manager_io {
         }
 
             /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -1990,6 +2374,8 @@ pub mod cert_manager_io {
             }
 
             /// Optional pod template used to configure the ACME challenge solver pods used for HTTP01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplate {
                 /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
                 pub metadata: PodTemplateMetadata,
@@ -1998,6 +2384,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<PreferenceMatchExpression>,
@@ -2006,6 +2394,8 @@ pub mod cert_manager_io {
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A node selector term, associated with the corresponding weight.
                 pub preference: Preference,
@@ -2014,6 +2404,8 @@ pub mod cert_manager_io {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// Required. A pod affinity term, associated with the corresponding weight.
                 pub pod_affinity_term:
@@ -2023,6 +2415,8 @@ pub mod cert_manager_io {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
             /// Required. A pod affinity term, associated with the corresponding weight.
             pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
@@ -2031,6 +2425,8 @@ pub mod cert_manager_io {
         }
 
             /// PrivateKey is the name of a Kubernetes Secret resource that will be used to store the automatically generated ACME account private key. Optionally, a `key` may be specified to select a specific entry within the named Secret resource. If `key` is not specified, a default of `tls.key` will be used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PrivateKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2039,12 +2435,16 @@ pub mod cert_manager_io {
             }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
                 pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A label query over a set of resources, in this case pods.
                 pub label_selector:
@@ -2059,6 +2459,8 @@ pub mod cert_manager_io {
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
@@ -2071,6 +2473,8 @@ pub mod cert_manager_io {
         }
 
             /// Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rfc2136 {
                 /// The IP address or hostname of an authoritative DNS server supporting RFC2136 in the form host:port. If the host is an IPv6 address it must be enclosed in square brackets (e.g [2001:db8::1]) ; port is optional. This field is required.
                 pub nameserver: String,
@@ -2083,6 +2487,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the AWS Route53 API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Route53 {
                 /// The AccessKeyID is used for authentication. If not set we fall-back to using env vars, shared credentials file or AWS Instance metadata see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
                 pub access_key_i_d: String,
@@ -2097,6 +2503,8 @@ pub mod cert_manager_io {
             }
 
             /// The SecretAccessKey is used for authentication. If not set we fall-back to using env vars, shared credentials file or AWS Instance metadata https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SecretAccessKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2105,6 +2513,8 @@ pub mod cert_manager_io {
             }
 
             /// Reference to a key in a Secret that contains the App Role secret used to authenticate with Vault. The `key` field must be specified and denotes which entry within the Secret resource is used as the app role secret.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AppRoleSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2113,6 +2523,8 @@ pub mod cert_manager_io {
             }
 
             /// The required Secret field containing a Kubernetes ServiceAccount JWT used for authenticating with Vault. Use of 'ambient credentials' is not supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KubernetesSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2121,6 +2533,8 @@ pub mod cert_manager_io {
             }
 
             /// Selector selects a set of DNSNames on the Certificate resource that should be solved using this challenge solver. If not specified, the solver will be treated as the 'default' solver with the lowest priority, i.e. if any other solver has a more specific match, it will be used instead.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 /// List of DNSNames that this solver will be used to solve. If specified and a match is found, a dnsNames selector will take precedence over a dnsZones selector. If multiple solvers match with the same dnsNames value, the solver with the most matching labels in matchLabels will be selected. If neither has more matches, the solver defined earlier in the list will be selected.
                 pub dns_names: Vec<String>,
@@ -2131,12 +2545,16 @@ pub mod cert_manager_io {
             }
 
             /// SelfSigned configures this issuer to 'self sign' certificates using the private key used to create the CertificateRequest object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SelfSigned {
                 /// The CRL distribution points is an X.509 v3 certificate extension which identifies the location of the CRL from which the revocation of this certificate can be checked. If not set certificate will be issued without CDP. Values are strings.
                 pub crl_distribution_points: Vec<String>,
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceAccountSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2145,6 +2563,8 @@ pub mod cert_manager_io {
             }
 
             /// An ACMEChallengeSolver describes how to solve ACME challenges for the issuer it is part of. A selector may be provided to use different solving strategies for different DNS names. Only one of HTTP01 or DNS01 must be provided.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Solver {
                 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
                 pub dns01: Dns01,
@@ -2155,6 +2575,8 @@ pub mod cert_manager_io {
             }
 
             /// Desired state of the ClusterIssuer resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// ACME configures this issuer to communicate with a RFC8555 (ACME) server to obtain signed x509 certificates.
                 pub acme: SpecAcme,
@@ -2169,6 +2591,8 @@ pub mod cert_manager_io {
             }
 
             /// PodSpec defines overrides for the HTTP01 challenge solver pod. Only the 'priorityClassName', 'nodeSelector', 'affinity', 'serviceAccountName' and 'tolerations' fields are supported currently. All other fields will be ignored.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateSpec {
                 /// If specified, the pod's scheduling constraints
                 pub affinity: Affinity,
@@ -2183,6 +2607,8 @@ pub mod cert_manager_io {
             }
 
             /// Status of the ClusterIssuer. This is set and managed automatically.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
                 pub acme: StatusAcme,
@@ -2191,6 +2617,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct DigitaloceanTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2199,6 +2627,8 @@ pub mod cert_manager_io {
             }
 
             /// TokenSecretRef authenticates with Vault by presenting a token.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AuthTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2207,6 +2637,8 @@ pub mod cert_manager_io {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
@@ -2221,6 +2653,8 @@ pub mod cert_manager_io {
             }
 
             /// TPP specifies Trust Protection Platform configuration settings. Only one of TPP or Cloud may be specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Tpp {
                 /// CABundle is a PEM encoded TLS certificate to use to verify connections to the TPP instance. If specified, system roots will not be used and the issuing CA for the TPP instance must be verifiable using the provided root. If not specified, the connection will be verified using the cert-manager system root certificates.
                 pub ca_bundle: String,
@@ -2231,6 +2665,8 @@ pub mod cert_manager_io {
             }
 
             /// The name of the secret containing the TSIG value. If ``tsigKeyName`` is defined, this field is required.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TsigSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2239,6 +2675,8 @@ pub mod cert_manager_io {
             }
 
             /// Vault configures this issuer to sign certificates using a HashiCorp Vault PKI backend.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Vault {
                 /// Auth configures how cert-manager authenticates with the Vault server.
                 pub auth: Auth,
@@ -2253,6 +2691,8 @@ pub mod cert_manager_io {
             }
 
             /// Venafi configures this issuer to sign certificates using a Venafi TPP or Venafi Cloud policy zone.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Venafi {
                 /// Cloud specifies the Venafi cloud configuration settings. Only one of TPP or Cloud may be specified.
                 pub cloud: Cloud,
@@ -2263,6 +2703,8 @@ pub mod cert_manager_io {
             }
 
             /// Configure an external webhook based DNS01 challenge solver to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Webhook {
                 /// Additional configuration that should be passed to the webhook apiserver when challenges are processed. This can contain arbitrary JSON data. Secret values should not be specified in this stanza. If secret values are needed (e.g. credentials for a DNS service), you should use a SecretKeySelector to reference a Secret resource. For details on the schema of this field, consult the webhook provider implementation's documentation.
                 pub config: std::collections::HashMap<String, String>,
@@ -2296,6 +2738,8 @@ pub mod cert_manager_io {
         }
         pub mod issuer {
             /// An Issuer represents a certificate issuing authority which can be referenced as part of `issuerRef` fields. It is scoped to a single namespace and can therefore only be referenced by resources within the same namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Issuer {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2303,6 +2747,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccessTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2311,6 +2757,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccountSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2319,6 +2767,8 @@ pub mod cert_manager_io {
             }
 
             /// ACME configures this issuer to communicate with a RFC8555 (ACME) server to obtain signed x509 certificates.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecAcme {
                 /// Enables or disables generating a new ACME account key. If true, the Issuer resource will *not* request a new account but will expect the account key to be supplied via an existing secret. If false, the cert-manager system will generate a new ACME account key for the Issuer. Defaults to false.
                 pub disable_account_key_generation: bool,
@@ -2341,6 +2791,8 @@ pub mod cert_manager_io {
             }
 
             /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StatusAcme {
                 /// LastRegisteredEmail is the email associated with the latest registered ACME account, in order to track changes made to registered account associated with the  Issuer
                 pub last_registered_email: String,
@@ -2349,6 +2801,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AcmeDNS {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub account_secret_ref: AccountSecretRef,
@@ -2356,6 +2810,8 @@ pub mod cert_manager_io {
             }
 
             /// If specified, the pod's scheduling constraints
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Affinity {
                 /// Describes node affinity scheduling rules for the pod.
                 pub node_affinity: NodeAffinity,
@@ -2366,6 +2822,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Akamai DNS zone management API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Akamai {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub access_token_secret_ref: AccessTokenSecretRef,
@@ -2377,18 +2835,24 @@ pub mod cert_manager_io {
             }
 
             /// Annotations that should be added to the created ACME HTTP01 solver ingress.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadataAnnotations {
                 /// Annotations that should be added to the created ACME HTTP01 solver ingress.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Annotations that should be added to the create ACME HTTP01 solver pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadataAnnotations {
                 /// Annotations that should be added to the create ACME HTTP01 solver pods.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2397,6 +2861,8 @@ pub mod cert_manager_io {
             }
 
             /// API token used to authenticate with Cloudflare.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudflareApiTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2405,6 +2871,8 @@ pub mod cert_manager_io {
             }
 
             /// APITokenSecretRef is a secret key selector for the Venafi Cloud API token.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudApiTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2413,6 +2881,8 @@ pub mod cert_manager_io {
             }
 
             /// AppRole authenticates with Vault using the App Role auth mechanism, with the role and secret stored in a Kubernetes Secret resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AppRole {
                 /// Path where the App Role authentication backend is mounted in Vault, e.g: "approle"
                 pub path: String,
@@ -2423,6 +2893,8 @@ pub mod cert_manager_io {
             }
 
             /// Auth configures how cert-manager authenticates with the Vault server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Auth {
                 /// AppRole authenticates with Vault using the App Role auth mechanism, with the role and secret stored in a Kubernetes Secret resource.
                 pub app_role: AppRole,
@@ -2433,6 +2905,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Microsoft Azure DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDNS {
                 /// if both this and ClientSecret are left unset MSI will be used
                 pub client_i_d: String,
@@ -2453,6 +2927,8 @@ pub mod cert_manager_io {
             }
 
             /// CA configures this issuer to sign certificates using a signing CA keypair stored in a Secret resource. This is used to build internal PKIs that are managed by cert-manager.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ca {
                 /// The CRL distribution points is an X.509 v3 certificate extension which identifies the location of the CRL from which the revocation of this certificate can be checked. If not set, certificates will be issued without distribution points set.
                 pub crl_distribution_points: Vec<String>,
@@ -2463,6 +2939,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AkamaiClientSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2471,6 +2949,8 @@ pub mod cert_manager_io {
             }
 
             /// if both this and ClientID are left unset MSI will be used
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDNSClientSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2479,6 +2959,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2487,6 +2969,8 @@ pub mod cert_manager_io {
             }
 
             /// Cloud specifies the Venafi cloud configuration settings. Only one of TPP or Cloud may be specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cloud {
                 /// APITokenSecretRef is a secret key selector for the Venafi Cloud API token.
                 pub api_token_secret_ref: CloudApiTokenSecretRef,
@@ -2495,6 +2979,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Google Cloud DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CloudDNS {
                 /// HostedZoneName is an optional field that tells cert-manager in which Cloud DNS zone the challenge record has to be created. If left empty cert-manager will automatically choose a zone.
                 pub hosted_zone_name: String,
@@ -2504,6 +2990,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the Cloudflare API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cloudflare {
                 /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
                 pub api_key_secret_ref: ApiKeySecretRef,
@@ -2514,6 +3002,8 @@ pub mod cert_manager_io {
             }
 
             /// IssuerCondition contains condition information for an Issuer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Condition {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
@@ -2530,18 +3020,24 @@ pub mod cert_manager_io {
             }
 
             /// CredentialsRef is a reference to a Secret containing the username and password for the TPP server. The secret must contain two keys, 'username' and 'password'.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CredentialsRef {
                 /// Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                 pub name: String,
             }
 
             /// Use the DigitalOcean DNS API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Digitalocean {
                 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
                 pub token_secret_ref: DigitaloceanTokenSecretRef,
             }
 
             /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Dns01 {
                 /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
                 pub acme_d_n_s: AcmeDNS,
@@ -2566,6 +3062,8 @@ pub mod cert_manager_io {
             }
 
             /// ExternalAccountBinding is a reference to a CA external account of the ACME server. If set, upon registration cert-manager will attempt to associate the given external account credentials with the registered ACME account.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ExternalAccountBinding {
                 /// Deprecated: keyAlgorithm field exists for historical compatibility reasons and should not be used. The algorithm is now hardcoded to HS256 in golang/x/crypto/acme.
                 pub key_algorithm: String,
@@ -2576,6 +3074,8 @@ pub mod cert_manager_io {
             }
 
             /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GatewayHTTPRoute {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub labels: GatewayHTTPRouteLabels,
@@ -2586,6 +3086,8 @@ pub mod cert_manager_io {
             }
 
             /// Configures cert-manager to attempt to complete authorizations by performing the HTTP01 challenge flow. It is not possible to obtain certificates for wildcard domain names (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Http01 {
                 /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
                 pub gateway_h_t_t_p_route: GatewayHTTPRoute,
@@ -2594,6 +3096,8 @@ pub mod cert_manager_io {
             }
 
             /// The ingress based HTTP01 challenge solver will solve challenges by creating or modifying Ingress resources in order to route requests for '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are provisioned by cert-manager for each Challenge to be completed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ingress {
                 /// The ingress class to use when creating Ingress resources to solve ACME challenges that use this challenge solver. Only one of 'class' or 'name' may be specified.
                 pub class: String,
@@ -2608,12 +3112,16 @@ pub mod cert_manager_io {
             }
 
             /// Optional ingress template used to configure the ACME challenge solver ingress used for HTTP01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplate {
                 /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
                 pub metadata: IngressTemplateMetadata,
             }
 
             /// keySecretRef is a Secret Key Selector referencing a data item in a Kubernetes Secret which holds the symmetric MAC key of the External Account Binding. The `key` is the index string that is paired with the key data in the Secret and should not be confused with the key data itself, or indeed with the External Account Binding keyID above. The secret key stored in the Secret **must** be un-padded, base64 URL encoded data.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -2622,6 +3130,8 @@ pub mod cert_manager_io {
             }
 
             /// Kubernetes authenticates with Vault by passing the ServiceAccount token stored in the named Secret resource to the Vault server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Kubernetes {
                 /// The Vault mountPath here is the mount path to use when authenticating with Vault. For example, setting a value to `/v1/auth/foo`, will use the path `/v1/auth/foo/login` to authenticate with Vault. If unspecified, the default value "/v1/auth/kubernetes" will be used.
                 pub mount_path: String,
@@ -2632,6 +3142,8 @@ pub mod cert_manager_io {
             }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -2640,6 +3152,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -2648,6 +3162,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -2656,6 +3172,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -2664,24 +3182,32 @@ pub mod cert_manager_io {
         }
 
             /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GatewayHTTPRouteLabels {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Labels that should be added to the created ACME HTTP01 solver ingress.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadataLabels {
                 /// Labels that should be added to the created ACME HTTP01 solver ingress.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Labels that should be added to the created ACME HTTP01 solver pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadataLabels {
                 /// Labels that should be added to the created ACME HTTP01 solver pods.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// managed identity configuration, can not be used at the same time as clientID, clientSecretSecretRef or tenantID
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ManagedIdentity {
                 /// client ID of the managed identity, can not be used at the same time as resourceID
                 pub client_i_d: String,
@@ -2690,6 +3216,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -2700,6 +3228,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -2710,6 +3240,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2721,6 +3253,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2732,6 +3266,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2743,6 +3279,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2754,6 +3292,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2765,6 +3305,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2776,6 +3318,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2787,6 +3331,8 @@ pub mod cert_manager_io {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -2798,6 +3344,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -2808,6 +3356,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -2818,6 +3368,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2825,6 +3377,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2832,12 +3386,16 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2845,6 +3403,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2852,6 +3412,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2859,6 +3421,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2866,6 +3430,8 @@ pub mod cert_manager_io {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2873,12 +3439,16 @@ pub mod cert_manager_io {
             }
 
             /// A label selector that is used to refine the set of certificate's that this challenge solver will apply to.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SelectorMatchLabels {
                 /// A label selector that is used to refine the set of certificate's that this challenge solver will apply to.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressTemplateMetadata {
                 /// Annotations that should be added to the created ACME HTTP01 solver ingress.
                 pub annotations: IngressTemplateMetadataAnnotations,
@@ -2887,6 +3457,8 @@ pub mod cert_manager_io {
             }
 
             /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateMetadata {
                 /// Annotations that should be added to the create ACME HTTP01 solver pods.
                 pub annotations: PodTemplateMetadataAnnotations,
@@ -2895,6 +3467,8 @@ pub mod cert_manager_io {
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -2903,6 +3477,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -2911,6 +3487,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -2919,6 +3497,8 @@ pub mod cert_manager_io {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -2927,6 +3507,8 @@ pub mod cert_manager_io {
         }
 
             /// Describes node affinity scheduling rules for the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -2937,12 +3519,16 @@ pub mod cert_manager_io {
             }
 
             /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelector {
                 /// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
@@ -2953,6 +3539,8 @@ pub mod cert_manager_io {
             /// ParentRef identifies an API object (usually a Gateway) that can be considered a parent of this resource (usually a route). The only kind of parent resource with "Core" support is Gateway. This API may be extended in the future to support additional kinds of parent resources, such as HTTPRoute.
             ///  The API object must be valid in the cluster; the Group and Kind must be registered in the cluster for this reference to be valid.
             ///  References to objects with invalid Group and Kind are not valid, and must be rejected by the implementation, with appropriate Conditions set on the containing object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ParentRef {
                 /// Group is the group of the referent.
                 ///  Support: Core
@@ -2975,6 +3563,8 @@ pub mod cert_manager_io {
             }
 
             /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -2985,6 +3575,8 @@ pub mod cert_manager_io {
             }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -2997,6 +3589,8 @@ pub mod cert_manager_io {
         }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -3009,6 +3603,8 @@ pub mod cert_manager_io {
         }
 
             /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -3019,6 +3615,8 @@ pub mod cert_manager_io {
             }
 
             /// Optional pod template used to configure the ACME challenge solver pods used for HTTP01 challenges.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplate {
                 /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
                 pub metadata: PodTemplateMetadata,
@@ -3027,6 +3625,8 @@ pub mod cert_manager_io {
             }
 
             /// A node selector term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<PreferenceMatchExpression>,
@@ -3035,6 +3635,8 @@ pub mod cert_manager_io {
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A node selector term, associated with the corresponding weight.
                 pub preference: Preference,
@@ -3043,6 +3645,8 @@ pub mod cert_manager_io {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// Required. A pod affinity term, associated with the corresponding weight.
                 pub pod_affinity_term:
@@ -3052,6 +3656,8 @@ pub mod cert_manager_io {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
             /// Required. A pod affinity term, associated with the corresponding weight.
             pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
@@ -3060,6 +3666,8 @@ pub mod cert_manager_io {
         }
 
             /// PrivateKey is the name of a Kubernetes Secret resource that will be used to store the automatically generated ACME account private key. Optionally, a `key` may be specified to select a specific entry within the named Secret resource. If `key` is not specified, a default of `tls.key` will be used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PrivateKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3068,12 +3676,16 @@ pub mod cert_manager_io {
             }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
                 pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A label query over a set of resources, in this case pods.
                 pub label_selector:
@@ -3088,6 +3700,8 @@ pub mod cert_manager_io {
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
@@ -3100,6 +3714,8 @@ pub mod cert_manager_io {
         }
 
             /// Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rfc2136 {
                 /// The IP address or hostname of an authoritative DNS server supporting RFC2136 in the form host:port. If the host is an IPv6 address it must be enclosed in square brackets (e.g [2001:db8::1]) ; port is optional. This field is required.
                 pub nameserver: String,
@@ -3112,6 +3728,8 @@ pub mod cert_manager_io {
             }
 
             /// Use the AWS Route53 API to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Route53 {
                 /// The AccessKeyID is used for authentication. If not set we fall-back to using env vars, shared credentials file or AWS Instance metadata see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
                 pub access_key_i_d: String,
@@ -3126,6 +3744,8 @@ pub mod cert_manager_io {
             }
 
             /// The SecretAccessKey is used for authentication. If not set we fall-back to using env vars, shared credentials file or AWS Instance metadata https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SecretAccessKeySecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3134,6 +3754,8 @@ pub mod cert_manager_io {
             }
 
             /// Reference to a key in a Secret that contains the App Role secret used to authenticate with Vault. The `key` field must be specified and denotes which entry within the Secret resource is used as the app role secret.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AppRoleSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3142,6 +3764,8 @@ pub mod cert_manager_io {
             }
 
             /// The required Secret field containing a Kubernetes ServiceAccount JWT used for authenticating with Vault. Use of 'ambient credentials' is not supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KubernetesSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3150,6 +3774,8 @@ pub mod cert_manager_io {
             }
 
             /// Selector selects a set of DNSNames on the Certificate resource that should be solved using this challenge solver. If not specified, the solver will be treated as the 'default' solver with the lowest priority, i.e. if any other solver has a more specific match, it will be used instead.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 /// List of DNSNames that this solver will be used to solve. If specified and a match is found, a dnsNames selector will take precedence over a dnsZones selector. If multiple solvers match with the same dnsNames value, the solver with the most matching labels in matchLabels will be selected. If neither has more matches, the solver defined earlier in the list will be selected.
                 pub dns_names: Vec<String>,
@@ -3160,12 +3786,16 @@ pub mod cert_manager_io {
             }
 
             /// SelfSigned configures this issuer to 'self sign' certificates using the private key used to create the CertificateRequest object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SelfSigned {
                 /// The CRL distribution points is an X.509 v3 certificate extension which identifies the location of the CRL from which the revocation of this certificate can be checked. If not set certificate will be issued without CDP. Values are strings.
                 pub crl_distribution_points: Vec<String>,
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceAccountSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3174,6 +3804,8 @@ pub mod cert_manager_io {
             }
 
             /// An ACMEChallengeSolver describes how to solve ACME challenges for the issuer it is part of. A selector may be provided to use different solving strategies for different DNS names. Only one of HTTP01 or DNS01 must be provided.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Solver {
                 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
                 pub dns01: Dns01,
@@ -3184,6 +3816,8 @@ pub mod cert_manager_io {
             }
 
             /// Desired state of the Issuer resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// ACME configures this issuer to communicate with a RFC8555 (ACME) server to obtain signed x509 certificates.
                 pub acme: SpecAcme,
@@ -3198,6 +3832,8 @@ pub mod cert_manager_io {
             }
 
             /// PodSpec defines overrides for the HTTP01 challenge solver pod. Only the 'priorityClassName', 'nodeSelector', 'affinity', 'serviceAccountName' and 'tolerations' fields are supported currently. All other fields will be ignored.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodTemplateSpec {
                 /// If specified, the pod's scheduling constraints
                 pub affinity: Affinity,
@@ -3212,6 +3848,8 @@ pub mod cert_manager_io {
             }
 
             /// Status of the Issuer. This is set and managed automatically.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
                 pub acme: StatusAcme,
@@ -3220,6 +3858,8 @@ pub mod cert_manager_io {
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct DigitaloceanTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3228,6 +3868,8 @@ pub mod cert_manager_io {
             }
 
             /// TokenSecretRef authenticates with Vault by presenting a token.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AuthTokenSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3236,6 +3878,8 @@ pub mod cert_manager_io {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
@@ -3250,6 +3894,8 @@ pub mod cert_manager_io {
             }
 
             /// TPP specifies Trust Protection Platform configuration settings. Only one of TPP or Cloud may be specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Tpp {
                 /// CABundle is a PEM encoded TLS certificate to use to verify connections to the TPP instance. If specified, system roots will not be used and the issuing CA for the TPP instance must be verifiable using the provided root. If not specified, the connection will be verified using the cert-manager system root certificates.
                 pub ca_bundle: String,
@@ -3260,6 +3906,8 @@ pub mod cert_manager_io {
             }
 
             /// The name of the secret containing the TSIG value. If ``tsigKeyName`` is defined, this field is required.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TsigSecretSecretRef {
                 /// The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
                 pub key: String,
@@ -3268,6 +3916,8 @@ pub mod cert_manager_io {
             }
 
             /// Vault configures this issuer to sign certificates using a HashiCorp Vault PKI backend.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Vault {
                 /// Auth configures how cert-manager authenticates with the Vault server.
                 pub auth: Auth,
@@ -3282,6 +3932,8 @@ pub mod cert_manager_io {
             }
 
             /// Venafi configures this issuer to sign certificates using a Venafi TPP or Venafi Cloud policy zone.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Venafi {
                 /// Cloud specifies the Venafi cloud configuration settings. Only one of TPP or Cloud may be specified.
                 pub cloud: Cloud,
@@ -3292,6 +3944,8 @@ pub mod cert_manager_io {
             }
 
             /// Configure an external webhook based DNS01 challenge solver to manage DNS01 challenge records.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Webhook {
                 /// Additional configuration that should be passed to the webhook apiserver when challenges are processed. This can contain arbitrary JSON data. Secret values should not be specified in this stanza. If secret values are needed (e.g. credentials for a DNS service), you should use a SecretKeySelector to reference a Secret resource. For details on the schema of this field, consult the webhook provider implementation's documentation.
                 pub config: std::collections::HashMap<String, String>,

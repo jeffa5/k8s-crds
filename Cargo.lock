@@ -58,6 +58,7 @@ name = "cert-manager-crds"
 version = "0.1.0"
 dependencies = [
  "k8s-openapi",
+ "serde",
 ]
 
 [[package]]
@@ -435,6 +436,7 @@ name = "kube-prometheus-stack-crds"
 version = "0.1.0"
 dependencies = [
  "k8s-openapi",
+ "serde",
 ]
 
 [[package]]

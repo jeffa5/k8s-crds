@@ -2,6 +2,8 @@ pub mod monitoring_coreos_com {
     pub mod v1 {
         pub mod alertmanager {
             /// Alertmanager describes an Alertmanager cluster.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Alertmanager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -9,6 +11,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// If specified, the pod's scheduling constraints.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Affinity {
                 /// Describes node affinity scheduling rules for the pod.
                 pub node_affinity: NodeAffinity,
@@ -19,6 +23,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfigNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<AlertmanagerConfigNamespaceSelectorMatchExpression>,
@@ -27,6 +33,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AlertmanagerConfigs to be selected for to merge and configure Alertmanager with.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfigSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<AlertmanagerConfigSelectorMatchExpression>,
@@ -35,12 +43,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// EXPERIMENTAL: alertmanagerConfiguration specifies the global Alertmanager configuration. If defined, it takes precedence over the `configSecret` field. This field may change in future releases.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfiguration {
                 /// The name of the AlertmanagerConfig resource which is used to generate the global configuration. It must be defined in the same namespace as the Alertmanager object. The operator will not enforce a `namespace` label for routes and inhibition rules.
                 pub name: String,
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AllocatedResources {
                 /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
                 pub properties: std::collections::HashMap<
@@ -50,18 +62,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadataAnnotations {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataAnnotations {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AwsElasticBlockStore {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -74,6 +92,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDisk {
                 /// Host Caching mode: None, Read Only, Read Write.
                 pub caching_mode: String,
@@ -90,6 +110,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureFile {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
@@ -100,6 +122,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
@@ -108,6 +132,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
@@ -116,6 +142,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Represents the actual resources of the underlying volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Capacity {
                 /// Represents the actual resources of the underlying volume.
                 pub properties: std::collections::HashMap<
@@ -125,6 +153,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cephfs {
                 /// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub monitors: Vec<String>,
@@ -141,6 +171,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cinder {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub fs_type: String,
@@ -153,6 +185,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimCondition contails details about state of pvc
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Condition {
                 /// Last time we probed the condition.
                 pub last_probe_time: String,
@@ -168,6 +202,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -180,6 +216,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourceConfigMapItem>,
@@ -190,6 +228,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
@@ -200,6 +240,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
@@ -210,6 +252,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -218,6 +262,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -226,6 +272,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A single application container that you want to run within a pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Container {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
@@ -274,6 +322,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Csi {
                 /// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
                 pub driver: String,
@@ -288,6 +338,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -298,6 +350,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -308,6 +362,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -318,6 +374,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -328,6 +386,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -338,6 +398,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -348,6 +410,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPI represents downward API about the pod that should populate this volume
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPI {
                 /// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -356,12 +420,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the downwardAPI data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPI {
                 /// Items is a list of DownwardAPIVolume file
                 pub items: Vec<SourceDownwardAPIItem>,
             }
 
             /// EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
@@ -370,6 +438,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
@@ -378,6 +448,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItem {
                 /// The ConfigMap to select from
                 pub config_map_ref: ContainerEnvFromItemConfigMapRef,
@@ -388,6 +460,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItem {
                 /// The ConfigMap to select from
                 pub config_map_ref: InitContainerEnvFromItemConfigMapRef,
@@ -398,6 +472,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvVar represents an environment variable present in a Container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
@@ -408,6 +484,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvVar represents an environment variable present in a Container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
@@ -418,6 +496,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -431,6 +511,8 @@ pub mod monitoring_coreos_com {
             ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
             ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
             ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -440,66 +522,88 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Fc {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -514,6 +618,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -522,6 +628,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -530,6 +638,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -538,6 +648,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -546,6 +658,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct FlexVolume {
                 /// Driver is the name of the driver to use for this volume.
                 pub driver: String,
@@ -560,6 +674,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Flocker {
                 /// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
                 pub dataset_name: String,
@@ -568,6 +684,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GcePersistentDisk {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -580,6 +698,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GitRepo {
                 /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
                 pub directory: String,
@@ -590,6 +710,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Glusterfs {
                 /// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
                 pub endpoints: String,
@@ -600,6 +722,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -609,6 +733,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -618,6 +744,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -627,6 +755,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -636,6 +766,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -645,6 +777,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -654,6 +788,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct HostAliase {
                 /// Hostnames for the above IP address.
                 pub hostnames: Vec<String>,
@@ -662,6 +798,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct HostPath {
                 /// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
                 pub path: String,
@@ -670,6 +808,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -684,6 +824,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -698,6 +840,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -712,6 +856,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -726,6 +872,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -740,6 +888,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -754,6 +904,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -768,6 +920,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -782,6 +936,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -796,6 +952,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -810,6 +968,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -818,6 +978,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -826,6 +988,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -834,6 +998,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -842,6 +1008,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -850,6 +1018,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -858,6 +1028,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -866,6 +1038,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -874,6 +1048,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -882,6 +1058,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -890,12 +1068,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ImagePullSecret {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// A single application container that you want to run within a pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainer {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
@@ -944,6 +1126,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Iscsi {
                 /// whether support iSCSI Discovery CHAP authentication
                 pub chap_auth_discovery: bool,
@@ -970,6 +1154,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeConfigMapItem {
                 /// The key to project.
                 pub key: String,
@@ -980,6 +1166,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
                 pub field_ref: VolumeDownwardAPIItemFieldRef,
@@ -992,6 +1180,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceConfigMapItem {
                 /// The key to project.
                 pub key: String,
@@ -1002,6 +1192,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
                 pub field_ref: SourceDownwardAPIItemFieldRef,
@@ -1014,6 +1206,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceSecretItem {
                 /// The key to project.
                 pub key: String,
@@ -1024,6 +1218,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeSecretItem {
                 /// The key to project.
                 pub key: String,
@@ -1034,6 +1230,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -1042,6 +1240,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -1050,6 +1250,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -1058,6 +1260,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -1066,6 +1270,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<TopologySpreadConstraintLabelSelectorMatchExpression>,
@@ -1074,18 +1280,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadataLabels {
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataLabels {
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
                 pub post_start: ContainerLifecyclePostStart,
@@ -1094,6 +1306,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
                 pub post_start: InitContainerLifecyclePostStart,
@@ -1102,6 +1316,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1111,6 +1327,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1120,6 +1338,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1129,6 +1349,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1138,6 +1360,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1147,6 +1371,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1156,6 +1382,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLivenessProbeExec,
@@ -1180,6 +1408,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLivenessProbeExec,
@@ -1204,6 +1434,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1214,6 +1446,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1224,6 +1458,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1235,6 +1471,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1246,6 +1484,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1257,6 +1497,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1268,6 +1510,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1279,6 +1523,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1290,6 +1536,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1301,6 +1549,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -1312,6 +1562,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfigNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1322,6 +1574,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfigSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1332,6 +1586,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1342,6 +1598,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1352,6 +1610,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1362,6 +1622,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -1372,6 +1634,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1382,6 +1646,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -1392,6 +1658,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1399,6 +1667,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1406,12 +1676,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1419,6 +1693,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1426,6 +1702,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1433,6 +1711,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1440,6 +1720,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1447,48 +1729,64 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfigNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfigSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: MetadataAnnotations,
@@ -1499,12 +1797,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -1513,6 +1815,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -1521,6 +1825,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -1529,6 +1835,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -1537,6 +1845,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Nfs {
                 /// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
                 pub path: String,
@@ -1547,6 +1857,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Describes node affinity scheduling rules for the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -1557,18 +1869,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodePublishSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Define which Nodes the Pods are scheduled on.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelector {
                 /// Define which Nodes the Pods are scheduled on.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
@@ -1577,12 +1895,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: Extra command options if any.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Options {
                 /// Optional: Extra command options if any.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PersistentVolumeClaim {
                 /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub claim_name: String,
@@ -1591,6 +1913,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PhotonPersistentDisk {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -1599,6 +1923,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -1609,6 +1935,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -1621,6 +1949,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -1633,6 +1963,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -1643,6 +1975,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PodMetadata configures Labels and Annotations which are propagated to the alertmanager pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: PodMetadataAnnotations,
@@ -1653,6 +1987,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
@@ -1667,6 +2003,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
@@ -1681,6 +2019,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PortworxVolume {
                 /// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -1691,6 +2031,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLifecyclePostStartExec,
@@ -1701,6 +2043,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLifecyclePostStartExec,
@@ -1711,6 +2055,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLifecyclePreStopExec,
@@ -1721,6 +2067,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLifecyclePreStopExec,
@@ -1731,6 +2079,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<PreferenceMatchExpression>,
@@ -1739,6 +2089,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A node selector term, associated with the corresponding weight.
                 pub preference: Preference,
@@ -1747,6 +2099,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// Required. A pod affinity term, associated with the corresponding weight.
                 pub pod_affinity_term:
@@ -1756,6 +2110,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
             /// Required. A pod affinity term, associated with the corresponding weight.
             pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
@@ -1764,6 +2120,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Items for all in one resources secrets, configmaps, and downward API
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Projected {
                 /// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -1772,6 +2130,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Quobyte {
                 /// Group to map volume access to Default is no group
                 pub group: String,
@@ -1788,6 +2148,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rbd {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -1808,6 +2170,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerReadinessProbeExec,
@@ -1832,6 +2196,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerReadinessProbeExec,
@@ -1856,6 +2222,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1865,6 +2233,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1874,6 +2244,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1883,6 +2255,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1892,6 +2266,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1901,6 +2277,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -1910,12 +2288,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
                 pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A label query over a set of resources, in this case pods.
                 pub label_selector:
@@ -1930,6 +2312,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
@@ -1942,6 +2326,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -1952,6 +2338,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -1962,6 +2350,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -1972,6 +2362,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -1982,6 +2374,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: ContainerResourcesLimits,
@@ -1990,6 +2384,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: InitContainerResourcesLimits,
@@ -1998,6 +2394,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define resources requests and limits for single Pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: SpecResourcesLimits,
@@ -2006,6 +2404,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: StorageEphemeralVolumeClaimTemplateSpecResourcesLimits,
@@ -2014,6 +2414,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: StorageVolumeClaimTemplateSpecResourcesLimits,
@@ -2022,6 +2424,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits,
@@ -2030,6 +2434,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ScaleIO {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
                 pub fs_type: String,
@@ -2054,6 +2460,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -2066,6 +2474,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -2078,6 +2488,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -2090,6 +2502,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -2099,6 +2513,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -2108,6 +2524,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -2117,6 +2535,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourceSecretItem>,
@@ -2127,6 +2547,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -2139,6 +2561,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -2149,6 +2573,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -2159,6 +2585,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -2167,6 +2595,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -2175,48 +2605,64 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CephfsSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: points to a secret object containing parameters used to connect to OpenStack.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CinderSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct FlexVolumeSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// CHAP Secret for iSCSI target and initiator authentication
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IscsiSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RbdSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ScaleIOSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageosSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
@@ -2243,6 +2689,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
@@ -2269,6 +2717,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContext {
                 /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                 ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -2295,6 +2745,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
@@ -2304,6 +2756,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpression>,
@@ -2312,6 +2766,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
@@ -2321,6 +2777,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the serviceAccountToken data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceAccountToken {
                 /// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
                 pub audience: String,
@@ -2331,6 +2789,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Projection that may be projected along with other supported volume types
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Source {
                 /// information about the configMap data to project
                 pub config_map: SourceConfigMap,
@@ -2343,6 +2803,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of the desired behavior of the Alertmanager cluster. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AdditionalPeers allows injecting a set of additional Alertmanagers to peer with to form a highly available cluster.
                 pub additional_peers: Vec<String>,
@@ -2435,6 +2897,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -2455,6 +2919,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -2475,6 +2941,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -2495,6 +2963,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerStartupProbeExec,
@@ -2519,6 +2989,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerStartupProbeExec,
@@ -2543,6 +3015,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeClaimTemplateStatus {
                 /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -2559,6 +3033,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Most recent observed status of the Alertmanager cluster. Read-only. Not included when requesting from the apiserver, only from the Prometheus Operator API itself. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Total number of available pods (ready for at least minReadySeconds) targeted by this Alertmanager cluster.
                 pub available_replicas: i32,
@@ -2573,6 +3049,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Storage is the definition of how storage will be used by the Alertmanager instances.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Storage {
                 /// Deprecated: subPath usage will be disabled by default in a future release, this option will become unnecessary. DisableMountSubPath allows to remove any subPath usage in volume mounts.
                 pub disable_mount_sub_path: bool,
@@ -2585,6 +3063,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Storageos {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -2599,6 +3079,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sysctl defines a kernel parameter to be set
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Sysctl {
                 /// Name of a property to set
                 pub name: String,
@@ -2607,6 +3089,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2615,6 +3099,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2623,6 +3109,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2631,6 +3119,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2639,6 +3129,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2647,6 +3139,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2655,6 +3149,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2663,6 +3159,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2671,6 +3169,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2679,6 +3179,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -2687,6 +3189,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
@@ -2701,6 +3205,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraint {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
                 pub label_selector: TopologySpreadConstraintLabelSelector,
@@ -2713,6 +3219,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
                 pub config_map_key_ref: ContainerEnvItemValueFromConfigMapKeyRef,
@@ -2725,6 +3233,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
                 pub config_map_key_ref: InitContainerEnvItemValueFromConfigMapKeyRef,
@@ -2737,6 +3247,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Volume {
                 /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
                 pub aws_elastic_block_store: AwsElasticBlockStore,
@@ -2805,6 +3317,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeAttributes {
                 /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
                 pub properties: std::collections::HashMap<String, String>,
@@ -2814,6 +3328,8 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
@@ -2822,6 +3338,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A PVC spec to be used by the Prometheus StatefulSets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplate {
                 /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                 pub api_version: String,
@@ -2839,6 +3357,8 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub metadata: VolumeEphemeralVolumeClaimTemplateMetadata,
@@ -2847,6 +3367,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
@@ -2855,6 +3377,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
@@ -2863,6 +3387,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -2879,6 +3405,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -2895,6 +3423,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -2911,6 +3441,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VsphereVolume {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -2923,6 +3455,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -2935,6 +3469,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -2947,6 +3483,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -2982,18 +3520,24 @@ pub mod monitoring_coreos_com {
         }
         pub mod pod_monitor {
             /// PodMonitor defines monitoring for a set of pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitor {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
             /// Attaches node metadata to discovered targets. Only valid for role: pod. Only valid in Prometheus versions 2.35.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AttachMetadata {
                 /// When set to true, Prometheus must have permissions to get Nodes.
                 pub node: bool,
             }
 
             /// Authorization section for this endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Authorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: Credentials,
@@ -3002,6 +3546,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth allow an endpoint to authenticate over basic authentication. More info: https://prometheus.io/docs/operating/configuration/#endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: Password,
@@ -3010,6 +3556,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret to mount to read bearer token for scraping targets. The secret needs to be in the same namespace as the pod monitor and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3020,6 +3568,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ca {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CaConfigMap,
@@ -3028,6 +3578,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CertConfigMap,
@@ -3036,6 +3588,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: ClientIdConfigMap,
@@ -3044,6 +3598,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3054,6 +3610,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -3064,6 +3622,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -3074,6 +3634,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -3084,6 +3646,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Credentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3094,12 +3658,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3110,6 +3678,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3120,12 +3690,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetricRelabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -3144,6 +3718,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selector to select which namespaces the Endpoints objects are discovered from.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelector {
                 /// Boolean describing whether all namespaces are selected in contrast to a list restricting them.
                 pub any: bool,
@@ -3152,6 +3728,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Oauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: ClientId,
@@ -3166,12 +3744,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional HTTP URL parameters
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Params {
                 /// Optional HTTP URL parameters
                 pub properties: std::collections::HashMap<String, Vec<String>>,
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Password {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3182,6 +3764,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PodMetricsEndpoint defines a scrapeable endpoint of a Kubernetes Pod serving Prometheus metrics.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetricsEndpoint {
                 /// Authorization section for this endpoint
                 pub authorization: Authorization,
@@ -3222,6 +3806,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Relabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -3240,6 +3826,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3250,6 +3838,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3260,6 +3850,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3270,6 +3862,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selector to select Pod objects.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<MatchExpression>,
@@ -3278,6 +3872,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of desired Pod selection for target discovery by Prometheus.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Attaches node metadata to discovered targets. Only valid for role: pod. Only valid in Prometheus versions 2.35.0 and newer.
                 pub attach_metadata: AttachMetadata,
@@ -3304,6 +3900,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration to use when scraping the endpoint.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: Ca,
@@ -3318,6 +3916,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Username {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3351,12 +3951,16 @@ pub mod monitoring_coreos_com {
         }
         pub mod probe {
             /// Probe defines monitoring for a set of static targets or ingresses.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Probe {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
             /// Authorization section for this endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Authorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: Credentials,
@@ -3365,6 +3969,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth allow an endpoint to authenticate over basic authentication. More info: https://prometheus.io/docs/operating/configuration/#endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: Password,
@@ -3373,6 +3979,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret to mount to read bearer token for scraping targets. The secret needs to be in the same namespace as the probe and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3383,6 +3991,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ca {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CaConfigMap,
@@ -3391,6 +4001,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CertConfigMap,
@@ -3399,6 +4011,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: ClientIdConfigMap,
@@ -3407,6 +4021,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3417,6 +4033,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -3427,6 +4045,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -3437,6 +4057,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -3447,6 +4069,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Credentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3457,12 +4081,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// ingress defines the Ingress objects to probe and the relabeling configuration. If `staticConfig` is also defined, `staticConfig` takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ingress {
                 /// From which namespaces to select Ingress objects.
                 pub namespace_selector: NamespaceSelector,
@@ -3473,6 +4101,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3483,12 +4113,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Labels assigned to all metrics scraped from the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 /// Labels assigned to all metrics scraped from the targets.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3499,12 +4133,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetricRelabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -3523,6 +4161,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// From which namespaces to select Ingress objects.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelector {
                 /// Boolean describing whether all namespaces are selected in contrast to a list restricting them.
                 pub any: bool,
@@ -3531,6 +4171,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Oauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: ClientId,
@@ -3545,6 +4187,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Password {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3555,6 +4199,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification for the prober to use for probing targets. The prober.URL parameter is required. Targets cannot be probed if left empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Prober {
                 /// Path to collect metrics from. Defaults to `/probe`.
                 pub path: String,
@@ -3567,6 +4213,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IngressRelabelingConfig {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -3585,6 +4233,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StaticConfigRelabelingConfig {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -3603,6 +4253,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3613,6 +4265,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3623,6 +4277,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3633,6 +4289,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selector to select the Ingress objects.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<MatchExpression>,
@@ -3641,6 +4299,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of desired Ingress selection for target discovery by Prometheus.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Authorization section for this endpoint
                 pub authorization: Authorization,
@@ -3679,6 +4339,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// staticConfig defines the static list of targets to probe and the relabeling configuration. If `ingress` is also defined, `staticConfig` takes precedence. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StaticConfig {
                 /// Labels assigned to all metrics scraped from the targets.
                 pub labels: Labels,
@@ -3689,6 +4351,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Targets defines a set of static or dynamically discovered targets to probe.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Targets {
                 /// ingress defines the Ingress objects to probe and the relabeling configuration. If `staticConfig` is also defined, `staticConfig` takes precedence.
                 pub ingress: Ingress,
@@ -3697,6 +4361,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration to use when scraping the endpoint.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: Ca,
@@ -3711,6 +4377,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Username {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3744,6 +4412,8 @@ pub mod monitoring_coreos_com {
         }
         pub mod prometheus {
             /// Prometheus defines a Prometheus deployment.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Prometheus {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3751,6 +4421,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AccessKey is the AWS API key. If blank, the environment variable `AWS_ACCESS_KEY_ID` is used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccessKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3761,6 +4433,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AdditionalAlertManagerConfigs allows specifying a key of a Secret containing additional Prometheus AlertManager configurations. AlertManager configurations specified are appended to the configurations generated by the Prometheus Operator. Job configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#alertmanager_config. As AlertManager configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible AlertManager configs are going to break Prometheus after the upgrade.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AdditionalAlertManagerConfigs {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3771,6 +4445,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AdditionalAlertRelabelConfigs allows specifying a key of a Secret containing additional Prometheus alert relabel configurations. Alert relabel configurations specified are appended to the configurations generated by the Prometheus Operator. Alert relabel configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#alert_relabel_configs. As alert relabel configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible alert relabel configs are going to break Prometheus after the upgrade.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AdditionalAlertRelabelConfigs {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3781,6 +4457,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AdditionalScrapeConfigs allows specifying a key of a Secret containing additional Prometheus scrape configurations. Scrape configurations specified are appended to the configurations generated by the Prometheus Operator. Job configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config. As scrape configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible scrape configs are going to break Prometheus after the upgrade.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AdditionalScrapeConfigs {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -3791,6 +4469,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// If specified, the pod's scheduling constraints.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Affinity {
                 /// Describes node affinity scheduling rules for the pod.
                 pub node_affinity: NodeAffinity,
@@ -3801,6 +4481,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// /--rules.alert.*/ command-line arguments
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Alert {
                 /// Minimum duration between alert and restored 'for' state. This is maintained only for alerts with configured 'for' time greater than grace period.
                 pub for_grace_period: String,
@@ -3811,12 +4493,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define details regarding alerting.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Alerting {
                 /// AlertmanagerEndpoints Prometheus should fire alerts against.
                 pub alertmanagers: Vec<Alertmanager>,
             }
 
             /// AlertmanagerEndpoints defines a selection of a single Endpoints object containing alertmanager IPs to fire alerts against.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Alertmanager {
                 /// Version of the Alertmanager API that Prometheus uses to send alerts. It can be "v1" or "v2".
                 pub api_version: String,
@@ -3841,6 +4527,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AllocatedResources {
                 /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
                 pub properties: std::collections::HashMap<
@@ -3850,18 +4538,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadataAnnotations {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataAnnotations {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// APIServerConfig allows specifying a host and auth methods to access apiserver. If left empty, Prometheus is assumed to run inside of the cluster and will discover API servers automatically and use the pod's CA certificate and bearer token file at /var/run/secrets/kubernetes.io/serviceaccount/.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfig {
                 /// Authorization section for accessing apiserver
                 pub authorization: ApiserverConfigAuthorization,
@@ -3878,11 +4572,15 @@ pub mod monitoring_coreos_com {
             }
 
             /// ArbitraryFSAccessThroughSMs configures whether configuration based on a service monitor can access arbitrary files on the file system of the Prometheus container e.g. bearer token files.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ArbitraryFSAccessThroughSMs {
                 pub deny: bool,
             }
 
             /// Authorization section for this alertmanager endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: AlertmanagerAuthorizationCredentials,
@@ -3891,6 +4589,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization section for accessing apiserver
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: ApiserverConfigAuthorizationCredentials,
@@ -3901,6 +4601,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization section for remote read
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: RemoteReadItemAuthorizationCredentials,
@@ -3911,6 +4613,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization section for remote write
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: RemoteWriteItemAuthorizationCredentials,
@@ -3921,6 +4625,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AwsElasticBlockStore {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -3933,6 +4639,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDisk {
                 /// Host Caching mode: None, Read Only, Read Write.
                 pub caching_mode: String,
@@ -3949,6 +4657,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureFile {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
@@ -3959,6 +4669,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth allow an endpoint to authenticate over basic authentication
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: ApiserverConfigBasicAuthPassword,
@@ -3967,6 +4679,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the URL.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: RemoteReadItemBasicAuthPassword,
@@ -3975,6 +4689,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the URL.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: RemoteWriteItemBasicAuthPassword,
@@ -3983,6 +4699,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: AlertmanagerTlsConfigCaConfigMap,
@@ -3991,6 +4709,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: ApiserverConfigTlsConfigCaConfigMap,
@@ -3999,6 +4719,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: RemoteReadItemTlsConfigCaConfigMap,
@@ -4007,6 +4729,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: RemoteWriteItemTlsConfigCaConfigMap,
@@ -4015,6 +4739,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: GrpcServerTlsConfigCaConfigMap,
@@ -4023,6 +4749,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
@@ -4031,6 +4759,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
@@ -4039,6 +4769,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Represents the actual resources of the underlying volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Capacity {
                 /// Represents the actual resources of the underlying volume.
                 pub properties: std::collections::HashMap<
@@ -4048,6 +4780,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cephfs {
                 /// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub monitors: Vec<String>,
@@ -4064,6 +4798,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: AlertmanagerTlsConfigCertConfigMap,
@@ -4072,6 +4808,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: ApiserverConfigTlsConfigCertConfigMap,
@@ -4080,6 +4818,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: RemoteReadItemTlsConfigCertConfigMap,
@@ -4088,6 +4828,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: RemoteWriteItemTlsConfigCertConfigMap,
@@ -4096,6 +4838,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: GrpcServerTlsConfigCertConfigMap,
@@ -4104,6 +4848,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Contains the TLS certificate for the server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WebTlsConfigCertConfigMap,
@@ -4112,6 +4858,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cinder {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub fs_type: String,
@@ -4124,6 +4872,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Contains the CA certificate for client certificate authentication to the server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: ClientCaConfigMap,
@@ -4132,6 +4882,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: RemoteReadItemOauth2ClientIdConfigMap,
@@ -4140,6 +4892,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: RemoteWriteItemOauth2ClientIdConfigMap,
@@ -4148,6 +4902,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -4158,6 +4914,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -4168,6 +4926,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimCondition contails details about state of pvc
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeClaimTemplateStatusCondition {
                 /// Last time we probed the condition.
                 pub last_probe_time: String,
@@ -4183,6 +4943,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PrometheusCondition represents the state of the resources associated with the Prometheus resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StatusCondition {
                 /// lastTransitionTime is the time of the last update to the current status property.
                 pub last_transition_time: String,
@@ -4197,6 +4959,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4207,6 +4971,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4217,6 +4983,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4227,6 +4995,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4237,6 +5007,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4247,6 +5019,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4257,6 +5031,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4267,6 +5043,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4277,6 +5055,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4287,6 +5067,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4297,6 +5079,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4307,6 +5091,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4317,6 +5103,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -4329,6 +5117,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourceConfigMapItem>,
@@ -4339,6 +5129,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4349,6 +5141,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -4359,6 +5153,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
@@ -4369,6 +5165,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
@@ -4379,6 +5177,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -4387,6 +5187,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -4395,6 +5197,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A single application container that you want to run within a pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Container {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
@@ -4443,6 +5247,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -4453,6 +5259,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -4463,6 +5271,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -4473,6 +5283,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -4483,6 +5295,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Csi {
                 /// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
                 pub driver: String,
@@ -4497,6 +5311,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -4507,6 +5323,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -4517,6 +5335,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -4527,6 +5347,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -4537,6 +5359,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -4547,6 +5371,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -4557,6 +5383,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPI represents downward API about the pod that should populate this volume
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPI {
                 /// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -4565,12 +5393,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the downwardAPI data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPI {
                 /// Items is a list of DownwardAPIVolume file
                 pub items: Vec<SourceDownwardAPIItem>,
             }
 
             /// EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
@@ -4579,6 +5411,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
@@ -4587,18 +5421,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItem {
                 /// The ConfigMap to select from
                 pub config_map_ref: ContainerEnvFromItemConfigMapRef,
@@ -4609,6 +5449,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItem {
                 /// The ConfigMap to select from
                 pub config_map_ref: InitContainerEnvFromItemConfigMapRef,
@@ -4619,6 +5461,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvVar represents an environment variable present in a Container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
@@ -4629,6 +5473,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvVar represents an environment variable present in a Container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
@@ -4639,6 +5485,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -4652,6 +5500,8 @@ pub mod monitoring_coreos_com {
             ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
             ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
             ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -4661,6 +5511,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ObjectReference references a PodMonitor, ServiceMonitor, Probe or PrometheusRule object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ExcludedFromEnforcementItem {
                 /// Group of the referent. When not specified, it defaults to `monitoring.coreos.com`
                 pub group: String,
@@ -4673,72 +5525,96 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// The labels to add to any time series or alerts when communicating with external systems (federation, remote storage, Alertmanager).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ExternalLabels {
                 /// The labels to add to any time series or alerts when communicating with external systems (federation, remote storage, Alertmanager).
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Fc {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -4753,6 +5629,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -4761,6 +5639,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -4769,6 +5649,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -4777,6 +5659,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -4785,6 +5669,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct FlexVolume {
                 /// Driver is the name of the driver to use for this volume.
                 pub driver: String,
@@ -4799,6 +5685,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Flocker {
                 /// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
                 pub dataset_name: String,
@@ -4807,6 +5695,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GcePersistentDisk {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -4819,6 +5709,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GitRepo {
                 /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
                 pub directory: String,
@@ -4829,6 +5721,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Glusterfs {
                 /// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
                 pub endpoints: String,
@@ -4839,6 +5733,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -4848,6 +5744,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -4857,6 +5755,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -4866,6 +5766,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -4875,6 +5777,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -4884,6 +5788,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -4893,6 +5799,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPCServerTLSConfig configures the gRPC server from which Thanos Querier reads recorded rule data. Note: Currently only the CAFile, CertFile, and KeyFile fields are supported. Maps to the '--grpc-server-tls-*' CLI args.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: GrpcServerTlsConfigCa,
@@ -4913,18 +5821,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Custom HTTP headers to be sent along with each remote read request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.26.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemHeaders {
                 /// Custom HTTP headers to be sent along with each remote read request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.26.0 and newer.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Custom HTTP headers to be sent along with each remote write request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.25.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemHeaders {
                 /// Custom HTTP headers to be sent along with each remote write request. Be aware that headers that are set by Prometheus itself can't be overwritten. Only valid in Prometheus versions 2.25.0 and newer.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct HostAliase {
                 /// Hostnames for the above IP address.
                 pub hostnames: Vec<String>,
@@ -4933,6 +5847,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct HostPath {
                 /// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
                 pub path: String,
@@ -4941,6 +5857,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -4955,6 +5873,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -4969,6 +5889,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -4983,6 +5905,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -4997,6 +5921,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -5011,6 +5937,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -5025,6 +5953,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -5039,6 +5969,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -5053,6 +5985,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -5067,6 +6001,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -5081,6 +6017,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5089,6 +6027,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5097,6 +6037,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5105,6 +6047,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5113,6 +6057,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5121,6 +6067,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5129,6 +6077,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5137,6 +6087,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5145,6 +6097,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5153,6 +6107,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -5161,12 +6117,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ImagePullSecret {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// A single application container that you want to run within a pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainer {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
@@ -5215,6 +6175,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Iscsi {
                 /// whether support iSCSI Discovery CHAP authentication
                 pub chap_auth_discovery: bool,
@@ -5241,6 +6203,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeConfigMapItem {
                 /// The key to project.
                 pub key: String,
@@ -5251,6 +6215,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
                 pub field_ref: VolumeDownwardAPIItemFieldRef,
@@ -5263,6 +6229,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceConfigMapItem {
                 /// The key to project.
                 pub key: String,
@@ -5273,6 +6241,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
                 pub field_ref: SourceDownwardAPIItemFieldRef,
@@ -5285,6 +6255,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceSecretItem {
                 /// The key to project.
                 pub key: String,
@@ -5295,6 +6267,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeSecretItem {
                 /// The key to project.
                 pub key: String,
@@ -5305,6 +6279,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -5315,6 +6291,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -5325,6 +6303,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -5335,6 +6315,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -5345,6 +6327,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -5355,6 +6339,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the TLS key for the server.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -5365,6 +6351,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -5373,6 +6361,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -5381,6 +6371,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -5389,6 +6381,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -5397,6 +6391,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<TopologySpreadConstraintLabelSelectorMatchExpression>,
@@ -5405,18 +6401,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadataLabels {
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataLabels {
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
                 pub post_start: ContainerLifecyclePostStart,
@@ -5425,6 +6427,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
                 pub post_start: InitContainerLifecyclePostStart,
@@ -5433,6 +6437,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5442,6 +6448,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5451,6 +6459,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5460,6 +6470,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5469,6 +6481,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5478,6 +6492,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ThanosResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5487,6 +6503,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -5496,6 +6514,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLivenessProbeExec,
@@ -5520,6 +6540,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLivenessProbeExec,
@@ -5544,6 +6566,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -5554,6 +6578,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -5564,6 +6590,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5575,6 +6603,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5586,6 +6616,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5597,6 +6629,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5608,6 +6642,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5619,6 +6655,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5630,6 +6668,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5641,6 +6681,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -5652,6 +6694,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitorNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5662,6 +6706,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitorSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5672,6 +6718,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ProbeNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5682,6 +6730,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ProbeSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5692,6 +6742,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5702,6 +6754,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5712,6 +6766,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitorNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5722,6 +6778,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitorSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5732,6 +6790,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5742,6 +6802,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5752,6 +6814,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5762,6 +6826,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -5772,6 +6838,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -5782,6 +6850,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -5792,6 +6862,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5799,6 +6871,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5806,12 +6880,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5819,6 +6897,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5826,6 +6906,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5833,6 +6915,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5840,6 +6924,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -5847,84 +6933,112 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitorNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitorSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ProbeNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ProbeSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitorNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitorSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: MetadataAnnotations,
@@ -5935,12 +7049,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// MetadataConfig configures the sending of series metadata to the remote storage.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataConfig {
                 /// Whether metric metadata is sent to the remote storage or not.
                 pub send: bool,
@@ -5949,6 +7067,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -5957,6 +7077,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -5965,6 +7087,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -5973,6 +7097,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -5981,6 +7107,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Nfs {
                 /// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
                 pub path: String,
@@ -5991,6 +7119,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Describes node affinity scheduling rules for the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -6001,18 +7131,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodePublishSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Define which Nodes the Pods are scheduled on.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelector {
                 /// Define which Nodes the Pods are scheduled on.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
@@ -6021,6 +7157,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: RemoteReadItemOauth2ClientId,
@@ -6035,6 +7173,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: RemoteWriteItemOauth2ClientId,
@@ -6049,6 +7189,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ObjectStorageConfig configures object storage in Thanos. Alternative to ObjectStorageConfigFile, and lower order priority.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ObjectStorageConfig {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6059,12 +7201,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: Extra command options if any.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Options {
                 /// Optional: Extra command options if any.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6075,6 +7221,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6085,6 +7233,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6095,6 +7245,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PersistentVolumeClaim {
                 /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub claim_name: String,
@@ -6103,6 +7255,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PhotonPersistentDisk {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -6111,6 +7265,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -6121,6 +7277,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -6133,6 +7291,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -6145,6 +7305,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -6155,6 +7317,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PodMetadata configures Labels and Annotations which are propagated to the prometheus pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: PodMetadataAnnotations,
@@ -6165,6 +7329,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Namespace's labels to match for PodMonitor discovery. If nil, only check own namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitorNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<PodMonitorNamespaceSelectorMatchExpression>,
@@ -6173,6 +7339,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// *Experimental* PodMonitors to be selected for target discovery. *Deprecated:* if neither this nor serviceMonitorSelector are specified, configuration is unmanaged.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMonitorSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<PodMonitorSelectorMatchExpression>,
@@ -6181,6 +7349,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
@@ -6195,6 +7365,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
@@ -6209,6 +7381,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PortworxVolume {
                 /// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -6219,6 +7393,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLifecyclePostStartExec,
@@ -6229,6 +7405,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLifecyclePostStartExec,
@@ -6239,6 +7417,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLifecyclePreStopExec,
@@ -6249,6 +7429,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLifecyclePreStopExec,
@@ -6259,6 +7441,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<PreferenceMatchExpression>,
@@ -6267,6 +7451,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A node selector term, associated with the corresponding weight.
                 pub preference: Preference,
@@ -6275,6 +7461,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// Required. A pod affinity term, associated with the corresponding weight.
                 pub pod_affinity_term:
@@ -6284,6 +7472,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
             /// Required. A pod affinity term, associated with the corresponding weight.
             pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
@@ -6292,6 +7482,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// *Experimental* Namespaces to be selected for Probe discovery. If nil, only check own namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ProbeNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<ProbeNamespaceSelectorMatchExpression>,
@@ -6300,6 +7492,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// *Experimental* Probes to be selected for target discovery.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ProbeSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<ProbeSelectorMatchExpression>,
@@ -6308,6 +7502,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Items for all in one resources secrets, configmaps, and downward API
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Projected {
                 /// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -6316,6 +7512,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PrometheusRuleExcludeConfig enables users to configure excluded PrometheusRule names and their namespaces to be ignored while enforcing namespace label for alerts and metrics.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PrometheusRulesExcludedFromEnforceItem {
                 /// RuleNamespace - name of excluded rule
                 pub rule_name: String,
@@ -6324,6 +7522,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// QuerySpec defines the query command line flags when starting Prometheus.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Query {
                 /// The delta difference allowed for retrieving metrics during expression evaluations.
                 pub lookback_delta: String,
@@ -6336,6 +7536,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// QueueConfig allows tuning of the remote write queue parameters.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct QueueConfig {
                 /// BatchSendDeadline is the maximum time a sample will wait in buffer.
                 pub batch_send_deadline: String,
@@ -6358,6 +7560,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Quobyte {
                 /// Group to map volume access to Default is no group
                 pub group: String,
@@ -6374,6 +7578,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rbd {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -6394,6 +7600,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerReadinessProbeExec,
@@ -6418,6 +7626,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerReadinessProbeExec,
@@ -6442,6 +7652,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RemoteReadSpec defines the configuration for Prometheus to read back samples from a remote endpoint.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItem {
                 /// Authorization section for remote read
                 pub authorization: RemoteReadItemAuthorization,
@@ -6472,6 +7684,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RemoteWriteSpec defines the configuration to write samples from Prometheus to a remote endpoint.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItem {
                 /// Authorization section for remote write
                 pub authorization: RemoteWriteItemAuthorization,
@@ -6508,6 +7722,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6517,6 +7733,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6526,6 +7744,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6535,6 +7755,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6544,6 +7766,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6553,6 +7777,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ThanosResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6562,6 +7788,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -6571,12 +7799,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
                 pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A label query over a set of resources, in this case pods.
                 pub label_selector:
@@ -6591,6 +7823,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
@@ -6603,12 +7837,16 @@ pub mod monitoring_coreos_com {
         }
 
             /// An optional list of equality matchers which have to be present in a selector to query the remote read endpoint.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredMatchers {
                 /// An optional list of equality matchers which have to be present in a selector to query the remote read endpoint.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -6619,6 +7857,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -6629,6 +7869,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -6639,6 +7881,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -6649,6 +7893,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: ContainerResourcesLimits,
@@ -6657,6 +7903,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: InitContainerResourcesLimits,
@@ -6665,6 +7913,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define resources requests and limits for single Pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: SpecResourcesLimits,
@@ -6673,6 +7923,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: StorageEphemeralVolumeClaimTemplateSpecResourcesLimits,
@@ -6681,6 +7933,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: StorageVolumeClaimTemplateSpecResourcesLimits,
@@ -6689,6 +7943,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources defines the resource requirements for the Thanos sidecar. If not provided, no requests/limits will be set
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ThanosResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: ThanosResourcesLimits,
@@ -6697,6 +7953,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits,
@@ -6705,6 +7963,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Namespaces to be selected for PrometheusRules discovery. If unspecified, only the same namespace as the Prometheus object is in is used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<RuleNamespaceSelectorMatchExpression>,
@@ -6713,6 +7973,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A selector to select which PrometheusRules to mount for loading alerting/recording rules from. Until (excluding) Prometheus Operator v0.24.0 Prometheus Operator will migrate any legacy rule ConfigMaps to PrometheusRule custom resources selected by RuleSelector. Make sure it does not match any config maps that you do not want to be migrated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<RuleSelectorMatchExpression>,
@@ -6721,12 +7983,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// /--rules.*/ command-line arguments.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rules {
                 /// /--rules.alert.*/ command-line arguments
                 pub alert: Alert,
             }
 
             /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ScaleIO {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
                 pub fs_type: String,
@@ -6751,6 +8017,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -6763,6 +8031,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -6775,6 +8045,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -6787,6 +8059,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -6796,6 +8070,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -6805,6 +8081,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -6814,6 +8092,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6824,6 +8104,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6834,6 +8116,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6844,6 +8128,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6854,6 +8140,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6864,6 +8152,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6874,6 +8164,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6884,6 +8176,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6894,6 +8188,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6904,6 +8200,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6914,6 +8212,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6924,6 +8224,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6934,6 +8236,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourceSecretItem>,
@@ -6944,6 +8248,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -6956,6 +8262,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6966,6 +8274,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6976,6 +8286,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecretKey is the AWS API secret. If blank, the environment variable `AWS_SECRET_ACCESS_KEY` is used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SecretKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6986,6 +8298,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -6996,6 +8310,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -7006,6 +8322,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -7014,6 +8332,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -7022,48 +8342,64 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CephfsSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: points to a secret object containing parameters used to connect to OpenStack.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CinderSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct FlexVolumeSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// CHAP Secret for iSCSI target and initiator authentication
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IscsiSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RbdSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ScaleIOSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageosSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
@@ -7090,6 +8426,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
@@ -7116,6 +8454,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContext {
                 /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                 ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -7142,6 +8482,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
@@ -7151,6 +8493,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpression>,
@@ -7159,6 +8503,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
@@ -7168,6 +8514,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the serviceAccountToken data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceAccountToken {
                 /// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
                 pub audience: String,
@@ -7178,6 +8526,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Namespace's labels to match for ServiceMonitor discovery. If nil, only check own namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitorNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<ServiceMonitorNamespaceSelectorMatchExpression>,
@@ -7186,6 +8536,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ServiceMonitors to be selected for target discovery. *Deprecated:* if neither this nor podMonitorSelector are specified, configuration is unmanaged.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitorSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<ServiceMonitorSelectorMatchExpression>,
@@ -7193,6 +8545,8 @@ pub mod monitoring_coreos_com {
                 pub match_labels: ServiceMonitorSelectorMatchLabels,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ShardStatuse {
                 /// Total number of available pods (ready for at least minReadySeconds) targeted by this shard.
                 pub available_replicas: i32,
@@ -7207,6 +8561,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sigv4 allows to configures AWS's Signature Verification 4
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Sigv4 {
                 /// AccessKey is the AWS API key. If blank, the environment variable `AWS_ACCESS_KEY_ID` is used.
                 pub access_key: AccessKey,
@@ -7221,6 +8577,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Projection that may be projected along with other supported volume types
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Source {
                 /// information about the configMap data to project
                 pub config_map: SourceConfigMap,
@@ -7233,6 +8591,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of the desired behavior of the Prometheus cluster. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AdditionalAlertManagerConfigs allows specifying a key of a Secret containing additional Prometheus AlertManager configurations. AlertManager configurations specified are appended to the configurations generated by the Prometheus Operator. Job configurations specified must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#alertmanager_config. As AlertManager configs are appended, the user is responsible to make sure it is valid. Note that using this feature may expose the possibility to break upgrades of Prometheus. It is advised to review Prometheus release notes to ensure that no incompatible AlertManager configs are going to break Prometheus after the upgrade.
                 pub additional_alert_manager_configs: AdditionalAlertManagerConfigs,
@@ -7402,6 +8762,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -7422,6 +8784,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -7442,6 +8806,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -7462,6 +8828,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerStartupProbeExec,
@@ -7486,6 +8854,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerStartupProbeExec,
@@ -7510,6 +8880,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeClaimTemplateStatus {
                 /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -7526,6 +8898,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Most recent observed status of the Prometheus cluster. Read-only. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Total number of available pods (ready for at least minReadySeconds) targeted by this Prometheus deployment.
                 pub available_replicas: i32,
@@ -7544,6 +8918,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Storage spec to specify how storage shall be used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Storage {
                 /// Deprecated: subPath usage will be disabled by default in a future release, this option will become unnecessary. DisableMountSubPath allows to remove any subPath usage in volume mounts.
                 pub disable_mount_sub_path: bool,
@@ -7556,6 +8932,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Storageos {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -7570,6 +8948,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sysctl defines a kernel parameter to be set
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Sysctl {
                 /// Name of a property to set
                 pub name: String,
@@ -7578,6 +8958,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7586,6 +8968,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7594,6 +8978,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7602,6 +8988,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7610,6 +8998,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7618,6 +9008,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7626,6 +9018,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7634,6 +9028,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7642,6 +9038,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7650,6 +9048,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -7660,6 +9060,8 @@ pub mod monitoring_coreos_com {
             /// Thanos configuration allows configuring various aspects of a Prometheus server in a Thanos environment.
             ///  This section is experimental, it may change significantly without deprecation notice in any release.
             ///  This is experimental and may change significantly without backward compatibility in any release.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Thanos {
                 /// Thanos base image if other than default. Deprecated: use 'image' instead
                 pub base_image: String,
@@ -7698,6 +9100,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS Config to use for alertmanager connection.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: AlertmanagerTlsConfigCa,
@@ -7718,6 +9122,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS Config to use for accessing apiserver.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: ApiserverConfigTlsConfigCa,
@@ -7738,6 +9144,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS Config to use for remote read.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: RemoteReadItemTlsConfigCa,
@@ -7758,6 +9166,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS Config to use for remote write.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: RemoteWriteItemTlsConfigCa,
@@ -7778,6 +9188,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// WebTLSConfig defines the TLS parameters for HTTPS.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebTlsConfig {
                 /// Contains the TLS certificate for the server.
                 pub cert: WebTlsConfigCert,
@@ -7800,6 +9212,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
@@ -7814,6 +9228,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraint {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
                 pub label_selector: TopologySpreadConstraintLabelSelector,
@@ -7826,6 +9242,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TracingConfig configures tracing in Thanos. This is an experimental feature, it may change in any upcoming release in a breaking way.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TracingConfig {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -7836,6 +9254,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiserverConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -7846,6 +9266,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteReadItemBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -7856,6 +9278,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RemoteWriteItemBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -7866,6 +9290,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
                 pub config_map_key_ref: ContainerEnvItemValueFromConfigMapKeyRef,
@@ -7878,6 +9304,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
                 pub config_map_key_ref: InitContainerEnvItemValueFromConfigMapKeyRef,
@@ -7890,6 +9318,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Volume {
                 /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
                 pub aws_elastic_block_store: AwsElasticBlockStore,
@@ -7958,6 +9388,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeAttributes {
                 /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
                 pub properties: std::collections::HashMap<String, String>,
@@ -7967,6 +9399,8 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
@@ -7975,6 +9409,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A PVC spec to be used by the Prometheus StatefulSets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplate {
                 /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                 pub api_version: String,
@@ -7992,6 +9428,8 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub metadata: VolumeEphemeralVolumeClaimTemplateMetadata,
@@ -8000,6 +9438,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
@@ -8008,6 +9448,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
@@ -8016,6 +9458,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -8032,6 +9476,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -8048,6 +9494,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ThanosVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -8064,6 +9512,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -8080,6 +9530,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VsphereVolume {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -8092,6 +9544,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// WebSpec defines the web command line flags when starting Prometheus.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Web {
                 /// The prometheus web page title
                 pub page_title: String,
@@ -8100,6 +9554,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -8112,6 +9568,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -8124,6 +9582,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -8136,6 +9596,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WriteRelabelConfig {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -8177,16 +9639,22 @@ pub mod monitoring_coreos_com {
         }
         pub mod prometheus_rule {
             /// PrometheusRule defines recording and alerting rules for a Prometheus instance
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PrometheusRule {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Annotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// RuleGroup is a list of sequentially evaluated recording and alerting rules. Note: PartialResponseStrategy is only used by ThanosRuler and will be ignored by Prometheus instances.  Valid values for this field are 'warn' or 'abort'.  More info: https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md#partial-response
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Group {
                 pub interval: String,
                 pub name: String,
@@ -8194,11 +9662,15 @@ pub mod monitoring_coreos_com {
                 pub rules: Vec<Rule>,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Rule describes an alerting or recording rule See Prometheus documentation: [alerting](https://www.prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) or [recording](https://www.prometheus.io/docs/prometheus/latest/configuration/recording_rules/#recording-rules) rule
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rule {
                 pub alert: String,
                 pub annotations: Annotations,
@@ -8209,6 +9681,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of desired alerting rule definitions for Prometheus.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Content of Prometheus rule file
                 pub groups: Vec<Group>,
@@ -8238,12 +9712,16 @@ pub mod monitoring_coreos_com {
         }
         pub mod service_monitor {
             /// ServiceMonitor defines monitoring for a set of services.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceMonitor {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
             /// Authorization section for this endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Authorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: Credentials,
@@ -8252,6 +9730,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth allow an endpoint to authenticate over basic authentication More info: https://prometheus.io/docs/operating/configuration/#endpoints
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: Password,
@@ -8260,6 +9740,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret to mount to read bearer token for scraping targets. The secret needs to be in the same namespace as the service monitor and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8270,6 +9752,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ca {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CaConfigMap,
@@ -8278,6 +9762,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CertConfigMap,
@@ -8286,6 +9772,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: ClientIdConfigMap,
@@ -8294,6 +9782,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8304,6 +9794,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -8314,6 +9806,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -8324,6 +9818,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -8334,6 +9830,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Credentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8344,6 +9842,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Endpoint defines a scrapeable endpoint serving Prometheus metrics.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Endpoint {
                 /// Authorization section for this endpoint
                 pub authorization: Authorization,
@@ -8386,12 +9886,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8402,6 +9906,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -8412,12 +9918,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetricRelabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -8436,6 +9946,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selector to select which namespaces the Kubernetes Endpoints objects are discovered from.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelector {
                 /// Boolean describing whether all namespaces are selected in contrast to a list restricting them.
                 pub any: bool,
@@ -8444,6 +9956,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Oauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: ClientId,
@@ -8458,12 +9972,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional HTTP URL parameters
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Params {
                 /// Optional HTTP URL parameters
                 pub properties: std::collections::HashMap<String, Vec<String>>,
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Password {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8474,6 +9992,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RelabelConfig allows dynamic rewriting of the label set, being applied to samples before ingestion. It defines `<metric_relabel_configs>`-section of Prometheus configuration. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Relabeling {
                 /// Action to perform based on regex matching. Default is 'replace'
                 pub action: String,
@@ -8492,6 +10012,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8502,6 +10024,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8512,6 +10036,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8522,6 +10048,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selector to select Endpoints objects.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<MatchExpression>,
@@ -8530,6 +10058,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of desired Service selection for target discovery by Prometheus.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// A list of endpoints allowed as part of this ServiceMonitor.
                 pub endpoints: Vec<Endpoint>,
@@ -8557,6 +10087,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration to use when scraping the endpoint
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: Ca,
@@ -8577,6 +10109,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Username {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8610,6 +10144,8 @@ pub mod monitoring_coreos_com {
         }
         pub mod thanos_ruler {
             /// ThanosRuler defines a ThanosRuler deployment.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ThanosRuler {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -8617,6 +10153,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// If specified, the pod's scheduling constraints.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Affinity {
                 /// Describes node affinity scheduling rules for the pod.
                 pub node_affinity: NodeAffinity,
@@ -8627,6 +10165,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AlertRelabelConfigs configures alert relabeling in ThanosRuler. Alert relabel configurations must have the form as specified in the official Prometheus documentation: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#alert_relabel_configs Alternative to AlertRelabelConfigFile, and lower order priority.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertRelabelConfigs {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8637,6 +10177,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define configuration for connecting to alertmanager.  Only available with thanos v0.10.0 and higher.  Maps to the `alertmanagers.config` arg.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagersConfig {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -8647,6 +10189,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AllocatedResources {
                 /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
                 pub properties: std::collections::HashMap<
@@ -8656,18 +10200,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadataAnnotations {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataAnnotations {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AwsElasticBlockStore {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -8680,6 +10230,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureDisk {
                 /// Host Caching mode: None, Read Only, Read Write.
                 pub caching_mode: String,
@@ -8696,6 +10248,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AzureFile {
                 /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
                 pub read_only: bool,
@@ -8706,6 +10260,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Ca {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CaConfigMap,
@@ -8714,6 +10270,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
@@ -8722,6 +10280,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextCapabilities {
                 /// Added capabilities
                 pub add: Vec<String>,
@@ -8730,6 +10290,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Represents the actual resources of the underlying volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Capacity {
                 /// Represents the actual resources of the underlying volume.
                 pub properties: std::collections::HashMap<
@@ -8739,6 +10301,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cephfs {
                 /// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
                 pub monitors: Vec<String>,
@@ -8755,6 +10319,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: CertConfigMap,
@@ -8763,6 +10329,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Cinder {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
                 pub fs_type: String,
@@ -8775,6 +10343,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PersistentVolumeClaimCondition contails details about state of pvc
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Condition {
                 /// Last time we probed the condition.
                 pub last_probe_time: String,
@@ -8790,6 +10360,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -8800,6 +10372,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -8810,6 +10384,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap represents a configMap that should populate this volume
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeConfigMap {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -8822,6 +10398,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the configMap data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceConfigMap {
                 /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourceConfigMapItem>,
@@ -8832,6 +10410,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
@@ -8842,6 +10422,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a ConfigMap.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromConfigMapKeyRef {
                 /// The key to select.
                 pub key: String,
@@ -8852,6 +10434,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -8860,6 +10444,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The ConfigMap to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItemConfigMapRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -8868,6 +10454,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A single application container that you want to run within a pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Container {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
@@ -8916,6 +10504,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Csi {
                 /// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
                 pub driver: String,
@@ -8930,6 +10520,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -8940,6 +10532,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -8950,6 +10544,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSource {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -8960,6 +10556,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -8970,6 +10568,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -8980,6 +10580,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef allows any non-core object, as well as PersistentVolumeClaim objects. * While DataSource ignores disallowed values (dropping them), DataSourceRef preserves all values, and generates an error if a disallowed value is specified. (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecDataSourceRef {
                 /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
                 pub api_group: String,
@@ -8990,6 +10592,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPI represents downward API about the pod that should populate this volume
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPI {
                 /// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -8998,12 +10602,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the downwardAPI data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPI {
                 /// Items is a list of DownwardAPIVolume file
                 pub items: Vec<SourceDownwardAPIItem>,
             }
 
             /// EmptyDirVolumeSource to be used by the Prometheus StatefulSets. If specified, used in place of any volumeClaimTemplate. More info: https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
@@ -9012,6 +10620,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEmptyDir {
                 /// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
                 pub medium: String,
@@ -9020,6 +10630,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItem {
                 /// The ConfigMap to select from
                 pub config_map_ref: ContainerEnvFromItemConfigMapRef,
@@ -9030,6 +10642,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvFromSource represents the source of a set of ConfigMaps
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItem {
                 /// The ConfigMap to select from
                 pub config_map_ref: InitContainerEnvFromItemConfigMapRef,
@@ -9040,6 +10654,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvVar represents an environment variable present in a Container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
@@ -9050,6 +10666,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EnvVar represents an environment variable present in a Container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItem {
                 /// Name of the environment variable. Must be a C_IDENTIFIER.
                 pub name: String,
@@ -9060,6 +10678,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EphemeralVolumeSource to be used by the Prometheus StatefulSets. This is a beta field in k8s 1.21, for lower versions, starting with k8s 1.19, it requires enabling the GenericEphemeralVolume feature gate. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -9073,6 +10693,8 @@ pub mod monitoring_coreos_com {
             ///  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
             ///  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
             ///  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeral {
                 /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
                 ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -9082,6 +10704,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ObjectReference references a PodMonitor, ServiceMonitor, Probe or PrometheusRule object.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ExcludedFromEnforcementItem {
                 /// Group of the referent. When not specified, it defaults to `monitoring.coreos.com`
                 pub group: String,
@@ -9094,66 +10718,88 @@ pub mod monitoring_coreos_com {
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// Exec specifies the action to take.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeExec {
                 /// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
                 pub command: Vec<String>,
             }
 
             /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Fc {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -9168,6 +10814,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -9176,6 +10824,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -9184,6 +10834,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -9192,6 +10844,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItemFieldRef {
                 /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
                 pub api_version: String,
@@ -9200,6 +10854,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct FlexVolume {
                 /// Driver is the name of the driver to use for this volume.
                 pub driver: String,
@@ -9214,6 +10870,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Flocker {
                 /// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
                 pub dataset_name: String,
@@ -9222,6 +10880,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GcePersistentDisk {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -9234,6 +10894,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GitRepo {
                 /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
                 pub directory: String,
@@ -9244,6 +10906,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Glusterfs {
                 /// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
                 pub endpoints: String,
@@ -9254,6 +10918,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -9263,6 +10929,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -9272,6 +10940,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -9281,6 +10951,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -9290,6 +10962,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -9299,6 +10973,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeGrpc {
                 /// Port number of the gRPC service. Number must be in the range 1 to 65535.
                 pub port: i32,
@@ -9308,6 +10984,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// GRPCServerTLSConfig configures the gRPC server from which Thanos Querier reads recorded rule data. Note: Currently only the CAFile, CertFile, and KeyFile fields are supported. Maps to the '--grpc-server-tls-*' CLI args.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct GrpcServerTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: Ca,
@@ -9328,6 +11006,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct HostAliase {
                 /// Hostnames for the above IP address.
                 pub hostnames: Vec<String>,
@@ -9336,6 +11016,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath --- TODO(jonesdl) We need to restrict who can use host directory mounts and who can/can not mount host directories as read/write.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct HostPath {
                 /// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
                 pub path: String,
@@ -9344,6 +11026,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9358,6 +11042,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9372,6 +11058,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9386,6 +11074,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9400,6 +11090,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9414,6 +11106,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9428,6 +11122,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9442,6 +11138,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9456,6 +11154,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9470,6 +11170,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPGet specifies the http request to perform.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeHttpGet {
                 /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
                 pub host: String,
@@ -9484,6 +11186,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9492,6 +11196,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9500,6 +11206,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9508,6 +11216,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9516,6 +11226,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9524,6 +11236,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9532,6 +11246,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9540,6 +11256,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9548,6 +11266,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9556,6 +11276,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTPHeader describes a custom header to be used in HTTP probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeHttpGetHttpHeader {
                 /// The header field name
                 pub name: String,
@@ -9564,12 +11286,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ImagePullSecret {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// A single application container that you want to run within a pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainer {
                 /// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
                 pub args: Vec<String>,
@@ -9618,6 +11344,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Iscsi {
                 /// whether support iSCSI Discovery CHAP authentication
                 pub chap_auth_discovery: bool,
@@ -9644,6 +11372,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeConfigMapItem {
                 /// The key to project.
                 pub key: String,
@@ -9654,6 +11384,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
                 pub field_ref: VolumeDownwardAPIItemFieldRef,
@@ -9666,6 +11398,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceConfigMapItem {
                 /// The key to project.
                 pub key: String,
@@ -9676,6 +11410,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItem {
                 /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
                 pub field_ref: SourceDownwardAPIItemFieldRef,
@@ -9688,6 +11424,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceSecretItem {
                 /// The key to project.
                 pub key: String,
@@ -9698,6 +11436,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Maps a string key to a path within a volume.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeSecretItem {
                 /// The key to project.
                 pub key: String,
@@ -9708,6 +11448,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct KeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -9718,6 +11460,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -9726,6 +11470,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -9734,6 +11480,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
@@ -9742,6 +11490,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over a set of resources, in this case pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
@@ -9750,6 +11500,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<TopologySpreadConstraintLabelSelectorMatchExpression>,
@@ -9758,24 +11510,32 @@ pub mod monitoring_coreos_com {
             }
 
             /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecLabels {
                 /// Labels configure the external label pairs to ThanosRuler. A default replica label `thanos_ruler_replica` will be always added  as a label with the value of the pod's name and it will be dropped in the alerts.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadataLabels {
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MetadataLabels {
                 /// Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
                 pub post_start: ContainerLifecyclePostStart,
@@ -9784,6 +11544,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecycle {
                 /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
                 pub post_start: InitContainerLifecyclePostStart,
@@ -9792,6 +11554,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -9801,6 +11565,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -9810,6 +11576,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -9819,6 +11587,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -9828,6 +11598,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -9837,6 +11609,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -9846,6 +11620,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLivenessProbeExec,
@@ -9870,6 +11646,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLivenessProbeExec,
@@ -9894,6 +11672,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -9904,6 +11684,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchExpression {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -9914,6 +11696,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9925,6 +11709,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9936,6 +11722,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9947,6 +11735,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9958,6 +11748,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9969,6 +11761,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9980,6 +11774,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -9991,6 +11787,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
             {
                 /// key is the label key that the selector applies to.
@@ -10002,6 +11800,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleNamespaceSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10012,6 +11812,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10022,6 +11824,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10032,6 +11836,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10042,6 +11848,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10052,6 +11860,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchExpression {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -10062,6 +11872,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -10072,6 +11884,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermMatchField {
                 /// The label key that the selector applies to.
                 pub key: String,
@@ -10082,6 +11896,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10089,6 +11905,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10096,12 +11914,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10109,6 +11931,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10116,6 +11940,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10123,6 +11949,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10130,6 +11958,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
             {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -10137,48 +11967,64 @@ pub mod monitoring_coreos_com {
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleNamespaceSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraintLabelSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelectorMatchLabels {
                 /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: MetadataAnnotations,
@@ -10189,12 +12035,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -10203,6 +12053,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -10211,6 +12063,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
@@ -10219,6 +12073,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
             pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
@@ -10227,6 +12083,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Nfs {
                 /// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
                 pub path: String,
@@ -10237,6 +12095,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Describes node affinity scheduling rules for the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -10247,18 +12107,24 @@ pub mod monitoring_coreos_com {
             }
 
             /// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodePublishSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Define which Nodes the Pods are scheduled on.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelector {
                 /// Define which Nodes the Pods are scheduled on.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTerm {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
@@ -10267,6 +12133,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ObjectStorageConfig configures object storage in Thanos. Alternative to ObjectStorageConfigFile, and lower order priority.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ObjectStorageConfig {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -10277,12 +12145,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: Extra command options if any.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Options {
                 /// Optional: Extra command options if any.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PersistentVolumeClaim {
                 /// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub claim_name: String,
@@ -10291,6 +12163,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PhotonPersistentDisk {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -10299,6 +12173,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -10309,6 +12185,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -10321,6 +12199,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Required. A pod affinity term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
@@ -10333,6 +12213,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinity {
                 /// The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -10343,6 +12225,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PodMetadata contains Labels and Annotations gets propagated to the thanos ruler pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodMetadata {
                 /// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
                 pub annotations: PodMetadataAnnotations,
@@ -10353,6 +12237,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
@@ -10367,6 +12253,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ContainerPort represents a network port in a single container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerPort {
                 /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
                 pub container_port: i32,
@@ -10381,6 +12269,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PortworxVolume {
                 /// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -10391,6 +12281,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLifecyclePostStartExec,
@@ -10401,6 +12293,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStart {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLifecyclePostStartExec,
@@ -10411,6 +12305,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
                 pub exec: ContainerLifecyclePreStopExec,
@@ -10421,6 +12317,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStop {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerLifecyclePreStopExec,
@@ -10431,6 +12329,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A node selector term, associated with the corresponding weight.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
                 pub match_expressions: Vec<PreferenceMatchExpression>,
@@ -10439,6 +12339,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A node selector term, associated with the corresponding weight.
                 pub preference: Preference,
@@ -10447,6 +12349,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
                 /// Required. A pod affinity term, associated with the corresponding weight.
                 pub pod_affinity_term:
@@ -10456,6 +12360,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
             /// Required. A pod affinity term, associated with the corresponding weight.
             pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
@@ -10464,6 +12370,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Items for all in one resources secrets, configmaps, and downward API
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Projected {
                 /// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -10472,6 +12380,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PrometheusRuleExcludeConfig enables users to configure excluded PrometheusRule names and their namespaces to be ignored while enforcing namespace label for alerts and metrics.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PrometheusRulesExcludedFromEnforceItem {
                 /// RuleNamespace - name of excluded rule
                 pub rule_name: String,
@@ -10480,6 +12390,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Define configuration for connecting to thanos query instances. If this is defined, the QueryEndpoints field will be ignored. Maps to the `query.config` CLI argument. Only available with thanos v0.11.0 and higher.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct QueryConfig {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -10490,6 +12402,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Quobyte {
                 /// Group to map volume access to Default is no group
                 pub group: String,
@@ -10506,6 +12420,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Rbd {
                 /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd TODO: how do we prevent errors in the filesystem from compromising the machine
                 pub fs_type: String,
@@ -10526,6 +12442,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerReadinessProbeExec,
@@ -10550,6 +12468,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerReadinessProbeExec,
@@ -10574,6 +12494,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -10583,6 +12505,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -10592,6 +12516,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -10601,6 +12527,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -10610,6 +12538,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -10619,6 +12549,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResourcesRequests {
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub properties: std::collections::HashMap<
@@ -10628,12 +12560,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
                 pub node_selector_terms: Vec<NodeSelectorTerm>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
                 /// A label query over a set of resources, in this case pods.
                 pub label_selector:
@@ -10648,6 +12584,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
             /// A label query over a set of resources, in this case pods.
             pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
@@ -10660,6 +12598,8 @@ pub mod monitoring_coreos_com {
         }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -10670,6 +12610,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -10680,6 +12622,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -10690,6 +12634,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceDownwardAPIItemResourceFieldRef {
                 /// Container name: required for volumes, optional for env vars
                 pub container_name: String,
@@ -10700,6 +12646,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: ContainerResourcesLimits,
@@ -10708,6 +12656,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: InitContainerResourcesLimits,
@@ -10716,6 +12666,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources defines the resource requirements for single Pods. If not provided, no requests/limits will be set
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: SpecResourcesLimits,
@@ -10724,6 +12676,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: StorageEphemeralVolumeClaimTemplateSpecResourcesLimits,
@@ -10732,6 +12686,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: StorageVolumeClaimTemplateSpecResourcesLimits,
@@ -10740,6 +12696,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecResources {
                 /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub limits: VolumeEphemeralVolumeClaimTemplateSpecResourcesLimits,
@@ -10748,6 +12706,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Namespaces to be selected for Rules discovery. If unspecified, only the same namespace as the ThanosRuler object is in is used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleNamespaceSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<RuleNamespaceSelectorMatchExpression>,
@@ -10756,6 +12716,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label selector to select which PrometheusRules to mount for alerting and recording.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RuleSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<RuleSelectorMatchExpression>,
@@ -10764,6 +12726,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ScaleIO {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
                 pub fs_type: String,
@@ -10788,6 +12752,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -10800,6 +12766,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -10812,6 +12780,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextSeLinuxOptions {
                 /// Level is SELinux level label that applies to the container.
                 pub level: String,
@@ -10824,6 +12794,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -10833,6 +12805,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -10842,6 +12816,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextSeccompProfile {
                 /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
                 pub localhost_profile: String,
@@ -10851,6 +12827,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -10861,6 +12839,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -10871,6 +12851,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the secret data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceSecret {
                 /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
                 pub items: Vec<SourceSecretItem>,
@@ -10881,6 +12863,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeSecret {
                 /// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
                 pub default_mode: i32,
@@ -10893,6 +12877,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -10903,6 +12889,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Selects a key of a secret in the pod's namespace
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFromSecretKeyRef {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -10913,6 +12901,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -10921,6 +12911,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Secret to select from
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvFromItemSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
@@ -10929,48 +12921,64 @@ pub mod monitoring_coreos_com {
             }
 
             /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CephfsSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: points to a secret object containing parameters used to connect to OpenStack.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CinderSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct FlexVolumeSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// CHAP Secret for iSCSI target and initiator authentication
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct IscsiSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RbdSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ScaleIOSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageosSecretRef {
                 /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
                 pub name: String,
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
@@ -10997,6 +13005,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContext {
                 /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
                 pub allow_privilege_escalation: bool,
@@ -11023,6 +13033,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContext {
                 /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
                 ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
@@ -11049,6 +13061,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
@@ -11058,6 +13072,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions: Vec<StorageVolumeClaimTemplateSpecSelectorMatchExpression>,
@@ -11066,6 +13082,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A label query over volumes to consider for binding.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpecSelector {
                 /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
                 pub match_expressions:
@@ -11075,6 +13093,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// information about the serviceAccountToken data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceAccountToken {
                 /// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
                 pub audience: String,
@@ -11085,6 +13105,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Projection that may be projected along with other supported volume types
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Source {
                 /// information about the configMap data to project
                 pub config_map: SourceConfigMap,
@@ -11097,6 +13119,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Specification of the desired behavior of the ThanosRuler cluster. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// If specified, the pod's scheduling constraints.
                 pub affinity: Affinity,
@@ -11192,6 +13216,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -11212,6 +13238,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -11232,6 +13260,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplateSpec {
                 /// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -11252,6 +13282,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbe {
                 /// Exec specifies the action to take.
                 pub exec: ContainerStartupProbeExec,
@@ -11276,6 +13308,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbe {
                 /// Exec specifies the action to take.
                 pub exec: InitContainerStartupProbeExec,
@@ -11300,6 +13334,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeClaimTemplateStatus {
                 /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
                 pub access_modes: Vec<String>,
@@ -11316,6 +13352,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Most recent observed status of the ThanosRuler cluster. Read-only. Not included when requesting from the apiserver, only from the ThanosRuler Operator API itself. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Total number of available pods (ready for at least minReadySeconds) targeted by this ThanosRuler deployment.
                 pub available_replicas: i32,
@@ -11330,6 +13368,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Storage spec to specify how storage shall be used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Storage {
                 /// Deprecated: subPath usage will be disabled by default in a future release, this option will become unnecessary. DisableMountSubPath allows to remove any subPath usage in volume mounts.
                 pub disable_mount_sub_path: bool,
@@ -11342,6 +13382,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Storageos {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -11356,6 +13398,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Sysctl defines a kernel parameter to be set
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Sysctl {
                 /// Name of a property to set
                 pub name: String,
@@ -11364,6 +13408,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11372,6 +13418,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11380,6 +13428,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11388,6 +13438,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11396,6 +13448,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11404,6 +13458,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePostStartTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11412,6 +13468,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLifecyclePreStopTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11420,6 +13478,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerLivenessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11428,6 +13488,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerReadinessProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11436,6 +13498,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TCPSocket specifies an action involving a TCP port.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerStartupProbeTcpSocket {
                 /// Optional: Host name to connect to, defaults to the pod IP.
                 pub host: String,
@@ -11444,6 +13508,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
@@ -11458,6 +13524,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TopologySpreadConstraint {
                 /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
                 pub label_selector: TopologySpreadConstraintLabelSelector,
@@ -11470,6 +13538,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TracingConfig configures tracing in Thanos. This is an experimental feature, it may change in any upcoming release in a breaking way.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TracingConfig {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11480,6 +13550,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
                 pub config_map_key_ref: ContainerEnvItemValueFromConfigMapKeyRef,
@@ -11492,6 +13564,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Source for the environment variable's value. Cannot be used if value is not empty.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerEnvItemValueFrom {
                 /// Selects a key of a ConfigMap.
                 pub config_map_key_ref: InitContainerEnvItemValueFromConfigMapKeyRef,
@@ -11504,6 +13578,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Volume {
                 /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
                 pub aws_elastic_block_store: AwsElasticBlockStore,
@@ -11572,6 +13648,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeAttributes {
                 /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
                 pub properties: std::collections::HashMap<String, String>,
@@ -11581,6 +13659,8 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
@@ -11589,6 +13669,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// A PVC spec to be used by the Prometheus StatefulSets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct StorageVolumeClaimTemplate {
                 /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
                 pub api_version: String,
@@ -11606,6 +13688,8 @@ pub mod monitoring_coreos_com {
             ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
             ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
             ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VolumeEphemeralVolumeClaimTemplate {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
                 pub metadata: VolumeEphemeralVolumeClaimTemplateMetadata,
@@ -11614,6 +13698,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
@@ -11622,6 +13708,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// volumeDevice describes a mapping of a raw block device within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerVolumeDevice {
                 /// devicePath is the path inside of the container that the device will be mapped to.
                 pub device_path: String,
@@ -11630,6 +13718,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -11646,6 +13736,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerVolumeMount {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -11662,6 +13754,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VsphereVolume {
                 /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
                 pub fs_type: String,
@@ -11674,6 +13768,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -11686,6 +13782,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InitContainerSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -11698,6 +13796,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecSecurityContextWindowsOptions {
                 /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
                 pub gmsa_credential_spec: String,
@@ -11735,12 +13835,16 @@ pub mod monitoring_coreos_com {
     pub mod v1alpha1 {
         pub mod alertmanager_config {
             /// AlertmanagerConfig defines a namespaced AlertmanagerConfig to be aggregated across multiple namespaces configuring one Alertmanager cluster.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AlertmanagerConfig {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
             /// AccessKey is the AWS API key. If blank, the environment variable `AWS_ACCESS_KEY_ID` is used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AccessKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11751,6 +13855,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SlackAction configures a single Slack action that is sent with each notification. See https://api.slack.com/docs/message-attachments#action_fields and https://api.slack.com/docs/message-buttons for more information.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Action {
                 /// SlackConfirmationField protect users from destructive actions or particularly distinguished decisions by asking them to confirm their button click one more time. See https://api.slack.com/docs/interactive-message-field-guide#confirmation_fields for more information.
                 pub confirm: Confirm,
@@ -11763,6 +13869,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the OpsGenie API key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigApiKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11773,6 +13881,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the API key to use when talking to the VictorOps API. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigApiKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11783,6 +13893,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the WeChat API key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11793,6 +13905,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the Slack webhook URL. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ApiURL {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11803,12 +13917,16 @@ pub mod monitoring_coreos_com {
             }
 
             /// SNS message attributes.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Attributes {
                 /// SNS message attributes.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// The secret's key that contains the password to use for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11819,6 +13937,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the CRAM-MD5 secret. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct AuthSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11829,6 +13949,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: OpsgenieConfigHttpConfigAuthorizationCredentials,
@@ -11837,6 +13959,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: PagerdutyConfigHttpConfigAuthorizationCredentials,
@@ -11845,6 +13969,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: PushoverConfigHttpConfigAuthorizationCredentials,
@@ -11853,6 +13979,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: SlackConfigHttpConfigAuthorizationCredentials,
@@ -11861,6 +13989,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: SnsConfigHttpConfigAuthorizationCredentials,
@@ -11869,6 +13999,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: TelegramConfigHttpConfigAuthorizationCredentials,
@@ -11877,6 +14009,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: VictoropsConfigHttpConfigAuthorizationCredentials,
@@ -11885,6 +14019,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: WebhookConfigHttpConfigAuthorizationCredentials,
@@ -11893,6 +14029,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigAuthorization {
                 /// The secret's key that contains the credentials of the request
                 pub credentials: WechatConfigHttpConfigAuthorizationCredentials,
@@ -11901,6 +14039,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: OpsgenieConfigHttpConfigBasicAuthPassword,
@@ -11909,6 +14049,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: PagerdutyConfigHttpConfigBasicAuthPassword,
@@ -11917,6 +14059,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: PushoverConfigHttpConfigBasicAuthPassword,
@@ -11925,6 +14069,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: SlackConfigHttpConfigBasicAuthPassword,
@@ -11933,6 +14079,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: SnsConfigHttpConfigBasicAuthPassword,
@@ -11941,6 +14089,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: TelegramConfigHttpConfigBasicAuthPassword,
@@ -11949,6 +14099,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: VictoropsConfigHttpConfigBasicAuthPassword,
@@ -11957,6 +14109,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: WebhookConfigHttpConfigBasicAuthPassword,
@@ -11965,6 +14119,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// BasicAuth for the client. This is mutually exclusive with Authorization. If both are defined, BasicAuth takes precedence.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigBasicAuth {
                 /// The secret in the service monitor namespace that contains the password for authentication.
                 pub password: WechatConfigHttpConfigBasicAuthPassword,
@@ -11973,6 +14129,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11983,6 +14141,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -11993,6 +14153,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12003,6 +14165,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12013,6 +14177,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12023,6 +14189,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12033,6 +14201,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12043,6 +14213,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12053,6 +14225,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the bearer token to be used by the client for authentication. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigBearerTokenSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12063,6 +14237,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Telegram bot token The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct BotToken {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12073,6 +14249,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: EmailConfigTlsConfigCaConfigMap,
@@ -12081,6 +14259,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: OpsgenieConfigHttpConfigTlsConfigCaConfigMap,
@@ -12089,6 +14269,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: PagerdutyConfigHttpConfigTlsConfigCaConfigMap,
@@ -12097,6 +14279,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: PushoverConfigHttpConfigTlsConfigCaConfigMap,
@@ -12105,6 +14289,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: SlackConfigHttpConfigTlsConfigCaConfigMap,
@@ -12113,6 +14299,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: SnsConfigHttpConfigTlsConfigCaConfigMap,
@@ -12121,6 +14309,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: TelegramConfigHttpConfigTlsConfigCaConfigMap,
@@ -12129,6 +14319,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: VictoropsConfigHttpConfigTlsConfigCaConfigMap,
@@ -12137,6 +14329,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WebhookConfigHttpConfigTlsConfigCaConfigMap,
@@ -12145,6 +14339,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the CA cert to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigCa {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WechatConfigHttpConfigTlsConfigCaConfigMap,
@@ -12153,6 +14349,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: EmailConfigTlsConfigCertConfigMap,
@@ -12161,6 +14359,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: OpsgenieConfigHttpConfigTlsConfigCertConfigMap,
@@ -12169,6 +14369,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: PagerdutyConfigHttpConfigTlsConfigCertConfigMap,
@@ -12177,6 +14379,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: PushoverConfigHttpConfigTlsConfigCertConfigMap,
@@ -12185,6 +14389,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: SlackConfigHttpConfigTlsConfigCertConfigMap,
@@ -12193,6 +14399,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: SnsConfigHttpConfigTlsConfigCertConfigMap,
@@ -12201,6 +14409,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: TelegramConfigHttpConfigTlsConfigCertConfigMap,
@@ -12209,6 +14419,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: VictoropsConfigHttpConfigTlsConfigCertConfigMap,
@@ -12217,6 +14429,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WebhookConfigHttpConfigTlsConfigCertConfigMap,
@@ -12225,6 +14439,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Struct containing the client cert file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigCert {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WechatConfigHttpConfigTlsConfigCertConfigMap,
@@ -12233,6 +14449,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: OpsgenieConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12241,6 +14459,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: PagerdutyConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12249,6 +14469,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: PushoverConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12257,6 +14479,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: SlackConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12265,6 +14489,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: SnsConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12273,6 +14499,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: TelegramConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12281,6 +14509,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: VictoropsConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12289,6 +14519,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WebhookConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12297,6 +14529,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret or configmap containing the OAuth2 client id
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigOauth2ClientId {
                 /// ConfigMap containing data to use for the targets.
                 pub config_map: WechatConfigHttpConfigOauth2ClientIdConfigMap,
@@ -12305,6 +14539,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12315,6 +14551,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12325,6 +14563,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12335,6 +14575,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12345,6 +14587,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12355,6 +14599,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12365,6 +14611,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12375,6 +14623,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12385,6 +14635,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret containing the OAuth2 client secret
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigOauth2ClientSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12395,6 +14647,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12405,6 +14659,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12415,6 +14671,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12425,6 +14683,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12435,6 +14695,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12445,6 +14707,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12455,6 +14719,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12465,6 +14731,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12475,6 +14743,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12485,6 +14755,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12495,6 +14767,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12505,6 +14779,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12515,6 +14791,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12525,6 +14803,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12535,6 +14815,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12545,6 +14827,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12555,6 +14839,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12565,6 +14851,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12575,6 +14863,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12585,6 +14875,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12595,6 +14887,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12605,6 +14899,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12615,6 +14911,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12625,6 +14923,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12635,6 +14935,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12645,6 +14947,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12655,6 +14959,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigOauth2ClientIdConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12665,6 +14971,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigCaConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12675,6 +14983,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// ConfigMap containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigCertConfigMap {
                 /// The key to select.
                 pub key: String,
@@ -12685,6 +14995,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SlackConfirmationField protect users from destructive actions or particularly distinguished decisions by asking them to confirm their button click one more time. See https://api.slack.com/docs/interactive-message-field-guide#confirmation_fields for more information.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Confirm {
                 pub dismiss_text: String,
                 pub ok_text: String,
@@ -12693,6 +15005,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12703,6 +15017,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12713,6 +15029,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12723,6 +15041,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12733,6 +15053,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12743,6 +15065,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12753,6 +15077,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12763,6 +15089,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12773,6 +15101,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the credentials of the request
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigAuthorizationCredentials {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -12783,6 +15113,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct CustomField {
                 /// Key of the tuple.
                 pub key: String,
@@ -12791,6 +15123,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// DayOfMonthRange is an inclusive range of days of the month beginning at 1
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct DaysOfMonthItem {
                 /// End of the inclusive range
                 pub end: i64,
@@ -12799,6 +15133,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigDetail {
                 /// Key of the tuple.
                 pub key: String,
@@ -12807,6 +15143,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigDetail {
                 /// Key of the tuple.
                 pub key: String,
@@ -12815,6 +15153,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// EmailConfig configures notifications via Email.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfig {
                 /// The identity to use for authentication.
                 pub auth_identity: String,
@@ -12847,60 +15187,80 @@ pub mod monitoring_coreos_com {
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Parameters to append to the token URL
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigOauth2EndpointParams {
                 /// Parameters to append to the token URL
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// SlackField configures a single Slack field that is sent with each notification. Each field must contain a title, value, and optionally, a boolean value to indicate if the field is short enough to be displayed next to other fields designated as short. See https://api.slack.com/docs/message-attachments#fields for more information.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Field {
                 pub short: bool,
                 pub title: String,
@@ -12908,6 +15268,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// KeyValue defines a (key, value) tuple.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Header {
                 /// Key of the tuple.
                 pub key: String,
@@ -12916,6 +15278,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: OpsgenieConfigHttpConfigAuthorization,
@@ -12934,6 +15298,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: PagerdutyConfigHttpConfigAuthorization,
@@ -12952,6 +15318,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: PushoverConfigHttpConfigAuthorization,
@@ -12970,6 +15338,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: SlackConfigHttpConfigAuthorization,
@@ -12988,6 +15358,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: SnsConfigHttpConfigAuthorization,
@@ -13006,6 +15378,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: TelegramConfigHttpConfigAuthorization,
@@ -13024,6 +15398,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The HTTP client's configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: VictoropsConfigHttpConfigAuthorization,
@@ -13042,6 +15418,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: WebhookConfigHttpConfigAuthorization,
@@ -13060,6 +15438,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// HTTP client configuration.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfig {
                 /// Authorization header configuration for the client. This is mutually exclusive with BasicAuth and is only available starting from Alertmanager v0.22+.
                 pub authorization: WechatConfigHttpConfigAuthorization,
@@ -13078,6 +15458,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// InhibitRule defines an inhibition rule that allows to mute alerts when other alerts are already firing. See https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct InhibitRule {
                 /// Labels that must have an equal value in the source and target alert for the inhibition to take effect.
                 pub equal: Vec<String>,
@@ -13088,6 +15470,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13098,6 +15482,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13108,6 +15494,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13118,6 +15506,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13128,6 +15518,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13138,6 +15530,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13148,6 +15542,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13158,6 +15554,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13168,6 +15566,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13178,6 +15578,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing the client key file for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigKeySecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13188,6 +15590,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Matcher defines how to match on alert's labels.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Matcher {
                 /// Match operation available with AlertManager >= v0.22.0 and takes precedence over Regex (deprecated) if non-empty.
                 pub match_type: String,
@@ -13200,6 +15604,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// MuteTimeInterval specifies the periods in time when notifications will be muted
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct MuteTimeInterval {
                 /// Name of the time interval
                 pub name: String,
@@ -13208,6 +15614,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: OpsgenieConfigHttpConfigOauth2ClientId,
@@ -13222,6 +15630,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: PagerdutyConfigHttpConfigOauth2ClientId,
@@ -13236,6 +15646,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: PushoverConfigHttpConfigOauth2ClientId,
@@ -13250,6 +15662,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: SlackConfigHttpConfigOauth2ClientId,
@@ -13264,6 +15678,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: SnsConfigHttpConfigOauth2ClientId,
@@ -13278,6 +15694,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: TelegramConfigHttpConfigOauth2ClientId,
@@ -13292,6 +15710,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: VictoropsConfigHttpConfigOauth2ClientId,
@@ -13306,6 +15726,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: WebhookConfigHttpConfigOauth2ClientId,
@@ -13320,6 +15742,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OAuth2 client credentials used to fetch a token for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigOauth2 {
                 /// The secret or configmap containing the OAuth2 client id
                 pub client_id: WechatConfigHttpConfigOauth2ClientId,
@@ -13334,6 +15758,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OpsGenieConfig configures notifications via OpsGenie. See https://prometheus.io/docs/alerting/latest/configuration/#opsgenie_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfig {
                 /// Comma separated list of actions that will be available for the alert.
                 pub actions: String,
@@ -13368,6 +15794,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PagerDutyImageConfig attaches images to an incident
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerDutyImageConfig {
                 /// Alt is the optional alternative text for the image.
                 pub alt: String,
@@ -13378,6 +15806,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PagerDutyLinkConfig attaches text links to an incident
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerDutyLinkConfig {
                 /// Text that describes the purpose of the link, and can be used as the link's text.
                 pub alt: String,
@@ -13386,6 +15816,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PagerDutyConfig configures notifications via PagerDuty. See https://prometheus.io/docs/alerting/latest/configuration/#pagerduty_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfig {
                 /// The class/type of the event.
                 pub class: String,
@@ -13420,6 +15852,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13430,6 +15864,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13440,6 +15876,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13450,6 +15888,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13460,6 +15900,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13470,6 +15912,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13480,6 +15924,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13490,6 +15936,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13500,6 +15948,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the password for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigBasicAuthPassword {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13510,6 +15960,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// PushoverConfig configures notifications via Pushover. See https://prometheus.io/docs/alerting/latest/configuration/#pushover_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfig {
                 /// How long your notification will continue to be retried for, unless the user acknowledges the notification.
                 pub expire: String,
@@ -13540,6 +15992,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Receiver defines one or more notification integrations.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Receiver {
                 /// List of Email configurations.
                 pub email_configs: Vec<EmailConfig>,
@@ -13566,6 +16020,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// OpsGenieConfigResponder defines a responder to an incident. One of `id`, `name` or `username` has to be defined.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Responder {
                 /// ID of the responder.
                 pub id: String,
@@ -13578,6 +16034,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The Alertmanager route definition for alerts matching the resource’s namespace. If present, it will be added to the generated Alertmanager configuration as a first-level route.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Route {
                 /// Boolean indicating whether an alert should continue matching subsequent sibling nodes. It will always be overridden to true for the first-level route by the Prometheus operator.
                 pub r#continue: bool,
@@ -13600,6 +16058,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the PagerDuty integration key (when using Events API v2). Either this field or `serviceKey` needs to be defined. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct RoutingKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13610,6 +16070,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13620,6 +16082,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13630,6 +16094,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13640,6 +16106,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13650,6 +16118,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13660,6 +16130,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13670,6 +16142,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13680,6 +16154,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13690,6 +16166,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13700,6 +16178,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13710,6 +16190,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13720,6 +16202,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13730,6 +16214,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13740,6 +16226,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13750,6 +16238,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13760,6 +16250,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13770,6 +16262,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13780,6 +16274,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13790,6 +16286,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13800,6 +16298,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13810,6 +16310,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13820,6 +16322,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13830,6 +16334,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13840,6 +16346,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13850,6 +16358,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13860,6 +16370,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13870,6 +16382,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigOauth2ClientIdSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13880,6 +16394,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigCaSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13890,6 +16406,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Secret containing data to use for the targets.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfigCertSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13900,6 +16418,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SecretKey is the AWS API secret. If blank, the environment variable `AWS_SECRET_ACCESS_KEY` is used.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SecretKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13910,6 +16430,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the PagerDuty service key (when using integration type "Prometheus"). Either this field or `routingKey` needs to be defined. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct ServiceKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -13920,6 +16442,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Configures AWS's Signature Verification 4 signing process to sign requests.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Sigv4 {
                 /// AccessKey is the AWS API key. If blank, the environment variable `AWS_ACCESS_KEY_ID` is used.
                 pub access_key: AccessKey,
@@ -13934,6 +16458,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SlackConfig configures notifications via Slack. See https://prometheus.io/docs/alerting/latest/configuration/#slack_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfig {
                 /// A list of Slack actions that are sent with each notification.
                 pub actions: Vec<Action>,
@@ -13966,6 +16492,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// SNSConfig configures notifications via AWS SNS. See https://prometheus.io/docs/alerting/latest/configuration/#sns_configs
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfig {
                 /// The SNS API URL i.e. https://sns.us-east-2.amazonaws.com. If not specified, the SNS API URL from the SNS SDK will be used.
                 pub api_u_r_l: String,
@@ -13990,6 +16518,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Matcher defines how to match on alert's labels.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SourceMatchItem {
                 /// Match operation available with AlertManager >= v0.22.0 and takes precedence over Regex (deprecated) if non-empty.
                 pub match_type: String,
@@ -14002,6 +16532,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// AlertmanagerConfigSpec is a specification of the desired behavior of the Alertmanager configuration. By definition, the Alertmanager configuration only applies to alerts for which the `namespace` label is equal to the namespace of the AlertmanagerConfig resource.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// List of inhibition rules. The rules will only apply to alerts matching the resource’s namespace.
                 pub inhibit_rules: Vec<InhibitRule>,
@@ -14014,6 +16546,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// Matcher defines how to match on alert's labels.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TargetMatchItem {
                 /// Match operation available with AlertManager >= v0.22.0 and takes precedence over Regex (deprecated) if non-empty.
                 pub match_type: String,
@@ -14026,6 +16560,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TelegramConfig configures notifications via Telegram. See https://prometheus.io/docs/alerting/latest/configuration/#telegram_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfig {
                 /// The Telegram API URL i.e. https://api.telegram.org. If not specified, default API URL will be used.
                 pub api_u_r_l: String,
@@ -14046,6 +16582,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TimeRange defines a start and end time in 24hr format
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Time {
                 /// EndTime is the end time in 24hr format.
                 pub end_time: String,
@@ -14054,6 +16592,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TimeInterval describes intervals of time
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TimeInterval {
                 /// DaysOfMonth is a list of DayOfMonthRange
                 pub days_of_month: Vec<DaysOfMonthItem>,
@@ -14068,6 +16608,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct EmailConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: EmailConfigTlsConfigCa,
@@ -14082,6 +16624,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: OpsgenieConfigHttpConfigTlsConfigCa,
@@ -14096,6 +16640,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: PagerdutyConfigHttpConfigTlsConfigCa,
@@ -14110,6 +16656,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: PushoverConfigHttpConfigTlsConfigCa,
@@ -14124,6 +16672,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: SlackConfigHttpConfigTlsConfigCa,
@@ -14138,6 +16688,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: SnsConfigHttpConfigTlsConfigCa,
@@ -14152,6 +16704,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: TelegramConfigHttpConfigTlsConfigCa,
@@ -14166,6 +16720,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: VictoropsConfigHttpConfigTlsConfigCa,
@@ -14180,6 +16736,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: WebhookConfigHttpConfigTlsConfigCa,
@@ -14194,6 +16752,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// TLS configuration for the client.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigTlsConfig {
                 /// Struct containing the CA cert to use for the targets.
                 pub ca: WechatConfigHttpConfigTlsConfigCa,
@@ -14208,6 +16768,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the registered application’s API token, see https://pushover.net/apps. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct Token {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14218,6 +16780,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the webhook URL to send HTTP requests to. `urlSecret` takes precedence over `url`. One of `urlSecret` and `url` should be defined. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct UrlSecret {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14228,6 +16792,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret's key that contains the recipient user’s user key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct UserKey {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14238,6 +16804,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct OpsgenieConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14248,6 +16816,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PagerdutyConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14258,6 +16828,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct PushoverConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14268,6 +16840,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SlackConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14278,6 +16852,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct SnsConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14288,6 +16864,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct TelegramConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14298,6 +16876,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14308,6 +16888,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14318,6 +16900,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// The secret in the service monitor namespace that contains the username for authentication.
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfigHttpConfigBasicAuthUsername {
                 /// The key of the secret to select from.  Must be a valid secret key.
                 pub key: String,
@@ -14328,6 +16912,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// VictorOpsConfig configures notifications via VictorOps. See https://prometheus.io/docs/alerting/latest/configuration/#victorops_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct VictoropsConfig {
                 /// The secret's key that contains the API key to use when talking to the VictorOps API. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.
                 pub api_key: VictoropsConfigApiKey,
@@ -14352,6 +16938,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// WebhookConfig configures notifications via a generic receiver supporting the webhook payload. See https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WebhookConfig {
                 /// HTTP client configuration.
                 pub http_config: WebhookConfigHttpConfig,
@@ -14366,6 +16954,8 @@ pub mod monitoring_coreos_com {
             }
 
             /// WeChatConfig configures notifications via WeChat. See https://prometheus.io/docs/alerting/latest/configuration/#wechat_config
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
             pub struct WechatConfig {
                 pub agent_i_d: String,
                 /// The secret's key that contains the WeChat API key. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.

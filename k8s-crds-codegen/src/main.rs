@@ -60,7 +60,7 @@ impl Crate {
 
         let paths = self.fetch_resources()?;
 
-        k8s_crds_codegen::build_from_paths(&mut out, paths).unwrap();
+        k8s_crds_codegen::build_from_paths(&mut out, paths)?;
 
         Ok(())
     }

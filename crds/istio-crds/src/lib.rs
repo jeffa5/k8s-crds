@@ -1720,7 +1720,6 @@ pub mod networking_istio_io {
                 /// Percentage of the traffic to be mirrored by the `mirror` field.
                 pub mirror_percentage: MirrorPercentage,
                 /// Percentage of the traffic to be mirrored by the `mirror` field.
-                pub mirror_percent: Option<i64>,
                 /// The name assigned to the route for debugging purposes.
                 pub name: String,
                 /// A HTTP rule can either redirect or forward (default) traffic.
@@ -3803,7 +3802,6 @@ pub mod networking_istio_io {
                 /// Percentage of the traffic to be mirrored by the `mirror` field.
                 pub mirror_percentage: MirrorPercentage,
                 /// Percentage of the traffic to be mirrored by the `mirror` field.
-                pub mirror_percent: Option<i64>,
                 /// The name assigned to the route for debugging purposes.
                 pub name: String,
                 /// A HTTP rule can either redirect or forward (default) traffic.
@@ -4708,7 +4706,6 @@ pub mod security_istio_io {
                 pub issuer: String,
                 /// JSON Web Key Set of public keys to validate signature of the JWT.
                 pub jwks: String,
-                pub jwks_uri: String,
                 pub jwks_uri: String,
                 pub output_payload_to_header: String,
             }

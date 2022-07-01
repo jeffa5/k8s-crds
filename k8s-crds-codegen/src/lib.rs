@@ -251,13 +251,21 @@ fn make_unique_names(
 
         debug!(?names,names_len=?names.len(), non_unique=?counts.len(), "Still have non-unique names");
 
+        let mut some_parents = false;
+
         // otherwise go through adding part of the parent to the name.
         for (parents, name) in &mut names {
             if counts.get(name).unwrap() > &1 {
                 if let Some(last) = parents.pop() {
+                    some_parents = true;
                     *name = format!("{}{}", last, name);
                 }
             }
+        }
+
+        if !some_parents {
+            warn!(?rename_mapping, ?counts, "No more parents to add to names!");
+            break;
         }
     }
 

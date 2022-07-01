@@ -60,15 +60,15 @@ fn main() -> anyhow::Result<()> {
     ],
     }.make()?;
 
-    // Crate {
-    //     root: root.to_owned(),
-    //     name: "istio".to_owned(),
-    //     version: "0.1.0".to_owned(),
-    //     urls: vec![
-    //     "https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-all.gen.yaml".to_owned(),
-    //     "https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-operator.yaml".to_owned(),
-    //     ],
-    // }.make()?;
+    Crate {
+        root: root.to_owned(),
+        name: "istio".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+        "https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-all.gen.yaml".to_owned(),
+        "https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-operator.yaml".to_owned(),
+        ],
+    }.make()?;
 
     fmt();
 

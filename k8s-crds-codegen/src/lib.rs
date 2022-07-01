@@ -522,11 +522,7 @@ fn dotted_to_snake(s: &str) -> String {
 }
 
 fn array_item_name(s: &str) -> String {
-    if let Some(s) = s.strip_suffix('s') {
-        s.to_owned()
-    } else {
-        format!("{}Item", camel_case(s))
-    }
+    format!("{}Item", camel_case(s))
 }
 
 fn write_derives<W: Write>(f: &mut W) -> anyhow::Result<()> {

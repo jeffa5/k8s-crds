@@ -430,6 +430,13 @@ fn get_type(
             }
             None => "i64".to_owned(),
         },
+        Some("number") => match props.format.as_deref() {
+            Some("double") => "f64".to_owned(),
+            Some(f) => {
+                todo!("unhandled format with number type {}", f);
+            }
+            None => "f64".to_owned(),
+        },
         Some("array") => {
             let inner_type = if let Some(JSONSchemaPropsOrArray::Schema(schema)) = &props.items {
                 get_type(parents, &array_item_name(property), schema, rename_mapping)

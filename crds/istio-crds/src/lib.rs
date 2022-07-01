@@ -1719,7 +1719,6 @@ pub mod networking_istio_io {
                 pub mirror_percent: Option<i64>,
                 /// Percentage of the traffic to be mirrored by the `mirror` field.
                 pub mirror_percentage: MirrorPercentage,
-                /// Percentage of the traffic to be mirrored by the `mirror` field.
                 /// The name assigned to the route for debugging purposes.
                 pub name: String,
                 /// A HTTP rule can either redirect or forward (default) traffic.
@@ -3801,7 +3800,6 @@ pub mod networking_istio_io {
                 pub mirror_percent: Option<i64>,
                 /// Percentage of the traffic to be mirrored by the `mirror` field.
                 pub mirror_percentage: MirrorPercentage,
-                /// Percentage of the traffic to be mirrored by the `mirror` field.
                 /// The name assigned to the route for debugging purposes.
                 pub name: String,
                 /// A HTTP rule can either redirect or forward (default) traffic.

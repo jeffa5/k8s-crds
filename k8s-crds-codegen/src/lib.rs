@@ -351,14 +351,14 @@ fn make_struct<W: Write>(
     if let Some(properties) = props.properties.as_ref() {
         parents.push(camel_case(name));
         for (property, props) in properties {
-            if let Some(description) = &props.description {
-                for line in description.lines() {
-                    writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
-                }
-            }
-            let ty = get_type(parents.clone(), property, props, rename_mapping);
             let name = make_property_name(property);
             if written_prop_names.insert(name.clone()) {
+                if let Some(description) = &props.description {
+                    for line in description.lines() {
+                        writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
+                    }
+                }
+                let ty = get_type(parents.clone(), property, props, rename_mapping);
                 writeln!(f, "{}{}pub {}: {},", indent, INDENT, name, ty)?;
             } else {
                 warn!(?name, "skipping writing field as already written");
@@ -366,14 +366,14 @@ fn make_struct<W: Write>(
         }
     } else if let Some(JSONSchemaPropsOrBool::Schema(properties)) = &props.additional_properties {
         parents.push(camel_case(name));
-        if let Some(description) = &props.description {
-            for line in description.lines() {
-                writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
-            }
-        }
-        let value_type = get_type(parents, "value", properties, rename_mapping);
         let name = make_property_name("properties");
         if written_prop_names.insert(name.clone()) {
+            if let Some(description) = &props.description {
+                for line in description.lines() {
+                    writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
+                }
+            }
+            let value_type = get_type(parents, "value", properties, rename_mapping);
             writeln!(
                 f,
                 "{}{}pub {}: std::collections::HashMap<String, {}>,",
@@ -386,13 +386,13 @@ fn make_struct<W: Write>(
         || props.additional_properties.is_none()
     {
         // defaults to true when missing
-        if let Some(description) = &props.description {
-            for line in description.lines() {
-                writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
-            }
-        }
         let name = make_property_name("properties");
         if written_prop_names.insert(name.clone()) {
+            if let Some(description) = &props.description {
+                for line in description.lines() {
+                    writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
+                }
+            }
             writeln!(
                 f,
                 "{}{}pub {}: std::collections::HashMap<String, String>,",

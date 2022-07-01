@@ -138,7 +138,7 @@ fn build_resource<W: Write>(
 
     let mut structs = BTreeMap::new();
     let skippable_meta = ["apiVersion", "kind", "metadata"];
-    for (prop, props) in schema.properties.as_ref().unwrap() {
+    for (prop, props) in schema.properties.iter().flatten() {
         if !skippable_meta.contains(&&**prop) {
             get_structs_to_make(vec![], prop, props, &mut structs);
         }

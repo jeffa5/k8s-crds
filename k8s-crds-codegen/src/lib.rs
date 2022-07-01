@@ -262,7 +262,12 @@ fn make_unique_names(
 }
 
 fn make_property_name(name: &str) -> String {
-    if let "type" | "continue" | "for" | "static" | "ref" = name {
+    // banned words as per https://doc.rust-lang.org/reference/keywords.html
+    if let "as" | "break" | "continue" | "const" | "crate" | "else" | "enum" | "extern" | "false"
+    | "fn" | "for" | "if" | "impl" | "in" | "let" | "loop" | "match" | "mod" | "move"
+    | "mut" | "pub" | "ref" | "return" | "self" | "Self" | "static" | "struct" | "super"
+    | "trait" | "true" | "type" | "unsafe" | "use" | "where" | "while" = name
+    {
         format!("r#{}", name)
     } else {
         snake_case(name)

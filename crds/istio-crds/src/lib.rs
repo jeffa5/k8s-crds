@@ -149,20 +149,20 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPool {
+            pub struct SubsetsItemTrafficPolicyConnectionPool {
                 /// HTTP connection pool settings.
-                pub http: SubsetTrafficPolicyConnectionPoolHttp,
+                pub http: SubsetsItemTrafficPolicyConnectionPoolHttp,
                 /// Settings common to both HTTP and TCP upstream connections.
-                pub tcp: SubsetTrafficPolicyConnectionPoolTcp,
+                pub tcp: SubsetsItemTrafficPolicyConnectionPoolTcp,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPool {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
-                pub http: SubsetTrafficPolicyPortLevelSettingConnectionPoolHttp,
+                pub http: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolHttp,
                 /// Settings common to both HTTP and TCP upstream connections.
-                pub tcp: SubsetTrafficPolicyPortLevelSettingConnectionPoolTcp,
+                pub tcp: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -176,18 +176,18 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPool {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
-                pub http: SpecTrafficPolicyPortLevelSettingConnectionPoolHttp,
+                pub http: SpecTrafficPolicyPortLevelSettingsItemConnectionPoolHttp,
                 /// Settings common to both HTTP and TCP upstream connections.
-                pub tcp: SpecTrafficPolicyPortLevelSettingConnectionPoolTcp,
+                pub tcp: SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerConsistentHash {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
-                pub http_cookie: SubsetTrafficPolicyLoadBalancerConsistentHashHttpCookie,
+                pub http_cookie: SubsetsItemTrafficPolicyLoadBalancerConsistentHashHttpCookie,
                 /// Hash based on a specific HTTP header.
                 pub http_header_name: String,
                 /// Hash based on a specific HTTP query parameter.
@@ -199,18 +199,17 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHash {
-                /// Hash based on HTTP cookie.
-                pub http_cookie:
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie,
-                /// Hash based on a specific HTTP header.
-                pub http_header_name: String,
-                /// Hash based on a specific HTTP query parameter.
-                pub http_query_parameter_name: String,
-                pub minimum_ring_size: i64,
-                /// Hash based on the source IP address.
-                pub use_source_ip: bool,
-            }
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
+            /// Hash based on HTTP cookie.
+            pub http_cookie: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie,
+            /// Hash based on a specific HTTP header.
+            pub http_header_name: String,
+            /// Hash based on a specific HTTP query parameter.
+            pub http_query_parameter_name: String,
+            pub minimum_ring_size: i64,
+            /// Hash based on the source IP address.
+            pub use_source_ip: bool,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -228,10 +227,10 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHash {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
                 pub http_cookie:
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie,
+                    SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie,
                 /// Hash based on a specific HTTP header.
                 pub http_header_name: String,
                 /// Hash based on a specific HTTP query parameter.
@@ -243,20 +242,20 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
                 /// Originating locality, '/' separated, e.g.
                 pub from: String,
                 /// Map of upstream localities to traffic distribution weights.
-                pub to: SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
+                pub to: SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
             /// Originating locality, '/' separated, e.g.
             pub from: String,
             /// Map of upstream localities to traffic distribution weights.
-            pub to: SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo,
+            pub to: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
         }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -270,17 +269,16 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem {
-                /// Originating locality, '/' separated, e.g.
-                pub from: String,
-                /// Map of upstream localities to traffic distribution weights.
-                pub to:
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo,
-            }
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
+            /// Originating locality, '/' separated, e.g.
+            pub from: String,
+            /// Map of upstream localities to traffic distribution weights.
+            pub to: SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
                 pub from: String,
                 pub to: String,
@@ -288,7 +286,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
                 pub from: String,
                 pub to: String,
@@ -304,7 +302,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
                 pub from: String,
                 pub to: String,
@@ -313,7 +311,7 @@ pub mod networking_istio_io {
             /// HTTP connection pool settings.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPoolHttp {
+            pub struct SubsetsItemTrafficPolicyConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
                 pub h2_upgrade_policy: String,
                 /// Maximum number of pending HTTP requests to a destination.
@@ -332,7 +330,7 @@ pub mod networking_istio_io {
             /// HTTP connection pool settings.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPoolHttp {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
                 pub h2_upgrade_policy: String,
                 /// Maximum number of pending HTTP requests to a destination.
@@ -370,7 +368,7 @@ pub mod networking_istio_io {
             /// HTTP connection pool settings.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPoolHttp {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
                 pub h2_upgrade_policy: String,
                 /// Maximum number of pending HTTP requests to a destination.
@@ -389,7 +387,7 @@ pub mod networking_istio_io {
             /// Hash based on HTTP cookie.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerConsistentHashHttpCookie {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
                 pub name: String,
                 /// Path to set for the cookie.
@@ -401,7 +399,7 @@ pub mod networking_istio_io {
             /// Hash based on HTTP cookie.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
                 pub name: String,
                 /// Path to set for the cookie.
@@ -425,7 +423,7 @@ pub mod networking_istio_io {
             /// Hash based on HTTP cookie.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
                 pub name: String,
                 /// Path to set for the cookie.
@@ -443,9 +441,9 @@ pub mod networking_istio_io {
             /// Settings controlling the load balancer algorithms.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancer {
-                pub consistent_hash: SubsetTrafficPolicyLoadBalancerConsistentHash,
-                pub locality_lb_setting: SubsetTrafficPolicyLoadBalancerLocalityLbSetting,
+            pub struct SubsetsItemTrafficPolicyLoadBalancer {
+                pub consistent_hash: SubsetsItemTrafficPolicyLoadBalancerConsistentHash,
+                pub locality_lb_setting: SubsetsItemTrafficPolicyLoadBalancerLocalityLbSetting,
                 pub simple: String,
                 /// Represents the warmup duration of Service.
                 pub warmup_duration_secs: String,
@@ -454,10 +452,11 @@ pub mod networking_istio_io {
             /// Settings controlling the load balancer algorithms.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancer {
-                pub consistent_hash: SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHash,
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancer {
+                pub consistent_hash:
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash,
                 pub locality_lb_setting:
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting,
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting,
                 pub simple: String,
                 /// Represents the warmup duration of Service.
                 pub warmup_duration_secs: String,
@@ -477,10 +476,11 @@ pub mod networking_istio_io {
             /// Settings controlling the load balancer algorithms.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancer {
-                pub consistent_hash: SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHash,
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancer {
+                pub consistent_hash:
+                    SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash,
                 pub locality_lb_setting:
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting,
+                    SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting,
                 pub simple: String,
                 /// Represents the warmup duration of Service.
                 pub warmup_duration_secs: String,
@@ -488,33 +488,31 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSetting {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSetting {
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub distribute: Vec<SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem>,
+                pub distribute:
+                    Vec<SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem>,
                 /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
                 pub enabled: Option<bool>,
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub failover: Vec<SubsetTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem>,
+                pub failover:
+                    Vec<SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem>,
                 /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
                 pub failover_priority: Vec<String>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting {
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub distribute: Vec<
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem,
-                >,
-                /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
-                pub enabled: Option<bool>,
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub failover: Vec<
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem,
-                >,
-                /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
-                pub failover_priority: Vec<String>,
-            }
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub distribute: Vec<SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem>,
+            /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
+            pub enabled: Option<bool>,
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub failover: Vec<SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem>,
+            /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
+            pub failover_priority: Vec<String>,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -531,19 +529,16 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting {
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub distribute: Vec<
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem,
-                >,
-                /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
-                pub enabled: Option<bool>,
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub failover:
-                    Vec<SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem>,
-                /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
-                pub failover_priority: Vec<String>,
-            }
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub distribute: Vec<SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem>,
+            /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
+            pub enabled: Option<bool>,
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub failover: Vec<SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem>,
+            /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
+            pub failover_priority: Vec<String>,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -553,7 +548,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyOutlierDetection {
+            pub struct SubsetsItemTrafficPolicyOutlierDetection {
                 /// Minimum ejection duration.
                 pub base_ejection_time: String,
                 /// Number of 5xx errors before a host is ejected from the connection pool.
@@ -572,7 +567,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingOutlierDetection {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
                 pub base_ejection_time: String,
                 /// Number of 5xx errors before a host is ejected from the connection pool.
@@ -610,7 +605,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingOutlierDetection {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
                 pub base_ejection_time: String,
                 /// Number of 5xx errors before a host is ejected from the connection pool.
@@ -629,38 +624,39 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingPort {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingPort {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSetting {
-                pub connection_pool: SubsetTrafficPolicyPortLevelSettingConnectionPool,
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItem {
+                pub connection_pool: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool,
                 /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SubsetTrafficPolicyPortLevelSettingLoadBalancer,
-                pub outlier_detection: SubsetTrafficPolicyPortLevelSettingOutlierDetection,
-                pub port: SubsetTrafficPolicyPortLevelSettingPort,
+                pub load_balancer: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancer,
+                pub outlier_detection:
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemOutlierDetection,
+                pub port: SubsetsItemTrafficPolicyPortLevelSettingsItemPort,
                 /// TLS related settings for connections to the upstream service.
-                pub tls: SubsetTrafficPolicyPortLevelSettingTls,
+                pub tls: SubsetsItemTrafficPolicyPortLevelSettingsItemTls,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSetting {
-                pub connection_pool: SpecTrafficPolicyPortLevelSettingConnectionPool,
+            pub struct SpecTrafficPolicyPortLevelSettingsItem {
+                pub connection_pool: SpecTrafficPolicyPortLevelSettingsItemConnectionPool,
                 /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SpecTrafficPolicyPortLevelSettingLoadBalancer,
-                pub outlier_detection: SpecTrafficPolicyPortLevelSettingOutlierDetection,
-                pub port: SpecTrafficPolicyPortLevelSettingPort,
+                pub load_balancer: SpecTrafficPolicyPortLevelSettingsItemLoadBalancer,
+                pub outlier_detection: SpecTrafficPolicyPortLevelSettingsItemOutlierDetection,
+                pub port: SpecTrafficPolicyPortLevelSettingsItemPort,
                 /// TLS related settings for connections to the upstream service.
-                pub tls: SpecTrafficPolicyPortLevelSettingTls,
+                pub tls: SpecTrafficPolicyPortLevelSettingsItemTls,
             }
 
             /// Configuration affecting load balancing, outlier detection, etc. See more details at: https://istio.io/docs/reference/config/networking/destination-rule.html
@@ -671,7 +667,7 @@ pub mod networking_istio_io {
                 pub export_to: Vec<String>,
                 /// The name of a service from the service registry.
                 pub host: String,
-                pub subsets: Vec<Subset>,
+                pub subsets: Vec<SubsetsItem>,
                 pub traffic_policy: SpecTrafficPolicy,
                 pub workload_selector: WorkloadSelector,
             }
@@ -684,36 +680,37 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Subset {
+            pub struct SubsetsItem {
                 pub labels: Labels,
                 /// Name of the subset.
                 pub name: String,
                 /// Traffic policies that apply to this subset.
-                pub traffic_policy: SubsetTrafficPolicy,
+                pub traffic_policy: SubsetsItemTrafficPolicy,
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPoolTcp {
+            pub struct SubsetsItemTrafficPolicyConnectionPoolTcp {
                 /// TCP connection timeout.
                 pub connect_timeout: String,
                 /// Maximum number of HTTP1 /TCP connections to a destination host.
                 pub max_connections: i32,
                 /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-                pub tcp_keepalive: SubsetTrafficPolicyConnectionPoolTcpTcpKeepalive,
+                pub tcp_keepalive: SubsetsItemTrafficPolicyConnectionPoolTcpTcpKeepalive,
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPoolTcp {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
                 pub connect_timeout: String,
                 /// Maximum number of HTTP1 /TCP connections to a destination host.
                 pub max_connections: i32,
                 /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-                pub tcp_keepalive: SubsetTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive,
+                pub tcp_keepalive:
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive,
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
@@ -731,19 +728,20 @@ pub mod networking_istio_io {
             /// Settings common to both HTTP and TCP upstream connections.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPoolTcp {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
                 pub connect_timeout: String,
                 /// Maximum number of HTTP1 /TCP connections to a destination host.
                 pub max_connections: i32,
                 /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-                pub tcp_keepalive: SpecTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive,
+                pub tcp_keepalive:
+                    SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive,
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPoolTcpTcpKeepalive {
+            pub struct SubsetsItemTrafficPolicyConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
                 pub interval: String,
                 pub probes: i64,
@@ -753,7 +751,7 @@ pub mod networking_istio_io {
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
                 pub interval: String,
                 pub probes: i64,
@@ -773,7 +771,7 @@ pub mod networking_istio_io {
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
                 pub interval: String,
                 pub probes: i64,
@@ -783,7 +781,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingTls {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -800,7 +798,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyTls {
+            pub struct SubsetsItemTrafficPolicyTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -817,7 +815,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingTls {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -851,7 +849,7 @@ pub mod networking_istio_io {
             /// Map of upstream localities to traffic distribution weights.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
@@ -859,7 +857,8 @@ pub mod networking_istio_io {
             /// Map of upstream localities to traffic distribution weights.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo
+            {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
@@ -875,7 +874,7 @@ pub mod networking_istio_io {
             /// Map of upstream localities to traffic distribution weights.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
@@ -883,16 +882,16 @@ pub mod networking_istio_io {
             /// Traffic policies that apply to this subset.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicy {
-                pub connection_pool: SubsetTrafficPolicyConnectionPool,
+            pub struct SubsetsItemTrafficPolicy {
+                pub connection_pool: SubsetsItemTrafficPolicyConnectionPool,
                 /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SubsetTrafficPolicyLoadBalancer,
-                pub outlier_detection: SubsetTrafficPolicyOutlierDetection,
+                pub load_balancer: SubsetsItemTrafficPolicyLoadBalancer,
+                pub outlier_detection: SubsetsItemTrafficPolicyOutlierDetection,
                 /// Traffic policies specific to individual ports.
-                pub port_level_settings: Vec<SubsetTrafficPolicyPortLevelSetting>,
+                pub port_level_settings: Vec<SubsetsItemTrafficPolicyPortLevelSettingsItem>,
                 /// TLS related settings for connections to the upstream service.
-                pub tls: SubsetTrafficPolicyTls,
-                pub tunnel: SubsetTrafficPolicyTunnel,
+                pub tls: SubsetsItemTrafficPolicyTls,
+                pub tunnel: SubsetsItemTrafficPolicyTunnel,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -903,7 +902,7 @@ pub mod networking_istio_io {
                 pub load_balancer: SpecTrafficPolicyLoadBalancer,
                 pub outlier_detection: SpecTrafficPolicyOutlierDetection,
                 /// Traffic policies specific to individual ports.
-                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSetting>,
+                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSettingsItem>,
                 /// TLS related settings for connections to the upstream service.
                 pub tls: SpecTrafficPolicyTls,
                 pub tunnel: SpecTrafficPolicyTunnel,
@@ -911,7 +910,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyTunnel {
+            pub struct SubsetsItemTrafficPolicyTunnel {
                 /// Specifies which protocol to use for tunneling the downstream connection.
                 pub protocol: String,
                 /// Specifies a host to which the downstream connection is tunneled.
@@ -984,7 +983,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct ConfigPatche {
+            pub struct ConfigPatchesItem {
                 pub apply_to: String,
                 /// Match on listener/route configuration/cluster.
                 pub r#match: Match,
@@ -1106,7 +1105,7 @@ pub mod networking_istio_io {
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// One or more patches with match conditions.
-                pub config_patches: Vec<ConfigPatche>,
+                pub config_patches: Vec<ConfigPatchesItem>,
                 /// Priority defines the order in which patch sets are applied within a context.
                 pub priority: i32,
                 pub workload_selector: WorkloadSelector,
@@ -1198,7 +1197,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Server {
+            pub struct ServersItem {
                 pub bind: String,
                 pub default_endpoint: String,
                 /// One or more hosts exposed by this gateway.
@@ -1216,7 +1215,7 @@ pub mod networking_istio_io {
             pub struct Spec {
                 pub selector: Selector,
                 /// A list of server specifications.
-                pub servers: Vec<Server>,
+                pub servers: Vec<ServersItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -1282,10 +1281,10 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Endpoint {
+            pub struct EndpointsItem {
                 pub address: String,
                 /// One or more labels associated with the endpoint.
-                pub labels: EndpointLabels,
+                pub labels: EndpointsItemLabels,
                 /// The locality associated with the endpoint.
                 pub locality: String,
                 pub network: String,
@@ -1299,7 +1298,7 @@ pub mod networking_istio_io {
             /// One or more labels associated with the endpoint.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct EndpointLabels {
+            pub struct EndpointsItemLabels {
                 /// One or more labels associated with the endpoint.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -1310,9 +1309,17 @@ pub mod networking_istio_io {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
+            /// Set of ports associated with the endpoint.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Port {
+            pub struct Ports {
+                /// Set of ports associated with the endpoint.
+                pub properties: std::collections::HashMap<String, i64>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PortsItem {
                 /// Label assigned to the port.
                 pub name: String,
                 /// A valid non-negative integer port number.
@@ -1322,14 +1329,6 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Ports {
-                /// Set of ports associated with the endpoint.
-                pub properties: std::collections::HashMap<String, i64>,
-            }
-
             /// Configuration affecting service registry. See more details at: https://istio.io/docs/reference/config/networking/service-entry.html
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -1337,14 +1336,14 @@ pub mod networking_istio_io {
                 /// The virtual IP addresses associated with the service.
                 pub addresses: Vec<String>,
                 /// One or more endpoints associated with the service.
-                pub endpoints: Vec<Endpoint>,
+                pub endpoints: Vec<EndpointsItem>,
                 /// A list of namespaces to which this service is exported.
                 pub export_to: Vec<String>,
                 /// The hosts associated with the ServiceEntry.
                 pub hosts: Vec<String>,
                 pub location: String,
                 /// The ports associated with the external service.
-                pub ports: Vec<Port>,
+                pub ports: Vec<PortsItem>,
                 /// Service discovery mode for the hosts.
                 pub resolution: String,
                 pub subject_alt_names: Vec<String>,
@@ -1398,12 +1397,12 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Egres {
+            pub struct EgressItem {
                 pub bind: String,
                 pub capture_mode: String,
                 pub hosts: Vec<String>,
                 /// The port associated with the listener.
-                pub port: EgresPort,
+                pub port: EgressItemPort,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -1419,13 +1418,13 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Ingres {
+            pub struct IngressItem {
                 /// The IP to which the listener should be bound.
                 pub bind: String,
                 pub capture_mode: String,
                 pub default_endpoint: String,
                 /// The port associated with the listener.
-                pub port: IngresPort,
+                pub port: IngressItemPort,
                 pub tls: Tls,
             }
 
@@ -1446,7 +1445,7 @@ pub mod networking_istio_io {
             /// The port associated with the listener.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct EgresPort {
+            pub struct EgressItemPort {
                 /// Label assigned to the port.
                 pub name: String,
                 /// A valid non-negative integer port number.
@@ -1459,7 +1458,7 @@ pub mod networking_istio_io {
             /// The port associated with the listener.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct IngresPort {
+            pub struct IngressItemPort {
                 /// Label assigned to the port.
                 pub name: String,
                 /// A valid non-negative integer port number.
@@ -1480,8 +1479,8 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
-                pub egress: Vec<Egres>,
-                pub ingress: Vec<Ingres>,
+                pub egress: Vec<EgressItem>,
+                pub ingress: Vec<IngressItem>,
                 /// Configuration for the outbound traffic policy.
                 pub outbound_traffic_policy: OutboundTrafficPolicy,
                 pub workload_selector: WorkloadSelector,
@@ -1591,7 +1590,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct AllowOrigin {
+            pub struct AllowOriginsItem {
                 pub exact: String,
                 pub prefix: String,
                 /// RE2 style regex-based match (https://github.com/google/re2/wiki/Syntax).
@@ -1618,7 +1617,7 @@ pub mod networking_istio_io {
                 /// The list of origins that are allowed to perform CORS requests.
                 pub allow_origin: Vec<String>,
                 /// String patterns that match allowed origins.
-                pub allow_origins: Vec<AllowOrigin>,
+                pub allow_origins: Vec<AllowOriginsItem>,
                 pub expose_headers: Vec<String>,
                 pub max_age: String,
             }
@@ -1668,11 +1667,11 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlRouteItemDestination {
+            pub struct TlsItemRouteItemDestination {
                 /// The name of a service from the service registry.
                 pub host: String,
                 /// Specifies the port on the host that is being addressed.
-                pub port: TlRouteItemDestinationPort,
+                pub port: TlsItemRouteItemDestinationPort,
                 /// The name of a subset within the service.
                 pub subset: String,
             }
@@ -1779,7 +1778,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlMatchItem {
+            pub struct TlsItemMatchItem {
                 /// IPv4 or IPv6 ip addresses of destination with optional subnet.
                 pub destination_subnets: Vec<String>,
                 /// Names of gateways where the rule should be applied.
@@ -1788,7 +1787,7 @@ pub mod networking_istio_io {
                 pub port: i64,
                 /// SNI (server name indicator) to match on.
                 pub sni_hosts: Vec<String>,
-                pub source_labels: TlMatchItemSourceLabels,
+                pub source_labels: TlsItemMatchItemSourceLabels,
                 /// Source namespace constraining the applicability of a rule to workloads in that namespace.
                 pub source_namespace: String,
             }
@@ -1858,7 +1857,7 @@ pub mod networking_istio_io {
             /// Specifies the port on the host that is being addressed.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlRouteItemDestinationPort {
+            pub struct TlsItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
@@ -1958,8 +1957,8 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlRouteItem {
-                pub destination: TlRouteItemDestination,
+            pub struct TlsItemRouteItem {
+                pub destination: TlsItemRouteItemDestination,
                 /// Weight specifies the relative proportion of traffic to be forwarded to the destination.
                 pub weight: i32,
             }
@@ -2011,7 +2010,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlMatchItemSourceLabels {
+            pub struct TlsItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
@@ -2029,7 +2028,7 @@ pub mod networking_istio_io {
                 pub http: Vec<HttpItem>,
                 /// An ordered list of route rules for opaque TCP traffic.
                 pub tcp: Vec<TcpItem>,
-                pub tls: Vec<Tl>,
+                pub tls: Vec<TlsItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -2048,10 +2047,10 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Tl {
-                pub r#match: Vec<TlMatchItem>,
+            pub struct TlsItem {
+                pub r#match: Vec<TlsItemMatchItem>,
                 /// The destination to which the connection should be forwarded to.
-                pub route: Vec<TlRouteItem>,
+                pub route: Vec<TlsItemRouteItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -2219,7 +2218,7 @@ pub mod networking_istio_io {
                 /// Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Headers the proxy will pass on to make the request.
-                pub http_headers: Vec<HttpHeader>,
+                pub http_headers: Vec<HttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Port on which the endpoint lives.
@@ -2229,7 +2228,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct HttpHeader {
+            pub struct HttpHeadersItem {
                 pub name: String,
                 pub value: String,
             }
@@ -2363,20 +2362,20 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPool {
+            pub struct SubsetsItemTrafficPolicyConnectionPool {
                 /// HTTP connection pool settings.
-                pub http: SubsetTrafficPolicyConnectionPoolHttp,
+                pub http: SubsetsItemTrafficPolicyConnectionPoolHttp,
                 /// Settings common to both HTTP and TCP upstream connections.
-                pub tcp: SubsetTrafficPolicyConnectionPoolTcp,
+                pub tcp: SubsetsItemTrafficPolicyConnectionPoolTcp,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPool {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
-                pub http: SubsetTrafficPolicyPortLevelSettingConnectionPoolHttp,
+                pub http: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolHttp,
                 /// Settings common to both HTTP and TCP upstream connections.
-                pub tcp: SubsetTrafficPolicyPortLevelSettingConnectionPoolTcp,
+                pub tcp: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -2390,18 +2389,18 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPool {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
-                pub http: SpecTrafficPolicyPortLevelSettingConnectionPoolHttp,
+                pub http: SpecTrafficPolicyPortLevelSettingsItemConnectionPoolHttp,
                 /// Settings common to both HTTP and TCP upstream connections.
-                pub tcp: SpecTrafficPolicyPortLevelSettingConnectionPoolTcp,
+                pub tcp: SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerConsistentHash {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
-                pub http_cookie: SubsetTrafficPolicyLoadBalancerConsistentHashHttpCookie,
+                pub http_cookie: SubsetsItemTrafficPolicyLoadBalancerConsistentHashHttpCookie,
                 /// Hash based on a specific HTTP header.
                 pub http_header_name: String,
                 /// Hash based on a specific HTTP query parameter.
@@ -2413,18 +2412,17 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHash {
-                /// Hash based on HTTP cookie.
-                pub http_cookie:
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie,
-                /// Hash based on a specific HTTP header.
-                pub http_header_name: String,
-                /// Hash based on a specific HTTP query parameter.
-                pub http_query_parameter_name: String,
-                pub minimum_ring_size: i64,
-                /// Hash based on the source IP address.
-                pub use_source_ip: bool,
-            }
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
+            /// Hash based on HTTP cookie.
+            pub http_cookie: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie,
+            /// Hash based on a specific HTTP header.
+            pub http_header_name: String,
+            /// Hash based on a specific HTTP query parameter.
+            pub http_query_parameter_name: String,
+            pub minimum_ring_size: i64,
+            /// Hash based on the source IP address.
+            pub use_source_ip: bool,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -2442,10 +2440,10 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHash {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
                 pub http_cookie:
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie,
+                    SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie,
                 /// Hash based on a specific HTTP header.
                 pub http_header_name: String,
                 /// Hash based on a specific HTTP query parameter.
@@ -2457,20 +2455,20 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
                 /// Originating locality, '/' separated, e.g.
                 pub from: String,
                 /// Map of upstream localities to traffic distribution weights.
-                pub to: SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
+                pub to: SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
             /// Originating locality, '/' separated, e.g.
             pub from: String,
             /// Map of upstream localities to traffic distribution weights.
-            pub to: SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo,
+            pub to: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
         }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -2484,17 +2482,16 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem {
-                /// Originating locality, '/' separated, e.g.
-                pub from: String,
-                /// Map of upstream localities to traffic distribution weights.
-                pub to:
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo,
-            }
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
+            /// Originating locality, '/' separated, e.g.
+            pub from: String,
+            /// Map of upstream localities to traffic distribution weights.
+            pub to: SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
                 pub from: String,
                 pub to: String,
@@ -2502,7 +2499,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
                 pub from: String,
                 pub to: String,
@@ -2518,7 +2515,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
                 pub from: String,
                 pub to: String,
@@ -2527,7 +2524,7 @@ pub mod networking_istio_io {
             /// HTTP connection pool settings.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPoolHttp {
+            pub struct SubsetsItemTrafficPolicyConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
                 pub h2_upgrade_policy: String,
                 /// Maximum number of pending HTTP requests to a destination.
@@ -2546,7 +2543,7 @@ pub mod networking_istio_io {
             /// HTTP connection pool settings.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPoolHttp {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
                 pub h2_upgrade_policy: String,
                 /// Maximum number of pending HTTP requests to a destination.
@@ -2584,7 +2581,7 @@ pub mod networking_istio_io {
             /// HTTP connection pool settings.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPoolHttp {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
                 pub h2_upgrade_policy: String,
                 /// Maximum number of pending HTTP requests to a destination.
@@ -2603,7 +2600,7 @@ pub mod networking_istio_io {
             /// Hash based on HTTP cookie.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerConsistentHashHttpCookie {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
                 pub name: String,
                 /// Path to set for the cookie.
@@ -2615,7 +2612,7 @@ pub mod networking_istio_io {
             /// Hash based on HTTP cookie.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
                 pub name: String,
                 /// Path to set for the cookie.
@@ -2639,7 +2636,7 @@ pub mod networking_istio_io {
             /// Hash based on HTTP cookie.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHashHttpCookie {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
                 pub name: String,
                 /// Path to set for the cookie.
@@ -2657,9 +2654,9 @@ pub mod networking_istio_io {
             /// Settings controlling the load balancer algorithms.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancer {
-                pub consistent_hash: SubsetTrafficPolicyLoadBalancerConsistentHash,
-                pub locality_lb_setting: SubsetTrafficPolicyLoadBalancerLocalityLbSetting,
+            pub struct SubsetsItemTrafficPolicyLoadBalancer {
+                pub consistent_hash: SubsetsItemTrafficPolicyLoadBalancerConsistentHash,
+                pub locality_lb_setting: SubsetsItemTrafficPolicyLoadBalancerLocalityLbSetting,
                 pub simple: String,
                 /// Represents the warmup duration of Service.
                 pub warmup_duration_secs: String,
@@ -2668,10 +2665,11 @@ pub mod networking_istio_io {
             /// Settings controlling the load balancer algorithms.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancer {
-                pub consistent_hash: SubsetTrafficPolicyPortLevelSettingLoadBalancerConsistentHash,
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancer {
+                pub consistent_hash:
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash,
                 pub locality_lb_setting:
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting,
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting,
                 pub simple: String,
                 /// Represents the warmup duration of Service.
                 pub warmup_duration_secs: String,
@@ -2691,10 +2689,11 @@ pub mod networking_istio_io {
             /// Settings controlling the load balancer algorithms.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancer {
-                pub consistent_hash: SpecTrafficPolicyPortLevelSettingLoadBalancerConsistentHash,
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancer {
+                pub consistent_hash:
+                    SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash,
                 pub locality_lb_setting:
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting,
+                    SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting,
                 pub simple: String,
                 /// Represents the warmup duration of Service.
                 pub warmup_duration_secs: String,
@@ -2702,33 +2701,31 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSetting {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSetting {
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub distribute: Vec<SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem>,
+                pub distribute:
+                    Vec<SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem>,
                 /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
                 pub enabled: Option<bool>,
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub failover: Vec<SubsetTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem>,
+                pub failover:
+                    Vec<SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem>,
                 /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
                 pub failover_priority: Vec<String>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting {
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub distribute: Vec<
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem,
-                >,
-                /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
-                pub enabled: Option<bool>,
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub failover: Vec<
-                    SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem,
-                >,
-                /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
-                pub failover_priority: Vec<String>,
-            }
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub distribute: Vec<SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem>,
+            /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
+            pub enabled: Option<bool>,
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub failover: Vec<SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem>,
+            /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
+            pub failover_priority: Vec<String>,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -2745,19 +2742,16 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSetting {
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub distribute: Vec<
-                    SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItem,
-                >,
-                /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
-                pub enabled: Option<bool>,
-                /// Optional: only one of distribute, failover or failoverPriority can be set.
-                pub failover:
-                    Vec<SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingFailoverItem>,
-                /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
-                pub failover_priority: Vec<String>,
-            }
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub distribute: Vec<SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem>,
+            /// enable locality load balancing, this is DestinationRule-level and will override mesh wide settings in entirety.
+            pub enabled: Option<bool>,
+            /// Optional: only one of distribute, failover or failoverPriority can be set.
+            pub failover: Vec<SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem>,
+            /// failoverPriority is an ordered list of labels used to sort endpoints to do priority based load balancing.
+            pub failover_priority: Vec<String>,
+        }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -2767,7 +2761,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyOutlierDetection {
+            pub struct SubsetsItemTrafficPolicyOutlierDetection {
                 /// Minimum ejection duration.
                 pub base_ejection_time: String,
                 /// Number of 5xx errors before a host is ejected from the connection pool.
@@ -2786,7 +2780,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingOutlierDetection {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
                 pub base_ejection_time: String,
                 /// Number of 5xx errors before a host is ejected from the connection pool.
@@ -2824,7 +2818,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingOutlierDetection {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
                 pub base_ejection_time: String,
                 /// Number of 5xx errors before a host is ejected from the connection pool.
@@ -2843,38 +2837,39 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingPort {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingPort {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSetting {
-                pub connection_pool: SubsetTrafficPolicyPortLevelSettingConnectionPool,
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItem {
+                pub connection_pool: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool,
                 /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SubsetTrafficPolicyPortLevelSettingLoadBalancer,
-                pub outlier_detection: SubsetTrafficPolicyPortLevelSettingOutlierDetection,
-                pub port: SubsetTrafficPolicyPortLevelSettingPort,
+                pub load_balancer: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancer,
+                pub outlier_detection:
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemOutlierDetection,
+                pub port: SubsetsItemTrafficPolicyPortLevelSettingsItemPort,
                 /// TLS related settings for connections to the upstream service.
-                pub tls: SubsetTrafficPolicyPortLevelSettingTls,
+                pub tls: SubsetsItemTrafficPolicyPortLevelSettingsItemTls,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSetting {
-                pub connection_pool: SpecTrafficPolicyPortLevelSettingConnectionPool,
+            pub struct SpecTrafficPolicyPortLevelSettingsItem {
+                pub connection_pool: SpecTrafficPolicyPortLevelSettingsItemConnectionPool,
                 /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SpecTrafficPolicyPortLevelSettingLoadBalancer,
-                pub outlier_detection: SpecTrafficPolicyPortLevelSettingOutlierDetection,
-                pub port: SpecTrafficPolicyPortLevelSettingPort,
+                pub load_balancer: SpecTrafficPolicyPortLevelSettingsItemLoadBalancer,
+                pub outlier_detection: SpecTrafficPolicyPortLevelSettingsItemOutlierDetection,
+                pub port: SpecTrafficPolicyPortLevelSettingsItemPort,
                 /// TLS related settings for connections to the upstream service.
-                pub tls: SpecTrafficPolicyPortLevelSettingTls,
+                pub tls: SpecTrafficPolicyPortLevelSettingsItemTls,
             }
 
             /// Configuration affecting load balancing, outlier detection, etc. See more details at: https://istio.io/docs/reference/config/networking/destination-rule.html
@@ -2885,7 +2880,7 @@ pub mod networking_istio_io {
                 pub export_to: Vec<String>,
                 /// The name of a service from the service registry.
                 pub host: String,
-                pub subsets: Vec<Subset>,
+                pub subsets: Vec<SubsetsItem>,
                 pub traffic_policy: SpecTrafficPolicy,
                 pub workload_selector: WorkloadSelector,
             }
@@ -2898,36 +2893,37 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Subset {
+            pub struct SubsetsItem {
                 pub labels: Labels,
                 /// Name of the subset.
                 pub name: String,
                 /// Traffic policies that apply to this subset.
-                pub traffic_policy: SubsetTrafficPolicy,
+                pub traffic_policy: SubsetsItemTrafficPolicy,
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPoolTcp {
+            pub struct SubsetsItemTrafficPolicyConnectionPoolTcp {
                 /// TCP connection timeout.
                 pub connect_timeout: String,
                 /// Maximum number of HTTP1 /TCP connections to a destination host.
                 pub max_connections: i32,
                 /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-                pub tcp_keepalive: SubsetTrafficPolicyConnectionPoolTcpTcpKeepalive,
+                pub tcp_keepalive: SubsetsItemTrafficPolicyConnectionPoolTcpTcpKeepalive,
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPoolTcp {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
                 pub connect_timeout: String,
                 /// Maximum number of HTTP1 /TCP connections to a destination host.
                 pub max_connections: i32,
                 /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-                pub tcp_keepalive: SubsetTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive,
+                pub tcp_keepalive:
+                    SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive,
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
@@ -2945,19 +2941,20 @@ pub mod networking_istio_io {
             /// Settings common to both HTTP and TCP upstream connections.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPoolTcp {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
                 pub connect_timeout: String,
                 /// Maximum number of HTTP1 /TCP connections to a destination host.
                 pub max_connections: i32,
                 /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-                pub tcp_keepalive: SpecTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive,
+                pub tcp_keepalive:
+                    SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive,
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyConnectionPoolTcpTcpKeepalive {
+            pub struct SubsetsItemTrafficPolicyConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
                 pub interval: String,
                 pub probes: i64,
@@ -2967,7 +2964,7 @@ pub mod networking_istio_io {
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
                 pub interval: String,
                 pub probes: i64,
@@ -2987,7 +2984,7 @@ pub mod networking_istio_io {
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingConnectionPoolTcpTcpKeepalive {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
                 pub interval: String,
                 pub probes: i64,
@@ -2997,7 +2994,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingTls {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -3014,7 +3011,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyTls {
+            pub struct SubsetsItemTrafficPolicyTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -3031,7 +3028,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingTls {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -3065,7 +3062,7 @@ pub mod networking_istio_io {
             /// Map of upstream localities to traffic distribution weights.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
+            pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
@@ -3073,7 +3070,8 @@ pub mod networking_istio_io {
             /// Map of upstream localities to traffic distribution weights.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo
+            {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
@@ -3089,7 +3087,7 @@ pub mod networking_istio_io {
             /// Map of upstream localities to traffic distribution weights.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingLoadBalancerLocalityLbSettingDistributeItemTo {
+            pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
@@ -3097,16 +3095,16 @@ pub mod networking_istio_io {
             /// Traffic policies that apply to this subset.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicy {
-                pub connection_pool: SubsetTrafficPolicyConnectionPool,
+            pub struct SubsetsItemTrafficPolicy {
+                pub connection_pool: SubsetsItemTrafficPolicyConnectionPool,
                 /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SubsetTrafficPolicyLoadBalancer,
-                pub outlier_detection: SubsetTrafficPolicyOutlierDetection,
+                pub load_balancer: SubsetsItemTrafficPolicyLoadBalancer,
+                pub outlier_detection: SubsetsItemTrafficPolicyOutlierDetection,
                 /// Traffic policies specific to individual ports.
-                pub port_level_settings: Vec<SubsetTrafficPolicyPortLevelSetting>,
+                pub port_level_settings: Vec<SubsetsItemTrafficPolicyPortLevelSettingsItem>,
                 /// TLS related settings for connections to the upstream service.
-                pub tls: SubsetTrafficPolicyTls,
-                pub tunnel: SubsetTrafficPolicyTunnel,
+                pub tls: SubsetsItemTrafficPolicyTls,
+                pub tunnel: SubsetsItemTrafficPolicyTunnel,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -3117,7 +3115,7 @@ pub mod networking_istio_io {
                 pub load_balancer: SpecTrafficPolicyLoadBalancer,
                 pub outlier_detection: SpecTrafficPolicyOutlierDetection,
                 /// Traffic policies specific to individual ports.
-                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSetting>,
+                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSettingsItem>,
                 /// TLS related settings for connections to the upstream service.
                 pub tls: SpecTrafficPolicyTls,
                 pub tunnel: SpecTrafficPolicyTunnel,
@@ -3125,7 +3123,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetTrafficPolicyTunnel {
+            pub struct SubsetsItemTrafficPolicyTunnel {
                 /// Specifies which protocol to use for tunneling the downstream connection.
                 pub protocol: String,
                 /// Specifies a host to which the downstream connection is tunneled.
@@ -3202,7 +3200,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Server {
+            pub struct ServersItem {
                 pub bind: String,
                 pub default_endpoint: String,
                 /// One or more hosts exposed by this gateway.
@@ -3220,7 +3218,7 @@ pub mod networking_istio_io {
             pub struct Spec {
                 pub selector: Selector,
                 /// A list of server specifications.
-                pub servers: Vec<Server>,
+                pub servers: Vec<ServersItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -3366,10 +3364,10 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Endpoint {
+            pub struct EndpointsItem {
                 pub address: String,
                 /// One or more labels associated with the endpoint.
-                pub labels: EndpointLabels,
+                pub labels: EndpointsItemLabels,
                 /// The locality associated with the endpoint.
                 pub locality: String,
                 pub network: String,
@@ -3383,7 +3381,7 @@ pub mod networking_istio_io {
             /// One or more labels associated with the endpoint.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct EndpointLabels {
+            pub struct EndpointsItemLabels {
                 /// One or more labels associated with the endpoint.
                 pub properties: std::collections::HashMap<String, String>,
             }
@@ -3394,9 +3392,17 @@ pub mod networking_istio_io {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
+            /// Set of ports associated with the endpoint.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Port {
+            pub struct Ports {
+                /// Set of ports associated with the endpoint.
+                pub properties: std::collections::HashMap<String, i64>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PortsItem {
                 /// Label assigned to the port.
                 pub name: String,
                 /// A valid non-negative integer port number.
@@ -3406,14 +3412,6 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Ports {
-                /// Set of ports associated with the endpoint.
-                pub properties: std::collections::HashMap<String, i64>,
-            }
-
             /// Configuration affecting service registry. See more details at: https://istio.io/docs/reference/config/networking/service-entry.html
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
@@ -3421,14 +3419,14 @@ pub mod networking_istio_io {
                 /// The virtual IP addresses associated with the service.
                 pub addresses: Vec<String>,
                 /// One or more endpoints associated with the service.
-                pub endpoints: Vec<Endpoint>,
+                pub endpoints: Vec<EndpointsItem>,
                 /// A list of namespaces to which this service is exported.
                 pub export_to: Vec<String>,
                 /// The hosts associated with the ServiceEntry.
                 pub hosts: Vec<String>,
                 pub location: String,
                 /// The ports associated with the external service.
-                pub ports: Vec<Port>,
+                pub ports: Vec<PortsItem>,
                 /// Service discovery mode for the hosts.
                 pub resolution: String,
                 pub subject_alt_names: Vec<String>,
@@ -3482,12 +3480,12 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Egres {
+            pub struct EgressItem {
                 pub bind: String,
                 pub capture_mode: String,
                 pub hosts: Vec<String>,
                 /// The port associated with the listener.
-                pub port: EgresPort,
+                pub port: EgressItemPort,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -3503,13 +3501,13 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Ingres {
+            pub struct IngressItem {
                 /// The IP to which the listener should be bound.
                 pub bind: String,
                 pub capture_mode: String,
                 pub default_endpoint: String,
                 /// The port associated with the listener.
-                pub port: IngresPort,
+                pub port: IngressItemPort,
                 pub tls: Tls,
             }
 
@@ -3530,7 +3528,7 @@ pub mod networking_istio_io {
             /// The port associated with the listener.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct EgresPort {
+            pub struct EgressItemPort {
                 /// Label assigned to the port.
                 pub name: String,
                 /// A valid non-negative integer port number.
@@ -3543,7 +3541,7 @@ pub mod networking_istio_io {
             /// The port associated with the listener.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct IngresPort {
+            pub struct IngressItemPort {
                 /// Label assigned to the port.
                 pub name: String,
                 /// A valid non-negative integer port number.
@@ -3564,8 +3562,8 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
-                pub egress: Vec<Egres>,
-                pub ingress: Vec<Ingres>,
+                pub egress: Vec<EgressItem>,
+                pub ingress: Vec<IngressItem>,
                 /// Configuration for the outbound traffic policy.
                 pub outbound_traffic_policy: OutboundTrafficPolicy,
                 pub workload_selector: WorkloadSelector,
@@ -3675,7 +3673,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct AllowOrigin {
+            pub struct AllowOriginsItem {
                 pub exact: String,
                 pub prefix: String,
                 /// RE2 style regex-based match (https://github.com/google/re2/wiki/Syntax).
@@ -3702,7 +3700,7 @@ pub mod networking_istio_io {
                 /// The list of origins that are allowed to perform CORS requests.
                 pub allow_origin: Vec<String>,
                 /// String patterns that match allowed origins.
-                pub allow_origins: Vec<AllowOrigin>,
+                pub allow_origins: Vec<AllowOriginsItem>,
                 pub expose_headers: Vec<String>,
                 pub max_age: String,
             }
@@ -3752,11 +3750,11 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlRouteItemDestination {
+            pub struct TlsItemRouteItemDestination {
                 /// The name of a service from the service registry.
                 pub host: String,
                 /// Specifies the port on the host that is being addressed.
-                pub port: TlRouteItemDestinationPort,
+                pub port: TlsItemRouteItemDestinationPort,
                 /// The name of a subset within the service.
                 pub subset: String,
             }
@@ -3863,7 +3861,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlMatchItem {
+            pub struct TlsItemMatchItem {
                 /// IPv4 or IPv6 ip addresses of destination with optional subnet.
                 pub destination_subnets: Vec<String>,
                 /// Names of gateways where the rule should be applied.
@@ -3872,7 +3870,7 @@ pub mod networking_istio_io {
                 pub port: i64,
                 /// SNI (server name indicator) to match on.
                 pub sni_hosts: Vec<String>,
-                pub source_labels: TlMatchItemSourceLabels,
+                pub source_labels: TlsItemMatchItemSourceLabels,
                 /// Source namespace constraining the applicability of a rule to workloads in that namespace.
                 pub source_namespace: String,
             }
@@ -3942,7 +3940,7 @@ pub mod networking_istio_io {
             /// Specifies the port on the host that is being addressed.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlRouteItemDestinationPort {
+            pub struct TlsItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
@@ -4042,8 +4040,8 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlRouteItem {
-                pub destination: TlRouteItemDestination,
+            pub struct TlsItemRouteItem {
+                pub destination: TlsItemRouteItemDestination,
                 /// Weight specifies the relative proportion of traffic to be forwarded to the destination.
                 pub weight: i32,
             }
@@ -4095,7 +4093,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TlMatchItemSourceLabels {
+            pub struct TlsItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
@@ -4113,7 +4111,7 @@ pub mod networking_istio_io {
                 pub http: Vec<HttpItem>,
                 /// An ordered list of route rules for opaque TCP traffic.
                 pub tcp: Vec<TcpItem>,
-                pub tls: Vec<Tl>,
+                pub tls: Vec<TlsItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -4132,10 +4130,10 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Tl {
-                pub r#match: Vec<TlMatchItem>,
+            pub struct TlsItem {
+                pub r#match: Vec<TlsItemMatchItem>,
                 /// The destination to which the connection should be forwarded to.
-                pub route: Vec<TlRouteItem>,
+                pub route: Vec<TlsItemRouteItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -4303,7 +4301,7 @@ pub mod networking_istio_io {
                 /// Host name to connect to, defaults to the pod IP.
                 pub host: String,
                 /// Headers the proxy will pass on to make the request.
-                pub http_headers: Vec<HttpHeader>,
+                pub http_headers: Vec<HttpHeadersItem>,
                 /// Path to access on the HTTP server.
                 pub path: String,
                 /// Port on which the endpoint lives.
@@ -4313,7 +4311,7 @@ pub mod networking_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct HttpHeader {
+            pub struct HttpHeadersItem {
                 pub name: String,
                 pub value: String,
             }
@@ -4491,7 +4489,7 @@ pub mod security_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Rule {
+            pub struct RulesItem {
                 /// Optional.
                 pub from: Vec<FromItem>,
                 /// Optional.
@@ -4542,7 +4540,7 @@ pub mod security_istio_io {
                 /// Specifies detailed configuration of the CUSTOM action.
                 pub provider: Provider,
                 /// Optional.
-                pub rules: Vec<Rule>,
+                pub rules: Vec<RulesItem>,
                 /// Optional.
                 pub selector: Selector,
             }
@@ -4689,7 +4687,7 @@ pub mod security_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct FromHeader {
+            pub struct FromHeadersItem {
                 /// The HTTP header name.
                 pub name: String,
                 /// The prefix that should be stripped before decoding the token.
@@ -4698,12 +4696,12 @@ pub mod security_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct JwtRule {
+            pub struct JwtRulesItem {
                 pub audiences: Vec<String>,
                 /// If set to true, the original token will be kept for the upstream request.
                 pub forward_original_token: bool,
                 /// List of header locations from which JWT is expected.
-                pub from_headers: Vec<FromHeader>,
+                pub from_headers: Vec<FromHeadersItem>,
                 /// List of query parameters from which JWT is expected.
                 pub from_params: Vec<String>,
                 /// Identifies the issuer that issued the JWT.
@@ -4733,7 +4731,7 @@ pub mod security_istio_io {
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Define the list of JWTs that can be validated at the selected workloads' proxy.
-                pub jwt_rules: Vec<JwtRule>,
+                pub jwt_rules: Vec<JwtRulesItem>,
                 /// Optional.
                 pub selector: Selector,
             }
@@ -4789,7 +4787,7 @@ pub mod telemetry_istio_io {
                 /// Allows tailoring of logging behavior to specific conditions.
                 pub r#match: AccessLoggingItemMatch,
                 /// Optional.
-                pub providers: Vec<AccessLoggingItemProvider>,
+                pub providers: Vec<AccessLoggingItemProvidersItem>,
             }
 
             /// Optional.
@@ -4845,7 +4843,7 @@ pub mod telemetry_istio_io {
             /// Match allows provides the scope of the override.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct OverrideMatch {
+            pub struct OverridesItemMatch {
                 /// Allows free-form specification of a metric.
                 pub custom_metric: String,
                 /// One of the well-known Istio Standard Metrics.
@@ -4868,41 +4866,41 @@ pub mod telemetry_istio_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Metric {
+            pub struct MetricsItem {
                 /// Optional.
-                pub overrides: Vec<Override>,
+                pub overrides: Vec<OverridesItem>,
                 /// Optional.
-                pub providers: Vec<MetricProvider>,
+                pub providers: Vec<MetricsItemProvidersItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Override {
+            pub struct OverridesItem {
                 /// Optional.
                 pub disabled: Option<bool>,
                 /// Match allows provides the scope of the override.
-                pub r#match: OverrideMatch,
+                pub r#match: OverridesItemMatch,
                 /// Optional.
                 pub tag_overrides: TagOverrides,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct AccessLoggingItemProvider {
+            pub struct AccessLoggingItemProvidersItem {
                 /// Required.
                 pub name: String,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct MetricProvider {
+            pub struct MetricsItemProvidersItem {
                 /// Required.
                 pub name: String,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct TracingItemProvider {
+            pub struct TracingItemProvidersItem {
                 /// Required.
                 pub name: String,
             }
@@ -4921,7 +4919,7 @@ pub mod telemetry_istio_io {
                 /// Optional.
                 pub access_logging: Vec<AccessLoggingItem>,
                 /// Optional.
-                pub metrics: Vec<Metric>,
+                pub metrics: Vec<MetricsItem>,
                 /// Optional.
                 pub selector: Selector,
                 /// Optional.
@@ -4952,7 +4950,7 @@ pub mod telemetry_istio_io {
                 /// Allows tailoring of behavior to specific conditions.
                 pub r#match: TracingItemMatch,
                 /// Optional.
-                pub providers: Vec<TracingItemProvider>,
+                pub providers: Vec<TracingItemProvidersItem>,
                 pub random_sampling_percentage: Option<f64>,
                 pub use_request_id_for_trace_sampling: Option<bool>,
             }

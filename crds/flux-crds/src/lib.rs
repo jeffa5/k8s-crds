@@ -25,7 +25,7 @@ pub mod helm_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -53,7 +53,7 @@ pub mod helm_toolkit_fluxcd_io {
             /// Image contains an image name, a new name, a new tag or digest, which will replace the original name and tag.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Image {
+            pub struct ImagesItem {
                 /// Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored.
                 pub digest: String,
                 /// Name is a tag-less image name.
@@ -108,9 +108,9 @@ pub mod helm_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct Kustomize {
                 /// Images is a list of (image name, new name, new tag or digest) for changing image names, tags or digests. This can also be achieved with a patch, but this operator is simpler to specify.
-                pub images: Vec<Image>,
+                pub images: Vec<ImagesItem>,
                 /// Strategic merge and JSON patches, defined as inline YAML objects, capable of targeting objects based on kind, label and annotation selectors.
-                pub patches: Vec<Patche>,
+                pub patches: Vec<PatchesItem>,
                 /// JSON 6902 patches, defined as inline YAML objects.
                 pub patches_json6902: Vec<PatchesJson6902Item>,
                 /// Strategic merge patches, defined as inline YAML objects.
@@ -134,11 +134,11 @@ pub mod helm_toolkit_fluxcd_io {
             /// Patch contains an inline StrategicMerge or JSON6902 patch, and the target the patch should be applied to.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Patche {
+            pub struct PatchesItem {
                 /// Patch contains an inline StrategicMerge patch or an inline JSON6902 patch with an array of operation objects.
                 pub patch: String,
                 /// Target points to the resources that the patch document should be applied to.
-                pub target: PatcheTarget,
+                pub target: PatchesItemTarget,
             }
 
             /// JSON6902Patch contains a JSON6902 patch and the target the patch should be applied to.
@@ -154,7 +154,7 @@ pub mod helm_toolkit_fluxcd_io {
             /// PostRenderer contains a Helm PostRenderer specification.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PostRenderer {
+            pub struct PostRenderersItem {
                 /// Kustomization to apply as PostRenderer.
                 pub kustomize: Kustomize,
             }
@@ -246,7 +246,7 @@ pub mod helm_toolkit_fluxcd_io {
                 /// MaxHistory is the number of revisions saved by Helm for this HelmRelease. Use '0' for an unlimited number of revisions; defaults to '10'.
                 pub max_history: i64,
                 /// PostRenderers holds an array of Helm PostRenderers, which will be applied in order of their definition.
-                pub post_renderers: Vec<PostRenderer>,
+                pub post_renderers: Vec<PostRenderersItem>,
                 /// ReleaseName used for the Helm release. Defaults to a composition of '[TargetNamespace-]Name'.
                 pub release_name: String,
                 /// Rollback holds the configuration for Helm rollback actions for this HelmRelease.
@@ -298,7 +298,7 @@ pub mod helm_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Conditions holds the conditions for the HelmRelease.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// Failures is the reconciliation failure count against the latest desired state. It is reset after a successful reconciliation.
                 pub failures: i64,
                 /// HelmChart is the namespaced name of the HelmChart resource created by the controller for the HelmRelease.
@@ -324,7 +324,7 @@ pub mod helm_toolkit_fluxcd_io {
             /// Target points to the resources that the patch document should be applied to.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PatcheTarget {
+            pub struct PatchesItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
                 pub annotation_selector: String,
                 /// Group is the API group to select resources from. Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
@@ -481,7 +481,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -558,7 +558,7 @@ pub mod image_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LatestImage gives the first in the list of images scanned by the image repository, when filtered and ordered according to the policy.
                 pub latest_image: String,
                 pub observed_generation: i64,
@@ -610,7 +610,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -667,7 +667,7 @@ pub mod image_toolkit_fluxcd_io {
             pub struct Status {
                 /// CanonicalName is the name of the image repository with all the implied bits made explicit; e.g., `docker.io/library/alpine` rather than `alpine`.
                 pub canonical_image_name: String,
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// LastScanResult contains the number of fetched tags.
@@ -736,7 +736,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -805,7 +805,7 @@ pub mod image_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastAutomationRunTime records the last time the controller ran this automation through to completion (even if no updates were made).
                 pub last_automation_run_time: String,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
@@ -873,7 +873,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -950,7 +950,7 @@ pub mod image_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LatestImage gives the first in the list of images scanned by the image repository, when filtered and ordered according to the policy.
                 pub latest_image: String,
                 pub observed_generation: i64,
@@ -1002,7 +1002,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -1059,7 +1059,7 @@ pub mod image_toolkit_fluxcd_io {
             pub struct Status {
                 /// CanonicalName is the name of the image repository with all the implied bits made explicit; e.g., `docker.io/library/alpine` rather than `alpine`.
                 pub canonical_image_name: String,
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// LastScanResult contains the number of fetched tags.
@@ -1134,7 +1134,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -1231,7 +1231,7 @@ pub mod image_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastAutomationRunTime records the last time the controller ran this automation through to completion (even if no updates were made).
                 pub last_automation_run_time: String,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
@@ -1299,7 +1299,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -1378,7 +1378,7 @@ pub mod image_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LatestImage gives the first in the list of images scanned by the image repository, when filtered and ordered according to the policy.
                 pub latest_image: String,
                 pub observed_generation: i64,
@@ -1421,7 +1421,7 @@ pub mod image_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// CertSecretRef can be given the name of a secret containing either or both of
@@ -1438,7 +1438,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -1472,7 +1472,7 @@ pub mod image_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -1517,7 +1517,7 @@ pub mod image_toolkit_fluxcd_io {
             pub struct Status {
                 /// CanonicalName is the name of the image repository with all the implied bits made explicit; e.g., `docker.io/library/alpine` rather than `alpine`.
                 pub canonical_image_name: String,
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// LastScanResult contains the number of fetched tags.
@@ -1592,7 +1592,7 @@ pub mod image_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -1693,7 +1693,7 @@ pub mod image_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastAutomationRunTime records the last time the controller ran this automation through to completion (even if no updates were made).
                 pub last_automation_run_time: String,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
@@ -1755,7 +1755,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -1793,7 +1793,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Snapshot holds the metadata of namespaced Kubernetes objects
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Entrie {
+            pub struct EntriesItem {
                 /// The list of Kubernetes kinds.
                 pub kinds: Kinds,
                 /// The namespace of this entry.
@@ -1803,7 +1803,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// NamespacedObjectKindReference contains enough information to locate the typed referenced Kubernetes resource object in any namespace.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct HealthCheck {
+            pub struct HealthChecksItem {
                 /// API version of the referent, if not specified the Kubernetes preferred version will be used.
                 pub api_version: String,
                 /// Kind of the referent.
@@ -1817,7 +1817,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Image contains an image name, a new name, a new tag or digest, which will replace the original name and tag.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Image {
+            pub struct ImagesItem {
                 /// Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored.
                 pub digest: String,
                 /// Name is a tag-less image name.
@@ -1861,11 +1861,11 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Patch contains an inline StrategicMerge or JSON6902 patch, and the target the patch should be applied to.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Patche {
+            pub struct PatchesItem {
                 /// Patch contains an inline StrategicMerge patch or an inline JSON6902 patch with an array of operation objects.
                 pub patch: String,
                 /// Target points to the resources that the patch document should be applied to.
-                pub target: PatcheTarget,
+                pub target: PatchesItemTarget,
             }
 
             /// JSON6902Patch contains a JSON6902 patch and the target the patch should be applied to.
@@ -1911,7 +1911,7 @@ pub mod kustomize_toolkit_fluxcd_io {
                 /// The manifests sha1 checksum.
                 pub checksum: String,
                 /// A list of Kubernetes kinds grouped by namespace.
-                pub entries: Vec<Entrie>,
+                pub entries: Vec<EntriesItem>,
             }
 
             /// Reference of the source where the kustomization file is.
@@ -1939,15 +1939,15 @@ pub mod kustomize_toolkit_fluxcd_io {
                 /// Force instructs the controller to recreate resources when patching fails due to an immutable field change.
                 pub force: bool,
                 /// A list of resources to be included in the health assessment.
-                pub health_checks: Vec<HealthCheck>,
+                pub health_checks: Vec<HealthChecksItem>,
                 /// Images is a list of (image name, new name, new tag or digest) for changing image names, tags or digests. This can also be achieved with a patch, but this operator is simpler to specify.
-                pub images: Vec<Image>,
+                pub images: Vec<ImagesItem>,
                 /// The interval at which to reconcile the Kustomization.
                 pub interval: String,
                 /// The KubeConfig for reconciling the Kustomization on a remote cluster. When specified, KubeConfig takes precedence over ServiceAccountName.
                 pub kube_config: KubeConfig,
                 /// Strategic merge and JSON patches, defined as inline YAML objects, capable of targeting objects based on kind, label and annotation selectors.
-                pub patches: Vec<Patche>,
+                pub patches: Vec<PatchesItem>,
                 /// JSON 6902 patches, defined as inline YAML objects.
                 pub patches_json6902: Vec<PatchesJson6902Item>,
                 /// Strategic merge patches, defined as inline YAML objects.
@@ -1978,7 +1978,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// The last successfully applied revision. The revision format for Git sources is <branch|tag>/<commit-sha>.
                 pub last_applied_revision: String,
                 /// LastAttemptedRevision is the revision of the last reconciliation attempt.
@@ -2012,7 +2012,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Target points to the resources that the patch document should be applied to.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PatcheTarget {
+            pub struct PatchesItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
                 pub annotation_selector: String,
                 /// Group is the API group to select resources from. Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
@@ -2087,7 +2087,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -2125,7 +2125,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// ResourceRef contains the information necessary to locate a resource within a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Entrie {
+            pub struct EntriesItem {
                 /// ID is the string representation of the Kubernetes resource object's metadata, in the format '<namespace>_<name>_<group>_<kind>'.
                 pub id: String,
                 /// Version is the API version of the Kubernetes resource object's kind.
@@ -2135,7 +2135,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// NamespacedObjectKindReference contains enough information to locate the typed referenced Kubernetes resource object in any namespace.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct HealthCheck {
+            pub struct HealthChecksItem {
                 /// API version of the referent, if not specified the Kubernetes preferred version will be used.
                 pub api_version: String,
                 /// Kind of the referent.
@@ -2149,7 +2149,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Image contains an image name, a new name, a new tag or digest, which will replace the original name and tag.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Image {
+            pub struct ImagesItem {
                 /// Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored.
                 pub digest: String,
                 /// Name is a tag-less image name.
@@ -2165,7 +2165,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct Inventory {
                 /// Entries of Kubernetes resource object references.
-                pub entries: Vec<Entrie>,
+                pub entries: Vec<EntriesItem>,
             }
 
             /// The KubeConfig for reconciling the Kustomization on a remote cluster. When used in combination with KustomizationSpec.ServiceAccountName, forces the controller to act on behalf of that Service Account at the target cluster. If the --default-service-account flag is set, its value will be used as a controller level fallback for when KustomizationSpec.ServiceAccountName is empty.
@@ -2193,11 +2193,11 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Patch contains an inline StrategicMerge or JSON6902 patch, and the target the patch should be applied to.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Patche {
+            pub struct PatchesItem {
                 /// Patch contains an inline StrategicMerge patch or an inline JSON6902 patch with an array of operation objects.
                 pub patch: String,
                 /// Target points to the resources that the patch document should be applied to.
-                pub target: PatcheTarget,
+                pub target: PatchesItemTarget,
             }
 
             /// JSON6902Patch contains a JSON6902 patch and the target the patch should be applied to.
@@ -2263,15 +2263,15 @@ pub mod kustomize_toolkit_fluxcd_io {
                 /// Force instructs the controller to recreate resources when patching fails due to an immutable field change.
                 pub force: bool,
                 /// A list of resources to be included in the health assessment.
-                pub health_checks: Vec<HealthCheck>,
+                pub health_checks: Vec<HealthChecksItem>,
                 /// Images is a list of (image name, new name, new tag or digest) for changing image names, tags or digests. This can also be achieved with a patch, but this operator is simpler to specify.
-                pub images: Vec<Image>,
+                pub images: Vec<ImagesItem>,
                 /// The interval at which to reconcile the Kustomization.
                 pub interval: String,
                 /// The KubeConfig for reconciling the Kustomization on a remote cluster. When used in combination with KustomizationSpec.ServiceAccountName, forces the controller to act on behalf of that Service Account at the target cluster. If the --default-service-account flag is set, its value will be used as a controller level fallback for when KustomizationSpec.ServiceAccountName is empty.
                 pub kube_config: KubeConfig,
                 /// Strategic merge and JSON patches, defined as inline YAML objects, capable of targeting objects based on kind, label and annotation selectors.
-                pub patches: Vec<Patche>,
+                pub patches: Vec<PatchesItem>,
                 /// JSON 6902 patches, defined as inline YAML objects. Deprecated: Use Patches instead.
                 pub patches_json6902: Vec<PatchesJson6902Item>,
                 /// Strategic merge patches, defined as inline YAML objects. Deprecated: Use Patches instead.
@@ -2304,7 +2304,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// Inventory contains the list of Kubernetes resource object references that have been successfully applied.
                 pub inventory: Inventory,
                 /// The last successfully applied revision. The revision format for Git sources is <branch|tag>/<commit-sha>.
@@ -2340,7 +2340,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             /// Target points to the resources that the patch document should be applied to.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PatcheTarget {
+            pub struct PatchesItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
                 pub annotation_selector: String,
                 /// Group is the API group to select resources from. Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
@@ -2417,7 +2417,7 @@ pub mod notification_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -2435,7 +2435,7 @@ pub mod notification_toolkit_fluxcd_io {
             /// CrossNamespaceObjectReference contains enough information to let you locate the typed referenced object at cluster level
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct EventSource {
+            pub struct EventSourcesItem {
                 /// API version of the referent
                 pub api_version: String,
                 /// Kind of the referent
@@ -2471,7 +2471,7 @@ pub mod notification_toolkit_fluxcd_io {
                 /// Filter events based on severity, defaults to ('info'). If set to 'info' no events will be filtered.
                 pub event_severity: String,
                 /// Filter events based on the involved objects.
-                pub event_sources: Vec<EventSource>,
+                pub event_sources: Vec<EventSourcesItem>,
                 /// A list of Golang regular expressions to be used for excluding messages.
                 pub exclusion_list: Vec<String>,
                 /// Send events using this provider.
@@ -2486,7 +2486,7 @@ pub mod notification_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// ObservedGeneration is the last observed generation.
                 pub observed_generation: i64,
             }
@@ -2535,7 +2535,7 @@ pub mod notification_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -2584,7 +2584,7 @@ pub mod notification_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// ObservedGeneration is the last reconciled generation.
                 pub observed_generation: i64,
             }
@@ -2625,7 +2625,7 @@ pub mod notification_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -2651,7 +2651,7 @@ pub mod notification_toolkit_fluxcd_io {
             /// CrossNamespaceObjectReference contains enough information to let you locate the typed referenced object at cluster level
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Resource {
+            pub struct ResourcesItem {
                 /// API version of the referent
                 pub api_version: String,
                 /// Kind of the referent
@@ -2679,7 +2679,7 @@ pub mod notification_toolkit_fluxcd_io {
                 /// A list of events to handle, e.g. 'push' for GitHub or 'Push Hook' for GitLab.
                 pub events: Vec<String>,
                 /// A list of resources to be notified about changes.
-                pub resources: Vec<Resource>,
+                pub resources: Vec<ResourcesItem>,
                 /// Secret reference containing the token used to validate the payload authenticity
                 pub secret_ref: SecretRef,
                 /// This flag tells the controller to suspend subsequent events handling. Defaults to false.
@@ -2692,7 +2692,7 @@ pub mod notification_toolkit_fluxcd_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// ObservedGeneration is the last observed generation.
                 pub observed_generation: i64,
                 /// Generated webhook URL in the format of '/hook/sha256sum(token+name+namespace)'.
@@ -2740,7 +2740,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the output of the last successful Bucket sync.
@@ -2763,7 +2763,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -2789,7 +2789,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -2837,7 +2837,7 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the output of the last successful Bucket sync.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the Bucket.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation.
@@ -2883,7 +2883,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the output of the last successful repository sync.
@@ -2906,7 +2906,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -2936,7 +2936,7 @@ pub mod source_toolkit_fluxcd_io {
             /// Artifact represents the output of a source synchronisation.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct IncludedArtifact {
+            pub struct IncludedArtifactsItem {
                 /// Checksum is the SHA256 checksum of the artifact.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of this artifact.
@@ -2960,7 +2960,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3040,9 +3040,9 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the output of the last successful repository sync.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the GitRepository.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// IncludedArtifacts represents the included artifacts from the last successful repository sync.
-                pub included_artifacts: Vec<IncludedArtifact>,
+                pub included_artifacts: Vec<IncludedArtifactsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation.
@@ -3098,7 +3098,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the output of the last successful chart sync.
@@ -3121,7 +3121,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -3147,7 +3147,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3195,7 +3195,7 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the output of the last successful chart sync.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the HelmChart.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation.
@@ -3241,7 +3241,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the output of the last successful repository sync.
@@ -3264,7 +3264,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -3290,7 +3290,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3330,7 +3330,7 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the output of the last successful repository sync.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the HelmRepository.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation.
@@ -3378,7 +3378,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the last successful Bucket reconciliation.
@@ -3403,7 +3403,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -3429,7 +3429,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3477,7 +3477,7 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the last successful Bucket reconciliation.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the Bucket.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation of the Bucket object.
@@ -3523,7 +3523,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the last successful GitRepository reconciliation.
@@ -3548,7 +3548,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -3578,7 +3578,7 @@ pub mod source_toolkit_fluxcd_io {
             /// Artifact represents the output of a Source reconciliation.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct IncludedArtifact {
+            pub struct IncludedArtifactsItem {
                 /// Checksum is the SHA256 checksum of the Artifact file.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of the Artifact.
@@ -3604,7 +3604,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3686,11 +3686,11 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the last successful GitRepository reconciliation.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the GitRepository.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// ContentConfigChecksum is a checksum of all the configurations related to the content of the source artifact:  - .spec.ignore  - .spec.recurseSubmodules  - .spec.included and the checksum of the included artifacts observed in .status.observedGeneration version of the object. This can be used to determine if the content of the included repository has changed. It has the format of `<algo>:<checksum>`, for example: `sha256:<checksum>`.
                 pub content_config_checksum: String,
                 /// IncludedArtifacts contains a list of the last successfully included Artifacts as instructed by GitRepositorySpec.Include.
-                pub included_artifacts: Vec<IncludedArtifact>,
+                pub included_artifacts: Vec<IncludedArtifactsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation of the GitRepository object.
@@ -3746,7 +3746,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the output of the last successful reconciliation.
@@ -3771,7 +3771,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -3797,7 +3797,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3845,7 +3845,7 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the output of the last successful reconciliation.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the HelmChart.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedChartName is the last observed chart name as specified by the resolved chart reference.
@@ -3895,7 +3895,7 @@ pub mod source_toolkit_fluxcd_io {
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
-                pub namespace_selectors: Vec<NamespaceSelector>,
+                pub namespace_selectors: Vec<NamespaceSelectorsItem>,
             }
 
             /// Artifact represents the last successful HelmRepository reconciliation.
@@ -3920,7 +3920,7 @@ pub mod source_toolkit_fluxcd_io {
             ///      // other fields }
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                 pub last_transition_time: String,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
@@ -3946,7 +3946,7 @@ pub mod source_toolkit_fluxcd_io {
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NamespaceSelector {
+            pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
                 pub match_labels: MatchLabels,
             }
@@ -3988,7 +3988,7 @@ pub mod source_toolkit_fluxcd_io {
                 /// Artifact represents the last successful HelmRepository reconciliation.
                 pub artifact: Artifact,
                 /// Conditions holds the conditions for the HelmRepository.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// ObservedGeneration is the last observed generation of the HelmRepository object.

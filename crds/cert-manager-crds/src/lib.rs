@@ -219,7 +219,7 @@ pub mod acme_cert_manager_io {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub labels: GatewayHTTPRouteLabels,
                 /// When solving an HTTP-01 challenge, cert-manager creates an HTTPRoute. cert-manager needs to know which parentRefs should be used when creating the HTTPRoute. Usually, the parentRef references a Gateway. See: https://gateway-api.sigs.k8s.io/v1alpha2/api-types/httproute/#attaching-to-gateways
-                pub parent_refs: Vec<ParentRef>,
+                pub parent_refs: Vec<ParentRefsItem>,
                 /// Optional service type for Kubernetes solver service. Supported values are NodePort or ClusterIP. If unset, defaults to NodePort.
                 pub service_type: String,
             }
@@ -275,7 +275,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -285,7 +285,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -295,7 +295,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -305,7 +305,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -347,7 +347,7 @@ pub mod acme_cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchExpression {
+            pub struct PreferenceMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -359,7 +359,7 @@ pub mod acme_cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermMatchExpression {
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -371,7 +371,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -384,7 +384,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -397,7 +397,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -410,7 +410,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -423,7 +423,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -436,7 +436,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -449,7 +449,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -462,7 +462,7 @@ pub mod acme_cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -475,7 +475,7 @@ pub mod acme_cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchField {
+            pub struct PreferenceMatchFieldsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -487,7 +487,7 @@ pub mod acme_cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermMatchField {
+            pub struct NodeSelectorTermsItemMatchFieldsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -600,7 +600,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -610,7 +610,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -620,7 +620,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -630,7 +630,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -658,11 +658,11 @@ pub mod acme_cert_manager_io {
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTerm {
+            pub struct NodeSelectorTermsItem {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<NodeSelectorTermMatchField>,
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
             }
 
             /// ParentRef identifies an API object (usually a Gateway) that can be considered a parent of this resource (usually a route). The only kind of parent resource with "Core" support is Gateway. This API may be extended in the future to support additional kinds of parent resources, such as HTTPRoute.
@@ -670,7 +670,7 @@ pub mod acme_cert_manager_io {
             ///  References to objects with invalid Group and Kind are not valid, and must be rejected by the implementation, with appropriate Conditions set on the containing object.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct ParentRef {
+            pub struct ParentRefsItem {
                 /// Group is the group of the referent.
                 ///  Support: Core
                 pub group: String,
@@ -758,9 +758,9 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<PreferenceMatchExpression>,
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<PreferenceMatchField>,
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -799,7 +799,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
-                pub node_selector_terms: Vec<NodeSelectorTerm>,
+                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -942,7 +942,7 @@ pub mod acme_cert_manager_io {
                 /// If specified, the pod's service account
                 pub service_account_name: String,
                 /// If specified, the pod's tolerations.
-                pub tolerations: Vec<Toleration>,
+                pub tolerations: Vec<TolerationsItem>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
@@ -971,7 +971,7 @@ pub mod acme_cert_manager_io {
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Toleration {
+            pub struct TolerationsItem {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
                 /// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
@@ -1041,9 +1041,9 @@ pub mod acme_cert_manager_io {
             /// ACMEAuthorization contains data returned from the ACME server on an authorization that must be completed in order validate a DNS name on an ACME Order resource.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Authorization {
+            pub struct AuthorizationsItem {
                 /// Challenges specifies the challenge types offered by the ACME server. One of these challenge types will be selected when validating the DNS name and an appropriate Challenge resource will be created to perform the ACME challenge process.
-                pub challenges: Vec<Challenge>,
+                pub challenges: Vec<ChallengesItem>,
                 /// Identifier is the DNS name to be validated as part of this authorization
                 pub identifier: String,
                 /// InitialState is the initial state of the ACME authorization when first fetched from the ACME server. If an Authorization is already 'valid', the Order controller will not create a Challenge resource for the authorization. This will occur when working with an ACME server that enables 'authz reuse' (such as Let's Encrypt's production endpoint). If not set and 'identifier' is set, the state is assumed to be pending and a Challenge will be created.
@@ -1057,7 +1057,7 @@ pub mod acme_cert_manager_io {
             /// Challenge specifies a challenge offered by the ACME server for an Order. An appropriate Challenge resource can be created to perform the ACME challenge process.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Challenge {
+            pub struct ChallengesItem {
                 /// Token is the token that must be presented for this challenge. This is used to compute the 'key' that must also be presented.
                 pub token: String,
                 /// Type is the type of challenge being offered, e.g. 'http-01', 'dns-01', 'tls-sni-01', etc. This is the raw value retrieved from the ACME server. Only 'http-01' and 'dns-01' are supported by cert-manager, other values will be ignored.
@@ -1099,7 +1099,7 @@ pub mod acme_cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Authorizations contains data returned from the ACME server on what authorizations must be completed in order to validate the DNS names specified on the Order.
-                pub authorizations: Vec<Authorization>,
+                pub authorizations: Vec<AuthorizationsItem>,
                 /// Certificate is a copy of the PEM encoded certificate for this Order. This field will be populated after the order has been successfully finalized with the ACME server, and the order has transitioned to the 'valid' state.
                 pub certificate: String,
                 /// FailureTime stores the time that this order failed. This is used to influence garbage collection and back-off.
@@ -1154,7 +1154,7 @@ pub mod cert_manager_io {
             /// CertificateAdditionalOutputFormat defines an additional output format of a Certificate resource. These contain supplementary data formats of the signed certificate chain and paired private key.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct AdditionalOutputFormat {
+            pub struct AdditionalOutputFormatsItem {
                 /// Type is the name of the format type that should be written to the Certificate's target Secret.
                 pub r#type: String,
             }
@@ -1170,7 +1170,7 @@ pub mod cert_manager_io {
             /// CertificateCondition contains condition information for an Certificate.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
                 /// Message is a human readable description of the details of the last transition, complementing reason.
@@ -1284,7 +1284,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AdditionalOutputFormats defines extra output formats of the private key and signed certificate chain to be written to this Certificate's target Secret. This is an Alpha Feature and is only enabled with the `--feature-gates=AdditionalCertificateOutputFormats=true` option on both the controller and webhook components.
-                pub additional_output_formats: Vec<AdditionalOutputFormat>,
+                pub additional_output_formats: Vec<AdditionalOutputFormatsItem>,
                 /// CommonName is a common name to be used on the Certificate. The CommonName should have a length of 64 characters or fewer to avoid generating invalid CSRs. This value is ignored by TLS clients when any subject alt name is set. This is x509 behaviour: https://tools.ietf.org/html/rfc6125#section-6.4.4
                 pub common_name: String,
                 /// DNSNames is a list of DNS subjectAltNames to be set on the Certificate.
@@ -1326,7 +1326,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// List of status conditions to indicate the status of certificates. Known condition types are `Ready` and `Issuing`.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// The number of continuous failed issuance attempts up till now. This field gets removed (if set) on a successful issuance and gets set to 1 if unset and an issuance has failed. If an issuance has failed, the delay till the next issuance will be calculated using formula time.Hour * 2 ^ (failedIssuanceAttempts - 1).
                 pub failed_issuance_attempts: i64,
                 /// LastFailureTime is the time as recorded by the Certificate controller of the most recent failure to complete a CertificateRequest for this Certificate resource. If set, cert-manager will not re-request another Certificate until 1 hour has elapsed from this time.
@@ -1405,7 +1405,7 @@ pub mod cert_manager_io {
             /// CertificateRequestCondition contains condition information for a CertificateRequest.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
                 /// Message is a human readable description of the details of the last transition, complementing reason.
@@ -1471,7 +1471,7 @@ pub mod cert_manager_io {
                 /// The PEM encoded x509 certificate resulting from the certificate signing request. If not set, the CertificateRequest has either not been completed or has failed. More information on failure can be found by checking the `conditions` field.
                 pub certificate: String,
                 /// List of status conditions to indicate the status of a CertificateRequest. Known condition types are `Ready` and `InvalidRequest`.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
                 /// FailureTime stores the time that this CertificateRequest failed. This is used to influence garbage collection and back-off.
                 pub failure_time: String,
             }
@@ -1549,7 +1549,7 @@ pub mod cert_manager_io {
                 /// Enables or disables validation of the ACME server TLS certificate. If true, requests to the ACME server will not have their TLS certificate validated (i.e. insecure connections will be allowed). Only enable this option in development environments. The cert-manager system installed roots will be used to verify connections to the ACME server if this is false. Defaults to false.
                 pub skip_t_l_s_verify: bool,
                 /// Solvers is a list of challenge solvers that will be used to solve ACME challenges for the matching domains. Solver configurations must be provided in order to obtain certificates from an ACME server. For more information, see: https://cert-manager.io/docs/configuration/acme/
-                pub solvers: Vec<Solver>,
+                pub solvers: Vec<SolversItem>,
             }
 
             /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
@@ -1766,7 +1766,7 @@ pub mod cert_manager_io {
             /// IssuerCondition contains condition information for an Issuer.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
                 /// Message is a human readable description of the details of the last transition, complementing reason.
@@ -1842,7 +1842,7 @@ pub mod cert_manager_io {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub labels: GatewayHTTPRouteLabels,
                 /// When solving an HTTP-01 challenge, cert-manager creates an HTTPRoute. cert-manager needs to know which parentRefs should be used when creating the HTTPRoute. Usually, the parentRef references a Gateway. See: https://gateway-api.sigs.k8s.io/v1alpha2/api-types/httproute/#attaching-to-gateways
-                pub parent_refs: Vec<ParentRef>,
+                pub parent_refs: Vec<ParentRefsItem>,
                 /// Optional service type for Kubernetes solver service. Supported values are NodePort or ClusterIP. If unset, defaults to NodePort.
                 pub service_type: String,
             }
@@ -1908,7 +1908,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -1918,7 +1918,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -1928,7 +1928,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -1938,7 +1938,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -1980,7 +1980,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchExpression {
+            pub struct PreferenceMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -1992,7 +1992,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermMatchExpression {
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -2004,7 +2004,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2017,7 +2017,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2030,7 +2030,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2043,7 +2043,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2056,7 +2056,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2069,7 +2069,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2082,7 +2082,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2095,7 +2095,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -2108,7 +2108,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchField {
+            pub struct PreferenceMatchFieldsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -2120,7 +2120,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermMatchField {
+            pub struct NodeSelectorTermsItemMatchFieldsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -2233,7 +2233,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -2243,7 +2243,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -2253,7 +2253,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -2263,7 +2263,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -2291,11 +2291,11 @@ pub mod cert_manager_io {
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTerm {
+            pub struct NodeSelectorTermsItem {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<NodeSelectorTermMatchField>,
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
             }
 
             /// ParentRef identifies an API object (usually a Gateway) that can be considered a parent of this resource (usually a route). The only kind of parent resource with "Core" support is Gateway. This API may be extended in the future to support additional kinds of parent resources, such as HTTPRoute.
@@ -2303,7 +2303,7 @@ pub mod cert_manager_io {
             ///  References to objects with invalid Group and Kind are not valid, and must be rejected by the implementation, with appropriate Conditions set on the containing object.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct ParentRef {
+            pub struct ParentRefsItem {
                 /// Group is the group of the referent.
                 ///  Support: Core
                 pub group: String,
@@ -2391,9 +2391,9 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<PreferenceMatchExpression>,
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<PreferenceMatchField>,
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -2442,7 +2442,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
-                pub node_selector_terms: Vec<NodeSelectorTerm>,
+                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -2568,7 +2568,7 @@ pub mod cert_manager_io {
             /// An ACMEChallengeSolver describes how to solve ACME challenges for the issuer it is part of. A selector may be provided to use different solving strategies for different DNS names. Only one of HTTP01 or DNS01 must be provided.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Solver {
+            pub struct SolversItem {
                 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
                 pub dns01: Dns01,
                 /// Configures cert-manager to attempt to complete authorizations by performing the HTTP01 challenge flow. It is not possible to obtain certificates for wildcard domain names (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
@@ -2606,7 +2606,7 @@ pub mod cert_manager_io {
                 /// If specified, the pod's service account
                 pub service_account_name: String,
                 /// If specified, the pod's tolerations.
-                pub tolerations: Vec<Toleration>,
+                pub tolerations: Vec<TolerationsItem>,
             }
 
             /// Status of the ClusterIssuer. This is set and managed automatically.
@@ -2616,7 +2616,7 @@ pub mod cert_manager_io {
                 /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
                 pub acme: StatusAcme,
                 /// List of status conditions to indicate the status of a CertificateRequest. Known condition types are `Ready`.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
@@ -2642,7 +2642,7 @@ pub mod cert_manager_io {
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Toleration {
+            pub struct TolerationsItem {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
                 /// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
@@ -2790,7 +2790,7 @@ pub mod cert_manager_io {
                 /// Enables or disables validation of the ACME server TLS certificate. If true, requests to the ACME server will not have their TLS certificate validated (i.e. insecure connections will be allowed). Only enable this option in development environments. The cert-manager system installed roots will be used to verify connections to the ACME server if this is false. Defaults to false.
                 pub skip_t_l_s_verify: bool,
                 /// Solvers is a list of challenge solvers that will be used to solve ACME challenges for the matching domains. Solver configurations must be provided in order to obtain certificates from an ACME server. For more information, see: https://cert-manager.io/docs/configuration/acme/
-                pub solvers: Vec<Solver>,
+                pub solvers: Vec<SolversItem>,
             }
 
             /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
@@ -3007,7 +3007,7 @@ pub mod cert_manager_io {
             /// IssuerCondition contains condition information for an Issuer.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Condition {
+            pub struct ConditionsItem {
                 /// LastTransitionTime is the timestamp corresponding to the last status change of this condition.
                 pub last_transition_time: String,
                 /// Message is a human readable description of the details of the last transition, complementing reason.
@@ -3083,7 +3083,7 @@ pub mod cert_manager_io {
                 /// Custom labels that will be applied to HTTPRoutes created by cert-manager while solving HTTP-01 challenges.
                 pub labels: GatewayHTTPRouteLabels,
                 /// When solving an HTTP-01 challenge, cert-manager creates an HTTPRoute. cert-manager needs to know which parentRefs should be used when creating the HTTPRoute. Usually, the parentRef references a Gateway. See: https://gateway-api.sigs.k8s.io/v1alpha2/api-types/httproute/#attaching-to-gateways
-                pub parent_refs: Vec<ParentRef>,
+                pub parent_refs: Vec<ParentRefsItem>,
                 /// Optional service type for Kubernetes solver service. Supported values are NodePort or ClusterIP. If unset, defaults to NodePort.
                 pub service_type: String,
             }
@@ -3149,7 +3149,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -3159,7 +3159,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -3169,7 +3169,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
         }
@@ -3179,7 +3179,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
         }
@@ -3221,7 +3221,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchExpression {
+            pub struct PreferenceMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -3233,7 +3233,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermMatchExpression {
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -3245,7 +3245,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3258,7 +3258,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3271,7 +3271,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3284,7 +3284,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3297,7 +3297,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpression
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3310,7 +3310,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3323,7 +3323,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpression
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3336,7 +3336,7 @@ pub mod cert_manager_io {
             /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
             {
                 /// key is the label key that the selector applies to.
                 pub key: String,
@@ -3349,7 +3349,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchField {
+            pub struct PreferenceMatchFieldsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -3361,7 +3361,7 @@ pub mod cert_manager_io {
             /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermMatchField {
+            pub struct NodeSelectorTermsItemMatchFieldsItem {
                 /// The label key that the selector applies to.
                 pub key: String,
                 /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
@@ -3474,7 +3474,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -3484,7 +3484,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -3494,7 +3494,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
         }
@@ -3504,7 +3504,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
             /// matchExpressions is a list of label selector requirements. The requirements are ANDed.
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpression>,
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
             /// matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
             pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
         }
@@ -3532,11 +3532,11 @@ pub mod cert_manager_io {
             /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTerm {
+            pub struct NodeSelectorTermsItem {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<NodeSelectorTermMatchExpression>,
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<NodeSelectorTermMatchField>,
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
             }
 
             /// ParentRef identifies an API object (usually a Gateway) that can be considered a parent of this resource (usually a route). The only kind of parent resource with "Core" support is Gateway. This API may be extended in the future to support additional kinds of parent resources, such as HTTPRoute.
@@ -3544,7 +3544,7 @@ pub mod cert_manager_io {
             ///  References to objects with invalid Group and Kind are not valid, and must be rejected by the implementation, with appropriate Conditions set on the containing object.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct ParentRef {
+            pub struct ParentRefsItem {
                 /// Group is the group of the referent.
                 ///  Support: Core
                 pub group: String,
@@ -3632,9 +3632,9 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 /// A list of node selector requirements by node's labels.
-                pub match_expressions: Vec<PreferenceMatchExpression>,
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
                 /// A list of node selector requirements by node's fields.
-                pub match_fields: Vec<PreferenceMatchField>,
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
             }
 
             /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -3683,7 +3683,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 /// Required. A list of node selector terms. The terms are ORed.
-                pub node_selector_terms: Vec<NodeSelectorTerm>,
+                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
             }
 
             /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -3809,7 +3809,7 @@ pub mod cert_manager_io {
             /// An ACMEChallengeSolver describes how to solve ACME challenges for the issuer it is part of. A selector may be provided to use different solving strategies for different DNS names. Only one of HTTP01 or DNS01 must be provided.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Solver {
+            pub struct SolversItem {
                 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
                 pub dns01: Dns01,
                 /// Configures cert-manager to attempt to complete authorizations by performing the HTTP01 challenge flow. It is not possible to obtain certificates for wildcard domain names (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
@@ -3847,7 +3847,7 @@ pub mod cert_manager_io {
                 /// If specified, the pod's service account
                 pub service_account_name: String,
                 /// If specified, the pod's tolerations.
-                pub tolerations: Vec<Toleration>,
+                pub tolerations: Vec<TolerationsItem>,
             }
 
             /// Status of the Issuer. This is set and managed automatically.
@@ -3857,7 +3857,7 @@ pub mod cert_manager_io {
                 /// ACME specific status options. This field should only be set if the Issuer is configured to use an ACME server to issue certificates.
                 pub acme: StatusAcme,
                 /// List of status conditions to indicate the status of a CertificateRequest. Known condition types are `Ready`.
-                pub conditions: Vec<Condition>,
+                pub conditions: Vec<ConditionsItem>,
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
@@ -3883,7 +3883,7 @@ pub mod cert_manager_io {
             /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
             #[derive(serde::Serialize, serde::Deserialize, Debug)]
             #[serde(rename_all = "camelCase")]
-            pub struct Toleration {
+            pub struct TolerationsItem {
                 /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
                 pub effect: String,
                 /// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.

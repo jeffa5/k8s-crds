@@ -1,7 +1,7 @@
 use k8s_openapi::serde::Deserialize;
 use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
-use tracing::{debug, info};
+use tracing::{debug, info, warn};
 
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::JSONSchemaPropsOrArray;
 use k8s_openapi::apiextensions_apiserver::pkg::apis::apiextensions::v1::{
@@ -155,7 +155,13 @@ fn build_resource<W: Write>(
         )
     }
 
-    for property in schema.properties.as_ref().unwrap().keys() {
+    for property in schema
+        .properties
+        .as_ref()
+        .map(|t| t.keys())
+        .into_iter()
+        .flatten()
+    {
         if skippable_meta.contains(&property.as_str()) {
             continue;
         }
@@ -285,12 +291,20 @@ fn get_structs_to_make(
             .entry(camel_case(name))
             .or_default()
             .push((parents.clone(), props.clone()));
+
         if let Some(props) = props.properties.as_ref() {
             let mut parents = parents.clone();
             parents.push(camel_case(&name.to_string()));
             for (prop, props) in props {
                 get_structs_to_make(parents.clone(), prop, props, structs);
             }
+        } else if let Some(JSONSchemaPropsOrBool::Schema(properties)) =
+            props.additional_properties.as_ref()
+        {
+            let mut parents = parents.clone();
+            parents.push(camel_case(&name.to_string()));
+
+            get_structs_to_make(parents.clone(), "value", properties, structs);
         }
     }
     if let Some("array") = props.type_.as_deref() {
@@ -342,12 +356,13 @@ fn make_struct<W: Write>(
             )?;
         }
     } else if let Some(JSONSchemaPropsOrBool::Schema(properties)) = &props.additional_properties {
+        parents.push(camel_case(name));
         if let Some(description) = &props.description {
             for line in description.lines() {
                 writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
             }
         }
-        let value_type = get_type(parents, "properties", properties, rename_mapping);
+        let value_type = get_type(parents, "value", properties, rename_mapping);
         writeln!(
             f,
             "{}{}pub {}: std::collections::HashMap<String, {}>,",
@@ -373,7 +388,7 @@ fn make_struct<W: Write>(
             make_property_name("properties"),
         )?;
     } else if props.items.is_none() {
-        println!("Missing properties {} {:?}", name, props);
+        warn!(?name, ?props, "Missing properties");
     }
 
     writeln!(
@@ -391,10 +406,20 @@ fn get_type(
     rename_mapping: &BTreeMap<(Vec<String>, String), String>,
 ) -> String {
     match props.type_.as_deref() {
-        Some("object") => rename_mapping
-            .get(&(parents, camel_case(property)))
+        Some("object") => match rename_mapping
+            .get(&(parents.clone(), camel_case(property)))
             .cloned()
-            .unwrap(),
+        {
+            Some(res) => res,
+            None => {
+                warn!(
+                    ?parents,
+                    ?property,
+                    "Failed to find type name in rename_mapping"
+                );
+                "()".to_owned()
+            }
+        },
         Some("boolean") => "bool".to_owned(),
         Some("string") => "String".to_owned(),
         Some("integer") => match props.format.as_deref() {

@@ -1,4 +1,5 @@
 use k8s_openapi::serde::Deserialize;
+use std::collections::HashSet;
 use std::path::Path;
 use std::{collections::BTreeMap, fs::File, io::Write};
 use tracing::{debug, info, warn};
@@ -345,6 +346,8 @@ fn make_struct<W: Write>(
 
     writeln!(f, "{}pub struct {} {{", indent, struct_name)?;
 
+    let mut written_prop_names = HashSet::new();
+
     if let Some(properties) = props.properties.as_ref() {
         parents.push(camel_case(name));
         for (property, props) in properties {
@@ -354,14 +357,12 @@ fn make_struct<W: Write>(
                 }
             }
             let ty = get_type(parents.clone(), property, props, rename_mapping);
-            writeln!(
-                f,
-                "{}{}pub {}: {},",
-                indent,
-                INDENT,
-                make_property_name(property),
-                ty
-            )?;
+            let name = make_property_name(property);
+            if written_prop_names.insert(name.clone()) {
+                writeln!(f, "{}{}pub {}: {},", indent, INDENT, name, ty)?;
+            } else {
+                warn!(?name, "skipping writing field as already written");
+            }
         }
     } else if let Some(JSONSchemaPropsOrBool::Schema(properties)) = &props.additional_properties {
         parents.push(camel_case(name));
@@ -371,14 +372,16 @@ fn make_struct<W: Write>(
             }
         }
         let value_type = get_type(parents, "value", properties, rename_mapping);
-        writeln!(
-            f,
-            "{}{}pub {}: std::collections::HashMap<String, {}>,",
-            indent,
-            INDENT,
-            make_property_name("properties"),
-            value_type
-        )?;
+        let name = make_property_name("properties");
+        if written_prop_names.insert(name.clone()) {
+            writeln!(
+                f,
+                "{}{}pub {}: std::collections::HashMap<String, {}>,",
+                indent, INDENT, name, value_type
+            )?;
+        } else {
+            warn!(?name, "skipping writing field as already written");
+        }
     } else if Some(JSONSchemaPropsOrBool::Bool(true)) == props.additional_properties
         || props.additional_properties.is_none()
     {
@@ -388,13 +391,18 @@ fn make_struct<W: Write>(
                 writeln!(f, "{}{}/// {}", indent, INDENT, line)?;
             }
         }
-        writeln!(
-            f,
-            "{}{}pub {}: std::collections::HashMap<String, String>,",
-            indent,
-            INDENT,
-            make_property_name("properties"),
-        )?;
+        let name = make_property_name("properties");
+        if written_prop_names.insert(name.clone()) {
+            writeln!(
+                f,
+                "{}{}pub {}: std::collections::HashMap<String, String>,",
+                indent,
+                INDENT,
+                make_property_name("properties"),
+            )?;
+        } else {
+            warn!(?name, "skipping writing field as already written");
+        }
     } else if props.items.is_none() {
         warn!(?name, ?props, "Missing properties");
     }

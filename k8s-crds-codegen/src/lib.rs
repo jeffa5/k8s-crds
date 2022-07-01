@@ -405,7 +405,7 @@ fn get_type(
     props: &JSONSchemaProps,
     rename_mapping: &BTreeMap<(Vec<String>, String), String>,
 ) -> String {
-    match props.type_.as_deref() {
+    let t = match props.type_.as_deref() {
         Some("object") => match rename_mapping
             .get(&(parents.clone(), camel_case(property)))
             .cloned()
@@ -450,6 +450,11 @@ fn get_type(
                 todo!("no type given");
             }
         }
+    };
+    if props.nullable == Some(true) {
+        format!("Option<{}>", t)
+    } else {
+        t
     }
 }
 

@@ -2,6 +2,8 @@ use std::fs::{create_dir_all, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use tracing::debug;
+use tracing::info;
 
 fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
@@ -83,10 +85,15 @@ impl Crate {
     }
 
     fn fetch_resource(&self, url: &str, resources_dir: &Path) -> anyhow::Result<PathBuf> {
-        let bytes = reqwest::blocking::get(url)?.bytes()?.to_vec();
-
         let name = url.split('/').last().unwrap();
         let path = resources_dir.join(name);
+        if path.exists() {
+            debug!(?url, ?path, "Skipping fetch");
+            return Ok(path);
+        }
+
+        info!(?url, "Fetching resource");
+        let bytes = reqwest::blocking::get(url)?.bytes()?.to_vec();
 
         let mut f = File::create(&path)?;
 

@@ -70,6 +70,30 @@ fn main() -> anyhow::Result<()> {
         ],
     }.make()?;
 
+    Crate {
+        root: root.to_owned(),
+        name: "argo-rollouts".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/master/manifests/crds/analysis-run-crd.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/master/manifests/crds/analysis-template-crd.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/master/manifests/crds/cluster-analysis-template-crd.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/master/manifests/crds/experiment-crd.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-rollouts/master/manifests/crds/rollout-crd.yaml".to_owned(),
+    ],
+    }.make()?;
+
+    Crate {
+        root: root.to_owned(),
+        name: "argo-events".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+        "https://raw.githubusercontent.com/argoproj/argo-events/master/manifests/base/crds/argoproj.io_eventbus.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-events/master/manifests/base/crds/argoproj.io_eventsources.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-events/master/manifests/base/crds/argoproj.io_sensors.yaml".to_owned(),
+    ],
+    }.make()?;
+
     fmt();
 
     Ok(())

@@ -26,6 +26,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "argo-events-crds"
+version = "0.1.0"
+dependencies = [
+ "k8s-openapi",
+ "serde",
+]
+
+[[package]]
+name = "argo-rollouts-crds"
+version = "0.1.0"
+dependencies = [
+ "k8s-openapi",
+ "serde",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

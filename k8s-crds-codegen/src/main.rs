@@ -35,6 +35,41 @@ fn main() -> anyhow::Result<()> {
     ],
     }.make()?;
 
+    Crate {
+        root: root.to_owned(),
+        name: "argo-cd".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+        "https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/applicationset-crd.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/appproject-crd.yaml".to_owned(),
+    ],
+    }.make()?;
+
+    Crate {
+        root: root.to_owned(),
+        name: "flux".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+        "https://github.com/fluxcd/source-controller/releases/download/v0.25.9/source-controller.crds.yaml".to_owned(),
+        "https://github.com/fluxcd/kustomize-controller/releases/download/v0.26.2/kustomize-controller.crds.yaml".to_owned(),
+        "https://github.com/fluxcd/helm-controller/releases/download/v0.22.1/helm-controller.crds.yaml".to_owned(),
+        "https://github.com/fluxcd/notification-controller/releases/download/v0.24.0/notification-controller.crds.yaml".to_owned(),
+        "https://github.com/fluxcd/image-reflector-controller/releases/download/v0.19.2/image-reflector-controller.crds.yaml".to_owned(),
+        "https://github.com/fluxcd/image-automation-controller/releases/download/v0.23.4/image-automation-controller.crds.yaml".to_owned(),
+    ],
+    }.make()?;
+
+    // Crate {
+    //     root: root.to_owned(),
+    //     name: "istio".to_owned(),
+    //     version: "0.1.0".to_owned(),
+    //     urls: vec![
+    //     "https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-all.gen.yaml".to_owned(),
+    //     "https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-operator.yaml".to_owned(),
+    //     ],
+    // }.make()?;
+
     fmt();
 
     Ok(())

@@ -5,7 +5,7 @@ pub mod argoproj_io {
     pub mod v1alpha1 {
         pub mod app_project {
             /// AppProject provides a logical grouping of applications, providing controls for: * where the apps may deploy to (cluster whitelist) * what may be deployed (repository whitelist, resource whitelist/blacklist) * who can access these applications (roles, OIDC group claims bindings) * and what they can do (RBAC policies) * automation access to these roles (JWT tokens)
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AppProject {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -14,7 +14,7 @@ pub mod argoproj_io {
             }
 
             /// GroupKind specifies a Group and a Kind, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ClusterResourceBlacklistItem {
                 pub group: String,
@@ -22,7 +22,7 @@ pub mod argoproj_io {
             }
 
             /// GroupKind specifies a Group and a Kind, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ClusterResourceWhitelistItem {
                 pub group: String,
@@ -30,7 +30,7 @@ pub mod argoproj_io {
             }
 
             /// ApplicationDestination holds information about the application's destination
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DestinationsItem {
                 /// Name is an alternate way of specifying the target cluster by its symbolic name
@@ -42,7 +42,7 @@ pub mod argoproj_io {
             }
 
             /// OrphanedResourceKey is a reference to a resource to be ignored from
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IgnoreItem {
                 pub group: String,
@@ -51,7 +51,7 @@ pub mod argoproj_io {
             }
 
             /// JWTToken holds the issuedAt and expiresAt values of a token
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ItemsItem {
                 pub exp: i64,
@@ -60,7 +60,7 @@ pub mod argoproj_io {
             }
 
             /// JWTTokensByRole contains a list of JWT tokens issued for a given role
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct JwtTokensByRole {
                 /// JWTTokensByRole contains a list of JWT tokens issued for a given role
@@ -68,7 +68,7 @@ pub mod argoproj_io {
             }
 
             /// JWTToken holds the issuedAt and expiresAt values of a token
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct JwtTokensItem {
                 pub exp: i64,
@@ -77,7 +77,7 @@ pub mod argoproj_io {
             }
 
             /// GroupKind specifies a Group and a Kind, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceResourceBlacklistItem {
                 pub group: String,
@@ -85,7 +85,7 @@ pub mod argoproj_io {
             }
 
             /// GroupKind specifies a Group and a Kind, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceResourceWhitelistItem {
                 pub group: String,
@@ -93,7 +93,7 @@ pub mod argoproj_io {
             }
 
             /// OrphanedResources specifies if controller should monitor orphaned resources of apps in this project
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OrphanedResources {
                 /// Ignore contains a list of resources that are to be excluded from orphaned resources monitoring
@@ -103,7 +103,7 @@ pub mod argoproj_io {
             }
 
             /// ProjectRole represents a role that has access to a project
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RolesItem {
                 /// Description is a description of the role
@@ -119,7 +119,7 @@ pub mod argoproj_io {
             }
 
             /// SignatureKey is the specification of a key required to verify commit signatures with
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SignatureKeysItem {
                 /// The ID of the key in hexadecimal notation
@@ -127,7 +127,7 @@ pub mod argoproj_io {
             }
 
             /// AppProjectSpec is the specification of an AppProject
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// ClusterResourceBlacklist contains list of blacklisted cluster level resources
@@ -155,7 +155,7 @@ pub mod argoproj_io {
             }
 
             /// AppProjectStatus contains status information for AppProject CRs
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// JWTTokensByRole contains a list of JWT tokens issued for a given role
@@ -163,7 +163,7 @@ pub mod argoproj_io {
             }
 
             /// SyncWindow contains the kind, time, duration and attributes that are used to assign the syncWindows to apps
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncWindowsItem {
                 /// Applications contains a list of applications that the window will apply to
@@ -185,7 +185,7 @@ pub mod argoproj_io {
             }
 
             /// JWTTokens represents a list of JWT tokens
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 pub items: Vec<ItemsItem>,
@@ -215,7 +215,7 @@ pub mod argoproj_io {
         }
         pub mod application {
             /// Application is a definition of Application resource.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Application {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -225,7 +225,7 @@ pub mod argoproj_io {
             }
 
             /// Apply will perform a `kubectl apply` to perform the sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSyncStrategyApply {
                 /// Force indicates whether or not to supply the --force flag to `kubectl apply`. The --force flag deletes and re-create the resource, when PATCH encounters conflict and has retried for 5 times.
@@ -233,7 +233,7 @@ pub mod argoproj_io {
             }
 
             /// Apply will perform a `kubectl apply` to perform the sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSyncStrategyApply {
                 /// Force indicates whether or not to supply the --force flag to `kubectl apply`. The --force flag deletes and re-create the resource, when PATCH encounters conflict and has retried for 5 times.
@@ -241,7 +241,7 @@ pub mod argoproj_io {
             }
 
             /// Automated will keep an application synced to the target revision
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Automated {
                 /// AllowEmpty allows apps have zero live resources (default: false)
@@ -253,7 +253,7 @@ pub mod argoproj_io {
             }
 
             /// Backoff controls how to backoff on subsequent retries of failed syncs
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationRetryBackoff {
                 /// Duration is the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
@@ -265,7 +265,7 @@ pub mod argoproj_io {
             }
 
             /// Backoff controls how to backoff on subsequent retries of failed syncs
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncPolicyRetryBackoff {
                 /// Duration is the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
@@ -277,7 +277,7 @@ pub mod argoproj_io {
             }
 
             /// Backoff controls how to backoff on subsequent retries of failed syncs
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationRetryBackoff {
                 /// Duration is the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
@@ -289,7 +289,7 @@ pub mod argoproj_io {
             }
 
             /// CommonAnnotations is a list of additional annotations to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceKustomizeCommonAnnotations {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -297,7 +297,7 @@ pub mod argoproj_io {
             }
 
             /// CommonAnnotations is a list of additional annotations to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceKustomizeCommonAnnotations {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -305,7 +305,7 @@ pub mod argoproj_io {
             }
 
             /// CommonAnnotations is a list of additional annotations to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceKustomizeCommonAnnotations {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -313,7 +313,7 @@ pub mod argoproj_io {
             }
 
             /// CommonAnnotations is a list of additional annotations to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceKustomizeCommonAnnotations {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -321,7 +321,7 @@ pub mod argoproj_io {
             }
 
             /// CommonAnnotations is a list of additional annotations to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceKustomizeCommonAnnotations {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -329,7 +329,7 @@ pub mod argoproj_io {
             }
 
             /// CommonAnnotations is a list of additional annotations to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceKustomizeCommonAnnotations {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -337,7 +337,7 @@ pub mod argoproj_io {
             }
 
             /// CommonLabels is a list of additional labels to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceKustomizeCommonLabels {
                 /// CommonLabels is a list of additional labels to add to rendered manifests
@@ -345,7 +345,7 @@ pub mod argoproj_io {
             }
 
             /// CommonLabels is a list of additional labels to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceKustomizeCommonLabels {
                 /// CommonLabels is a list of additional labels to add to rendered manifests
@@ -353,7 +353,7 @@ pub mod argoproj_io {
             }
 
             /// CommonLabels is a list of additional labels to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceKustomizeCommonLabels {
                 /// CommonLabels is a list of additional labels to add to rendered manifests
@@ -361,7 +361,7 @@ pub mod argoproj_io {
             }
 
             /// CommonLabels is a list of additional labels to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceKustomizeCommonLabels {
                 /// CommonLabels is a list of additional labels to add to rendered manifests
@@ -369,7 +369,7 @@ pub mod argoproj_io {
             }
 
             /// CommonLabels is a list of additional labels to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceKustomizeCommonLabels {
                 /// CommonLabels is a list of additional labels to add to rendered manifests
@@ -377,7 +377,7 @@ pub mod argoproj_io {
             }
 
             /// CommonLabels is a list of additional labels to add to rendered manifests
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceKustomizeCommonLabels {
                 /// CommonLabels is a list of additional labels to add to rendered manifests
@@ -385,7 +385,7 @@ pub mod argoproj_io {
             }
 
             /// ComparedTo contains information about what has been compared
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedTo {
                 /// Destination is a reference to the application's destination used for comparison
@@ -395,7 +395,7 @@ pub mod argoproj_io {
             }
 
             /// ApplicationCondition contains details about an application condition, which is usally an error or warning
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// LastTransitionTime is the time the condition was last observed
@@ -407,7 +407,7 @@ pub mod argoproj_io {
             }
 
             /// Destination is a reference to the target Kubernetes server and namespace
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecDestination {
                 /// Name is an alternate way of specifying the target cluster by its symbolic name
@@ -419,7 +419,7 @@ pub mod argoproj_io {
             }
 
             /// Destination is a reference to the application's destination used for comparison
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToDestination {
                 /// Name is an alternate way of specifying the target cluster by its symbolic name
@@ -431,7 +431,7 @@ pub mod argoproj_io {
             }
 
             /// Directory holds path/directory specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceDirectory {
                 /// Exclude contains a glob pattern to match paths against that should be explicitly excluded from being used during manifest generation
@@ -445,7 +445,7 @@ pub mod argoproj_io {
             }
 
             /// Directory holds path/directory specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceDirectory {
                 /// Exclude contains a glob pattern to match paths against that should be explicitly excluded from being used during manifest generation
@@ -459,7 +459,7 @@ pub mod argoproj_io {
             }
 
             /// Directory holds path/directory specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceDirectory {
                 /// Exclude contains a glob pattern to match paths against that should be explicitly excluded from being used during manifest generation
@@ -473,7 +473,7 @@ pub mod argoproj_io {
             }
 
             /// Directory holds path/directory specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceDirectory {
                 /// Exclude contains a glob pattern to match paths against that should be explicitly excluded from being used during manifest generation
@@ -487,7 +487,7 @@ pub mod argoproj_io {
             }
 
             /// Directory holds path/directory specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceDirectory {
                 /// Exclude contains a glob pattern to match paths against that should be explicitly excluded from being used during manifest generation
@@ -501,7 +501,7 @@ pub mod argoproj_io {
             }
 
             /// Directory holds path/directory specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceDirectory {
                 /// Exclude contains a glob pattern to match paths against that should be explicitly excluded from being used during manifest generation
@@ -515,7 +515,7 @@ pub mod argoproj_io {
             }
 
             /// EnvEntry represents an entry in the application's environment
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourcePluginEnvItem {
                 /// Name is the name of the variable, usually expressed in uppercase
@@ -525,7 +525,7 @@ pub mod argoproj_io {
             }
 
             /// EnvEntry represents an entry in the application's environment
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourcePluginEnvItem {
                 /// Name is the name of the variable, usually expressed in uppercase
@@ -535,7 +535,7 @@ pub mod argoproj_io {
             }
 
             /// EnvEntry represents an entry in the application's environment
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourcePluginEnvItem {
                 /// Name is the name of the variable, usually expressed in uppercase
@@ -545,7 +545,7 @@ pub mod argoproj_io {
             }
 
             /// EnvEntry represents an entry in the application's environment
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourcePluginEnvItem {
                 /// Name is the name of the variable, usually expressed in uppercase
@@ -555,7 +555,7 @@ pub mod argoproj_io {
             }
 
             /// EnvEntry represents an entry in the application's environment
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourcePluginEnvItem {
                 /// Name is the name of the variable, usually expressed in uppercase
@@ -565,7 +565,7 @@ pub mod argoproj_io {
             }
 
             /// EnvEntry represents an entry in the application's environment
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourcePluginEnvItem {
                 /// Name is the name of the variable, usually expressed in uppercase
@@ -575,7 +575,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -584,7 +584,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -593,7 +593,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -602,7 +602,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -611,7 +611,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -620,7 +620,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -629,7 +629,7 @@ pub mod argoproj_io {
             }
 
             /// HelmFileParameter is a file parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceHelmFileParametersItem {
                 /// Name is the name of the Helm parameter
@@ -639,7 +639,7 @@ pub mod argoproj_io {
             }
 
             /// HelmFileParameter is a file parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceHelmFileParametersItem {
                 /// Name is the name of the Helm parameter
@@ -649,7 +649,7 @@ pub mod argoproj_io {
             }
 
             /// HelmFileParameter is a file parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceHelmFileParametersItem {
                 /// Name is the name of the Helm parameter
@@ -659,7 +659,7 @@ pub mod argoproj_io {
             }
 
             /// HelmFileParameter is a file parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceHelmFileParametersItem {
                 /// Name is the name of the Helm parameter
@@ -669,7 +669,7 @@ pub mod argoproj_io {
             }
 
             /// HelmFileParameter is a file parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceHelmFileParametersItem {
                 /// Name is the name of the Helm parameter
@@ -679,7 +679,7 @@ pub mod argoproj_io {
             }
 
             /// HelmFileParameter is a file parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceHelmFileParametersItem {
                 /// Name is the name of the Helm parameter
@@ -689,7 +689,7 @@ pub mod argoproj_io {
             }
 
             /// Health contains information about the application's current health status
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StatusHealth {
                 /// Message is a human-readable informational message describing the health status
@@ -699,7 +699,7 @@ pub mod argoproj_io {
             }
 
             /// HealthStatus contains information about the currently observed health state of an application or resource
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ResourcesItemHealth {
                 /// Message is a human-readable informational message describing the health status
@@ -709,7 +709,7 @@ pub mod argoproj_io {
             }
 
             /// Helm holds helm specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceHelm {
                 /// FileParameters are file parameters to the helm template
@@ -733,7 +733,7 @@ pub mod argoproj_io {
             }
 
             /// Helm holds helm specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceHelm {
                 /// FileParameters are file parameters to the helm template
@@ -757,7 +757,7 @@ pub mod argoproj_io {
             }
 
             /// Helm holds helm specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceHelm {
                 /// FileParameters are file parameters to the helm template
@@ -781,7 +781,7 @@ pub mod argoproj_io {
             }
 
             /// Helm holds helm specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceHelm {
                 /// FileParameters are file parameters to the helm template
@@ -805,7 +805,7 @@ pub mod argoproj_io {
             }
 
             /// Helm holds helm specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceHelm {
                 /// FileParameters are file parameters to the helm template
@@ -829,7 +829,7 @@ pub mod argoproj_io {
             }
 
             /// Helm holds helm specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceHelm {
                 /// FileParameters are file parameters to the helm template
@@ -853,7 +853,7 @@ pub mod argoproj_io {
             }
 
             /// RevisionHistory contains history information about a previous sync
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItem {
                 /// DeployStartedAt holds the time the sync operation started
@@ -869,7 +869,7 @@ pub mod argoproj_io {
             }
 
             /// Hook will submit any referenced resources to perform the sync. This is the default strategy
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSyncStrategyHook {
                 /// Force indicates whether or not to supply the --force flag to `kubectl apply`. The --force flag deletes and re-create the resource, when PATCH encounters conflict and has retried for 5 times.
@@ -877,7 +877,7 @@ pub mod argoproj_io {
             }
 
             /// Hook will submit any referenced resources to perform the sync. This is the default strategy
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSyncStrategyHook {
                 /// Force indicates whether or not to supply the --force flag to `kubectl apply`. The --force flag deletes and re-create the resource, when PATCH encounters conflict and has retried for 5 times.
@@ -885,7 +885,7 @@ pub mod argoproj_io {
             }
 
             /// ResourceIgnoreDifferences contains resource filter and list of json paths which should be ignored during comparison with live state.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IgnoreDifferencesItem {
                 pub group: String,
@@ -898,21 +898,21 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationInfoItem {
                 pub name: String,
@@ -920,7 +920,7 @@ pub mod argoproj_io {
             }
 
             /// InitiatedBy contains information about who initiated the operations
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationInitiatedBy {
                 /// Automated is set to true if operation was initiated automatically by the application controller.
@@ -930,7 +930,7 @@ pub mod argoproj_io {
             }
 
             /// InitiatedBy contains information about who initiated the operations
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationInitiatedBy {
                 /// Automated is set to true if operation was initiated automatically by the application controller.
@@ -940,7 +940,7 @@ pub mod argoproj_io {
             }
 
             /// Jsonnet holds options specific to Jsonnet
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceDirectoryJsonnet {
                 /// ExtVars is a list of Jsonnet External Variables
@@ -952,7 +952,7 @@ pub mod argoproj_io {
             }
 
             /// Jsonnet holds options specific to Jsonnet
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceDirectoryJsonnet {
                 /// ExtVars is a list of Jsonnet External Variables
@@ -964,7 +964,7 @@ pub mod argoproj_io {
             }
 
             /// Jsonnet holds options specific to Jsonnet
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceDirectoryJsonnet {
                 /// ExtVars is a list of Jsonnet External Variables
@@ -976,7 +976,7 @@ pub mod argoproj_io {
             }
 
             /// Jsonnet holds options specific to Jsonnet
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceDirectoryJsonnet {
                 /// ExtVars is a list of Jsonnet External Variables
@@ -988,7 +988,7 @@ pub mod argoproj_io {
             }
 
             /// Jsonnet holds options specific to Jsonnet
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceDirectoryJsonnet {
                 /// ExtVars is a list of Jsonnet External Variables
@@ -1000,7 +1000,7 @@ pub mod argoproj_io {
             }
 
             /// Jsonnet holds options specific to Jsonnet
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceDirectoryJsonnet {
                 /// ExtVars is a list of Jsonnet External Variables
@@ -1012,7 +1012,7 @@ pub mod argoproj_io {
             }
 
             /// Kustomize holds kustomize specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceKustomize {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -1034,7 +1034,7 @@ pub mod argoproj_io {
             }
 
             /// Kustomize holds kustomize specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceKustomize {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -1056,7 +1056,7 @@ pub mod argoproj_io {
             }
 
             /// Kustomize holds kustomize specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceKustomize {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -1078,7 +1078,7 @@ pub mod argoproj_io {
             }
 
             /// Kustomize holds kustomize specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceKustomize {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -1100,7 +1100,7 @@ pub mod argoproj_io {
             }
 
             /// Kustomize holds kustomize specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceKustomize {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -1122,7 +1122,7 @@ pub mod argoproj_io {
             }
 
             /// Kustomize holds kustomize specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceKustomize {
                 /// CommonAnnotations is a list of additional annotations to add to rendered manifests
@@ -1144,7 +1144,7 @@ pub mod argoproj_io {
             }
 
             /// Operation contains information about a requested or running operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Operation {
                 /// Info is a list of informational items for this operation
@@ -1158,7 +1158,7 @@ pub mod argoproj_io {
             }
 
             /// Operation is the original requested operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperation {
                 /// Info is a list of informational items for this operation
@@ -1172,7 +1172,7 @@ pub mod argoproj_io {
             }
 
             /// OperationState contains information about any ongoing operations, such as a sync
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationState {
                 /// FinishedAt contains time of operation completion
@@ -1192,7 +1192,7 @@ pub mod argoproj_io {
             }
 
             /// HelmParameter is a parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceHelmParametersItem {
                 /// ForceString determines whether to tell Helm to interpret booleans and numbers as strings
@@ -1204,7 +1204,7 @@ pub mod argoproj_io {
             }
 
             /// HelmParameter is a parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceHelmParametersItem {
                 /// ForceString determines whether to tell Helm to interpret booleans and numbers as strings
@@ -1216,7 +1216,7 @@ pub mod argoproj_io {
             }
 
             /// HelmParameter is a parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceHelmParametersItem {
                 /// ForceString determines whether to tell Helm to interpret booleans and numbers as strings
@@ -1228,7 +1228,7 @@ pub mod argoproj_io {
             }
 
             /// HelmParameter is a parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceHelmParametersItem {
                 /// ForceString determines whether to tell Helm to interpret booleans and numbers as strings
@@ -1240,7 +1240,7 @@ pub mod argoproj_io {
             }
 
             /// HelmParameter is a parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceHelmParametersItem {
                 /// ForceString determines whether to tell Helm to interpret booleans and numbers as strings
@@ -1252,7 +1252,7 @@ pub mod argoproj_io {
             }
 
             /// HelmParameter is a parameter that's passed to helm template during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceHelmParametersItem {
                 /// ForceString determines whether to tell Helm to interpret booleans and numbers as strings
@@ -1264,7 +1264,7 @@ pub mod argoproj_io {
             }
 
             /// ConfigManagementPlugin holds config management plugin specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourcePlugin {
                 /// Env is a list of environment variable entries
@@ -1273,7 +1273,7 @@ pub mod argoproj_io {
             }
 
             /// ConfigManagementPlugin holds config management plugin specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourcePlugin {
                 /// Env is a list of environment variable entries
@@ -1282,7 +1282,7 @@ pub mod argoproj_io {
             }
 
             /// ConfigManagementPlugin holds config management plugin specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourcePlugin {
                 /// Env is a list of environment variable entries
@@ -1291,7 +1291,7 @@ pub mod argoproj_io {
             }
 
             /// ConfigManagementPlugin holds config management plugin specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourcePlugin {
                 /// Env is a list of environment variable entries
@@ -1300,7 +1300,7 @@ pub mod argoproj_io {
             }
 
             /// ConfigManagementPlugin holds config management plugin specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourcePlugin {
                 /// Env is a list of environment variable entries
@@ -1309,7 +1309,7 @@ pub mod argoproj_io {
             }
 
             /// ConfigManagementPlugin holds config management plugin specific options
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourcePlugin {
                 /// Env is a list of environment variable entries
@@ -1318,7 +1318,7 @@ pub mod argoproj_io {
             }
 
             /// SyncOperationResource contains resources to sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncResourcesItem {
                 pub group: String,
@@ -1328,7 +1328,7 @@ pub mod argoproj_io {
             }
 
             /// SyncOperationResource contains resources to sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncResourcesItem {
                 pub group: String,
@@ -1338,7 +1338,7 @@ pub mod argoproj_io {
             }
 
             /// ResourceResult holds the operation result details of a specific resource
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultResourcesItem {
                 /// Group specifies the API group of the resource
@@ -1364,7 +1364,7 @@ pub mod argoproj_io {
             }
 
             /// ResourceStatus holds the current sync and health status of a resource TODO: describe members of this type
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StatusResourcesItem {
                 pub group: String,
@@ -1381,7 +1381,7 @@ pub mod argoproj_io {
             }
 
             /// Retry controls the strategy to apply if a sync fails
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationRetry {
                 /// Backoff controls how to backoff on subsequent retries of failed syncs
@@ -1391,7 +1391,7 @@ pub mod argoproj_io {
             }
 
             /// Retry controls failed sync retry behavior
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncPolicyRetry {
                 /// Backoff controls how to backoff on subsequent retries of failed syncs
@@ -1401,7 +1401,7 @@ pub mod argoproj_io {
             }
 
             /// Retry controls the strategy to apply if a sync fails
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationRetry {
                 /// Backoff controls how to backoff on subsequent retries of failed syncs
@@ -1411,7 +1411,7 @@ pub mod argoproj_io {
             }
 
             /// Source overrides the source definition set in the application. This is typically set in a Rollback operation and is nil during a Sync operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSource {
                 /// Chart is a Helm chart name, and must be specified for applications sourced from a Helm repo.
@@ -1433,7 +1433,7 @@ pub mod argoproj_io {
             }
 
             /// Source is a reference to the location of the application's manifests or chart
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSource {
                 /// Chart is a Helm chart name, and must be specified for applications sourced from a Helm repo.
@@ -1455,7 +1455,7 @@ pub mod argoproj_io {
             }
 
             /// Source is a reference to the application source used for the sync operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSource {
                 /// Chart is a Helm chart name, and must be specified for applications sourced from a Helm repo.
@@ -1477,7 +1477,7 @@ pub mod argoproj_io {
             }
 
             /// Source overrides the source definition set in the application. This is typically set in a Rollback operation and is nil during a Sync operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSource {
                 /// Chart is a Helm chart name, and must be specified for applications sourced from a Helm repo.
@@ -1499,7 +1499,7 @@ pub mod argoproj_io {
             }
 
             /// Source records the application source information of the sync, used for comparing auto-sync
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSource {
                 /// Chart is a Helm chart name, and must be specified for applications sourced from a Helm repo.
@@ -1521,7 +1521,7 @@ pub mod argoproj_io {
             }
 
             /// Source is a reference to the application's source used for comparison
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSource {
                 /// Chart is a Helm chart name, and must be specified for applications sourced from a Helm repo.
@@ -1543,7 +1543,7 @@ pub mod argoproj_io {
             }
 
             /// ApplicationSpec represents desired application state. Contains link to repository with application definition and additional parameters link definition revision.
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Destination is a reference to the target Kubernetes server and namespace
@@ -1563,7 +1563,7 @@ pub mod argoproj_io {
             }
 
             /// ApplicationStatus contains status information for the application
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Conditions is a list of currently observed application conditions
@@ -1589,7 +1589,7 @@ pub mod argoproj_io {
             }
 
             /// Summary contains a list of URLs and container images used by this application
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Summary {
                 /// ExternalURLs holds all external URLs of application child resources.
@@ -1599,7 +1599,7 @@ pub mod argoproj_io {
             }
 
             /// Sync contains parameters for the operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSync {
                 /// DryRun specifies to perform a `kubectl apply --dry-run` without actually performing the sync
@@ -1621,7 +1621,7 @@ pub mod argoproj_io {
             }
 
             /// Sync contains parameters for the operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSync {
                 /// DryRun specifies to perform a `kubectl apply --dry-run` without actually performing the sync
@@ -1643,7 +1643,7 @@ pub mod argoproj_io {
             }
 
             /// Sync contains information about the application's current sync status
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StatusSync {
                 /// ComparedTo contains information about what has been compared
@@ -1655,7 +1655,7 @@ pub mod argoproj_io {
             }
 
             /// SyncPolicy controls when and how a sync will be performed
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncPolicy {
                 /// Automated will keep an application synced to the target revision
@@ -1667,7 +1667,7 @@ pub mod argoproj_io {
             }
 
             /// SyncResult is the result of a Sync operation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResult {
                 /// Resources contains a list of sync result items for each individual resource in a sync operation
@@ -1679,7 +1679,7 @@ pub mod argoproj_io {
             }
 
             /// SyncStrategy describes how to perform the sync
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSyncStrategy {
                 /// Apply will perform a `kubectl apply` to perform the sync.
@@ -1689,7 +1689,7 @@ pub mod argoproj_io {
             }
 
             /// SyncStrategy describes how to perform the sync
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSyncStrategy {
                 /// Apply will perform a `kubectl apply` to perform the sync.
@@ -1699,7 +1699,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationSyncSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -1708,7 +1708,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -1717,7 +1717,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HistoryItemSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -1726,7 +1726,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OperationStateOperationSyncSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -1735,7 +1735,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SyncResultSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -1744,7 +1744,7 @@ pub mod argoproj_io {
             }
 
             /// JsonnetVar represents a variable to be passed to jsonnet during manifest generation
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ComparedToSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -1775,7 +1775,7 @@ pub mod argoproj_io {
             }
         }
         pub mod application_set {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ApplicationSet {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -1783,175 +1783,175 @@ pub mod argoproj_io {
                 pub status: Status,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderAzureDevOpsAccessTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderAzureDevOpsAccessTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderAzureDevOpsAccessTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateMetadataAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderBitbucketAppPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderBitbucketAppPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderBitbucketAppPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -1959,7 +1959,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -1967,7 +1967,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -1975,7 +1975,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -1983,7 +1983,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -1991,7 +1991,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -1999,7 +1999,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2007,7 +2007,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2015,7 +2015,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2023,7 +2023,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2031,7 +2031,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2039,7 +2039,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2047,7 +2047,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2055,7 +2055,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2063,7 +2063,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2071,7 +2071,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2079,7 +2079,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2087,7 +2087,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2095,7 +2095,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2103,7 +2103,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2111,7 +2111,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSyncPolicyAutomated {
                 pub allow_empty: bool,
@@ -2119,7 +2119,7 @@ pub mod argoproj_io {
                 pub self_heal: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderAzureDevOps {
                 pub access_token_ref: MatrixGeneratorsItemScmProviderAzureDevOpsAccessTokenRef,
@@ -2129,7 +2129,7 @@ pub mod argoproj_io {
                 pub team_project: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderAzureDevOps {
                 pub access_token_ref: MergeGeneratorsItemScmProviderAzureDevOpsAccessTokenRef,
@@ -2139,7 +2139,7 @@ pub mod argoproj_io {
                 pub team_project: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderAzureDevOps {
                 pub access_token_ref: SpecGeneratorsItemScmProviderAzureDevOpsAccessTokenRef,
@@ -2149,7 +2149,7 @@ pub mod argoproj_io {
                 pub team_project: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2157,7 +2157,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2165,7 +2165,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2173,7 +2173,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2181,7 +2181,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2189,7 +2189,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2197,7 +2197,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2205,7 +2205,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2213,7 +2213,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2221,7 +2221,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2229,7 +2229,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2237,7 +2237,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2245,7 +2245,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2253,7 +2253,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2261,7 +2261,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2269,7 +2269,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2277,7 +2277,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2285,7 +2285,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2293,7 +2293,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2301,7 +2301,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2309,7 +2309,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSyncPolicyRetryBackoff {
                 pub duration: String,
@@ -2317,7 +2317,7 @@ pub mod argoproj_io {
                 pub max_duration: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestBitbucketServerBasicAuth {
                 pub password_ref:
@@ -2325,7 +2325,7 @@ pub mod argoproj_io {
                 pub username: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderBitbucketServerBasicAuth {
                 pub password_ref:
@@ -2333,35 +2333,35 @@ pub mod argoproj_io {
                 pub username: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestBitbucketServerBasicAuth {
                 pub password_ref: MergeGeneratorsItemPullRequestBitbucketServerBasicAuthPasswordRef,
                 pub username: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderBitbucketServerBasicAuth {
                 pub password_ref: MergeGeneratorsItemScmProviderBitbucketServerBasicAuthPasswordRef,
                 pub username: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestBitbucketServerBasicAuth {
                 pub password_ref: SpecGeneratorsItemPullRequestBitbucketServerBasicAuthPasswordRef,
                 pub username: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderBitbucketServerBasicAuth {
                 pub password_ref: SpecGeneratorsItemScmProviderBitbucketServerBasicAuthPasswordRef,
                 pub username: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderBitbucket {
                 pub all_branches: bool,
@@ -2370,7 +2370,7 @@ pub mod argoproj_io {
                 pub user: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderBitbucket {
                 pub all_branches: bool,
@@ -2379,7 +2379,7 @@ pub mod argoproj_io {
                 pub user: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderBitbucket {
                 pub all_branches: bool,
@@ -2388,7 +2388,7 @@ pub mod argoproj_io {
                 pub user: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestBitbucketServer {
                 pub api: String,
@@ -2397,7 +2397,7 @@ pub mod argoproj_io {
                 pub repo: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderBitbucketServer {
                 pub all_branches: bool,
@@ -2406,7 +2406,7 @@ pub mod argoproj_io {
                 pub project: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestBitbucketServer {
                 pub api: String,
@@ -2415,7 +2415,7 @@ pub mod argoproj_io {
                 pub repo: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderBitbucketServer {
                 pub all_branches: bool,
@@ -2424,7 +2424,7 @@ pub mod argoproj_io {
                 pub project: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestBitbucketServer {
                 pub api: String,
@@ -2433,7 +2433,7 @@ pub mod argoproj_io {
                 pub repo: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderBitbucketServer {
                 pub all_branches: bool,
@@ -2442,7 +2442,7 @@ pub mod argoproj_io {
                 pub project: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResource {
                 pub config_map_ref: String,
@@ -2453,7 +2453,7 @@ pub mod argoproj_io {
                 pub values: SpecGeneratorsItemClusterDecisionResourceValues,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResource {
                 pub config_map_ref: String,
@@ -2464,7 +2464,7 @@ pub mod argoproj_io {
                 pub values: MatrixGeneratorsItemClusterDecisionResourceValues,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResource {
                 pub config_map_ref: String,
@@ -2475,7 +2475,7 @@ pub mod argoproj_io {
                 pub values: MergeGeneratorsItemClusterDecisionResourceValues,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusters {
                 pub selector: SpecGeneratorsItemClustersSelector,
@@ -2483,7 +2483,7 @@ pub mod argoproj_io {
                 pub values: SpecGeneratorsItemClustersValues,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusters {
                 pub selector: MatrixGeneratorsItemClustersSelector,
@@ -2491,7 +2491,7 @@ pub mod argoproj_io {
                 pub values: MatrixGeneratorsItemClustersValues,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusters {
                 pub selector: MergeGeneratorsItemClustersSelector,
@@ -2499,259 +2499,259 @@ pub mod argoproj_io {
                 pub values: MergeGeneratorsItemClustersValues,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceKustomizeCommonAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceKustomizeCommonLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 pub last_transition_time: String,
@@ -2761,7 +2761,7 @@ pub mod argoproj_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecDestination {
                 pub name: String,
@@ -2769,7 +2769,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecDestination {
                 pub name: String,
@@ -2777,7 +2777,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecDestination {
                 pub name: String,
@@ -2785,7 +2785,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecDestination {
                 pub name: String,
@@ -2793,7 +2793,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecDestination {
                 pub name: String,
@@ -2801,7 +2801,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecDestination {
                 pub name: String,
@@ -2809,7 +2809,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecDestination {
                 pub name: String,
@@ -2817,7 +2817,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecDestination {
                 pub name: String,
@@ -2825,7 +2825,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecDestination {
                 pub name: String,
@@ -2833,7 +2833,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecDestination {
                 pub name: String,
@@ -2841,7 +2841,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecDestination {
                 pub name: String,
@@ -2849,7 +2849,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecDestination {
                 pub name: String,
@@ -2857,7 +2857,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecDestination {
                 pub name: String,
@@ -2865,7 +2865,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecDestination {
                 pub name: String,
@@ -2873,7 +2873,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecDestination {
                 pub name: String,
@@ -2881,7 +2881,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecDestination {
                 pub name: String,
@@ -2889,7 +2889,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecDestination {
                 pub name: String,
@@ -2897,7 +2897,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecDestination {
                 pub name: String,
@@ -2905,7 +2905,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecDestination {
                 pub name: String,
@@ -2913,7 +2913,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecDestination {
                 pub name: String,
@@ -2921,7 +2921,7 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecDestination {
                 pub name: String,
@@ -2929,28 +2929,28 @@ pub mod argoproj_io {
                 pub server: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitDirectoriesItem {
                 pub exclude: bool,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitDirectoriesItem {
                 pub exclude: bool,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitDirectoriesItem {
                 pub exclude: bool,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -2960,7 +2960,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -2969,7 +2969,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -2978,7 +2978,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -2987,7 +2987,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -2997,7 +2997,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3006,7 +3006,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3015,7 +3015,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3024,7 +3024,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3033,7 +3033,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3042,7 +3042,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3051,7 +3051,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3061,7 +3061,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3070,7 +3070,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3079,7 +3079,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3088,7 +3088,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3097,7 +3097,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3106,7 +3106,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3115,7 +3115,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3124,7 +3124,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3133,7 +3133,7 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceDirectory {
                 pub exclude: String,
@@ -3142,154 +3142,154 @@ pub mod argoproj_io {
                 pub recurse: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourcePluginEnvItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3297,7 +3297,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3305,7 +3305,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3313,7 +3313,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3321,7 +3321,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetExtVarsItem
             {
@@ -3330,7 +3330,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3338,7 +3338,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3346,7 +3346,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3354,7 +3354,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3362,7 +3362,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3370,7 +3370,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3378,7 +3378,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3386,7 +3386,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3394,7 +3394,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3402,7 +3402,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3410,7 +3410,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3418,7 +3418,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3426,7 +3426,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3434,7 +3434,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3442,7 +3442,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3450,7 +3450,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceDirectoryJsonnetExtVarsItem {
                 pub code: bool,
@@ -3458,178 +3458,178 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceHelmFileParametersItem {
                 pub name: String,
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitFilesItem {
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitFilesItem {
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitFilesItem {
                 pub path: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestFiltersItem {
                 pub branch_match: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderFiltersItem {
                 pub branch_match: String,
@@ -3639,13 +3639,13 @@ pub mod argoproj_io {
                 pub repository_match: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestFiltersItem {
                 pub branch_match: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderFiltersItem {
                 pub branch_match: String,
@@ -3655,13 +3655,13 @@ pub mod argoproj_io {
                 pub repository_match: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestFiltersItem {
                 pub branch_match: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderFiltersItem {
                 pub branch_match: String,
@@ -3671,7 +3671,7 @@ pub mod argoproj_io {
                 pub repository_match: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItem {
                 pub cluster_decision_resource: SpecGeneratorsItemClusterDecisionResource,
@@ -3684,7 +3684,7 @@ pub mod argoproj_io {
                 pub scm_provider: SpecGeneratorsItemScmProvider,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItem {
                 pub cluster_decision_resource: MatrixGeneratorsItemClusterDecisionResource,
@@ -3697,7 +3697,7 @@ pub mod argoproj_io {
                 pub scm_provider: MatrixGeneratorsItemScmProvider,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItem {
                 pub cluster_decision_resource: MergeGeneratorsItemClusterDecisionResource,
@@ -3710,7 +3710,7 @@ pub mod argoproj_io {
                 pub scm_provider: MergeGeneratorsItemScmProvider,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGit {
                 pub directories: Vec<SpecGeneratorsItemGitDirectoriesItem>,
@@ -3721,7 +3721,7 @@ pub mod argoproj_io {
                 pub template: SpecGeneratorsItemGitTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGit {
                 pub directories: Vec<MatrixGeneratorsItemGitDirectoriesItem>,
@@ -3732,7 +3732,7 @@ pub mod argoproj_io {
                 pub template: MatrixGeneratorsItemGitTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGit {
                 pub directories: Vec<MergeGeneratorsItemGitDirectoriesItem>,
@@ -3743,7 +3743,7 @@ pub mod argoproj_io {
                 pub template: MergeGeneratorsItemGitTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestGitea {
                 pub api: String,
@@ -3753,7 +3753,7 @@ pub mod argoproj_io {
                 pub token_ref: MatrixGeneratorsItemPullRequestGiteaTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderGitea {
                 pub all_branches: bool,
@@ -3763,7 +3763,7 @@ pub mod argoproj_io {
                 pub token_ref: MatrixGeneratorsItemScmProviderGiteaTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestGitea {
                 pub api: String,
@@ -3773,7 +3773,7 @@ pub mod argoproj_io {
                 pub token_ref: MergeGeneratorsItemPullRequestGiteaTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderGitea {
                 pub all_branches: bool,
@@ -3783,7 +3783,7 @@ pub mod argoproj_io {
                 pub token_ref: MergeGeneratorsItemScmProviderGiteaTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestGitea {
                 pub api: String,
@@ -3793,7 +3793,7 @@ pub mod argoproj_io {
                 pub token_ref: SpecGeneratorsItemPullRequestGiteaTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderGitea {
                 pub all_branches: bool,
@@ -3803,7 +3803,7 @@ pub mod argoproj_io {
                 pub token_ref: SpecGeneratorsItemScmProviderGiteaTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestGithub {
                 pub api: String,
@@ -3813,7 +3813,7 @@ pub mod argoproj_io {
                 pub token_ref: MatrixGeneratorsItemPullRequestGithubTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderGithub {
                 pub all_branches: bool,
@@ -3822,7 +3822,7 @@ pub mod argoproj_io {
                 pub token_ref: MatrixGeneratorsItemScmProviderGithubTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestGithub {
                 pub api: String,
@@ -3832,7 +3832,7 @@ pub mod argoproj_io {
                 pub token_ref: MergeGeneratorsItemPullRequestGithubTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderGithub {
                 pub all_branches: bool,
@@ -3841,7 +3841,7 @@ pub mod argoproj_io {
                 pub token_ref: MergeGeneratorsItemScmProviderGithubTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestGithub {
                 pub api: String,
@@ -3851,7 +3851,7 @@ pub mod argoproj_io {
                 pub token_ref: SpecGeneratorsItemPullRequestGithubTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderGithub {
                 pub all_branches: bool,
@@ -3860,7 +3860,7 @@ pub mod argoproj_io {
                 pub token_ref: SpecGeneratorsItemScmProviderGithubTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestGitlab {
                 pub api: String,
@@ -3870,7 +3870,7 @@ pub mod argoproj_io {
                 pub token_ref: MatrixGeneratorsItemPullRequestGitlabTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderGitlab {
                 pub all_branches: bool,
@@ -3880,7 +3880,7 @@ pub mod argoproj_io {
                 pub token_ref: MatrixGeneratorsItemScmProviderGitlabTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestGitlab {
                 pub api: String,
@@ -3890,7 +3890,7 @@ pub mod argoproj_io {
                 pub token_ref: MergeGeneratorsItemPullRequestGitlabTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderGitlab {
                 pub all_branches: bool,
@@ -3900,7 +3900,7 @@ pub mod argoproj_io {
                 pub token_ref: MergeGeneratorsItemScmProviderGitlabTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestGitlab {
                 pub api: String,
@@ -3910,7 +3910,7 @@ pub mod argoproj_io {
                 pub token_ref: SpecGeneratorsItemPullRequestGitlabTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderGitlab {
                 pub all_branches: bool,
@@ -3920,7 +3920,7 @@ pub mod argoproj_io {
                 pub token_ref: SpecGeneratorsItemScmProviderGitlabTokenRef,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelm {
             pub file_parameters: Vec<SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmFileParametersItem>,
@@ -3934,7 +3934,7 @@ pub mod argoproj_io {
             pub version: String,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -3949,7 +3949,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -3964,7 +3964,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -3979,7 +3979,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelm {
             pub file_parameters: Vec<MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmFileParametersItem>,
@@ -3993,7 +3993,7 @@ pub mod argoproj_io {
             pub version: String,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4009,7 +4009,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4024,7 +4024,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4039,7 +4039,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4055,7 +4055,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4071,7 +4071,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceHelm {
                 pub file_parameters: Vec<MatrixTemplateSpecSourceHelmFileParametersItem>,
@@ -4085,7 +4085,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelm {
             pub file_parameters: Vec<MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmFileParametersItem>,
@@ -4099,7 +4099,7 @@ pub mod argoproj_io {
             pub version: String,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4115,7 +4115,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4130,7 +4130,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4145,7 +4145,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4161,7 +4161,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4177,7 +4177,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceHelm {
                 pub file_parameters: Vec<MergeTemplateSpecSourceHelmFileParametersItem>,
@@ -4191,7 +4191,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4207,7 +4207,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceHelm {
                 pub file_parameters:
@@ -4223,7 +4223,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceHelm {
                 pub file_parameters: Vec<SpecTemplateSpecSourceHelmFileParametersItem>,
@@ -4237,7 +4237,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4249,7 +4249,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4261,7 +4261,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4273,7 +4273,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4285,7 +4285,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4297,7 +4297,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4309,7 +4309,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4321,7 +4321,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4333,7 +4333,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4345,7 +4345,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4357,7 +4357,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4369,7 +4369,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4381,7 +4381,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4393,7 +4393,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4405,7 +4405,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4417,7 +4417,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4429,7 +4429,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4441,7 +4441,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4453,7 +4453,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4465,7 +4465,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4477,7 +4477,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecIgnoreDifferencesItem {
                 pub group: String,
@@ -4489,154 +4489,154 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecInfoItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnet {
             pub ext_vars: Vec<SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetExtVarsItem>,
@@ -4644,7 +4644,7 @@ pub mod argoproj_io {
             pub tlas: Vec<SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetTlasItem>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4653,7 +4653,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<SpecGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4662,7 +4662,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<SpecGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4671,7 +4671,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<SpecGeneratorsItemListTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnet {
             pub ext_vars: Vec<MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetExtVarsItem>,
@@ -4679,7 +4679,7 @@ pub mod argoproj_io {
             pub tlas: Vec<MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetTlasItem>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4689,7 +4689,7 @@ pub mod argoproj_io {
                     Vec<MatrixGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4698,7 +4698,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<MatrixGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4707,7 +4707,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<MatrixGeneratorsItemListTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<
@@ -4718,7 +4718,7 @@ pub mod argoproj_io {
                     Vec<MatrixGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<
@@ -4729,7 +4729,7 @@ pub mod argoproj_io {
                     Vec<MatrixGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<MatrixTemplateSpecSourceDirectoryJsonnetExtVarsItem>,
@@ -4737,7 +4737,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<MatrixTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnet {
             pub ext_vars: Vec<MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetExtVarsItem>,
@@ -4745,7 +4745,7 @@ pub mod argoproj_io {
             pub tlas: Vec<MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetTlasItem>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4755,7 +4755,7 @@ pub mod argoproj_io {
                     Vec<MergeGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4764,7 +4764,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<MergeGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4773,7 +4773,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<MergeGeneratorsItemListTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<
@@ -4784,7 +4784,7 @@ pub mod argoproj_io {
                     Vec<MergeGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<
@@ -4795,7 +4795,7 @@ pub mod argoproj_io {
                     Vec<MergeGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<MergeTemplateSpecSourceDirectoryJsonnetExtVarsItem>,
@@ -4803,7 +4803,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<MergeTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4813,7 +4813,7 @@ pub mod argoproj_io {
                     Vec<SpecGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars:
@@ -4823,7 +4823,7 @@ pub mod argoproj_io {
                     Vec<SpecGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceDirectoryJsonnet {
                 pub ext_vars: Vec<SpecTemplateSpecSourceDirectoryJsonnetExtVarsItem>,
@@ -4831,7 +4831,7 @@ pub mod argoproj_io {
                 pub tlas: Vec<SpecTemplateSpecSourceDirectoryJsonnetTlasItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomize {
             pub common_annotations: SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonAnnotations,
@@ -4844,7 +4844,7 @@ pub mod argoproj_io {
             pub version: String,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4859,7 +4859,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4873,7 +4873,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4887,7 +4887,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomize {
             pub common_annotations: MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonAnnotations,
@@ -4900,7 +4900,7 @@ pub mod argoproj_io {
             pub version: String,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4915,7 +4915,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4929,7 +4929,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4943,7 +4943,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4958,7 +4958,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -4973,7 +4973,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceKustomize {
                 pub common_annotations: MatrixTemplateSpecSourceKustomizeCommonAnnotations,
@@ -4986,7 +4986,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomize {
             pub common_annotations: MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceKustomizeCommonAnnotations,
@@ -4999,7 +4999,7 @@ pub mod argoproj_io {
             pub version: String,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5014,7 +5014,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5028,7 +5028,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5042,7 +5042,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5057,7 +5057,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5072,7 +5072,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceKustomize {
                 pub common_annotations: MergeTemplateSpecSourceKustomizeCommonAnnotations,
@@ -5085,7 +5085,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5100,7 +5100,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceKustomize {
                 pub common_annotations:
@@ -5115,7 +5115,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceKustomize {
                 pub common_annotations: SpecTemplateSpecSourceKustomizeCommonAnnotations,
@@ -5128,7 +5128,7 @@ pub mod argoproj_io {
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceLabelSelector {
                 pub match_expressions:
@@ -5136,7 +5136,7 @@ pub mod argoproj_io {
                 pub match_labels: SpecGeneratorsItemClusterDecisionResourceLabelSelectorMatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceLabelSelector {
                 pub match_expressions: Vec<
@@ -5146,7 +5146,7 @@ pub mod argoproj_io {
                     MatrixGeneratorsItemClusterDecisionResourceLabelSelectorMatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceLabelSelector {
                 pub match_expressions: Vec<
@@ -5156,154 +5156,154 @@ pub mod argoproj_io {
                     MergeGeneratorsItemClusterDecisionResourceLabelSelectorMatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateMetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemList {
                 pub elements: Vec<std::collections::HashMap<String, String>>,
                 pub template: SpecGeneratorsItemListTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemList {
                 pub elements: Vec<std::collections::HashMap<String, String>>,
                 pub template: MatrixGeneratorsItemListTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemList {
                 pub elements: Vec<std::collections::HashMap<String, String>>,
                 pub template: MergeGeneratorsItemListTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceLabelSelectorMatchExpressionsItem {
                 pub key: String,
@@ -5311,7 +5311,7 @@ pub mod argoproj_io {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersSelectorMatchExpressionsItem {
                 pub key: String,
@@ -5319,7 +5319,7 @@ pub mod argoproj_io {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceLabelSelectorMatchExpressionsItem {
                 pub key: String,
@@ -5327,7 +5327,7 @@ pub mod argoproj_io {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersSelectorMatchExpressionsItem {
                 pub key: String,
@@ -5335,7 +5335,7 @@ pub mod argoproj_io {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceLabelSelectorMatchExpressionsItem {
                 pub key: String,
@@ -5343,7 +5343,7 @@ pub mod argoproj_io {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersSelectorMatchExpressionsItem {
                 pub key: String,
@@ -5351,50 +5351,50 @@ pub mod argoproj_io {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceLabelSelectorMatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersSelectorMatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceLabelSelectorMatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersSelectorMatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceLabelSelectorMatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersSelectorMatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Matrix {
                 pub generators: Vec<MatrixGeneratorsItem>,
                 pub template: MatrixTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Merge {
                 pub generators: Vec<MergeGeneratorsItem>,
@@ -5402,7 +5402,7 @@ pub mod argoproj_io {
                 pub template: MergeTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateMetadata {
                 pub annotations:
@@ -5413,7 +5413,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateMetadata {
                 pub annotations: SpecGeneratorsItemClustersTemplateMetadataAnnotations,
@@ -5423,7 +5423,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateMetadata {
                 pub annotations: SpecGeneratorsItemGitTemplateMetadataAnnotations,
@@ -5433,7 +5433,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateMetadata {
                 pub annotations: SpecGeneratorsItemListTemplateMetadataAnnotations,
@@ -5443,7 +5443,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateMetadata {
                 pub annotations:
@@ -5454,7 +5454,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateMetadata {
                 pub annotations: MatrixGeneratorsItemClustersTemplateMetadataAnnotations,
@@ -5464,7 +5464,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateMetadata {
                 pub annotations: MatrixGeneratorsItemGitTemplateMetadataAnnotations,
@@ -5474,7 +5474,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateMetadata {
                 pub annotations: MatrixGeneratorsItemListTemplateMetadataAnnotations,
@@ -5484,7 +5484,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateMetadata {
                 pub annotations: MatrixGeneratorsItemPullRequestTemplateMetadataAnnotations,
@@ -5494,7 +5494,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateMetadata {
                 pub annotations: MatrixGeneratorsItemScmProviderTemplateMetadataAnnotations,
@@ -5504,7 +5504,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateMetadata {
                 pub annotations: MatrixTemplateMetadataAnnotations,
@@ -5514,7 +5514,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateMetadata {
                 pub annotations:
@@ -5525,7 +5525,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateMetadata {
                 pub annotations: MergeGeneratorsItemClustersTemplateMetadataAnnotations,
@@ -5535,7 +5535,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateMetadata {
                 pub annotations: MergeGeneratorsItemGitTemplateMetadataAnnotations,
@@ -5545,7 +5545,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateMetadata {
                 pub annotations: MergeGeneratorsItemListTemplateMetadataAnnotations,
@@ -5555,7 +5555,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateMetadata {
                 pub annotations: MergeGeneratorsItemPullRequestTemplateMetadataAnnotations,
@@ -5565,7 +5565,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateMetadata {
                 pub annotations: MergeGeneratorsItemScmProviderTemplateMetadataAnnotations,
@@ -5575,7 +5575,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateMetadata {
                 pub annotations: MergeTemplateMetadataAnnotations,
@@ -5585,7 +5585,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateMetadata {
                 pub annotations: SpecGeneratorsItemPullRequestTemplateMetadataAnnotations,
@@ -5595,7 +5595,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateMetadata {
                 pub annotations: SpecGeneratorsItemScmProviderTemplateMetadataAnnotations,
@@ -5605,7 +5605,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateMetadata {
                 pub annotations: SpecTemplateMetadataAnnotations,
@@ -5615,7 +5615,7 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5623,7 +5623,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5631,7 +5631,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5639,7 +5639,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5647,7 +5647,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5655,7 +5655,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5663,7 +5663,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5671,7 +5671,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5679,7 +5679,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5687,7 +5687,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5695,7 +5695,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5703,7 +5703,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5711,7 +5711,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5719,7 +5719,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5727,7 +5727,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5735,7 +5735,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5743,7 +5743,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5751,7 +5751,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5759,7 +5759,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5767,7 +5767,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5775,7 +5775,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceHelmParametersItem {
                 pub force_string: bool,
@@ -5783,49 +5783,49 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestBitbucketServerBasicAuthPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderBitbucketServerBasicAuthPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestBitbucketServerBasicAuthPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderBitbucketServerBasicAuthPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestBitbucketServerBasicAuthPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderBitbucketServerBasicAuthPasswordRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourcePlugin {
                 pub env:
@@ -5833,28 +5833,28 @@ pub mod argoproj_io {
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourcePlugin {
                 pub env: Vec<SpecGeneratorsItemClustersTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourcePlugin {
                 pub env: Vec<SpecGeneratorsItemGitTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourcePlugin {
                 pub env: Vec<SpecGeneratorsItemListTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourcePlugin {
                 pub env:
@@ -5862,49 +5862,49 @@ pub mod argoproj_io {
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourcePlugin {
                 pub env: Vec<MatrixGeneratorsItemClustersTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourcePlugin {
                 pub env: Vec<MatrixGeneratorsItemGitTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourcePlugin {
                 pub env: Vec<MatrixGeneratorsItemListTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourcePlugin {
                 pub env: Vec<MatrixGeneratorsItemPullRequestTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourcePlugin {
                 pub env: Vec<MatrixGeneratorsItemScmProviderTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourcePlugin {
                 pub env: Vec<MatrixTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourcePlugin {
                 pub env:
@@ -5912,70 +5912,70 @@ pub mod argoproj_io {
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourcePlugin {
                 pub env: Vec<MergeGeneratorsItemClustersTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourcePlugin {
                 pub env: Vec<MergeGeneratorsItemGitTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourcePlugin {
                 pub env: Vec<MergeGeneratorsItemListTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourcePlugin {
                 pub env: Vec<MergeGeneratorsItemPullRequestTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourcePlugin {
                 pub env: Vec<MergeGeneratorsItemScmProviderTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourcePlugin {
                 pub env: Vec<MergeTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourcePlugin {
                 pub env: Vec<SpecGeneratorsItemPullRequestTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourcePlugin {
                 pub env: Vec<SpecGeneratorsItemScmProviderTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourcePlugin {
                 pub env: Vec<SpecTemplateSpecSourcePluginEnvItem>,
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequest {
                 pub bitbucket_server: MatrixGeneratorsItemPullRequestBitbucketServer,
@@ -5987,7 +5987,7 @@ pub mod argoproj_io {
                 pub template: MatrixGeneratorsItemPullRequestTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequest {
                 pub bitbucket_server: MergeGeneratorsItemPullRequestBitbucketServer,
@@ -5999,7 +5999,7 @@ pub mod argoproj_io {
                 pub template: MergeGeneratorsItemPullRequestTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequest {
                 pub bitbucket_server: SpecGeneratorsItemPullRequestBitbucketServer,
@@ -6011,7 +6011,7 @@ pub mod argoproj_io {
                 pub template: SpecGeneratorsItemPullRequestTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyRetry {
                 pub backoff:
@@ -6019,28 +6019,28 @@ pub mod argoproj_io {
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSyncPolicyRetry {
                 pub backoff: SpecGeneratorsItemClustersTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSyncPolicyRetry {
                 pub backoff: SpecGeneratorsItemGitTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSyncPolicyRetry {
                 pub backoff: SpecGeneratorsItemListTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyRetry {
                 pub backoff:
@@ -6048,49 +6048,49 @@ pub mod argoproj_io {
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSyncPolicyRetry {
                 pub backoff: MatrixGeneratorsItemClustersTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSyncPolicyRetry {
                 pub backoff: MatrixGeneratorsItemGitTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSyncPolicyRetry {
                 pub backoff: MatrixGeneratorsItemListTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicyRetry {
                 pub backoff: MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicyRetry {
                 pub backoff: MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSyncPolicyRetry {
                 pub backoff: MatrixTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyRetry {
                 pub backoff:
@@ -6098,70 +6098,70 @@ pub mod argoproj_io {
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSyncPolicyRetry {
                 pub backoff: MergeGeneratorsItemClustersTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSyncPolicyRetry {
                 pub backoff: MergeGeneratorsItemGitTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSyncPolicyRetry {
                 pub backoff: MergeGeneratorsItemListTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSyncPolicyRetry {
                 pub backoff: MergeGeneratorsItemPullRequestTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSyncPolicyRetry {
                 pub backoff: MergeGeneratorsItemScmProviderTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSyncPolicyRetry {
                 pub backoff: MergeTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSyncPolicyRetry {
                 pub backoff: SpecGeneratorsItemPullRequestTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSyncPolicyRetry {
                 pub backoff: SpecGeneratorsItemScmProviderTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSyncPolicyRetry {
                 pub backoff: SpecTemplateSpecSyncPolicyRetryBackoff,
                 pub limit: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProvider {
                 pub azure_dev_ops: MatrixGeneratorsItemScmProviderAzureDevOps,
@@ -6176,7 +6176,7 @@ pub mod argoproj_io {
                 pub template: MatrixGeneratorsItemScmProviderTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProvider {
                 pub azure_dev_ops: MergeGeneratorsItemScmProviderAzureDevOps,
@@ -6191,7 +6191,7 @@ pub mod argoproj_io {
                 pub template: MergeGeneratorsItemScmProviderTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProvider {
                 pub azure_dev_ops: SpecGeneratorsItemScmProviderAzureDevOps,
@@ -6206,14 +6206,14 @@ pub mod argoproj_io {
                 pub template: SpecGeneratorsItemScmProviderTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersSelector {
                 pub match_expressions: Vec<SpecGeneratorsItemClustersSelectorMatchExpressionsItem>,
                 pub match_labels: SpecGeneratorsItemClustersSelectorMatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersSelector {
                 pub match_expressions:
@@ -6221,14 +6221,14 @@ pub mod argoproj_io {
                 pub match_labels: MatrixGeneratorsItemClustersSelectorMatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersSelector {
                 pub match_expressions: Vec<MergeGeneratorsItemClustersSelectorMatchExpressionsItem>,
                 pub match_labels: MergeGeneratorsItemClustersSelectorMatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSource {
                 pub chart: String,
@@ -6241,7 +6241,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSource {
                 pub chart: String,
@@ -6254,7 +6254,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSource {
                 pub chart: String,
@@ -6267,7 +6267,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSource {
                 pub chart: String,
@@ -6280,7 +6280,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSource {
                 pub chart: String,
@@ -6295,7 +6295,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSource {
                 pub chart: String,
@@ -6308,7 +6308,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSource {
                 pub chart: String,
@@ -6321,7 +6321,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSource {
                 pub chart: String,
@@ -6334,7 +6334,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSource {
                 pub chart: String,
@@ -6347,7 +6347,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSource {
                 pub chart: String,
@@ -6360,7 +6360,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSource {
                 pub chart: String,
@@ -6373,7 +6373,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSource {
                 pub chart: String,
@@ -6388,7 +6388,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSource {
                 pub chart: String,
@@ -6401,7 +6401,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSource {
                 pub chart: String,
@@ -6414,7 +6414,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSource {
                 pub chart: String,
@@ -6427,7 +6427,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSource {
                 pub chart: String,
@@ -6440,7 +6440,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSource {
                 pub chart: String,
@@ -6453,7 +6453,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSource {
                 pub chart: String,
@@ -6466,7 +6466,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSource {
                 pub chart: String,
@@ -6479,7 +6479,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSource {
                 pub chart: String,
@@ -6492,7 +6492,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSource {
                 pub chart: String,
@@ -6505,7 +6505,7 @@ pub mod argoproj_io {
                 pub target_revision: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub generators: Vec<SpecGeneratorsItem>,
@@ -6513,7 +6513,7 @@ pub mod argoproj_io {
                 pub template: SpecTemplate,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpec {
                 pub destination: SpecGeneratorsItemClusterDecisionResourceTemplateSpecDestination,
@@ -6526,7 +6526,7 @@ pub mod argoproj_io {
                 pub sync_policy: SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpec {
                 pub destination: SpecGeneratorsItemClustersTemplateSpecDestination,
@@ -6539,7 +6539,7 @@ pub mod argoproj_io {
                 pub sync_policy: SpecGeneratorsItemClustersTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpec {
                 pub destination: SpecGeneratorsItemGitTemplateSpecDestination,
@@ -6551,7 +6551,7 @@ pub mod argoproj_io {
                 pub sync_policy: SpecGeneratorsItemGitTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpec {
                 pub destination: SpecGeneratorsItemListTemplateSpecDestination,
@@ -6564,7 +6564,7 @@ pub mod argoproj_io {
                 pub sync_policy: SpecGeneratorsItemListTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpec {
                 pub destination: MatrixGeneratorsItemClusterDecisionResourceTemplateSpecDestination,
@@ -6578,7 +6578,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpec {
                 pub destination: MatrixGeneratorsItemClustersTemplateSpecDestination,
@@ -6591,7 +6591,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixGeneratorsItemClustersTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpec {
                 pub destination: MatrixGeneratorsItemGitTemplateSpecDestination,
@@ -6604,7 +6604,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixGeneratorsItemGitTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpec {
                 pub destination: MatrixGeneratorsItemListTemplateSpecDestination,
@@ -6617,7 +6617,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixGeneratorsItemListTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpec {
                 pub destination: MatrixGeneratorsItemPullRequestTemplateSpecDestination,
@@ -6630,7 +6630,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpec {
                 pub destination: MatrixGeneratorsItemScmProviderTemplateSpecDestination,
@@ -6643,7 +6643,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpec {
                 pub destination: MatrixTemplateSpecDestination,
@@ -6655,7 +6655,7 @@ pub mod argoproj_io {
                 pub sync_policy: MatrixTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpec {
                 pub destination: MergeGeneratorsItemClusterDecisionResourceTemplateSpecDestination,
@@ -6669,7 +6669,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpec {
                 pub destination: MergeGeneratorsItemClustersTemplateSpecDestination,
@@ -6682,7 +6682,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeGeneratorsItemClustersTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpec {
                 pub destination: MergeGeneratorsItemGitTemplateSpecDestination,
@@ -6695,7 +6695,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeGeneratorsItemGitTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpec {
                 pub destination: MergeGeneratorsItemListTemplateSpecDestination,
@@ -6708,7 +6708,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeGeneratorsItemListTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpec {
                 pub destination: MergeGeneratorsItemPullRequestTemplateSpecDestination,
@@ -6721,7 +6721,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeGeneratorsItemPullRequestTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpec {
                 pub destination: MergeGeneratorsItemScmProviderTemplateSpecDestination,
@@ -6734,7 +6734,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeGeneratorsItemScmProviderTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpec {
                 pub destination: MergeTemplateSpecDestination,
@@ -6746,7 +6746,7 @@ pub mod argoproj_io {
                 pub sync_policy: MergeTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpec {
                 pub destination: SpecGeneratorsItemPullRequestTemplateSpecDestination,
@@ -6759,7 +6759,7 @@ pub mod argoproj_io {
                 pub sync_policy: SpecGeneratorsItemPullRequestTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpec {
                 pub destination: SpecGeneratorsItemScmProviderTemplateSpecDestination,
@@ -6772,7 +6772,7 @@ pub mod argoproj_io {
                 pub sync_policy: SpecGeneratorsItemScmProviderTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpec {
                 pub destination: SpecTemplateSpecDestination,
@@ -6784,13 +6784,13 @@ pub mod argoproj_io {
                 pub sync_policy: SpecTemplateSpecSyncPolicy,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy {
                 pub automated:
@@ -6799,7 +6799,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSyncPolicy {
                 pub automated: SpecGeneratorsItemClustersTemplateSpecSyncPolicyAutomated,
@@ -6807,7 +6807,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSyncPolicy {
                 pub automated: SpecGeneratorsItemGitTemplateSpecSyncPolicyAutomated,
@@ -6815,7 +6815,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSyncPolicy {
                 pub automated: SpecGeneratorsItemListTemplateSpecSyncPolicyAutomated,
@@ -6823,7 +6823,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy {
                 pub automated:
@@ -6832,7 +6832,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSyncPolicy {
                 pub automated: MatrixGeneratorsItemClustersTemplateSpecSyncPolicyAutomated,
@@ -6840,7 +6840,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSyncPolicy {
                 pub automated: MatrixGeneratorsItemGitTemplateSpecSyncPolicyAutomated,
@@ -6848,7 +6848,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSyncPolicy {
                 pub automated: MatrixGeneratorsItemListTemplateSpecSyncPolicyAutomated,
@@ -6856,7 +6856,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicy {
                 pub automated: MatrixGeneratorsItemPullRequestTemplateSpecSyncPolicyAutomated,
@@ -6864,7 +6864,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicy {
                 pub automated: MatrixGeneratorsItemScmProviderTemplateSpecSyncPolicyAutomated,
@@ -6872,7 +6872,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSyncPolicy {
                 pub automated: MatrixTemplateSpecSyncPolicyAutomated,
@@ -6880,7 +6880,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy {
                 pub automated:
@@ -6889,7 +6889,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSyncPolicy {
                 pub automated: MergeGeneratorsItemClustersTemplateSpecSyncPolicyAutomated,
@@ -6897,7 +6897,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSyncPolicy {
                 pub automated: MergeGeneratorsItemGitTemplateSpecSyncPolicyAutomated,
@@ -6905,7 +6905,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSyncPolicy {
                 pub automated: MergeGeneratorsItemListTemplateSpecSyncPolicyAutomated,
@@ -6913,7 +6913,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSyncPolicy {
                 pub automated: MergeGeneratorsItemPullRequestTemplateSpecSyncPolicyAutomated,
@@ -6921,7 +6921,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSyncPolicy {
                 pub automated: MergeGeneratorsItemScmProviderTemplateSpecSyncPolicyAutomated,
@@ -6929,7 +6929,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSyncPolicy {
                 pub automated: MergeTemplateSpecSyncPolicyAutomated,
@@ -6937,7 +6937,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSyncPolicy {
                 pub automated: SpecGeneratorsItemPullRequestTemplateSpecSyncPolicyAutomated,
@@ -6945,7 +6945,7 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSyncPolicy {
                 pub automated: SpecGeneratorsItemScmProviderTemplateSpecSyncPolicyAutomated,
@@ -6953,13 +6953,13 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSyncPolicy {
                 pub preserve_resources_on_deletion: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSyncPolicy {
                 pub automated: SpecTemplateSpecSyncPolicyAutomated,
@@ -6967,154 +6967,154 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplate {
                 pub metadata: SpecGeneratorsItemClusterDecisionResourceTemplateMetadata,
                 pub spec: SpecGeneratorsItemClusterDecisionResourceTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplate {
                 pub metadata: SpecGeneratorsItemClustersTemplateMetadata,
                 pub spec: SpecGeneratorsItemClustersTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplate {
                 pub metadata: SpecGeneratorsItemGitTemplateMetadata,
                 pub spec: SpecGeneratorsItemGitTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplate {
                 pub metadata: SpecGeneratorsItemListTemplateMetadata,
                 pub spec: SpecGeneratorsItemListTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplate {
                 pub metadata: MatrixGeneratorsItemClusterDecisionResourceTemplateMetadata,
                 pub spec: MatrixGeneratorsItemClusterDecisionResourceTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplate {
                 pub metadata: MatrixGeneratorsItemClustersTemplateMetadata,
                 pub spec: MatrixGeneratorsItemClustersTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplate {
                 pub metadata: MatrixGeneratorsItemGitTemplateMetadata,
                 pub spec: MatrixGeneratorsItemGitTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplate {
                 pub metadata: MatrixGeneratorsItemListTemplateMetadata,
                 pub spec: MatrixGeneratorsItemListTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplate {
                 pub metadata: MatrixGeneratorsItemPullRequestTemplateMetadata,
                 pub spec: MatrixGeneratorsItemPullRequestTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplate {
                 pub metadata: MatrixGeneratorsItemScmProviderTemplateMetadata,
                 pub spec: MatrixGeneratorsItemScmProviderTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplate {
                 pub metadata: MatrixTemplateMetadata,
                 pub spec: MatrixTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplate {
                 pub metadata: MergeGeneratorsItemClusterDecisionResourceTemplateMetadata,
                 pub spec: MergeGeneratorsItemClusterDecisionResourceTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplate {
                 pub metadata: MergeGeneratorsItemClustersTemplateMetadata,
                 pub spec: MergeGeneratorsItemClustersTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplate {
                 pub metadata: MergeGeneratorsItemGitTemplateMetadata,
                 pub spec: MergeGeneratorsItemGitTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplate {
                 pub metadata: MergeGeneratorsItemListTemplateMetadata,
                 pub spec: MergeGeneratorsItemListTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplate {
                 pub metadata: MergeGeneratorsItemPullRequestTemplateMetadata,
                 pub spec: MergeGeneratorsItemPullRequestTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplate {
                 pub metadata: MergeGeneratorsItemScmProviderTemplateMetadata,
                 pub spec: MergeGeneratorsItemScmProviderTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplate {
                 pub metadata: MergeTemplateMetadata,
                 pub spec: MergeTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplate {
                 pub metadata: SpecGeneratorsItemPullRequestTemplateMetadata,
                 pub spec: SpecGeneratorsItemPullRequestTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplate {
                 pub metadata: SpecGeneratorsItemScmProviderTemplateMetadata,
                 pub spec: SpecGeneratorsItemScmProviderTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplate {
                 pub metadata: SpecTemplateMetadata,
                 pub spec: SpecTemplateSpec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7122,7 +7122,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7130,7 +7130,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7138,7 +7138,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemListTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7146,7 +7146,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7154,7 +7154,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7162,7 +7162,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7170,7 +7170,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemListTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7178,7 +7178,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7186,7 +7186,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7194,7 +7194,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7202,7 +7202,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7210,7 +7210,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7218,7 +7218,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemGitTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7226,7 +7226,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemListTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7234,7 +7234,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7242,7 +7242,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7250,7 +7250,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7258,7 +7258,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7266,7 +7266,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7274,7 +7274,7 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSourceDirectoryJsonnetTlasItem {
                 pub code: bool,
@@ -7282,163 +7282,163 @@ pub mod argoproj_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestGiteaTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestGithubTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequestGitlabTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderGiteaTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderGithubTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProviderGitlabTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestGiteaTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestGithubTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemPullRequestGitlabTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderGiteaTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderGithubTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemScmProviderGitlabTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestGiteaTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestGithubTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestGitlabTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderGiteaTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderGithubTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemScmProviderGitlabTokenRef {
                 pub key: String,
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceValues {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClustersValues {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClusterDecisionResourceValues {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemClustersValues {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClusterDecisionResourceValues {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersValues {
                 pub properties: std::collections::HashMap<String, String>,

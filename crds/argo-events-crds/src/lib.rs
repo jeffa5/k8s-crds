@@ -4,7 +4,7 @@
 pub mod argoproj_io {
     pub mod v1alpha1 {
         pub mod event_bus {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EventBus {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -12,13 +12,13 @@ pub mod argoproj_io {
                 pub status: Status,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: std::collections::HashMap<String, String>,
@@ -47,7 +47,7 @@ pub mod argoproj_io {
             }
         }
         pub mod event_source {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EventSource {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -55,13 +55,13 @@ pub mod argoproj_io {
                 pub status: Status,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: std::collections::HashMap<String, String>,
@@ -90,7 +90,7 @@ pub mod argoproj_io {
             }
         }
         pub mod sensor {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Sensor {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -98,13 +98,13 @@ pub mod argoproj_io {
                 pub status: Status,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: std::collections::HashMap<String, String>,

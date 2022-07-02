@@ -210,7 +210,6 @@ impl Crate {
             ct,
             r#"k8s-openapi = {{ version = "0.15.0", features = ["v1_20"] }}
 serde = {{ version = "1.0.137", features = ["derive"] }}
-serde_yaml = "0.8.24"
 serde_json = "1.0.82""#
         )?;
         Ok(())

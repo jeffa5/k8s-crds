@@ -94,6 +94,20 @@ fn main() -> anyhow::Result<()> {
     ],
     }.make()?;
 
+    Crate {
+        root: root.to_owned(),
+        name: "argo-workflows".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+        "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/base/crds/full/argoproj.io_clusterworkflowtemplates.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/base/crds/full/argoproj.io_cronworkflows.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/base/crds/full/argoproj.io_workfloweventbindings.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/base/crds/full/argoproj.io_workflows.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/base/crds/full/argoproj.io_workflowtasksets.yaml".to_owned(),
+        "https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/base/crds/full/argoproj.io_workflowtemplates.yaml".to_owned(),
+    ],
+    }.make()?;
+
     fmt();
 
     Ok(())

@@ -108,7 +108,15 @@ fn main() -> anyhow::Result<()> {
     ],
     }.make()?;
 
-    fmt();
+    Crate {
+        root: root.to_owned(),
+        name: "longhorn".to_owned(),
+        version: "0.1.0".to_owned(),
+        urls: vec![
+            "https://raw.githubusercontent.com/longhorn/longhorn/41f1d0a5a69c83b9ff63714cce7385663baef31d/deploy/longhorn.yaml".to_owned(),
+        ],
+    }
+    .make()?;
 
     Ok(())
 }

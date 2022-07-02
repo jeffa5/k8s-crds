@@ -3,3 +3,6 @@ test:
 
 generate:
     cargo run --bin k8s-crds-codegen
+
+fmt:
+    find . -name *.rs -exec rustfmt {} \;

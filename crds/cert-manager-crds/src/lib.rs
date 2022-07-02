@@ -1092,7 +1092,7 @@ pub mod acme_cert_manager_io {
                 /// IssuerRef references a properly configured ACME-type Issuer which should be used to create this Order. If the Issuer does not exist, processing will be retried. If the Issuer is not an 'ACME' Issuer, an error will be returned and the Order will be marked as failed.
                 pub issuer_ref: IssuerRef,
                 /// Certificate signing request bytes in DER encoding. This will be used when finalizing the order. This field must be set on the order.
-                pub request: String,
+                pub request: Vec<u8>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1101,7 +1101,7 @@ pub mod acme_cert_manager_io {
                 /// Authorizations contains data returned from the ACME server on what authorizations must be completed in order to validate the DNS names specified on the Order.
                 pub authorizations: Vec<AuthorizationsItem>,
                 /// Certificate is a copy of the PEM encoded certificate for this Order. This field will be populated after the order has been successfully finalized with the ACME server, and the order has transitioned to the 'valid' state.
-                pub certificate: String,
+                pub certificate: Vec<u8>,
                 /// FailureTime stores the time that this order failed. This is used to influence garbage collection and back-off.
                 pub failure_time: String,
                 /// FinalizeURL of the Order. This is used to obtain certificates for this order once it has been completed.
@@ -1453,7 +1453,7 @@ pub mod cert_manager_io {
                 /// IssuerRef is a reference to the issuer for this CertificateRequest.  If the `kind` field is not set, or set to `Issuer`, an Issuer resource with the given name in the same namespace as the CertificateRequest will be used.  If the `kind` field is set to `ClusterIssuer`, a ClusterIssuer with the provided name will be used. The `name` field in this stanza is required at all times. The group field refers to the API group of the issuer which defaults to `cert-manager.io` if empty.
                 pub issuer_ref: IssuerRef,
                 /// The PEM-encoded x509 certificate signing request to be submitted to the CA for signing.
-                pub request: String,
+                pub request: Vec<u8>,
                 /// UID contains the uid of the user that created the CertificateRequest. Populated by the cert-manager webhook on creation and immutable.
                 pub uid: String,
                 /// Usages is the set of x509 usages that are requested for the certificate. If usages are set they SHOULD be encoded inside the CSR spec Defaults to `digital signature` and `key encipherment` if not specified.
@@ -1467,9 +1467,9 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// The PEM encoded x509 certificate of the signer, also known as the CA (Certificate Authority). This is set on a best-effort basis by different issuers. If not set, the CA is assumed to be unknown/not available.
-                pub ca: String,
+                pub ca: Vec<u8>,
                 /// The PEM encoded x509 certificate resulting from the certificate signing request. If not set, the CertificateRequest has either not been completed or has failed. More information on failure can be found by checking the `conditions` field.
-                pub certificate: String,
+                pub certificate: Vec<u8>,
                 /// List of status conditions to indicate the status of a CertificateRequest. Known condition types are `Ready` and `InvalidRequest`.
                 pub conditions: Vec<ConditionsItem>,
                 /// FailureTime stores the time that this CertificateRequest failed. This is used to influence garbage collection and back-off.
@@ -2660,7 +2660,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Tpp {
                 /// CABundle is a PEM encoded TLS certificate to use to verify connections to the TPP instance. If specified, system roots will not be used and the issuing CA for the TPP instance must be verifiable using the provided root. If not specified, the connection will be verified using the cert-manager system root certificates.
-                pub ca_bundle: String,
+                pub ca_bundle: Vec<u8>,
                 /// CredentialsRef is a reference to a Secret containing the username and password for the TPP server. The secret must contain two keys, 'username' and 'password'.
                 pub credentials_ref: CredentialsRef,
                 /// URL is the base URL for the vedsdk endpoint of the Venafi TPP instance, for example: "https://tpp.example.com/vedsdk".
@@ -2684,7 +2684,7 @@ pub mod cert_manager_io {
                 /// Auth configures how cert-manager authenticates with the Vault server.
                 pub auth: Auth,
                 /// PEM-encoded CA bundle (base64-encoded) used to validate Vault server certificate. Only used if the Server URL is using HTTPS protocol. This parameter is ignored for plain HTTP protocol connection. If not set the system root certificates are used to validate the TLS connection.
-                pub ca_bundle: String,
+                pub ca_bundle: Vec<u8>,
                 /// Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows Vault environments to support Secure Multi-tenancy. e.g: "ns1" More about namespaces can be found here https://www.vaultproject.io/docs/enterprise/namespaces
                 pub namespace: String,
                 /// Path is the mount path of the Vault PKI backend's `sign` endpoint, e.g: "my_pki_mount/sign/my-role-name".
@@ -3901,7 +3901,7 @@ pub mod cert_manager_io {
             #[serde(rename_all = "camelCase")]
             pub struct Tpp {
                 /// CABundle is a PEM encoded TLS certificate to use to verify connections to the TPP instance. If specified, system roots will not be used and the issuing CA for the TPP instance must be verifiable using the provided root. If not specified, the connection will be verified using the cert-manager system root certificates.
-                pub ca_bundle: String,
+                pub ca_bundle: Vec<u8>,
                 /// CredentialsRef is a reference to a Secret containing the username and password for the TPP server. The secret must contain two keys, 'username' and 'password'.
                 pub credentials_ref: CredentialsRef,
                 /// URL is the base URL for the vedsdk endpoint of the Venafi TPP instance, for example: "https://tpp.example.com/vedsdk".
@@ -3925,7 +3925,7 @@ pub mod cert_manager_io {
                 /// Auth configures how cert-manager authenticates with the Vault server.
                 pub auth: Auth,
                 /// PEM-encoded CA bundle (base64-encoded) used to validate Vault server certificate. Only used if the Server URL is using HTTPS protocol. This parameter is ignored for plain HTTP protocol connection. If not set the system root certificates are used to validate the TLS connection.
-                pub ca_bundle: String,
+                pub ca_bundle: Vec<u8>,
                 /// Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows Vault environments to support Secure Multi-tenancy. e.g: "ns1" More about namespaces can be found here https://www.vaultproject.io/docs/enterprise/namespaces
                 pub namespace: String,
                 /// Path is the mount path of the Vault PKI backend's `sign` endpoint, e.g: "my_pki_mount/sign/my-role-name".

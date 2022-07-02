@@ -144,9 +144,10 @@ fn build_resource<W: Write>(
 
     write_derives(f)?;
 
+    let struct_name = camel_case(kind);
     writeln!(
         f,
-        "{}pub struct {kind} {{
+        "{}pub struct {struct_name} {{
 {}{}pub metadata: {OBJECT_META},",
         indent, indent, INDENT
     )?;
@@ -307,13 +308,13 @@ fn get_structs_to_make(
     parents: Vec<String>,
     name: &str,
     props: &JSONSchemaProps,
-    structs: &mut BTreeMap<String, Vec<(Vec<String>, JSONSchemaProps)>>,
+    structs: &mut BTreeMap<String, BTreeMap<Vec<String>, JSONSchemaProps>>,
 ) {
     if let Some("object") = props.type_.as_deref() {
         structs
             .entry(camel_case(name))
             .or_default()
-            .push((parents.clone(), props.clone()));
+            .insert(parents.clone(), props.clone());
 
         if let Some(props) = props.properties.as_ref() {
             let mut parents = parents.clone();

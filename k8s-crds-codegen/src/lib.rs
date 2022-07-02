@@ -433,7 +433,7 @@ fn get_type(
                     ?property,
                     "Failed to find type name in rename_mapping"
                 );
-                "()".to_owned()
+                "serde_yaml::Value".to_owned()
             }
         },
         Some("boolean") => "bool".to_owned(),
@@ -463,8 +463,8 @@ fn get_type(
                 }
                 None => {
                     // missing schema
-                    warn!(?props, "missing schema in array")
-                    "()".to_owned()
+                    warn!(?props, "missing schema in array");
+                    "serde_yaml::Value".to_owned()
                 }
             };
             format!("Vec<{}>", inner_type)

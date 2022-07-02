@@ -4,5 +4,11 @@ test:
 generate:
     cargo run --bin k8s-crds-codegen
 
-fmt:
-    find . -name *.rs -exec rustfmt {} \;
+check:
+    find . -name Cargo.toml -execdir cargo check \;
+
+clippy:
+    find . -name Cargo.toml -execdir pwd \; -exec cargo clippy \;
+
+clean:
+    find . -name Cargo.toml -execdir cargo clean \;

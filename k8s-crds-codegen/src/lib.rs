@@ -404,7 +404,7 @@ fn make_struct<W: Write>(
             }
             writeln!(
                 f,
-                "{}{}pub {}: std::collections::HashMap<String, String>,",
+                "{}{}pub {}: serde_json::Map",
                 indent,
                 INDENT,
                 make_property_name("properties"),
@@ -442,7 +442,7 @@ fn get_type(
                     ?property,
                     "Failed to find type name in rename_mapping"
                 );
-                "serde_yaml::Value".to_owned()
+                "serde_json::Value".to_owned()
             }
         },
         Some("boolean") => "bool".to_owned(),
@@ -472,7 +472,7 @@ fn get_type(
                 }
                 None => {
                     // missing schema
-                    "serde_yaml::Value".to_owned()
+                    "serde_json::Value".to_owned()
                 }
             };
             format!("Vec<{}>", inner_type)
@@ -484,10 +484,10 @@ fn get_type(
             if let Some(true) = props.x_kubernetes_int_or_string {
                 "k8s_openapi::apimachinery::pkg::util::intstr::IntOrString".to_owned()
             } else if Some(true) == props.x_kubernetes_preserve_unknown_fields {
-                "std::collections::HashMap<String, String>".to_owned()
+                "serde_json::Map".to_owned()
             } else {
                 // no type given
-                "serde_yaml::Value".to_owned()
+                "serde_json::Value".to_owned()
             }
         }
     };

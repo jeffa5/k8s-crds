@@ -3,6 +3,3 @@ members = [
     "k8s-crds-codegen",
     "k8s-crds-test",
 ]
-exclude = [
-    "crds/*"
-]

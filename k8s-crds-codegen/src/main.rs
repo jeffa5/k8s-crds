@@ -135,7 +135,17 @@ impl Crate {
 
         k8s_crds_codegen::build_from_paths(&mut out, paths)?;
 
+        self.fmt();
+
         Ok(())
+    }
+
+    fn fmt(&self) {
+        Command::new("cargo")
+            .arg("fmt")
+            .current_dir(self.crate_root())
+            .status()
+            .unwrap();
     }
 
     fn write_creator<W: Write>(w: &mut W) -> anyhow::Result<()> {
@@ -179,6 +189,8 @@ impl Crate {
     fn write_cargo_toml(&self) -> anyhow::Result<()> {
         let mut ct = File::create(self.crate_root().join("Cargo.toml"))?;
 
+        // ensure it doesn't look up for workspaces
+        writeln!(ct, "[workspace]")?;
         writeln!(ct, "[package]")?;
         writeln!(ct, "name = \"{}\"", self.package_name())?;
         writeln!(ct, "version = \"{}\"", self.version)?;
@@ -201,8 +213,4 @@ serde_yaml = "0.8.24""#
     fn package_name(&self) -> String {
         format!("{}-crds", self.name)
     }
-}
-
-fn fmt() {
-    Command::new("cargo").arg("fmt").status().unwrap();
 }

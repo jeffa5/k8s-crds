@@ -4,24 +4,11 @@
 pub mod argoproj_io {
     pub mod v1alpha1 {
         pub mod event_bus {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct EventBus {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Spec {
-                pub properties: serde_json::Map<String, serde_json::Value>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Status {
-                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for EventBus {
@@ -45,14 +32,24 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod event_source {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EventSource {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for EventBus {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("EventBus", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -65,6 +62,14 @@ pub mod argoproj_io {
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
+            }
+        }
+        pub mod event_source {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct EventSource {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
             }
 
             impl k8s_openapi::Resource for EventSource {
@@ -88,14 +93,24 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod sensor {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Sensor {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for EventSource {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("EventSource", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -108,6 +123,14 @@ pub mod argoproj_io {
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
+            }
+        }
+        pub mod sensor {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Sensor {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
             }
 
             impl k8s_openapi::Resource for Sensor {
@@ -130,6 +153,37 @@ pub mod argoproj_io {
                 fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
                     &mut self.metadata
                 }
+            }
+
+            impl serde::Serialize for Sensor {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Sensor", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Spec {
+                pub properties: serde_json::Map<String, serde_json::Value>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Status {
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
         }
     }

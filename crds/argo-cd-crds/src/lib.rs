@@ -5,12 +5,52 @@ pub mod argoproj_io {
     pub mod v1alpha1 {
         pub mod app_project {
             /// AppProject provides a logical grouping of applications, providing controls for: * where the apps may deploy to (cluster whitelist) * what may be deployed (repository whitelist, resource whitelist/blacklist) * who can access these applications (roles, OIDC group claims bindings) * and what they can do (RBAC policies) * automation access to these roles (JWT tokens)
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct AppProject {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for AppProject {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "argoproj.io/v1alpha1";
+                const GROUP: &'static str = "argoproj.io";
+                const KIND: &'static str = "AppProject";
+                const VERSION: &'static str = "v1alpha1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for AppProject {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for AppProject {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("AppProject", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// GroupKind specifies a Group and a Kind, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
@@ -190,18 +230,28 @@ pub mod argoproj_io {
             pub struct Value {
                 pub items: Vec<ItemsItem>,
             }
+        }
+        pub mod application {
+            /// Application is a definition of Application resource.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Application {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub operation: Operation,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for AppProject {
+            impl k8s_openapi::Resource for Application {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "argoproj.io/v1alpha1";
                 const GROUP: &'static str = "argoproj.io";
-                const KIND: &'static str = "AppProject";
+                const KIND: &'static str = "Application";
                 const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for AppProject {
+            impl k8s_openapi::Metadata for Application {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -212,16 +262,25 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod application {
-            /// Application is a definition of Application resource.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Application {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub operation: Operation,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Application {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Application", 6)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("operation", &self.operation)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Apply will perform a `kubectl apply` to perform the sync.
@@ -1751,18 +1810,26 @@ pub mod argoproj_io {
                 pub name: String,
                 pub value: String,
             }
+        }
+        pub mod application_set {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ApplicationSet {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Application {
+            impl k8s_openapi::Resource for ApplicationSet {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "argoproj.io/v1alpha1";
                 const GROUP: &'static str = "argoproj.io";
-                const KIND: &'static str = "Application";
+                const KIND: &'static str = "ApplicationSet";
                 const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Application {
+            impl k8s_openapi::Metadata for ApplicationSet {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1773,14 +1840,24 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod application_set {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ApplicationSet {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ApplicationSet {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ApplicationSet", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -7442,28 +7519,6 @@ pub mod argoproj_io {
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemClustersValues {
                 pub properties: std::collections::HashMap<String, String>,
-            }
-
-            impl k8s_openapi::Resource for ApplicationSet {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "argoproj.io/v1alpha1";
-                const GROUP: &'static str = "argoproj.io";
-                const KIND: &'static str = "ApplicationSet";
-                const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for ApplicationSet {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

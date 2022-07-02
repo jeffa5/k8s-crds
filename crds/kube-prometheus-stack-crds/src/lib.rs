@@ -5,12 +5,52 @@ pub mod monitoring_coreos_com {
     pub mod v1 {
         pub mod alertmanager {
             /// Alertmanager describes an Alertmanager cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Alertmanager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for Alertmanager {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "monitoring.coreos.com/v1";
+                const GROUP: &'static str = "monitoring.coreos.com";
+                const KIND: &'static str = "Alertmanager";
+                const VERSION: &'static str = "v1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for Alertmanager {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for Alertmanager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Alertmanager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// If specified, the pod's scheduling constraints.
@@ -3500,18 +3540,26 @@ pub mod monitoring_coreos_com {
                 /// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
                 pub run_as_user_name: String,
             }
+        }
+        pub mod pod_monitor {
+            /// PodMonitor defines monitoring for a set of pods.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct PodMonitor {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
-            impl k8s_openapi::Resource for Alertmanager {
+            impl k8s_openapi::Resource for PodMonitor {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "monitoring.coreos.com/v1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "Alertmanager";
+                const KIND: &'static str = "PodMonitor";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Alertmanager {
+            impl k8s_openapi::Metadata for PodMonitor {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3522,14 +3570,23 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod pod_monitor {
-            /// PodMonitor defines monitoring for a set of pods.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodMonitor {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for PodMonitor {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("PodMonitor", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             /// Attaches node metadata to discovered targets. Only valid for role: pod. Only valid in Prometheus versions 2.35.0 and newer.
@@ -3931,18 +3988,26 @@ pub mod monitoring_coreos_com {
                 /// Specify whether the Secret or its key must be defined
                 pub optional: bool,
             }
+        }
+        pub mod probe {
+            /// Probe defines monitoring for a set of static targets or ingresses.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Probe {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
-            impl k8s_openapi::Resource for PodMonitor {
+            impl k8s_openapi::Resource for Probe {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "monitoring.coreos.com/v1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "PodMonitor";
+                const KIND: &'static str = "Probe";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for PodMonitor {
+            impl k8s_openapi::Metadata for Probe {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3953,14 +4018,23 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod probe {
-            /// Probe defines monitoring for a set of static targets or ingresses.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Probe {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for Probe {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Probe", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             /// Authorization section for this endpoint
@@ -4392,18 +4466,27 @@ pub mod monitoring_coreos_com {
                 /// Specify whether the Secret or its key must be defined
                 pub optional: bool,
             }
+        }
+        pub mod prometheus {
+            /// Prometheus defines a Prometheus deployment.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Prometheus {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Probe {
+            impl k8s_openapi::Resource for Prometheus {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "monitoring.coreos.com/v1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "Probe";
+                const KIND: &'static str = "Prometheus";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Probe {
+            impl k8s_openapi::Metadata for Prometheus {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4414,15 +4497,24 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod prometheus {
-            /// Prometheus defines a Prometheus deployment.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Prometheus {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Prometheus {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Prometheus", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessKey is the AWS API key. If blank, the environment variable `AWS_ACCESS_KEY_ID` is used.
@@ -9621,18 +9713,26 @@ pub mod monitoring_coreos_com {
                 /// Label to which the resulting value is written in a replace action. It is mandatory for replace actions. Regex capture groups are available.
                 pub target_label: String,
             }
+        }
+        pub mod prometheus_rule {
+            /// PrometheusRule defines recording and alerting rules for a Prometheus instance
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct PrometheusRule {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
-            impl k8s_openapi::Resource for Prometheus {
+            impl k8s_openapi::Resource for PrometheusRule {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "monitoring.coreos.com/v1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "Prometheus";
+                const KIND: &'static str = "PrometheusRule";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Prometheus {
+            impl k8s_openapi::Metadata for PrometheusRule {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -9643,14 +9743,23 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod prometheus_rule {
-            /// PrometheusRule defines recording and alerting rules for a Prometheus instance
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PrometheusRule {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for PrometheusRule {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("PrometheusRule", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -9694,18 +9803,26 @@ pub mod monitoring_coreos_com {
                 /// Content of Prometheus rule file
                 pub groups: Vec<GroupsItem>,
             }
+        }
+        pub mod service_monitor {
+            /// ServiceMonitor defines monitoring for a set of services.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ServiceMonitor {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
-            impl k8s_openapi::Resource for PrometheusRule {
+            impl k8s_openapi::Resource for ServiceMonitor {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "monitoring.coreos.com/v1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "PrometheusRule";
+                const KIND: &'static str = "ServiceMonitor";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for PrometheusRule {
+            impl k8s_openapi::Metadata for ServiceMonitor {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -9716,14 +9833,23 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod service_monitor {
-            /// ServiceMonitor defines monitoring for a set of services.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ServiceMonitor {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for ServiceMonitor {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ServiceMonitor", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             /// Authorization section for this endpoint
@@ -10126,18 +10252,27 @@ pub mod monitoring_coreos_com {
                 /// Specify whether the Secret or its key must be defined
                 pub optional: bool,
             }
+        }
+        pub mod thanos_ruler {
+            /// ThanosRuler defines a ThanosRuler deployment.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ThanosRuler {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ServiceMonitor {
+            impl k8s_openapi::Resource for ThanosRuler {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "monitoring.coreos.com/v1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "ServiceMonitor";
+                const KIND: &'static str = "ThanosRuler";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ServiceMonitor {
+            impl k8s_openapi::Metadata for ThanosRuler {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -10148,15 +10283,24 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod thanos_ruler {
-            /// ThanosRuler defines a ThanosRuler deployment.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ThanosRuler {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ThanosRuler {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ThanosRuler", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// If specified, the pod's scheduling constraints.
@@ -13817,18 +13961,28 @@ pub mod monitoring_coreos_com {
                 /// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
                 pub run_as_user_name: String,
             }
+        }
+    }
+    pub mod v1alpha1 {
+        pub mod alertmanager_config {
+            /// AlertmanagerConfig defines a namespaced AlertmanagerConfig to be aggregated across multiple namespaces configuring one Alertmanager cluster.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct AlertmanagerConfig {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
-            impl k8s_openapi::Resource for ThanosRuler {
+            impl k8s_openapi::Resource for AlertmanagerConfig {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "monitoring.coreos.com/v1";
+                const API_VERSION: &'static str = "monitoring.coreos.com/v1alpha1";
                 const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "ThanosRuler";
-                const VERSION: &'static str = "v1";
+                const KIND: &'static str = "AlertmanagerConfig";
+                const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ThanosRuler {
+            impl k8s_openapi::Metadata for AlertmanagerConfig {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -13839,16 +13993,23 @@ pub mod monitoring_coreos_com {
                     &mut self.metadata
                 }
             }
-        }
-    }
-    pub mod v1alpha1 {
-        pub mod alertmanager_config {
-            /// AlertmanagerConfig defines a namespaced AlertmanagerConfig to be aggregated across multiple namespaces configuring one Alertmanager cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct AlertmanagerConfig {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for AlertmanagerConfig {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("AlertmanagerConfig", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             /// AccessKey is the AWS API key. If blank, the environment variable `AWS_ACCESS_KEY_ID` is used.
@@ -16983,28 +17144,6 @@ pub mod monitoring_coreos_com {
                 pub to_party: String,
                 pub to_tag: String,
                 pub to_user: String,
-            }
-
-            impl k8s_openapi::Resource for AlertmanagerConfig {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "monitoring.coreos.com/v1alpha1";
-                const GROUP: &'static str = "monitoring.coreos.com";
-                const KIND: &'static str = "AlertmanagerConfig";
-                const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for AlertmanagerConfig {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

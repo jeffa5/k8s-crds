@@ -4,12 +4,52 @@
 pub mod extensions_istio_io {
     pub mod v1alpha1 {
         pub mod wasm_plugin {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct WasmPlugin {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for WasmPlugin {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "extensions.istio.io/v1alpha1";
+                const GROUP: &'static str = "extensions.istio.io";
+                const KIND: &'static str = "WasmPlugin";
+                const VERSION: &'static str = "v1alpha1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for WasmPlugin {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for WasmPlugin {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("WasmPlugin", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -78,36 +118,13 @@ pub mod extensions_istio_io {
                 /// Specifies environment variables to be injected to this VM.
                 pub env: Vec<EnvItem>,
             }
-
-            impl k8s_openapi::Resource for WasmPlugin {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "extensions.istio.io/v1alpha1";
-                const GROUP: &'static str = "extensions.istio.io";
-                const KIND: &'static str = "WasmPlugin";
-                const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for WasmPlugin {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
-            }
         }
     }
 }
 pub mod install_istio_io {
     pub mod v1alpha1 {
         pub mod istio_operator {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct IstioOperator {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
             }
@@ -133,18 +150,75 @@ pub mod install_istio_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for IstioOperator {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("IstioOperator", 3)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.end()
+                }
+            }
         }
     }
 }
 pub mod networking_istio_io {
     pub mod v1alpha3 {
         pub mod destination_rule {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct DestinationRule {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for DestinationRule {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
+                const GROUP: &'static str = "networking.istio.io";
+                const KIND: &'static str = "DestinationRule";
+                const VERSION: &'static str = "v1alpha3";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for DestinationRule {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for DestinationRule {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("DestinationRule", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -935,18 +1009,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub match_labels: MatchLabels,
             }
+        }
+        pub mod envoy_filter {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct EnvoyFilter {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for DestinationRule {
+            impl k8s_openapi::Resource for EnvoyFilter {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "DestinationRule";
+                const KIND: &'static str = "EnvoyFilter";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for DestinationRule {
+            impl k8s_openapi::Metadata for EnvoyFilter {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -957,14 +1039,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod envoy_filter {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EnvoyFilter {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for EnvoyFilter {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("EnvoyFilter", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Match on envoy cluster attributes.
@@ -1145,18 +1237,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub labels: Labels,
             }
+        }
+        pub mod gateway {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Gateway {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for EnvoyFilter {
+            impl k8s_openapi::Resource for Gateway {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "EnvoyFilter";
+                const KIND: &'static str = "Gateway";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for EnvoyFilter {
+            impl k8s_openapi::Metadata for Gateway {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1167,14 +1267,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod gateway {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Gateway {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Gateway {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Gateway", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1247,18 +1357,26 @@ pub mod networking_istio_io {
                 pub verify_certificate_hash: Vec<String>,
                 pub verify_certificate_spki: Vec<String>,
             }
+        }
+        pub mod service_entry {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ServiceEntry {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Gateway {
+            impl k8s_openapi::Resource for ServiceEntry {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "Gateway";
+                const KIND: &'static str = "ServiceEntry";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Gateway {
+            impl k8s_openapi::Metadata for ServiceEntry {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1269,14 +1387,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod service_entry {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ServiceEntry {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ServiceEntry {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ServiceEntry", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1363,18 +1491,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub labels: WorkloadSelectorLabels,
             }
+        }
+        pub mod sidecar {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Sidecar {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ServiceEntry {
+            impl k8s_openapi::Resource for Sidecar {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "ServiceEntry";
+                const KIND: &'static str = "Sidecar";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ServiceEntry {
+            impl k8s_openapi::Metadata for Sidecar {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1385,14 +1521,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod sidecar {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Sidecar {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Sidecar {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Sidecar", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1520,18 +1666,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub labels: Labels,
             }
+        }
+        pub mod virtual_service {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct VirtualService {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Sidecar {
+            impl k8s_openapi::Resource for VirtualService {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "Sidecar";
+                const KIND: &'static str = "VirtualService";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Sidecar {
+            impl k8s_openapi::Metadata for VirtualService {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1542,14 +1696,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod virtual_service {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct VirtualService {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for VirtualService {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("VirtualService", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2094,18 +2258,26 @@ pub mod networking_istio_io {
                 /// withoutHeader has the same syntax with the header, but has opposite meaning.
                 pub properties: std::collections::HashMap<String, WithoutHeadersValue>,
             }
+        }
+        pub mod workload_entry {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct WorkloadEntry {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for VirtualService {
+            impl k8s_openapi::Resource for WorkloadEntry {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "VirtualService";
+                const KIND: &'static str = "WorkloadEntry";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for VirtualService {
+            impl k8s_openapi::Metadata for WorkloadEntry {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2116,14 +2288,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod workload_entry {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct WorkloadEntry {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for WorkloadEntry {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("WorkloadEntry", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// One or more labels associated with the endpoint.
@@ -2164,18 +2346,26 @@ pub mod networking_istio_io {
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
+        }
+        pub mod workload_group {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct WorkloadGroup {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for WorkloadEntry {
+            impl k8s_openapi::Resource for WorkloadGroup {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "WorkloadEntry";
+                const KIND: &'static str = "WorkloadGroup";
                 const VERSION: &'static str = "v1alpha3";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for WorkloadEntry {
+            impl k8s_openapi::Metadata for WorkloadGroup {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2186,14 +2376,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod workload_group {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct WorkloadGroup {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for WorkloadGroup {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("WorkloadGroup", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2324,18 +2524,28 @@ pub mod networking_istio_io {
                 /// The load balancing weight associated with the endpoint.
                 pub weight: i64,
             }
+        }
+    }
+    pub mod v1beta1 {
+        pub mod destination_rule {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct DestinationRule {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for WorkloadGroup {
+            impl k8s_openapi::Resource for DestinationRule {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
+                const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "WorkloadGroup";
-                const VERSION: &'static str = "v1alpha3";
+                const KIND: &'static str = "DestinationRule";
+                const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for WorkloadGroup {
+            impl k8s_openapi::Metadata for DestinationRule {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2346,16 +2556,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-    pub mod v1beta1 {
-        pub mod destination_rule {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct DestinationRule {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for DestinationRule {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("DestinationRule", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3146,18 +3364,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub match_labels: MatchLabels,
             }
+        }
+        pub mod gateway {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Gateway {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for DestinationRule {
+            impl k8s_openapi::Resource for Gateway {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "DestinationRule";
+                const KIND: &'static str = "Gateway";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for DestinationRule {
+            impl k8s_openapi::Metadata for Gateway {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3168,14 +3394,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod gateway {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Gateway {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Gateway {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Gateway", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3248,18 +3484,26 @@ pub mod networking_istio_io {
                 pub verify_certificate_hash: Vec<String>,
                 pub verify_certificate_spki: Vec<String>,
             }
+        }
+        pub mod proxy_config {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ProxyConfig {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Gateway {
+            impl k8s_openapi::Resource for ProxyConfig {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "Gateway";
+                const KIND: &'static str = "ProxyConfig";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Gateway {
+            impl k8s_openapi::Metadata for ProxyConfig {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3270,14 +3514,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod proxy_config {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ProxyConfig {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ProxyConfig {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ProxyConfig", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Additional environment variables for the proxy.
@@ -3328,18 +3582,26 @@ pub mod networking_istio_io {
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
+        }
+        pub mod service_entry {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ServiceEntry {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ProxyConfig {
+            impl k8s_openapi::Resource for ServiceEntry {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "ProxyConfig";
+                const KIND: &'static str = "ServiceEntry";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ProxyConfig {
+            impl k8s_openapi::Metadata for ServiceEntry {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3350,14 +3612,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod service_entry {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ServiceEntry {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ServiceEntry {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ServiceEntry", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3444,18 +3716,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub labels: WorkloadSelectorLabels,
             }
+        }
+        pub mod sidecar {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Sidecar {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ServiceEntry {
+            impl k8s_openapi::Resource for Sidecar {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "ServiceEntry";
+                const KIND: &'static str = "Sidecar";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ServiceEntry {
+            impl k8s_openapi::Metadata for Sidecar {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3466,14 +3746,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod sidecar {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Sidecar {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Sidecar {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Sidecar", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3601,18 +3891,26 @@ pub mod networking_istio_io {
             pub struct WorkloadSelector {
                 pub labels: Labels,
             }
+        }
+        pub mod virtual_service {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct VirtualService {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Sidecar {
+            impl k8s_openapi::Resource for VirtualService {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "Sidecar";
+                const KIND: &'static str = "VirtualService";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Sidecar {
+            impl k8s_openapi::Metadata for VirtualService {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3623,14 +3921,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod virtual_service {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct VirtualService {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for VirtualService {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("VirtualService", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4175,18 +4483,26 @@ pub mod networking_istio_io {
                 /// withoutHeader has the same syntax with the header, but has opposite meaning.
                 pub properties: std::collections::HashMap<String, WithoutHeadersValue>,
             }
+        }
+        pub mod workload_entry {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct WorkloadEntry {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for VirtualService {
+            impl k8s_openapi::Resource for WorkloadEntry {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "VirtualService";
+                const KIND: &'static str = "WorkloadEntry";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for VirtualService {
+            impl k8s_openapi::Metadata for WorkloadEntry {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4197,14 +4513,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod workload_entry {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct WorkloadEntry {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for WorkloadEntry {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("WorkloadEntry", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// One or more labels associated with the endpoint.
@@ -4245,18 +4571,26 @@ pub mod networking_istio_io {
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
+        }
+        pub mod workload_group {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct WorkloadGroup {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for WorkloadEntry {
+            impl k8s_openapi::Resource for WorkloadGroup {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "WorkloadEntry";
+                const KIND: &'static str = "WorkloadGroup";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for WorkloadEntry {
+            impl k8s_openapi::Metadata for WorkloadGroup {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4267,14 +4601,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod workload_group {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct WorkloadGroup {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for WorkloadGroup {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("WorkloadGroup", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4404,18 +4748,30 @@ pub mod networking_istio_io {
                 /// The load balancing weight associated with the endpoint.
                 pub weight: i64,
             }
+        }
+    }
+}
+pub mod security_istio_io {
+    pub mod v1beta1 {
+        pub mod authorization_policy {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct AuthorizationPolicy {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for WorkloadGroup {
+            impl k8s_openapi::Resource for AuthorizationPolicy {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "networking.istio.io/v1beta1";
-                const GROUP: &'static str = "networking.istio.io";
-                const KIND: &'static str = "WorkloadGroup";
+                const API_VERSION: &'static str = "security.istio.io/v1beta1";
+                const GROUP: &'static str = "security.istio.io";
+                const KIND: &'static str = "AuthorizationPolicy";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for WorkloadGroup {
+            impl k8s_openapi::Metadata for AuthorizationPolicy {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4426,18 +4782,24 @@ pub mod networking_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod security_istio_io {
-    pub mod v1beta1 {
-        pub mod authorization_policy {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct AuthorizationPolicy {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for AuthorizationPolicy {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("AuthorizationPolicy", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4564,18 +4926,26 @@ pub mod security_istio_io {
                 /// Optional.
                 pub values: Vec<String>,
             }
+        }
+        pub mod peer_authentication {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct PeerAuthentication {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for AuthorizationPolicy {
+            impl k8s_openapi::Resource for PeerAuthentication {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "security.istio.io/v1beta1";
                 const GROUP: &'static str = "security.istio.io";
-                const KIND: &'static str = "AuthorizationPolicy";
+                const KIND: &'static str = "PeerAuthentication";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for AuthorizationPolicy {
+            impl k8s_openapi::Metadata for PeerAuthentication {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4586,14 +4956,24 @@ pub mod security_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod peer_authentication {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PeerAuthentication {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for PeerAuthentication {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("PeerAuthentication", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4649,18 +5029,26 @@ pub mod security_istio_io {
                 /// Defines the mTLS mode used for peer authentication.
                 pub mode: String,
             }
+        }
+        pub mod request_authentication {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct RequestAuthentication {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for PeerAuthentication {
+            impl k8s_openapi::Resource for RequestAuthentication {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "security.istio.io/v1beta1";
                 const GROUP: &'static str = "security.istio.io";
-                const KIND: &'static str = "PeerAuthentication";
+                const KIND: &'static str = "RequestAuthentication";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for PeerAuthentication {
+            impl k8s_openapi::Metadata for RequestAuthentication {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4671,14 +5059,24 @@ pub mod security_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod request_authentication {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct RequestAuthentication {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for RequestAuthentication {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("RequestAuthentication", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4736,18 +5134,30 @@ pub mod security_istio_io {
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
+        }
+    }
+}
+pub mod telemetry_istio_io {
+    pub mod v1alpha1 {
+        pub mod telemetry {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Telemetry {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for RequestAuthentication {
+            impl k8s_openapi::Resource for Telemetry {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "security.istio.io/v1beta1";
-                const GROUP: &'static str = "security.istio.io";
-                const KIND: &'static str = "RequestAuthentication";
-                const VERSION: &'static str = "v1beta1";
+                const API_VERSION: &'static str = "telemetry.istio.io/v1alpha1";
+                const GROUP: &'static str = "telemetry.istio.io";
+                const KIND: &'static str = "Telemetry";
+                const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for RequestAuthentication {
+            impl k8s_openapi::Metadata for Telemetry {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -4758,18 +5168,24 @@ pub mod security_istio_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod telemetry_istio_io {
-    pub mod v1alpha1 {
-        pub mod telemetry {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Telemetry {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Telemetry {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Telemetry", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4967,28 +5383,6 @@ pub mod telemetry_istio_io {
                 pub header: Header,
                 /// Literal adds the same, hard-coded value to each span.
                 pub literal: Literal,
-            }
-
-            impl k8s_openapi::Resource for Telemetry {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "telemetry.istio.io/v1alpha1";
-                const GROUP: &'static str = "telemetry.istio.io";
-                const KIND: &'static str = "Telemetry";
-                const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for Telemetry {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

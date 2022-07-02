@@ -4,12 +4,52 @@
 pub mod acid_zalan_do {
     pub mod v1 {
         pub mod operator_configuration {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct OperatorConfiguration {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub configuration: Configuration,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for OperatorConfiguration {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "acid.zalan.do/v1";
+                const GROUP: &'static str = "acid.zalan.do";
+                const KIND: &'static str = "OperatorConfiguration";
+                const VERSION: &'static str = "v1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for OperatorConfiguration {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for OperatorConfiguration {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("OperatorConfiguration", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("configuration", &self.configuration)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -317,18 +357,25 @@ pub mod acid_zalan_do {
                 pub replication_username: String,
                 pub super_username: String,
             }
+        }
+        pub mod postgres_team {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct PostgresTeam {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
-            impl k8s_openapi::Resource for OperatorConfiguration {
+            impl k8s_openapi::Resource for PostgresTeam {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "acid.zalan.do/v1";
                 const GROUP: &'static str = "acid.zalan.do";
-                const KIND: &'static str = "OperatorConfiguration";
+                const KIND: &'static str = "PostgresTeam";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for OperatorConfiguration {
+            impl k8s_openapi::Metadata for PostgresTeam {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -339,13 +386,23 @@ pub mod acid_zalan_do {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod postgres_team {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PostgresTeam {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for PostgresTeam {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("PostgresTeam", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             /// Map for teamId and associated additional users
@@ -382,18 +439,26 @@ pub mod acid_zalan_do {
                 /// Map for teamId and associated additional teams
                 pub additional_teams: AdditionalTeams,
             }
+        }
+        pub mod postgresql {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Postgresql {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for PostgresTeam {
+            impl k8s_openapi::Resource for Postgresql {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "acid.zalan.do/v1";
                 const GROUP: &'static str = "acid.zalan.do";
-                const KIND: &'static str = "PostgresTeam";
+                const KIND: &'static str = "postgresql";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for PostgresTeam {
+            impl k8s_openapi::Metadata for Postgresql {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -404,14 +469,24 @@ pub mod acid_zalan_do {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod postgresql {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Postgresql {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Postgresql {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("postgresql", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -832,28 +907,6 @@ pub mod acid_zalan_do {
             #[serde(rename_all = "camelCase")]
             pub struct VolumeSource {
                 pub properties: serde_json::Map<String, serde_json::Value>,
-            }
-
-            impl k8s_openapi::Resource for postgresql {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "acid.zalan.do/v1";
-                const GROUP: &'static str = "acid.zalan.do";
-                const KIND: &'static str = "postgresql";
-                const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for postgresql {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

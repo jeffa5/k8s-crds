@@ -5,8 +5,7 @@ pub mod longhorn_io {
     pub mod v1beta1 {
         pub mod backing_image {
             /// BackingImage is where Longhorn stores backing image object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct BackingImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -34,11 +33,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for BackingImage {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackingImage", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod backing_image_data_source {
             /// BackingImageDataSource is where Longhorn stores backing image data source object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct BackingImageDataSource {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -66,11 +83,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for BackingImageDataSource {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackingImageDataSource", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod backing_image_manager {
             /// BackingImageManager is where Longhorn stores backing image manager object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct BackingImageManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -98,11 +133,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for BackingImageManager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackingImageManager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod backup {
             /// Backup is where Longhorn stores backup object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Backup {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -130,11 +183,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Backup {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Backup", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod backup_target {
             /// BackupTarget is where Longhorn stores backup target object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct BackupTarget {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -162,11 +233,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for BackupTarget {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackupTarget", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod backup_volume {
             /// BackupVolume is where Longhorn stores backup volume object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct BackupVolume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -194,11 +283,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for BackupVolume {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackupVolume", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod engine {
             /// Engine is where Longhorn stores engine object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Engine {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -226,11 +333,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Engine {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Engine", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod engine_image {
             /// EngineImage is where Longhorn stores engine image object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct EngineImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -258,11 +383,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for EngineImage {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("EngineImage", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod instance_manager {
             /// InstanceManager is where Longhorn stores instance manager object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct InstanceManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -290,11 +433,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for InstanceManager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("InstanceManager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod node {
             /// Node is where Longhorn stores Longhorn node object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Node {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -322,11 +483,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Node {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Node", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod recurring_job {
             /// RecurringJob is where Longhorn stores recurring job object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct RecurringJob {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -354,11 +533,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for RecurringJob {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("RecurringJob", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod replica {
             /// Replica is where Longhorn stores replica object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Replica {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -386,11 +583,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Replica {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Replica", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod setting {
             /// Setting is where Longhorn stores setting object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Setting {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub value: String,
@@ -417,11 +632,28 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Setting {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Setting", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("value", &self.value)?;
+                    state.end()
+                }
+            }
         }
         pub mod share_manager {
             /// ShareManager is where Longhorn stores share manager object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct ShareManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -449,11 +681,29 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for ShareManager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ShareManager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
         pub mod volume {
             /// Volume is where Longhorn stores volume object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Volume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -481,17 +731,76 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Volume {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Volume", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
         }
     }
     pub mod v1beta2 {
         pub mod backing_image {
             /// BackingImage is where Longhorn stores backing image object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct BackingImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for BackingImage {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "longhorn.io/v1beta2";
+                const GROUP: &'static str = "longhorn.io";
+                const KIND: &'static str = "BackingImage";
+                const VERSION: &'static str = "v1beta2";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for BackingImage {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for BackingImage {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackingImage", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Deprecated: Replaced by field `Progress` in `DiskFileStatusMap`.
@@ -570,18 +879,27 @@ pub mod longhorn_io {
                 pub progress: i64,
                 pub state: String,
             }
+        }
+        pub mod backing_image_data_source {
+            /// BackingImageDataSource is where Longhorn stores backing image data source object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct BackingImageDataSource {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for BackingImage {
+            impl k8s_openapi::Resource for BackingImageDataSource {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "BackingImage";
+                const KIND: &'static str = "BackingImageDataSource";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for BackingImage {
+            impl k8s_openapi::Metadata for BackingImageDataSource {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -592,15 +910,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod backing_image_data_source {
-            /// BackingImageDataSource is where Longhorn stores backing image data source object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct BackingImageDataSource {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for BackingImageDataSource {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackingImageDataSource", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -643,18 +970,27 @@ pub mod longhorn_io {
                 pub size: i64,
                 pub storage_i_p: String,
             }
+        }
+        pub mod backing_image_manager {
+            /// BackingImageManager is where Longhorn stores backing image manager object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct BackingImageManager {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for BackingImageDataSource {
+            impl k8s_openapi::Resource for BackingImageManager {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "BackingImageDataSource";
+                const KIND: &'static str = "BackingImageManager";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for BackingImageDataSource {
+            impl k8s_openapi::Metadata for BackingImageManager {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -665,15 +1001,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod backing_image_manager {
-            /// BackingImageManager is where Longhorn stores backing image manager object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct BackingImageManager {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for BackingImageManager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackingImageManager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -731,18 +1076,27 @@ pub mod longhorn_io {
                 pub url: String,
                 pub uuid: String,
             }
+        }
+        pub mod backup {
+            /// Backup is where Longhorn stores backup object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Backup {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for BackingImageManager {
+            impl k8s_openapi::Resource for Backup {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "BackingImageManager";
+                const KIND: &'static str = "Backup";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for BackingImageManager {
+            impl k8s_openapi::Metadata for Backup {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -753,15 +1107,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod backup {
-            /// Backup is where Longhorn stores backup object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Backup {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Backup {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Backup", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// The labels of snapshot backup.
@@ -839,18 +1202,27 @@ pub mod longhorn_io {
                 /// The volume size.
                 pub volume_size: String,
             }
+        }
+        pub mod backup_target {
+            /// BackupTarget is where Longhorn stores backup target object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct BackupTarget {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Backup {
+            impl k8s_openapi::Resource for BackupTarget {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Backup";
+                const KIND: &'static str = "BackupTarget";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Backup {
+            impl k8s_openapi::Metadata for BackupTarget {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -861,15 +1233,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod backup_target {
-            /// BackupTarget is where Longhorn stores backup target object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct BackupTarget {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for BackupTarget {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackupTarget", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -916,18 +1297,27 @@ pub mod longhorn_io {
                 /// The node ID on which the controller is responsible to reconcile this backup target CR.
                 pub owner_i_d: String,
             }
+        }
+        pub mod backup_volume {
+            /// BackupVolume is where Longhorn stores backup volume object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct BackupVolume {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for BackupTarget {
+            impl k8s_openapi::Resource for BackupVolume {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "BackupTarget";
+                const KIND: &'static str = "BackupVolume";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for BackupTarget {
+            impl k8s_openapi::Metadata for BackupVolume {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -938,15 +1328,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod backup_volume {
-            /// BackupVolume is where Longhorn stores backup volume object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct BackupVolume {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for BackupVolume {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("BackupVolume", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// The backup volume labels.
@@ -1002,18 +1401,27 @@ pub mod longhorn_io {
                 /// The backup volume size.
                 pub size: String,
             }
+        }
+        pub mod engine {
+            /// Engine is where Longhorn stores engine object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Engine {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for BackupVolume {
+            impl k8s_openapi::Resource for Engine {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "BackupVolume";
+                const KIND: &'static str = "Engine";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for BackupVolume {
+            impl k8s_openapi::Metadata for Engine {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1024,15 +1432,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod engine {
-            /// Engine is where Longhorn stores engine object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Engine {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Engine {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Engine", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1226,18 +1643,27 @@ pub mod longhorn_io {
                 pub size: String,
                 pub usercreated: bool,
             }
+        }
+        pub mod engine_image {
+            /// EngineImage is where Longhorn stores engine image object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct EngineImage {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Engine {
+            impl k8s_openapi::Resource for EngineImage {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Engine";
+                const KIND: &'static str = "EngineImage";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Engine {
+            impl k8s_openapi::Metadata for EngineImage {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1248,15 +1674,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod engine_image {
-            /// EngineImage is where Longhorn stores engine image object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EngineImage {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for EngineImage {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("EngineImage", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1309,18 +1744,27 @@ pub mod longhorn_io {
                 pub state: String,
                 pub version: String,
             }
+        }
+        pub mod instance_manager {
+            /// InstanceManager is where Longhorn stores instance manager object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct InstanceManager {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for EngineImage {
+            impl k8s_openapi::Resource for InstanceManager {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "EngineImage";
+                const KIND: &'static str = "InstanceManager";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for EngineImage {
+            impl k8s_openapi::Metadata for InstanceManager {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1331,15 +1775,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod instance_manager {
-            /// InstanceManager is where Longhorn stores instance manager object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InstanceManager {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for InstanceManager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("InstanceManager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1398,18 +1851,27 @@ pub mod longhorn_io {
                 pub spec: ValueSpec,
                 pub status: ValueStatus,
             }
+        }
+        pub mod node {
+            /// Node is where Longhorn stores Longhorn node object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Node {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for InstanceManager {
+            impl k8s_openapi::Resource for Node {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "InstanceManager";
+                const KIND: &'static str = "Node";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for InstanceManager {
+            impl k8s_openapi::Metadata for Node {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1420,15 +1882,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod node {
-            /// Node is where Longhorn stores Longhorn node object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Node {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Node {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Node", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1526,18 +1997,27 @@ pub mod longhorn_io {
                 pub storage_maximum: i64,
                 pub storage_scheduled: i64,
             }
+        }
+        pub mod orphan {
+            /// Orphan is where Longhorn stores orphan object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Orphan {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Node {
+            impl k8s_openapi::Resource for Orphan {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Node";
+                const KIND: &'static str = "Orphan";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Node {
+            impl k8s_openapi::Metadata for Orphan {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1548,15 +2028,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod orphan {
-            /// Orphan is where Longhorn stores orphan object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Orphan {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Orphan {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Orphan", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1603,18 +2092,27 @@ pub mod longhorn_io {
                 pub conditions: Option<Vec<ConditionsItem>>,
                 pub owner_i_d: String,
             }
+        }
+        pub mod recurring_job {
+            /// RecurringJob is where Longhorn stores recurring job object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct RecurringJob {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Orphan {
+            impl k8s_openapi::Resource for RecurringJob {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Orphan";
+                const KIND: &'static str = "RecurringJob";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Orphan {
+            impl k8s_openapi::Metadata for RecurringJob {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1625,15 +2123,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod recurring_job {
-            /// RecurringJob is where Longhorn stores recurring job object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct RecurringJob {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for RecurringJob {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("RecurringJob", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// The label of the snapshot/backup.
@@ -1671,18 +2178,27 @@ pub mod longhorn_io {
                 /// The owner ID which is responsible to reconcile this recurring job CR.
                 pub owner_i_d: String,
             }
+        }
+        pub mod replica {
+            /// Replica is where Longhorn stores replica object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Replica {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for RecurringJob {
+            impl k8s_openapi::Resource for Replica {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "RecurringJob";
+                const KIND: &'static str = "Replica";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for RecurringJob {
+            impl k8s_openapi::Metadata for Replica {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1693,15 +2209,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod replica {
-            /// Replica is where Longhorn stores replica object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Replica {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Replica {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Replica", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// ReplicaSpec defines the desired state of the Longhorn replica
@@ -1748,33 +2273,10 @@ pub mod longhorn_io {
                 pub started: bool,
                 pub storage_i_p: String,
             }
-
-            impl k8s_openapi::Resource for Replica {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "longhorn.io/v1beta2";
-                const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Replica";
-                const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for Replica {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
-            }
         }
         pub mod setting {
             /// Setting is where Longhorn stores setting object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Setting {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub value: String,
@@ -1801,31 +2303,32 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for Setting {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Setting", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("value", &self.value)?;
+                    state.end()
+                }
+            }
         }
         pub mod share_manager {
             /// ShareManager is where Longhorn stores share manager object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct ShareManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
-            }
-
-            /// ShareManagerSpec defines the desired state of the Longhorn share manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Spec {
-                pub image: String,
-            }
-
-            /// ShareManagerStatus defines the observed state of the Longhorn share manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Status {
-                pub endpoint: String,
-                pub owner_i_d: String,
-                pub state: String,
             }
 
             impl k8s_openapi::Resource for ShareManager {
@@ -1849,15 +2352,90 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
+
+            impl serde::Serialize for ShareManager {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ShareManager", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
+            }
+
+            /// ShareManagerSpec defines the desired state of the Longhorn share manager
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Spec {
+                pub image: String,
+            }
+
+            /// ShareManagerStatus defines the observed state of the Longhorn share manager
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Status {
+                pub endpoint: String,
+                pub owner_i_d: String,
+                pub state: String,
+            }
         }
         pub mod snapshot {
             /// Snapshot is the Schema for the snapshots API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Snapshot {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for Snapshot {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "longhorn.io/v1beta2";
+                const GROUP: &'static str = "longhorn.io";
+                const KIND: &'static str = "Snapshot";
+                const VERSION: &'static str = "v1beta2";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for Snapshot {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for Snapshot {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Snapshot", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1908,18 +2486,27 @@ pub mod longhorn_io {
                 pub size: i64,
                 pub user_created: bool,
             }
+        }
+        pub mod volume {
+            /// Volume is where Longhorn stores volume object.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Volume {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Snapshot {
+            impl k8s_openapi::Resource for Volume {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Snapshot";
+                const KIND: &'static str = "Volume";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Snapshot {
+            impl k8s_openapi::Metadata for Volume {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1930,15 +2517,24 @@ pub mod longhorn_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod volume {
-            /// Volume is where Longhorn stores volume object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Volume {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Volume {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Volume", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2064,28 +2660,6 @@ pub mod longhorn_io {
                 pub pod_status: String,
                 pub workload_name: String,
                 pub workload_type: String,
-            }
-
-            impl k8s_openapi::Resource for Volume {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "longhorn.io/v1beta2";
-                const GROUP: &'static str = "longhorn.io";
-                const KIND: &'static str = "Volume";
-                const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for Volume {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

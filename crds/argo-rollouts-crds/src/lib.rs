@@ -4,12 +4,52 @@
 pub mod argoproj_io {
     pub mod v1alpha1 {
         pub mod analysis_run {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct AnalysisRun {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for AnalysisRun {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "argoproj.io/v1alpha1";
+                const GROUP: &'static str = "argoproj.io";
+                const KIND: &'static str = "AnalysisRun";
+                const VERSION: &'static str = "v1alpha1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for AnalysisRun {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for AnalysisRun {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("AnalysisRun", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2178,2129 +2218,12 @@ pub mod argoproj_io {
                 pub host_process: bool,
                 pub run_as_user_name: String,
             }
-
-            impl k8s_openapi::Resource for AnalysisRun {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "argoproj.io/v1alpha1";
-                const GROUP: &'static str = "argoproj.io";
-                const KIND: &'static str = "AnalysisRun";
-                const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for AnalysisRun {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
-            }
         }
         pub mod analysis_template {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct AnalysisTemplate {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Affinity {
-                pub node_affinity: NodeAffinity,
-                pub pod_affinity: PodAffinity,
-                pub pod_anti_affinity: PodAntiAffinity,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct JobMetadataAnnotations {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TemplateMetadataAnnotations {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ArgsItem {
-                pub name: String,
-                pub value: String,
-                pub value_from: ArgsItemValueFrom,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemSecurityContextCapabilities {
-                pub add: Vec<String>,
-                pub drop: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemSecurityContextCapabilities {
-                pub add: Vec<String>,
-                pub drop: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemSecurityContextCapabilities {
-                pub add: Vec<String>,
-                pub drop: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct CloudWatch {
-                pub interval: String,
-                pub metric_data_queries: Vec<MetricDataQueriesItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvItemValueFromConfigMapKeyRef {
-                pub key: String,
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvItemValueFromConfigMapKeyRef {
-                pub key: String,
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvItemValueFromConfigMapKeyRef {
-                pub key: String,
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvFromItemConfigMapRef {
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvFromItemConfigMapRef {
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvFromItemConfigMapRef {
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItem {
-                pub args: Vec<String>,
-                pub command: Vec<String>,
-                pub env: Vec<ContainersItemEnvItem>,
-                pub env_from: Vec<ContainersItemEnvFromItem>,
-                pub image: String,
-                pub image_pull_policy: String,
-                pub lifecycle: ContainersItemLifecycle,
-                pub liveness_probe: ContainersItemLivenessProbe,
-                pub name: String,
-                pub ports: Vec<ContainersItemPortsItem>,
-                pub readiness_probe: ContainersItemReadinessProbe,
-                pub resources: ContainersItemResources,
-                pub security_context: ContainersItemSecurityContext,
-                pub startup_probe: ContainersItemStartupProbe,
-                pub stdin: bool,
-                pub stdin_once: bool,
-                pub termination_message_path: String,
-                pub termination_message_policy: String,
-                pub tty: bool,
-                pub volume_devices: Vec<ContainersItemVolumeDevicesItem>,
-                pub volume_mounts: Vec<ContainersItemVolumeMountsItem>,
-                pub working_dir: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ControlScope {
-                pub end: String,
-                pub region: String,
-                pub scope: String,
-                pub start: String,
-                pub step: i64,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Datadog {
-                pub interval: String,
-                pub query: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct DimensionsItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct DnsConfig {
-                pub nameservers: Vec<String>,
-                pub options: Vec<OptionsItem>,
-                pub searches: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct DryRunItem {
-                pub metric_name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvFromItem {
-                pub config_map_ref: ContainersItemEnvFromItemConfigMapRef,
-                pub prefix: String,
-                pub secret_ref: ContainersItemEnvFromItemSecretRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvFromItem {
-                pub config_map_ref: EphemeralContainersItemEnvFromItemConfigMapRef,
-                pub prefix: String,
-                pub secret_ref: EphemeralContainersItemEnvFromItemSecretRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvFromItem {
-                pub config_map_ref: InitContainersItemEnvFromItemConfigMapRef,
-                pub prefix: String,
-                pub secret_ref: InitContainersItemEnvFromItemSecretRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvItem {
-                pub name: String,
-                pub value: String,
-                pub value_from: ContainersItemEnvItemValueFrom,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvItem {
-                pub name: String,
-                pub value: String,
-                pub value_from: EphemeralContainersItemEnvItemValueFrom,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvItem {
-                pub name: String,
-                pub value: String,
-                pub value_from: InitContainersItemEnvItemValueFrom,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItem {
-                pub args: Vec<String>,
-                pub command: Vec<String>,
-                pub env: Vec<EphemeralContainersItemEnvItem>,
-                pub env_from: Vec<EphemeralContainersItemEnvFromItem>,
-                pub image: String,
-                pub image_pull_policy: String,
-                pub lifecycle: EphemeralContainersItemLifecycle,
-                pub liveness_probe: EphemeralContainersItemLivenessProbe,
-                pub name: String,
-                pub ports: Vec<EphemeralContainersItemPortsItem>,
-                pub readiness_probe: EphemeralContainersItemReadinessProbe,
-                pub resources: EphemeralContainersItemResources,
-                pub security_context: EphemeralContainersItemSecurityContext,
-                pub startup_probe: EphemeralContainersItemStartupProbe,
-                pub stdin: bool,
-                pub stdin_once: bool,
-                pub target_container_name: String,
-                pub termination_message_path: String,
-                pub termination_message_policy: String,
-                pub tty: bool,
-                pub volume_devices: Vec<EphemeralContainersItemVolumeDevicesItem>,
-                pub volume_mounts: Vec<EphemeralContainersItemVolumeMountsItem>,
-                pub working_dir: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePostStartExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePreStopExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLivenessProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemReadinessProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemStartupProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePostStartExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePreStopExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLivenessProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemReadinessProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemStartupProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePostStartExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePreStopExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLivenessProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemReadinessProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemStartupProbeExec {
-                pub command: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ExperimentScope {
-                pub end: String,
-                pub region: String,
-                pub scope: String,
-                pub start: String,
-                pub step: i64,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ArgsItemValueFromFieldRef {
-                pub field_path: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvItemValueFromFieldRef {
-                pub api_version: String,
-                pub field_path: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvItemValueFromFieldRef {
-                pub api_version: String,
-                pub field_path: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvItemValueFromFieldRef {
-                pub api_version: String,
-                pub field_path: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Graphite {
-                pub address: String,
-                pub query: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLivenessProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemReadinessProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemStartupProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLivenessProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemReadinessProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemStartupProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLivenessProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemReadinessProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemStartupProbeGrpc {
-                pub port: i32,
-                pub service: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct HeadersItem {
-                pub key: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct HostAliasesItem {
-                pub hostnames: Vec<String>,
-                pub ip: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePostStartHttpGet {
-                pub host: String,
-                pub http_headers: Vec<ContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePreStopHttpGet {
-                pub host: String,
-                pub http_headers: Vec<ContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLivenessProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemReadinessProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemStartupProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePostStartHttpGet {
-                pub host: String,
-                pub http_headers:
-                    Vec<EphemeralContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePreStopHttpGet {
-                pub host: String,
-                pub http_headers:
-                    Vec<EphemeralContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLivenessProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<EphemeralContainersItemLivenessProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemReadinessProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<EphemeralContainersItemReadinessProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemStartupProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<EphemeralContainersItemStartupProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePostStartHttpGet {
-                pub host: String,
-                pub http_headers: Vec<InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePreStopHttpGet {
-                pub host: String,
-                pub http_headers: Vec<InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLivenessProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemReadinessProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemStartupProbeHttpGet {
-                pub host: String,
-                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
-                pub path: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub scheme: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLivenessProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemReadinessProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemStartupProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImagePullSecretsItem {
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Influxdb {
-                pub profile: String,
-                pub query: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItem {
-                pub args: Vec<String>,
-                pub command: Vec<String>,
-                pub env: Vec<InitContainersItemEnvItem>,
-                pub env_from: Vec<InitContainersItemEnvFromItem>,
-                pub image: String,
-                pub image_pull_policy: String,
-                pub lifecycle: InitContainersItemLifecycle,
-                pub liveness_probe: InitContainersItemLivenessProbe,
-                pub name: String,
-                pub ports: Vec<InitContainersItemPortsItem>,
-                pub readiness_probe: InitContainersItemReadinessProbe,
-                pub resources: InitContainersItemResources,
-                pub security_context: InitContainersItemSecurityContext,
-                pub startup_probe: InitContainersItemStartupProbe,
-                pub stdin: bool,
-                pub stdin_once: bool,
-                pub termination_message_path: String,
-                pub termination_message_policy: String,
-                pub tty: bool,
-                pub volume_devices: Vec<InitContainersItemVolumeDevicesItem>,
-                pub volume_mounts: Vec<InitContainersItemVolumeMountsItem>,
-                pub working_dir: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Job {
-                pub metadata: JobMetadata,
-                pub spec: JobSpec,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Kayenta {
-                pub address: String,
-                pub application: String,
-                pub canary_config_name: String,
-                pub configuration_account_name: String,
-                pub metrics_account_name: String,
-                pub scopes: Vec<ScopesItem>,
-                pub storage_account_name: String,
-                pub threshold: Threshold,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
-            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
-            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
-            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
-            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TopologySpreadConstraintsItemLabelSelector {
-                pub match_expressions:
-                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
-                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct JobMetadataLabels {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TemplateMetadataLabels {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecycle {
-                pub post_start: ContainersItemLifecyclePostStart,
-                pub pre_stop: ContainersItemLifecyclePreStop,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecycle {
-                pub post_start: EphemeralContainersItemLifecyclePostStart,
-                pub pre_stop: EphemeralContainersItemLifecyclePreStop,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecycle {
-                pub post_start: InitContainersItemLifecyclePostStart,
-                pub pre_stop: InitContainersItemLifecyclePreStop,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLivenessProbe {
-                pub exec: ContainersItemLivenessProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: ContainersItemLivenessProbeGrpc,
-                pub http_get: ContainersItemLivenessProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLivenessProbe {
-                pub exec: EphemeralContainersItemLivenessProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: EphemeralContainersItemLivenessProbeGrpc,
-                pub http_get: EphemeralContainersItemLivenessProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: EphemeralContainersItemLivenessProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLivenessProbe {
-                pub exec: InitContainersItemLivenessProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: InitContainersItemLivenessProbeGrpc,
-                pub http_get: InitContainersItemLivenessProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SelectorMatchExpressionsItem {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchExpressionsItem {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermsItemMatchExpressionsItem {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
-            {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PreferenceMatchFieldsItem {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermsItemMatchFieldsItem {
-                pub key: String,
-                pub operator: String,
-                pub values: Vec<String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SelectorMatchLabels {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
-            {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct MeasurementRetentionItem {
-                pub limit: i32,
-                pub metric_name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct JobMetadata {
-                pub annotations: JobMetadataAnnotations,
-                pub labels: JobMetadataLabels,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TemplateMetadata {
-                pub annotations: TemplateMetadataAnnotations,
-                pub labels: TemplateMetadataLabels,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Metric {
-                pub dimensions: Vec<DimensionsItem>,
-                pub metric_name: String,
-                pub namespace: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct MetricDataQueriesItem {
-                pub expression: String,
-                pub id: String,
-                pub label: String,
-                pub metric_stat: MetricStat,
-                pub period: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub return_data: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct MetricStat {
-                pub metric: Metric,
-                pub period: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub stat: String,
-                pub unit: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct MetricsItem {
-                pub consecutive_error_limit:
-                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub count: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub failure_condition: String,
-                pub failure_limit: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub inconclusive_limit: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub initial_delay: String,
-                pub interval: String,
-                pub name: String,
-                pub provider: Provider,
-                pub success_condition: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
-            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
-            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
-            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
-            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
-            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
-            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
-            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
-            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NewRelic {
-                pub profile: String,
-                pub query: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NodeAffinity {
-                pub preferred_during_scheduling_ignored_during_execution:
-                    Vec<NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem>,
-                pub required_during_scheduling_ignored_during_execution:
-                    RequiredDuringSchedulingIgnoredDuringExecution,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NodeSelector {
-                pub properties: std::collections::HashMap<String, String>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NodeSelectorTermsItem {
-                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
-                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct OptionsItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Os {
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Overhead {
-                pub properties: std::collections::HashMap<
-                    String,
-                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                >,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinity {
-                pub preferred_during_scheduling_ignored_during_execution:
-                    Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem>,
-                pub required_during_scheduling_ignored_during_execution:
-                    Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
-            pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
-            pub namespace_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector,
-            pub namespaces: Vec<String>,
-            pub topology_key: String,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
-            pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
-            pub namespace_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector,
-            pub namespaces: Vec<String>,
-            pub topology_key: String,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinity {
-                pub preferred_during_scheduling_ignored_during_execution:
-                    Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem>,
-                pub required_during_scheduling_ignored_during_execution:
-                    Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemPortsItem {
-                pub container_port: i32,
-                pub host_i_p: String,
-                pub host_port: i32,
-                pub name: String,
-                pub protocol: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemPortsItem {
-                pub container_port: i32,
-                pub host_i_p: String,
-                pub host_port: i32,
-                pub name: String,
-                pub protocol: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemPortsItem {
-                pub container_port: i32,
-                pub host_i_p: String,
-                pub host_port: i32,
-                pub name: String,
-                pub protocol: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePostStart {
-                pub exec: ContainersItemLifecyclePostStartExec,
-                pub http_get: ContainersItemLifecyclePostStartHttpGet,
-                pub tcp_socket: ContainersItemLifecyclePostStartTcpSocket,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePostStart {
-                pub exec: EphemeralContainersItemLifecyclePostStartExec,
-                pub http_get: EphemeralContainersItemLifecyclePostStartHttpGet,
-                pub tcp_socket: EphemeralContainersItemLifecyclePostStartTcpSocket,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePostStart {
-                pub exec: InitContainersItemLifecyclePostStartExec,
-                pub http_get: InitContainersItemLifecyclePostStartHttpGet,
-                pub tcp_socket: InitContainersItemLifecyclePostStartTcpSocket,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePreStop {
-                pub exec: ContainersItemLifecyclePreStopExec,
-                pub http_get: ContainersItemLifecyclePreStopHttpGet,
-                pub tcp_socket: ContainersItemLifecyclePreStopTcpSocket,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePreStop {
-                pub exec: EphemeralContainersItemLifecyclePreStopExec,
-                pub http_get: EphemeralContainersItemLifecyclePreStopHttpGet,
-                pub tcp_socket: EphemeralContainersItemLifecyclePreStopTcpSocket,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePreStop {
-                pub exec: InitContainersItemLifecyclePreStopExec,
-                pub http_get: InitContainersItemLifecyclePreStopHttpGet,
-                pub tcp_socket: InitContainersItemLifecyclePreStopTcpSocket,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Preference {
-                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
-                pub match_fields: Vec<PreferenceMatchFieldsItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
-                pub preference: Preference,
-                pub weight: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
-                pub pod_affinity_term:
-                    PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
-                pub weight: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
-            pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
-            pub weight: i32,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Prometheus {
-                pub address: String,
-                pub query: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Provider {
-                pub cloud_watch: CloudWatch,
-                pub datadog: Datadog,
-                pub graphite: Graphite,
-                pub influxdb: Influxdb,
-                pub job: Job,
-                pub kayenta: Kayenta,
-                pub new_relic: NewRelic,
-                pub prometheus: Prometheus,
-                pub wavefront: Wavefront,
-                pub web: Web,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ReadinessGatesItem {
-                pub condition_type: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemReadinessProbe {
-                pub exec: ContainersItemReadinessProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: ContainersItemReadinessProbeGrpc,
-                pub http_get: ContainersItemReadinessProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemReadinessProbe {
-                pub exec: EphemeralContainersItemReadinessProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: EphemeralContainersItemReadinessProbeGrpc,
-                pub http_get: EphemeralContainersItemReadinessProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: EphemeralContainersItemReadinessProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemReadinessProbe {
-                pub exec: InitContainersItemReadinessProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: InitContainersItemReadinessProbeGrpc,
-                pub http_get: InitContainersItemReadinessProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct RequiredDuringSchedulingIgnoredDuringExecution {
-                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
-                pub label_selector:
-                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
-                pub namespace_selector:
-                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
-                pub namespaces: Vec<String>,
-                pub topology_key: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
-            pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
-            pub namespace_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
-            pub namespaces: Vec<String>,
-            pub topology_key: String,
-        }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvItemValueFromResourceFieldRef {
-                pub container_name: String,
-                pub divisor: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub resource: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvItemValueFromResourceFieldRef {
-                pub container_name: String,
-                pub divisor: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub resource: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvItemValueFromResourceFieldRef {
-                pub container_name: String,
-                pub divisor: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-                pub resource: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemResources {
-                pub limits: serde_json::Map<String, serde_json::Value>,
-                pub requests: serde_json::Map<String, serde_json::Value>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemResources {
-                pub limits: serde_json::Map<String, serde_json::Value>,
-                pub requests: serde_json::Map<String, serde_json::Value>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemResources {
-                pub limits: serde_json::Map<String, serde_json::Value>,
-                pub requests: serde_json::Map<String, serde_json::Value>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ScopesItem {
-                pub control_scope: ControlScope,
-                pub experiment_scope: ExperimentScope,
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemSecurityContextSeLinuxOptions {
-                pub level: String,
-                pub role: String,
-                pub r#type: String,
-                pub user: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemSecurityContextSeLinuxOptions {
-                pub level: String,
-                pub role: String,
-                pub r#type: String,
-                pub user: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemSecurityContextSeLinuxOptions {
-                pub level: String,
-                pub role: String,
-                pub r#type: String,
-                pub user: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContextSeLinuxOptions {
-                pub level: String,
-                pub role: String,
-                pub r#type: String,
-                pub user: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemSecurityContextSeccompProfile {
-                pub localhost_profile: String,
-                pub r#type: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemSecurityContextSeccompProfile {
-                pub localhost_profile: String,
-                pub r#type: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemSecurityContextSeccompProfile {
-                pub localhost_profile: String,
-                pub r#type: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContextSeccompProfile {
-                pub localhost_profile: String,
-                pub r#type: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ArgsItemValueFromSecretKeyRef {
-                pub key: String,
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvItemValueFromSecretKeyRef {
-                pub key: String,
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvItemValueFromSecretKeyRef {
-                pub key: String,
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvItemValueFromSecretKeyRef {
-                pub key: String,
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvFromItemSecretRef {
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvFromItemSecretRef {
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvFromItemSecretRef {
-                pub name: String,
-                pub optional: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                pub fs_group: i64,
-                pub fs_group_change_policy: String,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                pub supplemental_groups: Vec<i64>,
-                pub sysctls: Vec<SysctlsItem>,
-                pub windows_options: SpecSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemSecurityContext {
-                pub allow_privilege_escalation: bool,
-                pub capabilities: ContainersItemSecurityContextCapabilities,
-                pub privileged: bool,
-                pub proc_mount: String,
-                pub read_only_root_filesystem: bool,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: ContainersItemSecurityContextSeLinuxOptions,
-                pub seccomp_profile: ContainersItemSecurityContextSeccompProfile,
-                pub windows_options: ContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemSecurityContext {
-                pub allow_privilege_escalation: bool,
-                pub capabilities: EphemeralContainersItemSecurityContextCapabilities,
-                pub privileged: bool,
-                pub proc_mount: String,
-                pub read_only_root_filesystem: bool,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: EphemeralContainersItemSecurityContextSeLinuxOptions,
-                pub seccomp_profile: EphemeralContainersItemSecurityContextSeccompProfile,
-                pub windows_options: EphemeralContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemSecurityContext {
-                pub allow_privilege_escalation: bool,
-                pub capabilities: InitContainersItemSecurityContextCapabilities,
-                pub privileged: bool,
-                pub proc_mount: String,
-                pub read_only_root_filesystem: bool,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
-                pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
-                pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Selector {
-                pub match_expressions: Vec<SelectorMatchExpressionsItem>,
-                pub match_labels: SelectorMatchLabels,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Spec {
-                pub args: Vec<ArgsItem>,
-                pub dry_run: Vec<DryRunItem>,
-                pub measurement_retention: Vec<MeasurementRetentionItem>,
-                pub metrics: Vec<MetricsItem>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct JobSpec {
-                pub active_deadline_seconds: i64,
-                pub backoff_limit: i32,
-                pub completion_mode: String,
-                pub completions: i32,
-                pub manual_selector: bool,
-                pub parallelism: i32,
-                pub selector: Selector,
-                pub suspend: bool,
-                pub template: Template,
-                pub ttl_seconds_after_finished: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TemplateSpec {
-                pub active_deadline_seconds: i64,
-                pub affinity: Affinity,
-                pub automount_service_account_token: bool,
-                pub containers: Vec<ContainersItem>,
-                pub dns_config: DnsConfig,
-                pub dns_policy: String,
-                pub enable_service_links: bool,
-                pub ephemeral_containers: Vec<EphemeralContainersItem>,
-                pub host_aliases: Vec<HostAliasesItem>,
-                pub host_i_p_c: bool,
-                pub host_network: bool,
-                pub host_p_i_d: bool,
-                pub hostname: String,
-                pub image_pull_secrets: Vec<ImagePullSecretsItem>,
-                pub init_containers: Vec<InitContainersItem>,
-                pub node_name: String,
-                pub node_selector: NodeSelector,
-                pub os: Os,
-                pub overhead: Overhead,
-                pub preemption_policy: String,
-                pub priority: i32,
-                pub priority_class_name: String,
-                pub readiness_gates: Vec<ReadinessGatesItem>,
-                pub restart_policy: String,
-                pub runtime_class_name: String,
-                pub scheduler_name: String,
-                pub security_context: SpecSecurityContext,
-                pub service_account: String,
-                pub service_account_name: String,
-                pub set_hostname_as_f_q_d_n: bool,
-                pub share_process_namespace: bool,
-                pub subdomain: String,
-                pub termination_grace_period_seconds: i64,
-                pub tolerations: Vec<TolerationsItem>,
-                pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
-                pub volumes: serde_json::Map<String, serde_json::Value>,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemStartupProbe {
-                pub exec: ContainersItemStartupProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: ContainersItemStartupProbeGrpc,
-                pub http_get: ContainersItemStartupProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemStartupProbe {
-                pub exec: EphemeralContainersItemStartupProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: EphemeralContainersItemStartupProbeGrpc,
-                pub http_get: EphemeralContainersItemStartupProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: EphemeralContainersItemStartupProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemStartupProbe {
-                pub exec: InitContainersItemStartupProbeExec,
-                pub failure_threshold: i32,
-                pub grpc: InitContainersItemStartupProbeGrpc,
-                pub http_get: InitContainersItemStartupProbeHttpGet,
-                pub initial_delay_seconds: i32,
-                pub period_seconds: i32,
-                pub success_threshold: i32,
-                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
-                pub termination_grace_period_seconds: i64,
-                pub timeout_seconds: i32,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SysctlsItem {
-                pub name: String,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePostStartTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLifecyclePreStopTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemLivenessProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemReadinessProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemStartupProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePostStartTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLifecyclePreStopTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemLivenessProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemReadinessProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemStartupProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePostStartTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLifecyclePreStopTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemLivenessProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemReadinessProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemStartupProbeTcpSocket {
-                pub host: String,
-                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Template {
-                pub metadata: TemplateMetadata,
-                pub spec: TemplateSpec,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Threshold {
-                pub marginal: i64,
-                pub pass: i64,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TolerationsItem {
-                pub effect: String,
-                pub key: String,
-                pub operator: String,
-                pub toleration_seconds: i64,
-                pub value: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct TopologySpreadConstraintsItem {
-                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
-                pub max_skew: i32,
-                pub topology_key: String,
-                pub when_unsatisfiable: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ArgsItemValueFrom {
-                pub field_ref: ArgsItemValueFromFieldRef,
-                pub secret_key_ref: ArgsItemValueFromSecretKeyRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemEnvItemValueFrom {
-                pub config_map_key_ref: ContainersItemEnvItemValueFromConfigMapKeyRef,
-                pub field_ref: ContainersItemEnvItemValueFromFieldRef,
-                pub resource_field_ref: ContainersItemEnvItemValueFromResourceFieldRef,
-                pub secret_key_ref: ContainersItemEnvItemValueFromSecretKeyRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemEnvItemValueFrom {
-                pub config_map_key_ref: EphemeralContainersItemEnvItemValueFromConfigMapKeyRef,
-                pub field_ref: EphemeralContainersItemEnvItemValueFromFieldRef,
-                pub resource_field_ref: EphemeralContainersItemEnvItemValueFromResourceFieldRef,
-                pub secret_key_ref: EphemeralContainersItemEnvItemValueFromSecretKeyRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemEnvItemValueFrom {
-                pub config_map_key_ref: InitContainersItemEnvItemValueFromConfigMapKeyRef,
-                pub field_ref: InitContainersItemEnvItemValueFromFieldRef,
-                pub resource_field_ref: InitContainersItemEnvItemValueFromResourceFieldRef,
-                pub secret_key_ref: InitContainersItemEnvItemValueFromSecretKeyRef,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemVolumeDevicesItem {
-                pub device_path: String,
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemVolumeDevicesItem {
-                pub device_path: String,
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemVolumeDevicesItem {
-                pub device_path: String,
-                pub name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemVolumeMountsItem {
-                pub mount_path: String,
-                pub mount_propagation: String,
-                pub name: String,
-                pub read_only: bool,
-                pub sub_path: String,
-                pub sub_path_expr: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemVolumeMountsItem {
-                pub mount_path: String,
-                pub mount_propagation: String,
-                pub name: String,
-                pub read_only: bool,
-                pub sub_path: String,
-                pub sub_path_expr: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemVolumeMountsItem {
-                pub mount_path: String,
-                pub mount_propagation: String,
-                pub name: String,
-                pub read_only: bool,
-                pub sub_path: String,
-                pub sub_path_expr: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Wavefront {
-                pub address: String,
-                pub query: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Web {
-                pub body: String,
-                pub headers: Vec<HeadersItem>,
-                pub insecure: bool,
-                pub json_path: String,
-                pub method: String,
-                pub timeout_seconds: i64,
-                pub url: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ContainersItemSecurityContextWindowsOptions {
-                pub gmsa_credential_spec: String,
-                pub gmsa_credential_spec_name: String,
-                pub host_process: bool,
-                pub run_as_user_name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct EphemeralContainersItemSecurityContextWindowsOptions {
-                pub gmsa_credential_spec: String,
-                pub gmsa_credential_spec_name: String,
-                pub host_process: bool,
-                pub run_as_user_name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct InitContainersItemSecurityContextWindowsOptions {
-                pub gmsa_credential_spec: String,
-                pub gmsa_credential_spec_name: String,
-                pub host_process: bool,
-                pub run_as_user_name: String,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContextWindowsOptions {
-                pub gmsa_credential_spec: String,
-                pub gmsa_credential_spec_name: String,
-                pub host_process: bool,
-                pub run_as_user_name: String,
             }
 
             impl k8s_openapi::Resource for AnalysisTemplate {
@@ -4324,13 +2247,23 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod cluster_analysis_template {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ClusterAnalysisTemplate {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
+
+            impl serde::Serialize for AnalysisTemplate {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("AnalysisTemplate", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -6426,6 +4359,13 @@ pub mod argoproj_io {
                 pub host_process: bool,
                 pub run_as_user_name: String,
             }
+        }
+        pub mod cluster_analysis_template {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ClusterAnalysisTemplate {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+            }
 
             impl k8s_openapi::Resource for ClusterAnalysisTemplate {
                 type Scope = k8s_openapi::ClusterResourceScope;
@@ -6448,14 +4388,2166 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod experiment {
+
+            impl serde::Serialize for ClusterAnalysisTemplate {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ClusterAnalysisTemplate", 4)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.end()
+                }
+            }
+
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct Affinity {
+                pub node_affinity: NodeAffinity,
+                pub pod_affinity: PodAffinity,
+                pub pod_anti_affinity: PodAntiAffinity,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct JobMetadataAnnotations {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TemplateMetadataAnnotations {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ArgsItem {
+                pub name: String,
+                pub value: String,
+                pub value_from: ArgsItemValueFrom,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemSecurityContextCapabilities {
+                pub add: Vec<String>,
+                pub drop: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemSecurityContextCapabilities {
+                pub add: Vec<String>,
+                pub drop: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemSecurityContextCapabilities {
+                pub add: Vec<String>,
+                pub drop: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct CloudWatch {
+                pub interval: String,
+                pub metric_data_queries: Vec<MetricDataQueriesItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvItemValueFromConfigMapKeyRef {
+                pub key: String,
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvItemValueFromConfigMapKeyRef {
+                pub key: String,
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvItemValueFromConfigMapKeyRef {
+                pub key: String,
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvFromItemConfigMapRef {
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvFromItemConfigMapRef {
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvFromItemConfigMapRef {
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItem {
+                pub args: Vec<String>,
+                pub command: Vec<String>,
+                pub env: Vec<ContainersItemEnvItem>,
+                pub env_from: Vec<ContainersItemEnvFromItem>,
+                pub image: String,
+                pub image_pull_policy: String,
+                pub lifecycle: ContainersItemLifecycle,
+                pub liveness_probe: ContainersItemLivenessProbe,
+                pub name: String,
+                pub ports: Vec<ContainersItemPortsItem>,
+                pub readiness_probe: ContainersItemReadinessProbe,
+                pub resources: ContainersItemResources,
+                pub security_context: ContainersItemSecurityContext,
+                pub startup_probe: ContainersItemStartupProbe,
+                pub stdin: bool,
+                pub stdin_once: bool,
+                pub termination_message_path: String,
+                pub termination_message_policy: String,
+                pub tty: bool,
+                pub volume_devices: Vec<ContainersItemVolumeDevicesItem>,
+                pub volume_mounts: Vec<ContainersItemVolumeMountsItem>,
+                pub working_dir: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ControlScope {
+                pub end: String,
+                pub region: String,
+                pub scope: String,
+                pub start: String,
+                pub step: i64,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Datadog {
+                pub interval: String,
+                pub query: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct DimensionsItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct DnsConfig {
+                pub nameservers: Vec<String>,
+                pub options: Vec<OptionsItem>,
+                pub searches: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct DryRunItem {
+                pub metric_name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvFromItem {
+                pub config_map_ref: ContainersItemEnvFromItemConfigMapRef,
+                pub prefix: String,
+                pub secret_ref: ContainersItemEnvFromItemSecretRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvFromItem {
+                pub config_map_ref: EphemeralContainersItemEnvFromItemConfigMapRef,
+                pub prefix: String,
+                pub secret_ref: EphemeralContainersItemEnvFromItemSecretRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvFromItem {
+                pub config_map_ref: InitContainersItemEnvFromItemConfigMapRef,
+                pub prefix: String,
+                pub secret_ref: InitContainersItemEnvFromItemSecretRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvItem {
+                pub name: String,
+                pub value: String,
+                pub value_from: ContainersItemEnvItemValueFrom,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvItem {
+                pub name: String,
+                pub value: String,
+                pub value_from: EphemeralContainersItemEnvItemValueFrom,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvItem {
+                pub name: String,
+                pub value: String,
+                pub value_from: InitContainersItemEnvItemValueFrom,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItem {
+                pub args: Vec<String>,
+                pub command: Vec<String>,
+                pub env: Vec<EphemeralContainersItemEnvItem>,
+                pub env_from: Vec<EphemeralContainersItemEnvFromItem>,
+                pub image: String,
+                pub image_pull_policy: String,
+                pub lifecycle: EphemeralContainersItemLifecycle,
+                pub liveness_probe: EphemeralContainersItemLivenessProbe,
+                pub name: String,
+                pub ports: Vec<EphemeralContainersItemPortsItem>,
+                pub readiness_probe: EphemeralContainersItemReadinessProbe,
+                pub resources: EphemeralContainersItemResources,
+                pub security_context: EphemeralContainersItemSecurityContext,
+                pub startup_probe: EphemeralContainersItemStartupProbe,
+                pub stdin: bool,
+                pub stdin_once: bool,
+                pub target_container_name: String,
+                pub termination_message_path: String,
+                pub termination_message_policy: String,
+                pub tty: bool,
+                pub volume_devices: Vec<EphemeralContainersItemVolumeDevicesItem>,
+                pub volume_mounts: Vec<EphemeralContainersItemVolumeMountsItem>,
+                pub working_dir: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePostStartExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePreStopExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLivenessProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemReadinessProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemStartupProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePostStartExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePreStopExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLivenessProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemReadinessProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemStartupProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePostStartExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePreStopExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLivenessProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemReadinessProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemStartupProbeExec {
+                pub command: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ExperimentScope {
+                pub end: String,
+                pub region: String,
+                pub scope: String,
+                pub start: String,
+                pub step: i64,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ArgsItemValueFromFieldRef {
+                pub field_path: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvItemValueFromFieldRef {
+                pub api_version: String,
+                pub field_path: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvItemValueFromFieldRef {
+                pub api_version: String,
+                pub field_path: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvItemValueFromFieldRef {
+                pub api_version: String,
+                pub field_path: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Graphite {
+                pub address: String,
+                pub query: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLivenessProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemReadinessProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemStartupProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLivenessProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemReadinessProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemStartupProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLivenessProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemReadinessProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemStartupProbeGrpc {
+                pub port: i32,
+                pub service: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct HeadersItem {
+                pub key: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct HostAliasesItem {
+                pub hostnames: Vec<String>,
+                pub ip: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePostStartHttpGet {
+                pub host: String,
+                pub http_headers: Vec<ContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePreStopHttpGet {
+                pub host: String,
+                pub http_headers: Vec<ContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLivenessProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<ContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemReadinessProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<ContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemStartupProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<ContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePostStartHttpGet {
+                pub host: String,
+                pub http_headers:
+                    Vec<EphemeralContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePreStopHttpGet {
+                pub host: String,
+                pub http_headers:
+                    Vec<EphemeralContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLivenessProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<EphemeralContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemReadinessProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<EphemeralContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemStartupProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<EphemeralContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePostStartHttpGet {
+                pub host: String,
+                pub http_headers: Vec<InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePreStopHttpGet {
+                pub host: String,
+                pub http_headers: Vec<InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLivenessProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<InitContainersItemLivenessProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemReadinessProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<InitContainersItemReadinessProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemStartupProbeHttpGet {
+                pub host: String,
+                pub http_headers: Vec<InitContainersItemStartupProbeHttpGetHttpHeadersItem>,
+                pub path: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub scheme: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLivenessProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemReadinessProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemStartupProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLivenessProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemReadinessProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemStartupProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePostStartHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePreStopHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLivenessProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemReadinessProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemStartupProbeHttpGetHttpHeadersItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ImagePullSecretsItem {
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Influxdb {
+                pub profile: String,
+                pub query: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItem {
+                pub args: Vec<String>,
+                pub command: Vec<String>,
+                pub env: Vec<InitContainersItemEnvItem>,
+                pub env_from: Vec<InitContainersItemEnvFromItem>,
+                pub image: String,
+                pub image_pull_policy: String,
+                pub lifecycle: InitContainersItemLifecycle,
+                pub liveness_probe: InitContainersItemLivenessProbe,
+                pub name: String,
+                pub ports: Vec<InitContainersItemPortsItem>,
+                pub readiness_probe: InitContainersItemReadinessProbe,
+                pub resources: InitContainersItemResources,
+                pub security_context: InitContainersItemSecurityContext,
+                pub startup_probe: InitContainersItemStartupProbe,
+                pub stdin: bool,
+                pub stdin_once: bool,
+                pub termination_message_path: String,
+                pub termination_message_policy: String,
+                pub tty: bool,
+                pub volume_devices: Vec<InitContainersItemVolumeDevicesItem>,
+                pub volume_mounts: Vec<InitContainersItemVolumeMountsItem>,
+                pub working_dir: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Job {
+                pub metadata: JobMetadata,
+                pub spec: JobSpec,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Kayenta {
+                pub address: String,
+                pub application: String,
+                pub canary_config_name: String,
+                pub configuration_account_name: String,
+                pub metrics_account_name: String,
+                pub scopes: Vec<ScopesItem>,
+                pub storage_account_name: String,
+                pub threshold: Threshold,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector {
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem>,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector {
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem>,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TopologySpreadConstraintsItemLabelSelector {
+                pub match_expressions:
+                    Vec<TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem>,
+                pub match_labels: TopologySpreadConstraintsItemLabelSelectorMatchLabels,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct JobMetadataLabels {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TemplateMetadataLabels {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecycle {
+                pub post_start: ContainersItemLifecyclePostStart,
+                pub pre_stop: ContainersItemLifecyclePreStop,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecycle {
+                pub post_start: EphemeralContainersItemLifecyclePostStart,
+                pub pre_stop: EphemeralContainersItemLifecyclePreStop,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecycle {
+                pub post_start: InitContainersItemLifecyclePostStart,
+                pub pre_stop: InitContainersItemLifecyclePreStop,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLivenessProbe {
+                pub exec: ContainersItemLivenessProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: ContainersItemLivenessProbeGrpc,
+                pub http_get: ContainersItemLivenessProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: ContainersItemLivenessProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLivenessProbe {
+                pub exec: EphemeralContainersItemLivenessProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: EphemeralContainersItemLivenessProbeGrpc,
+                pub http_get: EphemeralContainersItemLivenessProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: EphemeralContainersItemLivenessProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLivenessProbe {
+                pub exec: InitContainersItemLivenessProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: InitContainersItemLivenessProbeGrpc,
+                pub http_get: InitContainersItemLivenessProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: InitContainersItemLivenessProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SelectorMatchExpressionsItem {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PreferenceMatchExpressionsItem {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NodeSelectorTermsItemMatchExpressionsItem {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem
+            {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchExpressionsItem {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PreferenceMatchFieldsItem {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NodeSelectorTermsItemMatchFieldsItem {
+                pub key: String,
+                pub operator: String,
+                pub values: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SelectorMatchLabels {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels
+            {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TopologySpreadConstraintsItemLabelSelectorMatchLabels {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct MeasurementRetentionItem {
+                pub limit: i32,
+                pub metric_name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct JobMetadata {
+                pub annotations: JobMetadataAnnotations,
+                pub labels: JobMetadataLabels,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TemplateMetadata {
+                pub annotations: TemplateMetadataAnnotations,
+                pub labels: TemplateMetadataLabels,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Metric {
+                pub dimensions: Vec<DimensionsItem>,
+                pub metric_name: String,
+                pub namespace: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct MetricDataQueriesItem {
+                pub expression: String,
+                pub id: String,
+                pub label: String,
+                pub metric_stat: MetricStat,
+                pub period: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub return_data: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct MetricStat {
+                pub metric: Metric,
+                pub period: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub stat: String,
+                pub unit: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct MetricsItem {
+                pub consecutive_error_limit:
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub count: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub failure_condition: String,
+                pub failure_limit: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub inconclusive_limit: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub initial_delay: String,
+                pub interval: String,
+                pub name: String,
+                pub provider: Provider,
+                pub success_condition: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
+            pub match_expressions: Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_labels: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub match_expressions: Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_labels: PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector {
+            pub match_expressions: Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchExpressionsItem>,
+            pub match_labels: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector {
+            pub match_expressions: Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchExpressionsItem>,
+            pub match_labels: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelectorMatchLabels,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NewRelic {
+                pub profile: String,
+                pub query: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NodeAffinity {
+                pub preferred_during_scheduling_ignored_during_execution:
+                    Vec<NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem>,
+                pub required_during_scheduling_ignored_during_execution:
+                    RequiredDuringSchedulingIgnoredDuringExecution,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NodeSelector {
+                pub properties: std::collections::HashMap<String, String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NodeSelectorTermsItem {
+                pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
+                pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct OptionsItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Os {
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Overhead {
+                pub properties: std::collections::HashMap<
+                    String,
+                    k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                >,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinity {
+                pub preferred_during_scheduling_ignored_during_execution:
+                    Vec<PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem>,
+                pub required_during_scheduling_ignored_during_execution:
+                    Vec<PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
+            pub label_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
+            pub namespace_selector: PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector,
+            pub namespaces: Vec<String>,
+            pub topology_key: String,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm {
+            pub label_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermLabelSelector,
+            pub namespace_selector: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTermNamespaceSelector,
+            pub namespaces: Vec<String>,
+            pub topology_key: String,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinity {
+                pub preferred_during_scheduling_ignored_during_execution:
+                    Vec<PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem>,
+                pub required_during_scheduling_ignored_during_execution:
+                    Vec<PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemPortsItem {
+                pub container_port: i32,
+                pub host_i_p: String,
+                pub host_port: i32,
+                pub name: String,
+                pub protocol: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemPortsItem {
+                pub container_port: i32,
+                pub host_i_p: String,
+                pub host_port: i32,
+                pub name: String,
+                pub protocol: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemPortsItem {
+                pub container_port: i32,
+                pub host_i_p: String,
+                pub host_port: i32,
+                pub name: String,
+                pub protocol: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePostStart {
+                pub exec: ContainersItemLifecyclePostStartExec,
+                pub http_get: ContainersItemLifecyclePostStartHttpGet,
+                pub tcp_socket: ContainersItemLifecyclePostStartTcpSocket,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePostStart {
+                pub exec: EphemeralContainersItemLifecyclePostStartExec,
+                pub http_get: EphemeralContainersItemLifecyclePostStartHttpGet,
+                pub tcp_socket: EphemeralContainersItemLifecyclePostStartTcpSocket,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePostStart {
+                pub exec: InitContainersItemLifecyclePostStartExec,
+                pub http_get: InitContainersItemLifecyclePostStartHttpGet,
+                pub tcp_socket: InitContainersItemLifecyclePostStartTcpSocket,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePreStop {
+                pub exec: ContainersItemLifecyclePreStopExec,
+                pub http_get: ContainersItemLifecyclePreStopHttpGet,
+                pub tcp_socket: ContainersItemLifecyclePreStopTcpSocket,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePreStop {
+                pub exec: EphemeralContainersItemLifecyclePreStopExec,
+                pub http_get: EphemeralContainersItemLifecyclePreStopHttpGet,
+                pub tcp_socket: EphemeralContainersItemLifecyclePreStopTcpSocket,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePreStop {
+                pub exec: InitContainersItemLifecyclePreStopExec,
+                pub http_get: InitContainersItemLifecyclePreStopHttpGet,
+                pub tcp_socket: InitContainersItemLifecyclePreStopTcpSocket,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Preference {
+                pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
+                pub match_fields: Vec<PreferenceMatchFieldsItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct NodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
+                pub preference: Preference,
+                pub weight: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
+                pub pod_affinity_term:
+                    PodAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
+                pub weight: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItem {
+            pub pod_affinity_term: PodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionItemPodAffinityTerm,
+            pub weight: i32,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Prometheus {
+                pub address: String,
+                pub query: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Provider {
+                pub cloud_watch: CloudWatch,
+                pub datadog: Datadog,
+                pub graphite: Graphite,
+                pub influxdb: Influxdb,
+                pub job: Job,
+                pub kayenta: Kayenta,
+                pub new_relic: NewRelic,
+                pub prometheus: Prometheus,
+                pub wavefront: Wavefront,
+                pub web: Web,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ReadinessGatesItem {
+                pub condition_type: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemReadinessProbe {
+                pub exec: ContainersItemReadinessProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: ContainersItemReadinessProbeGrpc,
+                pub http_get: ContainersItemReadinessProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: ContainersItemReadinessProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemReadinessProbe {
+                pub exec: EphemeralContainersItemReadinessProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: EphemeralContainersItemReadinessProbeGrpc,
+                pub http_get: EphemeralContainersItemReadinessProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: EphemeralContainersItemReadinessProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemReadinessProbe {
+                pub exec: InitContainersItemReadinessProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: InitContainersItemReadinessProbeGrpc,
+                pub http_get: InitContainersItemReadinessProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: InitContainersItemReadinessProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct RequiredDuringSchedulingIgnoredDuringExecution {
+                pub node_selector_terms: Vec<NodeSelectorTermsItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
+                pub label_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+                pub namespace_selector:
+                    PodAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+                pub namespaces: Vec<String>,
+                pub topology_key: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItem {
+            pub label_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemLabelSelector,
+            pub namespace_selector: PodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionItemNamespaceSelector,
+            pub namespaces: Vec<String>,
+            pub topology_key: String,
+        }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvItemValueFromResourceFieldRef {
+                pub container_name: String,
+                pub divisor: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub resource: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvItemValueFromResourceFieldRef {
+                pub container_name: String,
+                pub divisor: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub resource: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvItemValueFromResourceFieldRef {
+                pub container_name: String,
+                pub divisor: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+                pub resource: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemResources {
+                pub limits: serde_json::Map<String, serde_json::Value>,
+                pub requests: serde_json::Map<String, serde_json::Value>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemResources {
+                pub limits: serde_json::Map<String, serde_json::Value>,
+                pub requests: serde_json::Map<String, serde_json::Value>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemResources {
+                pub limits: serde_json::Map<String, serde_json::Value>,
+                pub requests: serde_json::Map<String, serde_json::Value>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ScopesItem {
+                pub control_scope: ControlScope,
+                pub experiment_scope: ExperimentScope,
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemSecurityContextSeLinuxOptions {
+                pub level: String,
+                pub role: String,
+                pub r#type: String,
+                pub user: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemSecurityContextSeLinuxOptions {
+                pub level: String,
+                pub role: String,
+                pub r#type: String,
+                pub user: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemSecurityContextSeLinuxOptions {
+                pub level: String,
+                pub role: String,
+                pub r#type: String,
+                pub user: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContextSeLinuxOptions {
+                pub level: String,
+                pub role: String,
+                pub r#type: String,
+                pub user: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemSecurityContextSeccompProfile {
+                pub localhost_profile: String,
+                pub r#type: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemSecurityContextSeccompProfile {
+                pub localhost_profile: String,
+                pub r#type: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemSecurityContextSeccompProfile {
+                pub localhost_profile: String,
+                pub r#type: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContextSeccompProfile {
+                pub localhost_profile: String,
+                pub r#type: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ArgsItemValueFromSecretKeyRef {
+                pub key: String,
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvItemValueFromSecretKeyRef {
+                pub key: String,
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvItemValueFromSecretKeyRef {
+                pub key: String,
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvItemValueFromSecretKeyRef {
+                pub key: String,
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvFromItemSecretRef {
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvFromItemSecretRef {
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvFromItemSecretRef {
+                pub name: String,
+                pub optional: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                pub fs_group: i64,
+                pub fs_group_change_policy: String,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                pub supplemental_groups: Vec<i64>,
+                pub sysctls: Vec<SysctlsItem>,
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemSecurityContext {
+                pub allow_privilege_escalation: bool,
+                pub capabilities: ContainersItemSecurityContextCapabilities,
+                pub privileged: bool,
+                pub proc_mount: String,
+                pub read_only_root_filesystem: bool,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: ContainersItemSecurityContextSeLinuxOptions,
+                pub seccomp_profile: ContainersItemSecurityContextSeccompProfile,
+                pub windows_options: ContainersItemSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemSecurityContext {
+                pub allow_privilege_escalation: bool,
+                pub capabilities: EphemeralContainersItemSecurityContextCapabilities,
+                pub privileged: bool,
+                pub proc_mount: String,
+                pub read_only_root_filesystem: bool,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: EphemeralContainersItemSecurityContextSeLinuxOptions,
+                pub seccomp_profile: EphemeralContainersItemSecurityContextSeccompProfile,
+                pub windows_options: EphemeralContainersItemSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemSecurityContext {
+                pub allow_privilege_escalation: bool,
+                pub capabilities: InitContainersItemSecurityContextCapabilities,
+                pub privileged: bool,
+                pub proc_mount: String,
+                pub read_only_root_filesystem: bool,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
+                pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
+                pub windows_options: InitContainersItemSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Selector {
+                pub match_expressions: Vec<SelectorMatchExpressionsItem>,
+                pub match_labels: SelectorMatchLabels,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Spec {
+                pub args: Vec<ArgsItem>,
+                pub dry_run: Vec<DryRunItem>,
+                pub measurement_retention: Vec<MeasurementRetentionItem>,
+                pub metrics: Vec<MetricsItem>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct JobSpec {
+                pub active_deadline_seconds: i64,
+                pub backoff_limit: i32,
+                pub completion_mode: String,
+                pub completions: i32,
+                pub manual_selector: bool,
+                pub parallelism: i32,
+                pub selector: Selector,
+                pub suspend: bool,
+                pub template: Template,
+                pub ttl_seconds_after_finished: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TemplateSpec {
+                pub active_deadline_seconds: i64,
+                pub affinity: Affinity,
+                pub automount_service_account_token: bool,
+                pub containers: Vec<ContainersItem>,
+                pub dns_config: DnsConfig,
+                pub dns_policy: String,
+                pub enable_service_links: bool,
+                pub ephemeral_containers: Vec<EphemeralContainersItem>,
+                pub host_aliases: Vec<HostAliasesItem>,
+                pub host_i_p_c: bool,
+                pub host_network: bool,
+                pub host_p_i_d: bool,
+                pub hostname: String,
+                pub image_pull_secrets: Vec<ImagePullSecretsItem>,
+                pub init_containers: Vec<InitContainersItem>,
+                pub node_name: String,
+                pub node_selector: NodeSelector,
+                pub os: Os,
+                pub overhead: Overhead,
+                pub preemption_policy: String,
+                pub priority: i32,
+                pub priority_class_name: String,
+                pub readiness_gates: Vec<ReadinessGatesItem>,
+                pub restart_policy: String,
+                pub runtime_class_name: String,
+                pub scheduler_name: String,
+                pub security_context: SpecSecurityContext,
+                pub service_account: String,
+                pub service_account_name: String,
+                pub set_hostname_as_f_q_d_n: bool,
+                pub share_process_namespace: bool,
+                pub subdomain: String,
+                pub termination_grace_period_seconds: i64,
+                pub tolerations: Vec<TolerationsItem>,
+                pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
+                pub volumes: serde_json::Map<String, serde_json::Value>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemStartupProbe {
+                pub exec: ContainersItemStartupProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: ContainersItemStartupProbeGrpc,
+                pub http_get: ContainersItemStartupProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: ContainersItemStartupProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemStartupProbe {
+                pub exec: EphemeralContainersItemStartupProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: EphemeralContainersItemStartupProbeGrpc,
+                pub http_get: EphemeralContainersItemStartupProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: EphemeralContainersItemStartupProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemStartupProbe {
+                pub exec: InitContainersItemStartupProbeExec,
+                pub failure_threshold: i32,
+                pub grpc: InitContainersItemStartupProbeGrpc,
+                pub http_get: InitContainersItemStartupProbeHttpGet,
+                pub initial_delay_seconds: i32,
+                pub period_seconds: i32,
+                pub success_threshold: i32,
+                pub tcp_socket: InitContainersItemStartupProbeTcpSocket,
+                pub termination_grace_period_seconds: i64,
+                pub timeout_seconds: i32,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SysctlsItem {
+                pub name: String,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePostStartTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLifecyclePreStopTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemLivenessProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemReadinessProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemStartupProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePostStartTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLifecyclePreStopTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemLivenessProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemReadinessProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemStartupProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePostStartTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLifecyclePreStopTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemLivenessProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemReadinessProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemStartupProbeTcpSocket {
+                pub host: String,
+                pub port: k8s_openapi::apimachinery::pkg::util::intstr::IntOrString,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Template {
+                pub metadata: TemplateMetadata,
+                pub spec: TemplateSpec,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Threshold {
+                pub marginal: i64,
+                pub pass: i64,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TolerationsItem {
+                pub effect: String,
+                pub key: String,
+                pub operator: String,
+                pub toleration_seconds: i64,
+                pub value: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct TopologySpreadConstraintsItem {
+                pub label_selector: TopologySpreadConstraintsItemLabelSelector,
+                pub max_skew: i32,
+                pub topology_key: String,
+                pub when_unsatisfiable: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ArgsItemValueFrom {
+                pub field_ref: ArgsItemValueFromFieldRef,
+                pub secret_key_ref: ArgsItemValueFromSecretKeyRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemEnvItemValueFrom {
+                pub config_map_key_ref: ContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub field_ref: ContainersItemEnvItemValueFromFieldRef,
+                pub resource_field_ref: ContainersItemEnvItemValueFromResourceFieldRef,
+                pub secret_key_ref: ContainersItemEnvItemValueFromSecretKeyRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemEnvItemValueFrom {
+                pub config_map_key_ref: EphemeralContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub field_ref: EphemeralContainersItemEnvItemValueFromFieldRef,
+                pub resource_field_ref: EphemeralContainersItemEnvItemValueFromResourceFieldRef,
+                pub secret_key_ref: EphemeralContainersItemEnvItemValueFromSecretKeyRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemEnvItemValueFrom {
+                pub config_map_key_ref: InitContainersItemEnvItemValueFromConfigMapKeyRef,
+                pub field_ref: InitContainersItemEnvItemValueFromFieldRef,
+                pub resource_field_ref: InitContainersItemEnvItemValueFromResourceFieldRef,
+                pub secret_key_ref: InitContainersItemEnvItemValueFromSecretKeyRef,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemVolumeDevicesItem {
+                pub device_path: String,
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemVolumeDevicesItem {
+                pub device_path: String,
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemVolumeDevicesItem {
+                pub device_path: String,
+                pub name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemVolumeMountsItem {
+                pub mount_path: String,
+                pub mount_propagation: String,
+                pub name: String,
+                pub read_only: bool,
+                pub sub_path: String,
+                pub sub_path_expr: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemVolumeMountsItem {
+                pub mount_path: String,
+                pub mount_propagation: String,
+                pub name: String,
+                pub read_only: bool,
+                pub sub_path: String,
+                pub sub_path_expr: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemVolumeMountsItem {
+                pub mount_path: String,
+                pub mount_propagation: String,
+                pub name: String,
+                pub read_only: bool,
+                pub sub_path: String,
+                pub sub_path_expr: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Wavefront {
+                pub address: String,
+                pub query: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Web {
+                pub body: String,
+                pub headers: Vec<HeadersItem>,
+                pub insecure: bool,
+                pub json_path: String,
+                pub method: String,
+                pub timeout_seconds: i64,
+                pub url: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct ContainersItemSecurityContextWindowsOptions {
+                pub gmsa_credential_spec: String,
+                pub gmsa_credential_spec_name: String,
+                pub host_process: bool,
+                pub run_as_user_name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct EphemeralContainersItemSecurityContextWindowsOptions {
+                pub gmsa_credential_spec: String,
+                pub gmsa_credential_spec_name: String,
+                pub host_process: bool,
+                pub run_as_user_name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct InitContainersItemSecurityContextWindowsOptions {
+                pub gmsa_credential_spec: String,
+                pub gmsa_credential_spec_name: String,
+                pub host_process: bool,
+                pub run_as_user_name: String,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContextWindowsOptions {
+                pub gmsa_credential_spec: String,
+                pub gmsa_credential_spec_name: String,
+                pub host_process: bool,
+                pub run_as_user_name: String,
+            }
+        }
+        pub mod experiment {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Experiment {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for Experiment {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "argoproj.io/v1alpha1";
+                const GROUP: &'static str = "argoproj.io";
+                const KIND: &'static str = "Experiment";
+                const VERSION: &'static str = "v1alpha1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for Experiment {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for Experiment {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Experiment", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -8406,18 +8498,26 @@ pub mod argoproj_io {
                 pub host_process: bool,
                 pub run_as_user_name: String,
             }
+        }
+        pub mod rollout {
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Rollout {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Experiment {
+            impl k8s_openapi::Resource for Rollout {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "argoproj.io/v1alpha1";
                 const GROUP: &'static str = "argoproj.io";
-                const KIND: &'static str = "Experiment";
+                const KIND: &'static str = "Rollout";
                 const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Experiment {
+            impl k8s_openapi::Metadata for Rollout {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -8428,14 +8528,24 @@ pub mod argoproj_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod rollout {
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Rollout {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Rollout {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Rollout", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -11155,28 +11265,6 @@ pub mod argoproj_io {
                 pub api_version: String,
                 pub kind: String,
                 pub name: String,
-            }
-
-            impl k8s_openapi::Resource for Rollout {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "argoproj.io/v1alpha1";
-                const GROUP: &'static str = "argoproj.io";
-                const KIND: &'static str = "Rollout";
-                const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for Rollout {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

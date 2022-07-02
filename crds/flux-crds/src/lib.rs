@@ -5,12 +5,52 @@ pub mod helm_toolkit_fluxcd_io {
     pub mod v2beta1 {
         pub mod helm_release {
             /// HelmRelease is the Schema for the helmreleases API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct HelmRelease {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for HelmRelease {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "helm.toolkit.fluxcd.io/v2beta1";
+                const GROUP: &'static str = "helm.toolkit.fluxcd.io";
+                const KIND: &'static str = "HelmRelease";
+                const VERSION: &'static str = "v2beta1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for HelmRelease {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for HelmRelease {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("HelmRelease", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Chart defines the template of the v1beta2.HelmChart that should be created for this HelmRelease.
@@ -432,18 +472,31 @@ pub mod helm_toolkit_fluxcd_io {
                 /// ValuesKey is the data key where the values.yaml or a specific value can be found at. Defaults to 'values.yaml'.
                 pub values_key: String,
             }
+        }
+    }
+}
+pub mod image_toolkit_fluxcd_io {
+    pub mod v1alpha1 {
+        pub mod image_policy {
+            /// ImagePolicy is the Schema for the imagepolicies API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImagePolicy {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for HelmRelease {
+            impl k8s_openapi::Resource for ImagePolicy {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "helm.toolkit.fluxcd.io/v2beta1";
-                const GROUP: &'static str = "helm.toolkit.fluxcd.io";
-                const KIND: &'static str = "HelmRelease";
-                const VERSION: &'static str = "v2beta1";
+                const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
+                const GROUP: &'static str = "image.toolkit.fluxcd.io";
+                const KIND: &'static str = "ImagePolicy";
+                const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for HelmRelease {
+            impl k8s_openapi::Metadata for ImagePolicy {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -454,19 +507,24 @@ pub mod helm_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod image_toolkit_fluxcd_io {
-    pub mod v1alpha1 {
-        pub mod image_policy {
-            /// ImagePolicy is the Schema for the imagepolicies API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImagePolicy {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImagePolicy {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImagePolicy", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Alphabetical set of rules to use for alphabetical ordering of the tags.
@@ -563,18 +621,27 @@ pub mod image_toolkit_fluxcd_io {
                 pub latest_image: String,
                 pub observed_generation: i64,
             }
+        }
+        pub mod image_repository {
+            /// ImageRepository is the Schema for the imagerepositories API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImageRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImagePolicy {
+            impl k8s_openapi::Resource for ImageRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImagePolicy";
+                const KIND: &'static str = "ImageRepository";
                 const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImagePolicy {
+            impl k8s_openapi::Metadata for ImageRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -585,15 +652,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod image_repository {
-            /// ImageRepository is the Schema for the imagerepositories API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImageRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImageRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImageRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// CertSecretRef can be given the name of a secret containing either or both of
@@ -675,18 +751,27 @@ pub mod image_toolkit_fluxcd_io {
                 /// ObservedGeneration is the last reconciled generation.
                 pub observed_generation: i64,
             }
+        }
+        pub mod image_update_automation {
+            /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImageUpdateAutomation {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImageRepository {
+            impl k8s_openapi::Resource for ImageUpdateAutomation {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImageRepository";
+                const KIND: &'static str = "ImageUpdateAutomation";
                 const VERSION: &'static str = "v1alpha1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImageRepository {
+            impl k8s_openapi::Metadata for ImageUpdateAutomation {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -697,15 +782,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod image_update_automation {
-            /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImageUpdateAutomation {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImageUpdateAutomation {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImageUpdateAutomation", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Checkout gives the parameters for cloning the git repository, ready to make changes.
@@ -826,18 +920,29 @@ pub mod image_toolkit_fluxcd_io {
                 /// Strategy names the strategy to be used.
                 pub strategy: String,
             }
+        }
+    }
+    pub mod v1alpha2 {
+        pub mod image_policy {
+            /// ImagePolicy is the Schema for the imagepolicies API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImagePolicy {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImageUpdateAutomation {
+            impl k8s_openapi::Resource for ImagePolicy {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
+                const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImageUpdateAutomation";
-                const VERSION: &'static str = "v1alpha1";
+                const KIND: &'static str = "ImagePolicy";
+                const VERSION: &'static str = "v1alpha2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImageUpdateAutomation {
+            impl k8s_openapi::Metadata for ImagePolicy {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -848,17 +953,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-    pub mod v1alpha2 {
-        pub mod image_policy {
-            /// ImagePolicy is the Schema for the imagepolicies API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImagePolicy {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImagePolicy {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImagePolicy", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Alphabetical set of rules to use for alphabetical ordering of the tags.
@@ -955,18 +1067,27 @@ pub mod image_toolkit_fluxcd_io {
                 pub latest_image: String,
                 pub observed_generation: i64,
             }
+        }
+        pub mod image_repository {
+            /// ImageRepository is the Schema for the imagerepositories API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImageRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImagePolicy {
+            impl k8s_openapi::Resource for ImageRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImagePolicy";
+                const KIND: &'static str = "ImageRepository";
                 const VERSION: &'static str = "v1alpha2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImagePolicy {
+            impl k8s_openapi::Metadata for ImageRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -977,15 +1098,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod image_repository {
-            /// ImageRepository is the Schema for the imagerepositories API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImageRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImageRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImageRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// CertSecretRef can be given the name of a secret containing either or both of
@@ -1067,18 +1197,27 @@ pub mod image_toolkit_fluxcd_io {
                 /// ObservedGeneration is the last reconciled generation.
                 pub observed_generation: i64,
             }
+        }
+        pub mod image_update_automation {
+            /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImageUpdateAutomation {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImageRepository {
+            impl k8s_openapi::Resource for ImageUpdateAutomation {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImageRepository";
+                const KIND: &'static str = "ImageUpdateAutomation";
                 const VERSION: &'static str = "v1alpha2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImageRepository {
+            impl k8s_openapi::Metadata for ImageUpdateAutomation {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1089,15 +1228,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod image_update_automation {
-            /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImageUpdateAutomation {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImageUpdateAutomation {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImageUpdateAutomation", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Author gives the email and optionally the name to use as the author of commits.
@@ -1252,18 +1400,29 @@ pub mod image_toolkit_fluxcd_io {
                 /// Strategy names the strategy to be used.
                 pub strategy: String,
             }
+        }
+    }
+    pub mod v1beta1 {
+        pub mod image_policy {
+            /// ImagePolicy is the Schema for the imagepolicies API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImagePolicy {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImageUpdateAutomation {
+            impl k8s_openapi::Resource for ImagePolicy {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
+                const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImageUpdateAutomation";
-                const VERSION: &'static str = "v1alpha2";
+                const KIND: &'static str = "ImagePolicy";
+                const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImageUpdateAutomation {
+            impl k8s_openapi::Metadata for ImagePolicy {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1274,17 +1433,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-    pub mod v1beta1 {
-        pub mod image_policy {
-            /// ImagePolicy is the Schema for the imagepolicies API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImagePolicy {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImagePolicy {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImagePolicy", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Alphabetical set of rules to use for alphabetical ordering of the tags.
@@ -1383,18 +1549,27 @@ pub mod image_toolkit_fluxcd_io {
                 pub latest_image: String,
                 pub observed_generation: i64,
             }
+        }
+        pub mod image_repository {
+            /// ImageRepository is the Schema for the imagerepositories API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImageRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImagePolicy {
+            impl k8s_openapi::Resource for ImageRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImagePolicy";
+                const KIND: &'static str = "ImageRepository";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImagePolicy {
+            impl k8s_openapi::Metadata for ImageRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1405,15 +1580,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod image_repository {
-            /// ImageRepository is the Schema for the imagerepositories API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImageRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImageRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImageRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom defines an ACL for allowing cross-namespace references to the ImageRepository object based on the caller's namespace labels.
@@ -1525,18 +1709,27 @@ pub mod image_toolkit_fluxcd_io {
                 /// ObservedGeneration is the last reconciled generation.
                 pub observed_generation: i64,
             }
+        }
+        pub mod image_update_automation {
+            /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ImageUpdateAutomation {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImageRepository {
+            impl k8s_openapi::Resource for ImageUpdateAutomation {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImageRepository";
+                const KIND: &'static str = "ImageUpdateAutomation";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImageRepository {
+            impl k8s_openapi::Metadata for ImageUpdateAutomation {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1547,15 +1740,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod image_update_automation {
-            /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ImageUpdateAutomation {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ImageUpdateAutomation {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ImageUpdateAutomation", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Author gives the email and optionally the name to use as the author of commits.
@@ -1714,18 +1916,31 @@ pub mod image_toolkit_fluxcd_io {
                 /// Strategy names the strategy to be used.
                 pub strategy: String,
             }
+        }
+    }
+}
+pub mod kustomize_toolkit_fluxcd_io {
+    pub mod v1beta1 {
+        pub mod kustomization {
+            /// Kustomization is the Schema for the kustomizations API.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Kustomization {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ImageUpdateAutomation {
+            impl k8s_openapi::Resource for Kustomization {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
-                const GROUP: &'static str = "image.toolkit.fluxcd.io";
-                const KIND: &'static str = "ImageUpdateAutomation";
+                const API_VERSION: &'static str = "kustomize.toolkit.fluxcd.io/v1beta1";
+                const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
+                const KIND: &'static str = "Kustomization";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ImageUpdateAutomation {
+            impl k8s_openapi::Metadata for Kustomization {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1736,19 +1951,24 @@ pub mod image_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod kustomize_toolkit_fluxcd_io {
-    pub mod v1beta1 {
-        pub mod kustomization {
-            /// Kustomization is the Schema for the kustomizations API.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Kustomization {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Kustomization {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Kustomization", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
@@ -2048,14 +2268,25 @@ pub mod kustomize_toolkit_fluxcd_io {
                 /// Version of the API Group to select resources from. Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                 pub version: String,
             }
+        }
+    }
+    pub mod v1beta2 {
+        pub mod kustomization {
+            /// Kustomization is the Schema for the kustomizations API.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Kustomization {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
             impl k8s_openapi::Resource for Kustomization {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "kustomize.toolkit.fluxcd.io/v1beta1";
+                const API_VERSION: &'static str = "kustomize.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
                 const KIND: &'static str = "Kustomization";
-                const VERSION: &'static str = "v1beta1";
+                const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
@@ -2070,17 +2301,24 @@ pub mod kustomize_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-    pub mod v1beta2 {
-        pub mod kustomization {
-            /// Kustomization is the Schema for the kustomizations API.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Kustomization {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Kustomization {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Kustomization", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
@@ -2376,18 +2614,31 @@ pub mod kustomize_toolkit_fluxcd_io {
                 /// Version of the API Group to select resources from. Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources. https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                 pub version: String,
             }
+        }
+    }
+}
+pub mod notification_toolkit_fluxcd_io {
+    pub mod v1beta1 {
+        pub mod alert {
+            /// Alert is the Schema for the alerts API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Alert {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Kustomization {
+            impl k8s_openapi::Resource for Alert {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "kustomize.toolkit.fluxcd.io/v1beta2";
-                const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
-                const KIND: &'static str = "Kustomization";
-                const VERSION: &'static str = "v1beta2";
+                const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
+                const GROUP: &'static str = "notification.toolkit.fluxcd.io";
+                const KIND: &'static str = "Alert";
+                const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Kustomization {
+            impl k8s_openapi::Metadata for Alert {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2398,19 +2649,24 @@ pub mod kustomize_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod notification_toolkit_fluxcd_io {
-    pub mod v1beta1 {
-        pub mod alert {
-            /// Alert is the Schema for the alerts API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Alert {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Alert {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Alert", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
@@ -2490,18 +2746,27 @@ pub mod notification_toolkit_fluxcd_io {
                 /// ObservedGeneration is the last observed generation.
                 pub observed_generation: i64,
             }
+        }
+        pub mod provider {
+            /// Provider is the Schema for the providers API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Provider {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Alert {
+            impl k8s_openapi::Resource for Provider {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
-                const KIND: &'static str = "Alert";
+                const KIND: &'static str = "Provider";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Alert {
+            impl k8s_openapi::Metadata for Provider {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2512,15 +2777,24 @@ pub mod notification_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod provider {
-            /// Provider is the Schema for the providers API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Provider {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Provider {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Provider", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// CertSecretRef can be given the name of a secret containing a PEM-encoded CA certificate (`caFile`)
@@ -2588,18 +2862,27 @@ pub mod notification_toolkit_fluxcd_io {
                 /// ObservedGeneration is the last reconciled generation.
                 pub observed_generation: i64,
             }
+        }
+        pub mod receiver {
+            /// Receiver is the Schema for the receivers API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Receiver {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Provider {
+            impl k8s_openapi::Resource for Receiver {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
-                const KIND: &'static str = "Provider";
+                const KIND: &'static str = "Receiver";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Provider {
+            impl k8s_openapi::Metadata for Receiver {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2610,15 +2893,24 @@ pub mod notification_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod receiver {
-            /// Receiver is the Schema for the receivers API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Receiver {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Receiver {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Receiver", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
@@ -2698,18 +2990,31 @@ pub mod notification_toolkit_fluxcd_io {
                 /// Generated webhook URL in the format of '/hook/sha256sum(token+name+namespace)'.
                 pub url: String,
             }
+        }
+    }
+}
+pub mod source_toolkit_fluxcd_io {
+    pub mod v1beta1 {
+        pub mod bucket {
+            /// Bucket is the Schema for the buckets API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Bucket {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Receiver {
+            impl k8s_openapi::Resource for Bucket {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
-                const GROUP: &'static str = "notification.toolkit.fluxcd.io";
-                const KIND: &'static str = "Receiver";
+                const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
+                const GROUP: &'static str = "source.toolkit.fluxcd.io";
+                const KIND: &'static str = "Bucket";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Receiver {
+            impl k8s_openapi::Metadata for Bucket {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2720,19 +3025,24 @@ pub mod notification_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod source_toolkit_fluxcd_io {
-    pub mod v1beta1 {
-        pub mod bucket {
-            /// Bucket is the Schema for the buckets API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Bucket {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Bucket {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Bucket", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -2845,18 +3155,27 @@ pub mod source_toolkit_fluxcd_io {
                 /// URL is the download link for the artifact output of the last Bucket sync.
                 pub url: String,
             }
+        }
+        pub mod git_repository {
+            /// GitRepository is the Schema for the gitrepositories API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct GitRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Bucket {
+            impl k8s_openapi::Resource for GitRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "Bucket";
+                const KIND: &'static str = "GitRepository";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Bucket {
+            impl k8s_openapi::Metadata for GitRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2867,15 +3186,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod git_repository {
-            /// GitRepository is the Schema for the gitrepositories API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct GitRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for GitRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("GitRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3060,18 +3388,27 @@ pub mod source_toolkit_fluxcd_io {
                 /// The secret name containing the public keys of all trusted Git authors.
                 pub secret_ref: VerifySecretRef,
             }
+        }
+        pub mod helm_chart {
+            /// HelmChart is the Schema for the helmcharts API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct HelmChart {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for GitRepository {
+            impl k8s_openapi::Resource for HelmChart {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "GitRepository";
+                const KIND: &'static str = "HelmChart";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for GitRepository {
+            impl k8s_openapi::Metadata for HelmChart {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3082,15 +3419,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod helm_chart {
-            /// HelmChart is the Schema for the helmcharts API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct HelmChart {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for HelmChart {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("HelmChart", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3203,18 +3549,27 @@ pub mod source_toolkit_fluxcd_io {
                 /// URL is the download link for the last chart pulled.
                 pub url: String,
             }
+        }
+        pub mod helm_repository {
+            /// HelmRepository is the Schema for the helmrepositories API
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct HelmRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for HelmChart {
+            impl k8s_openapi::Resource for HelmRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "HelmChart";
+                const KIND: &'static str = "HelmRepository";
                 const VERSION: &'static str = "v1beta1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for HelmChart {
+            impl k8s_openapi::Metadata for HelmRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3225,15 +3580,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod helm_repository {
-            /// HelmRepository is the Schema for the helmrepositories API
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct HelmRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for HelmRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("HelmRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3338,18 +3702,29 @@ pub mod source_toolkit_fluxcd_io {
                 /// URL is the download link for the last index fetched.
                 pub url: String,
             }
+        }
+    }
+    pub mod v1beta2 {
+        pub mod bucket {
+            /// Bucket is the Schema for the buckets API.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Bucket {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for HelmRepository {
+            impl k8s_openapi::Resource for Bucket {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
+                const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "HelmRepository";
-                const VERSION: &'static str = "v1beta1";
+                const KIND: &'static str = "Bucket";
+                const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for HelmRepository {
+            impl k8s_openapi::Metadata for Bucket {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3360,17 +3735,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-    pub mod v1beta2 {
-        pub mod bucket {
-            /// Bucket is the Schema for the buckets API.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Bucket {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Bucket {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Bucket", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -3485,18 +3867,27 @@ pub mod source_toolkit_fluxcd_io {
                 /// URL is the dynamic fetch link for the latest Artifact. It is provided on a "best effort" basis, and using the precise BucketStatus.Artifact data is recommended.
                 pub url: String,
             }
+        }
+        pub mod git_repository {
+            /// GitRepository is the Schema for the gitrepositories API.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct GitRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Bucket {
+            impl k8s_openapi::Resource for GitRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "Bucket";
+                const KIND: &'static str = "GitRepository";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Bucket {
+            impl k8s_openapi::Metadata for GitRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3507,15 +3898,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod git_repository {
-            /// GitRepository is the Schema for the gitrepositories API.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct GitRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for GitRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("GitRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -3708,18 +4108,27 @@ pub mod source_toolkit_fluxcd_io {
                 /// SecretRef specifies the Secret containing the public keys of trusted Git authors.
                 pub secret_ref: VerifySecretRef,
             }
+        }
+        pub mod helm_chart {
+            /// HelmChart is the Schema for the helmcharts API.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct HelmChart {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for GitRepository {
+            impl k8s_openapi::Resource for HelmChart {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "GitRepository";
+                const KIND: &'static str = "HelmChart";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for GitRepository {
+            impl k8s_openapi::Metadata for HelmChart {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3730,15 +4139,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod helm_chart {
-            /// HelmChart is the Schema for the helmcharts API.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct HelmChart {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for HelmChart {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("HelmChart", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -3857,18 +4275,27 @@ pub mod source_toolkit_fluxcd_io {
                 /// URL is the dynamic fetch link for the latest Artifact. It is provided on a "best effort" basis, and using the precise BucketStatus.Artifact data is recommended.
                 pub url: String,
             }
+        }
+        pub mod helm_repository {
+            /// HelmRepository is the Schema for the helmrepositories API.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct HelmRepository {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for HelmChart {
+            impl k8s_openapi::Resource for HelmRepository {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "HelmChart";
+                const KIND: &'static str = "HelmRepository";
                 const VERSION: &'static str = "v1beta2";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for HelmChart {
+            impl k8s_openapi::Metadata for HelmRepository {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -3879,15 +4306,24 @@ pub mod source_toolkit_fluxcd_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod helm_repository {
-            /// HelmRepository is the Schema for the helmrepositories API.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct HelmRepository {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for HelmRepository {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("HelmRepository", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -3995,28 +4431,6 @@ pub mod source_toolkit_fluxcd_io {
                 pub observed_generation: i64,
                 /// URL is the dynamic fetch link for the latest Artifact. It is provided on a "best effort" basis, and using the precise HelmRepositoryStatus.Artifact data is recommended.
                 pub url: String,
-            }
-
-            impl k8s_openapi::Resource for HelmRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
-                const GROUP: &'static str = "source.toolkit.fluxcd.io";
-                const KIND: &'static str = "HelmRepository";
-                const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for HelmRepository {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

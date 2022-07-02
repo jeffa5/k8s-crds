@@ -5,12 +5,52 @@ pub mod acme_cert_manager_io {
     pub mod v1 {
         pub mod challenge {
             /// Challenge is a type to represent a Challenge request with an ACME server
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
+            #[derive(serde::Deserialize, Debug, PartialEq)]
             pub struct Challenge {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
                 pub status: Status,
+            }
+
+            impl k8s_openapi::Resource for Challenge {
+                type Scope = k8s_openapi::ClusterResourceScope;
+
+                const API_VERSION: &'static str = "acme.cert-manager.io/v1";
+                const GROUP: &'static str = "acme.cert-manager.io";
+                const KIND: &'static str = "Challenge";
+                const VERSION: &'static str = "v1";
+                const URL_PATH_SEGMENT: &'static str = "TODO";
+            }
+
+            impl k8s_openapi::Metadata for Challenge {
+                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
+
+                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
+                    &self.metadata
+                }
+
+                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
+                    &mut self.metadata
+                }
+            }
+
+            impl serde::Serialize for Challenge {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Challenge", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
@@ -1005,18 +1045,27 @@ pub mod acme_cert_manager_io {
                 /// The name of the solver to use, as defined in the webhook provider implementation. This will typically be the name of the provider, e.g. 'cloudflare'.
                 pub solver_name: String,
             }
+        }
+        pub mod order {
+            /// Order is a type to represent an Order with an ACME server
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Order {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Challenge {
+            impl k8s_openapi::Resource for Order {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "acme.cert-manager.io/v1";
                 const GROUP: &'static str = "acme.cert-manager.io";
-                const KIND: &'static str = "Challenge";
+                const KIND: &'static str = "Order";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Challenge {
+            impl k8s_openapi::Metadata for Order {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1027,15 +1076,24 @@ pub mod acme_cert_manager_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod order {
-            /// Order is a type to represent an Order with an ACME server
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Order {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Order {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Order", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// ACMEAuthorization contains data returned from the ACME server on an authorization that must be completed in order validate a DNS name on an ACME Order resource.
@@ -1113,18 +1171,32 @@ pub mod acme_cert_manager_io {
                 /// URL of the Order. This will initially be empty when the resource is first created. The Order controller will populate this field when the Order is first processed. This field will be immutable after it is initially set.
                 pub url: String,
             }
+        }
+    }
+}
+pub mod cert_manager_io {
+    pub mod v1 {
+        pub mod certificate {
+            /// A Certificate resource should be created to ensure an up to date and signed x509 certificate is stored in the Kubernetes Secret resource named in `spec.secretName`.
+            ///  The stored certificate will be renewed before it expires (as configured by `spec.renewBefore`).
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Certificate {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Order {
+            impl k8s_openapi::Resource for Certificate {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
-                const API_VERSION: &'static str = "acme.cert-manager.io/v1";
-                const GROUP: &'static str = "acme.cert-manager.io";
-                const KIND: &'static str = "Order";
+                const API_VERSION: &'static str = "cert-manager.io/v1";
+                const GROUP: &'static str = "cert-manager.io";
+                const KIND: &'static str = "Certificate";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Order {
+            impl k8s_openapi::Metadata for Certificate {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1135,20 +1207,24 @@ pub mod acme_cert_manager_io {
                     &mut self.metadata
                 }
             }
-        }
-    }
-}
-pub mod cert_manager_io {
-    pub mod v1 {
-        pub mod certificate {
-            /// A Certificate resource should be created to ensure an up to date and signed x509 certificate is stored in the Kubernetes Secret resource named in `spec.secretName`.
-            ///  The stored certificate will be renewed before it expires (as configured by `spec.renewBefore`).
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Certificate {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Certificate {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Certificate", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// CertificateAdditionalOutputFormat defines an additional output format of a Certificate resource. These contain supplementary data formats of the signed certificate chain and paired private key.
@@ -1367,18 +1443,29 @@ pub mod cert_manager_io {
                 /// Street addresses to be used on the Certificate.
                 pub street_addresses: Vec<String>,
             }
+        }
+        pub mod certificate_request {
+            /// A CertificateRequest is used to request a signed certificate from one of the configured issuers.
+            ///  All fields within the CertificateRequest's `spec` are immutable after creation. A CertificateRequest will either succeed or fail, as denoted by its `status.state` field.
+            ///  A CertificateRequest is a one-shot resource, meaning it represents a single point in time request for a certificate and cannot be re-used.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct CertificateRequest {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for Certificate {
+            impl k8s_openapi::Resource for CertificateRequest {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "cert-manager.io/v1";
                 const GROUP: &'static str = "cert-manager.io";
-                const KIND: &'static str = "Certificate";
+                const KIND: &'static str = "CertificateRequest";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for Certificate {
+            impl k8s_openapi::Metadata for CertificateRequest {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1389,17 +1476,24 @@ pub mod cert_manager_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod certificate_request {
-            /// A CertificateRequest is used to request a signed certificate from one of the configured issuers.
-            ///  All fields within the CertificateRequest's `spec` are immutable after creation. A CertificateRequest will either succeed or fail, as denoted by its `status.state` field.
-            ///  A CertificateRequest is a one-shot resource, meaning it represents a single point in time request for a certificate and cannot be re-used.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct CertificateRequest {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for CertificateRequest {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("CertificateRequest", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// CertificateRequestCondition contains condition information for a CertificateRequest.
@@ -1475,18 +1569,27 @@ pub mod cert_manager_io {
                 /// FailureTime stores the time that this CertificateRequest failed. This is used to influence garbage collection and back-off.
                 pub failure_time: String,
             }
+        }
+        pub mod cluster_issuer {
+            /// A ClusterIssuer represents a certificate issuing authority which can be referenced as part of `issuerRef` fields. It is similar to an Issuer, however it is cluster-scoped and therefore can be referenced by resources that exist in *any* namespace, not just the same namespace as the referent.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct ClusterIssuer {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for CertificateRequest {
+            impl k8s_openapi::Resource for ClusterIssuer {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "cert-manager.io/v1";
                 const GROUP: &'static str = "cert-manager.io";
-                const KIND: &'static str = "CertificateRequest";
+                const KIND: &'static str = "ClusterIssuer";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for CertificateRequest {
+            impl k8s_openapi::Metadata for ClusterIssuer {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -1497,15 +1600,24 @@ pub mod cert_manager_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod cluster_issuer {
-            /// A ClusterIssuer represents a certificate issuing authority which can be referenced as part of `issuerRef` fields. It is similar to an Issuer, however it is cluster-scoped and therefore can be referenced by resources that exist in *any* namespace, not just the same namespace as the referent.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct ClusterIssuer {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for ClusterIssuer {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("ClusterIssuer", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
@@ -2716,18 +2828,27 @@ pub mod cert_manager_io {
                 /// The name of the solver to use, as defined in the webhook provider implementation. This will typically be the name of the provider, e.g. 'cloudflare'.
                 pub solver_name: String,
             }
+        }
+        pub mod issuer {
+            /// An Issuer represents a certificate issuing authority which can be referenced as part of `issuerRef` fields. It is scoped to a single namespace and can therefore only be referenced by resources within the same namespace.
+            #[derive(serde::Deserialize, Debug, PartialEq)]
+            pub struct Issuer {
+                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
+                pub spec: Spec,
+                pub status: Status,
+            }
 
-            impl k8s_openapi::Resource for ClusterIssuer {
+            impl k8s_openapi::Resource for Issuer {
                 type Scope = k8s_openapi::ClusterResourceScope;
 
                 const API_VERSION: &'static str = "cert-manager.io/v1";
                 const GROUP: &'static str = "cert-manager.io";
-                const KIND: &'static str = "ClusterIssuer";
+                const KIND: &'static str = "Issuer";
                 const VERSION: &'static str = "v1";
                 const URL_PATH_SEGMENT: &'static str = "TODO";
             }
 
-            impl k8s_openapi::Metadata for ClusterIssuer {
+            impl k8s_openapi::Metadata for Issuer {
                 type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
 
                 fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
@@ -2738,15 +2859,24 @@ pub mod cert_manager_io {
                     &mut self.metadata
                 }
             }
-        }
-        pub mod issuer {
-            /// An Issuer represents a certificate issuing authority which can be referenced as part of `issuerRef` fields. It is scoped to a single namespace and can therefore only be referenced by resources within the same namespace.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Issuer {
-                pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: Spec,
-                pub status: Status,
+
+            impl serde::Serialize for Issuer {
+                fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    use serde::ser::SerializeStruct;
+                    let mut state = serializer.serialize_struct("Issuer", 5)?;
+                    state.serialize_field(
+                        "apiVersion",
+                        <Self as k8s_openapi::Resource>::API_VERSION,
+                    )?;
+                    state.serialize_field("kind", <Self as k8s_openapi::Resource>::KIND)?;
+                    state.serialize_field("metadata", &self.metadata)?;
+                    state.serialize_field("spec", &self.spec)?;
+                    state.serialize_field("status", &self.status)?;
+                    state.end()
+                }
             }
 
             /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
@@ -3956,28 +4086,6 @@ pub mod cert_manager_io {
                 pub group_name: String,
                 /// The name of the solver to use, as defined in the webhook provider implementation. This will typically be the name of the provider, e.g. 'cloudflare'.
                 pub solver_name: String,
-            }
-
-            impl k8s_openapi::Resource for Issuer {
-                type Scope = k8s_openapi::ClusterResourceScope;
-
-                const API_VERSION: &'static str = "cert-manager.io/v1";
-                const GROUP: &'static str = "cert-manager.io";
-                const KIND: &'static str = "Issuer";
-                const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
-            }
-
-            impl k8s_openapi::Metadata for Issuer {
-                type Ty = k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta;
-
-                fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {
-                    &self.metadata
-                }
-
-                fn metadata_mut(&mut self) -> &mut <Self as k8s_openapi::Metadata>::Ty {
-                    &mut self.metadata
-                }
             }
         }
     }

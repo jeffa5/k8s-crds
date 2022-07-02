@@ -110,7 +110,7 @@ fn main() -> anyhow::Result<()> {
     .make()?;
 
     Crate {
-        name: "postgres-operator".to_owned(),
+        name: "zalando-postgres-operator".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
             "https://raw.githubusercontent.com/zalando/postgres-operator/master/manifests/operatorconfiguration.crd.yaml".to_owned(),

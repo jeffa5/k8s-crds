@@ -1,10 +1,10 @@
 [workspace]
 [package]
-name = "postgres-operator-crds"
+name = "zalando-postgres-operator-crds"
 version = "0.1.0"
 edition = "2021"
 authors = ["Andrew Jeffery <dev@jeffas.io>"]
-description = "CRDs for the postgres-operator deployment"
+description = "CRDs for the zalando-postgres-operator deployment"
 repository = "https://github.com/jeffa5/k8s-crds/"
 license = "MIT"
 keywords = ["kubernetes", "k8s", "crd", "openapi"]

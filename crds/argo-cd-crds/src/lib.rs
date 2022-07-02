@@ -3691,8 +3691,8 @@ pub mod argoproj_io {
                 pub clusters: MatrixGeneratorsItemClusters,
                 pub git: MatrixGeneratorsItemGit,
                 pub list: MatrixGeneratorsItemList,
-                pub matrix: serde_json::Map,
-                pub merge: serde_json::Map,
+                pub matrix: serde_json::Map<String, serde_json::Value>,
+                pub merge: serde_json::Map<String, serde_json::Value>,
                 pub pull_request: MatrixGeneratorsItemPullRequest,
                 pub scm_provider: MatrixGeneratorsItemScmProvider,
             }
@@ -3704,8 +3704,8 @@ pub mod argoproj_io {
                 pub clusters: MergeGeneratorsItemClusters,
                 pub git: MergeGeneratorsItemGit,
                 pub list: MergeGeneratorsItemList,
-                pub matrix: serde_json::Map,
-                pub merge: serde_json::Map,
+                pub matrix: serde_json::Map<String, serde_json::Value>,
+                pub merge: serde_json::Map<String, serde_json::Value>,
                 pub pull_request: MergeGeneratorsItemPullRequest,
                 pub scm_provider: MergeGeneratorsItemScmProvider,
             }
@@ -5285,21 +5285,21 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemList {
-                pub elements: Vec<serde_json::Map>,
+                pub elements: Vec<serde_json::Map<String, serde_json::Value>>,
                 pub template: SpecGeneratorsItemListTemplate,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemList {
-                pub elements: Vec<serde_json::Map>,
+                pub elements: Vec<serde_json::Map<String, serde_json::Value>>,
                 pub template: MatrixGeneratorsItemListTemplate,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MergeGeneratorsItemList {
-                pub elements: Vec<serde_json::Map>,
+                pub elements: Vec<serde_json::Map<String, serde_json::Value>>,
                 pub template: MergeGeneratorsItemListTemplate,
             }
 

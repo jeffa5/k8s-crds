@@ -1785,7 +1785,7 @@ pub mod monitoring_coreos_com {
             #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
@@ -1805,7 +1805,7 @@ pub mod monitoring_coreos_com {
             #[serde(rename_all = "camelCase")]
             pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
@@ -7039,7 +7039,7 @@ pub mod monitoring_coreos_com {
             #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
@@ -7059,7 +7059,7 @@ pub mod monitoring_coreos_com {
             #[serde(rename_all = "camelCase")]
             pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// MetadataConfig configures the sending of series metadata to the remote storage.
@@ -12027,7 +12027,7 @@ pub mod monitoring_coreos_com {
             #[serde(rename_all = "camelCase")]
             pub struct StorageEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// EmbeddedMetadata contains metadata relevant to an EmbeddedResource.
@@ -12047,7 +12047,7 @@ pub mod monitoring_coreos_com {
             #[serde(rename_all = "camelCase")]
             pub struct VolumesItemEphemeralVolumeClaimTemplateMetadata {
                 /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
@@ -16063,7 +16063,7 @@ pub mod monitoring_coreos_com {
                 /// How long to wait before repeating the last notification. Must match the regular expression`^(([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?$` Example: "4h"
                 pub repeat_interval: String,
                 /// Child routes.
-                pub routes: Vec<serde_json::Map>,
+                pub routes: Vec<serde_json::Map<String, serde_json::Value>>,
             }
 
             /// The secret's key that contains the PagerDuty integration key (when using Events API v2). Either this field or `serviceKey` needs to be defined. The secret needs to be in the same namespace as the AlertmanagerConfig object and accessible by the Prometheus Operator.

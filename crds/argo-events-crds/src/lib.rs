@@ -15,13 +15,13 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for EventBus {
@@ -58,13 +58,13 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for EventSource {
@@ -101,13 +101,13 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for Sensor {

@@ -9,8 +9,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct BackingImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for BackingImage {
@@ -41,8 +41,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct BackingImageDataSource {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for BackingImageDataSource {
@@ -73,8 +73,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct BackingImageManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for BackingImageManager {
@@ -105,8 +105,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct Backup {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for Backup {
@@ -137,8 +137,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct BackupTarget {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for BackupTarget {
@@ -169,8 +169,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct BackupVolume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for BackupVolume {
@@ -201,8 +201,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct Engine {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for Engine {
@@ -233,8 +233,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct EngineImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for EngineImage {
@@ -265,8 +265,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct InstanceManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for InstanceManager {
@@ -297,8 +297,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct Node {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for Node {
@@ -329,8 +329,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct RecurringJob {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for RecurringJob {
@@ -361,8 +361,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct Replica {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for Replica {
@@ -424,8 +424,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct ShareManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for ShareManager {
@@ -456,8 +456,8 @@ pub mod longhorn_io {
             #[serde(rename_all = "camelCase")]
             pub struct Volume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
-                pub spec: serde_json::Map,
-                pub status: serde_json::Map,
+                pub spec: serde_json::Map<String, serde_json::Value>,
+                pub status: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for Volume {

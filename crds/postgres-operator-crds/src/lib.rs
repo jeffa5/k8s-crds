@@ -254,7 +254,7 @@ pub mod acid_zalan_do {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SidecarsItem {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -458,7 +458,7 @@ pub mod acid_zalan_do {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EnvItem {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -476,7 +476,7 @@ pub mod acid_zalan_do {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItem {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -542,7 +542,7 @@ pub mod acid_zalan_do {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -671,7 +671,7 @@ pub mod acid_zalan_do {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SidecarsItem {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -831,7 +831,7 @@ pub mod acid_zalan_do {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct VolumeSource {
-                pub properties: serde_json::Map,
+                pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             impl k8s_openapi::Resource for postgresql {

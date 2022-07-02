@@ -19,7 +19,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "AppProject";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for AppProject {
@@ -248,7 +248,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "Application";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Application {
@@ -1826,7 +1826,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "ApplicationSet";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ApplicationSet {

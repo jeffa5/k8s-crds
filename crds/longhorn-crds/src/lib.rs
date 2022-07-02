@@ -19,7 +19,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackingImage";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackingImage {
@@ -69,7 +69,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackingImageDataSource";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackingImageDataSource {
@@ -119,7 +119,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackingImageManager";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackingImageManager {
@@ -169,7 +169,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Backup";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Backup {
@@ -219,7 +219,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackupTarget";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackupTarget {
@@ -269,7 +269,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackupVolume";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackupVolume {
@@ -319,7 +319,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Engine";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Engine {
@@ -369,7 +369,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "EngineImage";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for EngineImage {
@@ -419,7 +419,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "InstanceManager";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for InstanceManager {
@@ -469,7 +469,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Node";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Node {
@@ -519,7 +519,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "RecurringJob";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for RecurringJob {
@@ -569,7 +569,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Replica";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Replica {
@@ -618,7 +618,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Setting";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Setting {
@@ -667,7 +667,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "ShareManager";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ShareManager {
@@ -717,7 +717,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Volume";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Volume {
@@ -769,7 +769,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackingImage";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackingImage {
@@ -896,7 +896,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackingImageDataSource";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackingImageDataSource {
@@ -987,7 +987,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackingImageManager";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackingImageManager {
@@ -1093,7 +1093,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Backup";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Backup {
@@ -1219,7 +1219,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackupTarget";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackupTarget {
@@ -1314,7 +1314,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "BackupVolume";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for BackupVolume {
@@ -1418,7 +1418,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Engine";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Engine {
@@ -1660,7 +1660,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "EngineImage";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for EngineImage {
@@ -1761,7 +1761,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "InstanceManager";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for InstanceManager {
@@ -1868,7 +1868,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Node";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Node {
@@ -2014,7 +2014,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Orphan";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Orphan {
@@ -2109,7 +2109,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "RecurringJob";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for RecurringJob {
@@ -2195,7 +2195,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Replica";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Replica {
@@ -2289,7 +2289,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Setting";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Setting {
@@ -2338,7 +2338,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "ShareManager";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ShareManager {
@@ -2404,7 +2404,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Snapshot";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Snapshot {
@@ -2503,7 +2503,7 @@ pub mod longhorn_io {
                 const GROUP: &'static str = "longhorn.io";
                 const KIND: &'static str = "Volume";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Volume {

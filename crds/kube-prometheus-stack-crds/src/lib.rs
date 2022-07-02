@@ -19,7 +19,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "Alertmanager";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Alertmanager {
@@ -3556,7 +3556,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "PodMonitor";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for PodMonitor {
@@ -4004,7 +4004,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "Probe";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Probe {
@@ -4483,7 +4483,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "Prometheus";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Prometheus {
@@ -9729,7 +9729,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "PrometheusRule";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for PrometheusRule {
@@ -9819,7 +9819,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "ServiceMonitor";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ServiceMonitor {
@@ -10269,7 +10269,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "ThanosRuler";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ThanosRuler {
@@ -13979,7 +13979,7 @@ pub mod monitoring_coreos_com {
                 const GROUP: &'static str = "monitoring.coreos.com";
                 const KIND: &'static str = "AlertmanagerConfig";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for AlertmanagerConfig {

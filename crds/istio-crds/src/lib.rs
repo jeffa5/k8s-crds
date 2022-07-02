@@ -18,7 +18,7 @@ pub mod extensions_istio_io {
                 const GROUP: &'static str = "extensions.istio.io";
                 const KIND: &'static str = "WasmPlugin";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for WasmPlugin {
@@ -136,7 +136,7 @@ pub mod install_istio_io {
                 const GROUP: &'static str = "install.istio.io";
                 const KIND: &'static str = "IstioOperator";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for IstioOperator {
@@ -187,7 +187,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "DestinationRule";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for DestinationRule {
@@ -1025,7 +1025,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "EnvoyFilter";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for EnvoyFilter {
@@ -1253,7 +1253,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "Gateway";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Gateway {
@@ -1373,7 +1373,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "ServiceEntry";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ServiceEntry {
@@ -1507,7 +1507,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "Sidecar";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Sidecar {
@@ -1682,7 +1682,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "VirtualService";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for VirtualService {
@@ -2274,7 +2274,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "WorkloadEntry";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for WorkloadEntry {
@@ -2362,7 +2362,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "WorkloadGroup";
                 const VERSION: &'static str = "v1alpha3";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for WorkloadGroup {
@@ -2542,7 +2542,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "DestinationRule";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for DestinationRule {
@@ -3380,7 +3380,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "Gateway";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Gateway {
@@ -3500,7 +3500,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "ProxyConfig";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ProxyConfig {
@@ -3598,7 +3598,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "ServiceEntry";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ServiceEntry {
@@ -3732,7 +3732,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "Sidecar";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Sidecar {
@@ -3907,7 +3907,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "VirtualService";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for VirtualService {
@@ -4499,7 +4499,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "WorkloadEntry";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for WorkloadEntry {
@@ -4587,7 +4587,7 @@ pub mod networking_istio_io {
                 const GROUP: &'static str = "networking.istio.io";
                 const KIND: &'static str = "WorkloadGroup";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for WorkloadGroup {
@@ -4768,7 +4768,7 @@ pub mod security_istio_io {
                 const GROUP: &'static str = "security.istio.io";
                 const KIND: &'static str = "AuthorizationPolicy";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for AuthorizationPolicy {
@@ -4942,7 +4942,7 @@ pub mod security_istio_io {
                 const GROUP: &'static str = "security.istio.io";
                 const KIND: &'static str = "PeerAuthentication";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for PeerAuthentication {
@@ -5045,7 +5045,7 @@ pub mod security_istio_io {
                 const GROUP: &'static str = "security.istio.io";
                 const KIND: &'static str = "RequestAuthentication";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for RequestAuthentication {
@@ -5154,7 +5154,7 @@ pub mod telemetry_istio_io {
                 const GROUP: &'static str = "telemetry.istio.io";
                 const KIND: &'static str = "Telemetry";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Telemetry {

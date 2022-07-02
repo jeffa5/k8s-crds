@@ -18,7 +18,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "AnalysisRun";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for AnalysisRun {
@@ -2233,7 +2233,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "AnalysisTemplate";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for AnalysisTemplate {
@@ -4374,7 +4374,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "ClusterAnalysisTemplate";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ClusterAnalysisTemplate {
@@ -6516,7 +6516,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "Experiment";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Experiment {
@@ -8514,7 +8514,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "Rollout";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Rollout {

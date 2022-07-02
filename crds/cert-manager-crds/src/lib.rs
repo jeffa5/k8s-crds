@@ -19,7 +19,7 @@ pub mod acme_cert_manager_io {
                 const GROUP: &'static str = "acme.cert-manager.io";
                 const KIND: &'static str = "Challenge";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Challenge {
@@ -1062,7 +1062,7 @@ pub mod acme_cert_manager_io {
                 const GROUP: &'static str = "acme.cert-manager.io";
                 const KIND: &'static str = "Order";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Order {
@@ -1193,7 +1193,7 @@ pub mod cert_manager_io {
                 const GROUP: &'static str = "cert-manager.io";
                 const KIND: &'static str = "Certificate";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Certificate {
@@ -1462,7 +1462,7 @@ pub mod cert_manager_io {
                 const GROUP: &'static str = "cert-manager.io";
                 const KIND: &'static str = "CertificateRequest";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for CertificateRequest {
@@ -1586,7 +1586,7 @@ pub mod cert_manager_io {
                 const GROUP: &'static str = "cert-manager.io";
                 const KIND: &'static str = "ClusterIssuer";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ClusterIssuer {
@@ -2845,7 +2845,7 @@ pub mod cert_manager_io {
                 const GROUP: &'static str = "cert-manager.io";
                 const KIND: &'static str = "Issuer";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Issuer {

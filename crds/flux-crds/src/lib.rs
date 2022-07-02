@@ -19,7 +19,7 @@ pub mod helm_toolkit_fluxcd_io {
                 const GROUP: &'static str = "helm.toolkit.fluxcd.io";
                 const KIND: &'static str = "HelmRelease";
                 const VERSION: &'static str = "v2beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for HelmRelease {
@@ -493,7 +493,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImagePolicy";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImagePolicy {
@@ -638,7 +638,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImageRepository";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImageRepository {
@@ -768,7 +768,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImageUpdateAutomation";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImageUpdateAutomation {
@@ -939,7 +939,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImagePolicy";
                 const VERSION: &'static str = "v1alpha2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImagePolicy {
@@ -1084,7 +1084,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImageRepository";
                 const VERSION: &'static str = "v1alpha2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImageRepository {
@@ -1214,7 +1214,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImageUpdateAutomation";
                 const VERSION: &'static str = "v1alpha2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImageUpdateAutomation {
@@ -1419,7 +1419,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImagePolicy";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImagePolicy {
@@ -1566,7 +1566,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImageRepository";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImageRepository {
@@ -1726,7 +1726,7 @@ pub mod image_toolkit_fluxcd_io {
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
                 const KIND: &'static str = "ImageUpdateAutomation";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for ImageUpdateAutomation {
@@ -1937,7 +1937,7 @@ pub mod kustomize_toolkit_fluxcd_io {
                 const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
                 const KIND: &'static str = "Kustomization";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Kustomization {
@@ -2287,7 +2287,7 @@ pub mod kustomize_toolkit_fluxcd_io {
                 const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
                 const KIND: &'static str = "Kustomization";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Kustomization {
@@ -2635,7 +2635,7 @@ pub mod notification_toolkit_fluxcd_io {
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
                 const KIND: &'static str = "Alert";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Alert {
@@ -2763,7 +2763,7 @@ pub mod notification_toolkit_fluxcd_io {
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
                 const KIND: &'static str = "Provider";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Provider {
@@ -2879,7 +2879,7 @@ pub mod notification_toolkit_fluxcd_io {
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
                 const KIND: &'static str = "Receiver";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Receiver {
@@ -3011,7 +3011,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "Bucket";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Bucket {
@@ -3172,7 +3172,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "GitRepository";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for GitRepository {
@@ -3405,7 +3405,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "HelmChart";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for HelmChart {
@@ -3566,7 +3566,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "HelmRepository";
                 const VERSION: &'static str = "v1beta1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for HelmRepository {
@@ -3721,7 +3721,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "Bucket";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Bucket {
@@ -3884,7 +3884,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "GitRepository";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for GitRepository {
@@ -4125,7 +4125,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "HelmChart";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for HelmChart {
@@ -4292,7 +4292,7 @@ pub mod source_toolkit_fluxcd_io {
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
                 const KIND: &'static str = "HelmRepository";
                 const VERSION: &'static str = "v1beta2";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for HelmRepository {

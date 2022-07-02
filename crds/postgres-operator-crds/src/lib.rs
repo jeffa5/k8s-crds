@@ -18,7 +18,7 @@ pub mod acid_zalan_do {
                 const GROUP: &'static str = "acid.zalan.do";
                 const KIND: &'static str = "OperatorConfiguration";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for OperatorConfiguration {
@@ -372,7 +372,7 @@ pub mod acid_zalan_do {
                 const GROUP: &'static str = "acid.zalan.do";
                 const KIND: &'static str = "PostgresTeam";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for PostgresTeam {
@@ -455,7 +455,7 @@ pub mod acid_zalan_do {
                 const GROUP: &'static str = "acid.zalan.do";
                 const KIND: &'static str = "postgresql";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Postgresql {

@@ -18,7 +18,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "EventBus";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for EventBus {
@@ -79,7 +79,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "EventSource";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for EventSource {
@@ -140,7 +140,7 @@ pub mod argoproj_io {
                 const GROUP: &'static str = "argoproj.io";
                 const KIND: &'static str = "Sensor";
                 const VERSION: &'static str = "v1alpha1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for Sensor {

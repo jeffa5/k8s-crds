@@ -207,7 +207,7 @@ fn build_resource<W: Write>(
     {indent}const GROUP : &'static str = \"{group}\";
     {indent}const KIND : &'static str = \"{kind}\";
     {indent}const VERSION : &'static str = \"{version}\";
-    {indent}const URL_PATH_SEGMENT : &'static str = \"TODO\";
+    {indent}const URL_PATH_SEGMENT : &'static str = \"\";
 {indent}}}
 "
     )?;

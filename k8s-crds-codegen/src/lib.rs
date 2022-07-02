@@ -171,13 +171,7 @@ fn build_resource<W: Write>(
         )
     }
 
-    for property in schema
-        .properties
-        .as_ref()
-        .map(|t| t.keys())
-        .into_iter()
-        .flatten()
-    {
+    for (property, props) in schema.properties.as_ref().into_iter().flatten() {
         if skippable_meta.contains(&property.as_str()) {
             continue;
         }
@@ -188,7 +182,7 @@ fn build_resource<W: Write>(
             indent,
             INDENT,
             make_property_name(property),
-            camel_case(property)
+            get_type(vec![], property, props, &rename_mapping)
         )?;
     }
     writeln!(

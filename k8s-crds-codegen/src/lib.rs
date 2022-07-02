@@ -142,7 +142,7 @@ fn build_resource<W: Write>(
         writeln!(f, "{}/// {}", indent, line)?;
     }
 
-    write_derives(f)?;
+    write_derives_top_level(f)?;
 
     let struct_name = camel_case(kind);
     writeln!(
@@ -171,17 +171,22 @@ fn build_resource<W: Write>(
         )
     }
 
+    // starts with metadata
+    let mut fields = vec!["metadata".to_owned()];
     for (property, props) in schema.properties.as_ref().into_iter().flatten() {
         if skippable_meta.contains(&property.as_str()) {
             continue;
         }
+
+        let name = make_property_name(property);
+        fields.push(name.clone());
 
         writeln!(
             f,
             "{}{}pub {}: {},",
             indent,
             INDENT,
-            make_property_name(property),
+            name,
             get_type(vec![], property, props, &rename_mapping)
         )?;
     }
@@ -192,19 +197,10 @@ fn build_resource<W: Write>(
         indent
     )?;
 
-    for (property, parents_and_props) in structs {
-        // debugging
-        // writeln!(f, "{} {:#?}", property, props)?;
-
-        for (parents, props) in parents_and_props {
-            make_struct(f, indent, &property, parents, &props, &rename_mapping)?;
-        }
-    }
-
     let gv = format!("{}/{}", group, version);
     writeln!(
         f,
-        "{indent}impl k8s_openapi::Resource for {kind} {{
+        "{indent}impl k8s_openapi::Resource for {struct_name} {{
     {indent}type Scope = k8s_openapi::ClusterResourceScope;
 
     {indent}const API_VERSION : &'static str = \"{gv}\";
@@ -218,7 +214,7 @@ fn build_resource<W: Write>(
 
     writeln!(
         f,
-        "{indent}impl k8s_openapi::Metadata for {kind} {{
+        "{indent}impl k8s_openapi::Metadata for {struct_name} {{
     {indent}type Ty = {OBJECT_META};
 
     {indent}fn metadata(&self) -> &<Self as k8s_openapi::Metadata>::Ty {{
@@ -231,6 +227,44 @@ fn build_resource<W: Write>(
 {indent}}}
 "
     )?;
+
+    let extra_fields = vec![
+        "state.serialize_field(\"apiVersion\", <Self as k8s_openapi::Resource>::API_VERSION)?;"
+            .to_owned(),
+        "state.serialize_field(\"kind\", <Self as k8s_openapi::Resource>::KIND)?;".to_owned(),
+    ];
+    let num_fields = fields.len() + extra_fields.len();
+    let mut serialize_fields = extra_fields;
+    for field in fields {
+        serialize_fields.push(format!(
+            "state.serialize_field(\"{field}\", &self.{field})?;"
+        ));
+    }
+    let serialize_fields = serialize_fields.join("\n");
+    writeln!(
+        f,
+        r#"impl serde::Serialize for {struct_name} {{
+            fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {{
+                use serde::ser::SerializeStruct;
+                let mut state = serializer.serialize_struct("{kind}", {num_fields})?;
+                {serialize_fields}
+                state.end()
+            }}
+        }}
+"#
+    )?;
+
+    for (property, parents_and_props) in structs {
+        // debugging
+        // writeln!(f, "{} {:#?}", property, props)?;
+
+        for (parents, props) in parents_and_props {
+            make_struct(f, indent, &property, parents, &props, &rename_mapping)?;
+        }
+    }
 
     writeln!(f, "}}")?;
 
@@ -570,6 +604,14 @@ fn write_derives<W: Write>(f: &mut W) -> anyhow::Result<()> {
 
     writeln!(f, "#[derive({})]", derives.join(", "))?;
     writeln!(f, "#[serde(rename_all = \"camelCase\")]")?;
+
+    Ok(())
+}
+
+fn write_derives_top_level<W: Write>(f: &mut W) -> anyhow::Result<()> {
+    let derives = ["serde::Deserialize", "Debug", "PartialEq"];
+
+    writeln!(f, "#[derive({})]", derives.join(", "))?;
 
     Ok(())
 }

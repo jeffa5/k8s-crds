@@ -1,9 +1,11 @@
 ---
 source: k8s-crds-test/src/lib.rs
-assertion_line: 48
+assertion_line: 51
 expression: s
 ---
 ---
+apiVersion: stable.example.com/v1
+kind: CronTab
 metadata:
   name: test
 obj1:

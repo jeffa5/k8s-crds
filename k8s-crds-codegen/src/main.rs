@@ -5,13 +5,12 @@ use std::process::Command;
 use tracing::debug;
 use tracing::info;
 
+const CRDS_ROOT: &str = "crds";
+
 fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
 
-    let root = "crds";
-
     Crate {
-        root: root.to_owned(),
         name: "kube-prometheus-stack".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -27,7 +26,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "cert-manager".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -36,7 +34,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "argo-cd".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -47,7 +44,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "flux".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -61,7 +57,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "istio".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -71,7 +66,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "argo-rollouts".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -84,7 +78,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "argo-events".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -95,7 +88,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "argo-workflows".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -109,7 +101,6 @@ fn main() -> anyhow::Result<()> {
     }.make()?;
 
     Crate {
-        root: root.to_owned(),
         name: "longhorn".to_owned(),
         version: "0.1.0".to_owned(),
         urls: vec![
@@ -122,7 +113,6 @@ fn main() -> anyhow::Result<()> {
 }
 
 struct Crate {
-    root: String,
     name: String,
     version: String,
     urls: Vec<String>,
@@ -215,7 +205,7 @@ serde_yaml = "0.8.24""#
     }
 
     fn crate_root(&self) -> PathBuf {
-        PathBuf::from(&self.root).join(format!("{}-crds", self.name))
+        PathBuf::from(CRDS_ROOT).join(format!("{}-crds", self.name))
     }
 
     fn package_name(&self) -> String {

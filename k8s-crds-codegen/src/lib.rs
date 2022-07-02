@@ -445,8 +445,18 @@ fn get_type(
                 "serde_json::Value".to_owned()
             }
         },
+        Some("null") => "()".to_owned(),
         Some("boolean") => "bool".to_owned(),
-        Some("string") => "String".to_owned(),
+        Some("string") => match props.format.as_deref() {
+            Some("byte") => {
+                // base64 encoded
+                "Vec<u8>".to_owned()
+            }
+            Some("date") => "std::time::SystemTime".to_owned(),
+            Some("datetime") => "std::time::SystemTime".to_owned(),
+            Some("duration") => "std::time::Duration".to_owned(),
+            _ => "String".to_owned(),
+        },
         Some("integer") => match props.format.as_deref() {
             Some("int32") => "i32".to_owned(),
             Some("int64") => "i64".to_owned(),

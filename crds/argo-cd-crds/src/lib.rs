@@ -1327,6 +1327,23 @@ pub mod argoproj_io {
                 pub namespace: String,
             }
 
+            /// ResourceStatus holds the current sync and health status of a resource TODO: describe members of this type
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct StatusResourcesItem {
+                pub group: String,
+                /// HealthStatus contains information about the currently observed health state of an application or resource
+                pub health: ResourcesItemHealth,
+                pub hook: bool,
+                pub kind: String,
+                pub name: String,
+                pub namespace: String,
+                pub requires_pruning: bool,
+                /// SyncStatusCode is a type which represents possible comparison results
+                pub status: String,
+                pub version: String,
+            }
+
             /// SyncOperationResource contains resources to sync.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -1360,23 +1377,6 @@ pub mod argoproj_io {
                 /// SyncPhase indicates the particular phase of the sync that this result was acquired in
                 pub sync_phase: String,
                 /// Version specifies the API version of the resource
-                pub version: String,
-            }
-
-            /// ResourceStatus holds the current sync and health status of a resource TODO: describe members of this type
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct StatusResourcesItem {
-                pub group: String,
-                /// HealthStatus contains information about the currently observed health state of an application or resource
-                pub health: ResourcesItemHealth,
-                pub hook: bool,
-                pub kind: String,
-                pub name: String,
-                pub namespace: String,
-                pub requires_pruning: bool,
-                /// SyncStatusCode is a type which represents possible comparison results
-                pub status: String,
                 pub version: String,
             }
 
@@ -1620,6 +1620,18 @@ pub mod argoproj_io {
                 pub sync_strategy: OperationSyncSyncStrategy,
             }
 
+            /// Sync contains information about the application's current sync status
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct StatusSync {
+                /// ComparedTo contains information about what has been compared
+                pub compared_to: ComparedTo,
+                /// Revision contains information about the revision the comparison has been performed to
+                pub revision: String,
+                /// Status is the sync state of the comparison
+                pub status: String,
+            }
+
             /// Sync contains parameters for the operation
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -1640,18 +1652,6 @@ pub mod argoproj_io {
                 pub sync_options: Vec<String>,
                 /// SyncStrategy describes how to perform the sync
                 pub sync_strategy: OperationStateOperationSyncSyncStrategy,
-            }
-
-            /// Sync contains information about the application's current sync status
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct StatusSync {
-                /// ComparedTo contains information about what has been compared
-                pub compared_to: ComparedTo,
-                /// Revision contains information about the revision the comparison has been performed to
-                pub revision: String,
-                /// Status is the sync state of the comparison
-                pub status: String,
             }
 
             /// SyncPolicy controls when and how a sync will be performed
@@ -5977,6 +5977,18 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecGeneratorsItemPullRequest {
+                pub bitbucket_server: SpecGeneratorsItemPullRequestBitbucketServer,
+                pub filters: Vec<SpecGeneratorsItemPullRequestFiltersItem>,
+                pub gitea: SpecGeneratorsItemPullRequestGitea,
+                pub github: SpecGeneratorsItemPullRequestGithub,
+                pub gitlab: SpecGeneratorsItemPullRequestGitlab,
+                pub requeue_after_seconds: i64,
+                pub template: SpecGeneratorsItemPullRequestTemplate,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemPullRequest {
                 pub bitbucket_server: MatrixGeneratorsItemPullRequestBitbucketServer,
                 pub filters: Vec<MatrixGeneratorsItemPullRequestFiltersItem>,
@@ -5997,18 +6009,6 @@ pub mod argoproj_io {
                 pub gitlab: MergeGeneratorsItemPullRequestGitlab,
                 pub requeue_after_seconds: i64,
                 pub template: MergeGeneratorsItemPullRequestTemplate,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecGeneratorsItemPullRequest {
-                pub bitbucket_server: SpecGeneratorsItemPullRequestBitbucketServer,
-                pub filters: Vec<SpecGeneratorsItemPullRequestFiltersItem>,
-                pub gitea: SpecGeneratorsItemPullRequestGitea,
-                pub github: SpecGeneratorsItemPullRequestGithub,
-                pub gitlab: SpecGeneratorsItemPullRequestGitlab,
-                pub requeue_after_seconds: i64,
-                pub template: SpecGeneratorsItemPullRequestTemplate,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -6163,6 +6163,21 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecGeneratorsItemScmProvider {
+                pub azure_dev_ops: SpecGeneratorsItemScmProviderAzureDevOps,
+                pub bitbucket: SpecGeneratorsItemScmProviderBitbucket,
+                pub bitbucket_server: SpecGeneratorsItemScmProviderBitbucketServer,
+                pub clone_protocol: String,
+                pub filters: Vec<SpecGeneratorsItemScmProviderFiltersItem>,
+                pub gitea: SpecGeneratorsItemScmProviderGitea,
+                pub github: SpecGeneratorsItemScmProviderGithub,
+                pub gitlab: SpecGeneratorsItemScmProviderGitlab,
+                pub requeue_after_seconds: i64,
+                pub template: SpecGeneratorsItemScmProviderTemplate,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct MatrixGeneratorsItemScmProvider {
                 pub azure_dev_ops: MatrixGeneratorsItemScmProviderAzureDevOps,
                 pub bitbucket: MatrixGeneratorsItemScmProviderBitbucket,
@@ -6189,21 +6204,6 @@ pub mod argoproj_io {
                 pub gitlab: MergeGeneratorsItemScmProviderGitlab,
                 pub requeue_after_seconds: i64,
                 pub template: MergeGeneratorsItemScmProviderTemplate,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecGeneratorsItemScmProvider {
-                pub azure_dev_ops: SpecGeneratorsItemScmProviderAzureDevOps,
-                pub bitbucket: SpecGeneratorsItemScmProviderBitbucket,
-                pub bitbucket_server: SpecGeneratorsItemScmProviderBitbucketServer,
-                pub clone_protocol: String,
-                pub filters: Vec<SpecGeneratorsItemScmProviderFiltersItem>,
-                pub gitea: SpecGeneratorsItemScmProviderGitea,
-                pub github: SpecGeneratorsItemScmProviderGithub,
-                pub gitlab: SpecGeneratorsItemScmProviderGitlab,
-                pub requeue_after_seconds: i64,
-                pub template: SpecGeneratorsItemScmProviderTemplate,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -6792,6 +6792,12 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecSyncPolicy {
+                pub preserve_resources_on_deletion: bool,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicy {
                 pub automated:
                     SpecGeneratorsItemClusterDecisionResourceTemplateSpecSyncPolicyAutomated,
@@ -6955,16 +6961,17 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecSyncPolicy {
-                pub preserve_resources_on_deletion: bool,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
             pub struct SpecTemplateSpecSyncPolicy {
                 pub automated: SpecTemplateSpecSyncPolicyAutomated,
                 pub retry: SpecTemplateSpecSyncPolicyRetry,
                 pub sync_options: Vec<String>,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecTemplate {
+                pub metadata: SpecTemplateMetadata,
+                pub spec: SpecTemplateSpec,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -6993,6 +7000,13 @@ pub mod argoproj_io {
             pub struct SpecGeneratorsItemListTemplate {
                 pub metadata: SpecGeneratorsItemListTemplateMetadata,
                 pub spec: SpecGeneratorsItemListTemplateSpec,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct MatrixTemplate {
+                pub metadata: MatrixTemplateMetadata,
+                pub spec: MatrixTemplateSpec,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -7039,9 +7053,9 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct MatrixTemplate {
-                pub metadata: MatrixTemplateMetadata,
-                pub spec: MatrixTemplateSpec,
+            pub struct MergeTemplate {
+                pub metadata: MergeTemplateMetadata,
+                pub spec: MergeTemplateSpec,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -7088,13 +7102,6 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct MergeTemplate {
-                pub metadata: MergeTemplateMetadata,
-                pub spec: MergeTemplateSpec,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
             pub struct SpecGeneratorsItemPullRequestTemplate {
                 pub metadata: SpecGeneratorsItemPullRequestTemplateMetadata,
                 pub spec: SpecGeneratorsItemPullRequestTemplateSpec,
@@ -7105,13 +7112,6 @@ pub mod argoproj_io {
             pub struct SpecGeneratorsItemScmProviderTemplate {
                 pub metadata: SpecGeneratorsItemScmProviderTemplateMetadata,
                 pub spec: SpecGeneratorsItemScmProviderTemplateSpec,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecTemplate {
-                pub metadata: SpecTemplateMetadata,
-                pub spec: SpecTemplateSpec,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]

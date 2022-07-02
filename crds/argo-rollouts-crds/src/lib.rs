@@ -1128,13 +1128,13 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct MeasurementsItemMetadata {
+            pub struct MetricResultsItemMetadata {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct MetricResultsItemMetadata {
+            pub struct MeasurementsItemMetadata {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
@@ -1701,6 +1701,21 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                pub fs_group: i64,
+                pub fs_group_change_policy: String,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                pub supplemental_groups: Vec<i64>,
+                pub sysctls: Vec<SysctlsItem>,
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainersItemSecurityContext {
                 pub allow_privilege_escalation: bool,
                 pub capabilities: ContainersItemSecurityContextCapabilities,
@@ -1745,21 +1760,6 @@ pub mod argoproj_io {
                 pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                pub fs_group: i64,
-                pub fs_group_change_policy: String,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                pub supplemental_groups: Vec<i64>,
-                pub sysctls: Vec<SysctlsItem>,
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3837,6 +3837,21 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                pub fs_group: i64,
+                pub fs_group_change_policy: String,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                pub supplemental_groups: Vec<i64>,
+                pub sysctls: Vec<SysctlsItem>,
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainersItemSecurityContext {
                 pub allow_privilege_escalation: bool,
                 pub capabilities: ContainersItemSecurityContextCapabilities,
@@ -3881,21 +3896,6 @@ pub mod argoproj_io {
                 pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                pub fs_group: i64,
-                pub fs_group_change_policy: String,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                pub supplemental_groups: Vec<i64>,
-                pub sysctls: Vec<SysctlsItem>,
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -5961,6 +5961,21 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                pub fs_group: i64,
+                pub fs_group_change_policy: String,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                pub supplemental_groups: Vec<i64>,
+                pub sysctls: Vec<SysctlsItem>,
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainersItemSecurityContext {
                 pub allow_privilege_escalation: bool,
                 pub capabilities: ContainersItemSecurityContextCapabilities,
@@ -6005,21 +6020,6 @@ pub mod argoproj_io {
                 pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                pub fs_group: i64,
-                pub fs_group_change_policy: String,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                pub supplemental_groups: Vec<i64>,
-                pub sysctls: Vec<SysctlsItem>,
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -7934,6 +7934,21 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                pub fs_group: i64,
+                pub fs_group_change_policy: String,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                pub supplemental_groups: Vec<i64>,
+                pub sysctls: Vec<SysctlsItem>,
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainersItemSecurityContext {
                 pub allow_privilege_escalation: bool,
                 pub capabilities: ContainersItemSecurityContextCapabilities,
@@ -7978,21 +7993,6 @@ pub mod argoproj_io {
                 pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                pub fs_group: i64,
-                pub fs_group_change_policy: String,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                pub supplemental_groups: Vec<i64>,
-                pub sysctls: Vec<SysctlsItem>,
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -10448,6 +10448,21 @@ pub mod argoproj_io {
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                pub fs_group: i64,
+                pub fs_group_change_policy: String,
+                pub run_as_group: i64,
+                pub run_as_non_root: bool,
+                pub run_as_user: i64,
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                pub supplemental_groups: Vec<i64>,
+                pub sysctls: Vec<SysctlsItem>,
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainersItemSecurityContext {
                 pub allow_privilege_escalation: bool,
                 pub capabilities: ContainersItemSecurityContextCapabilities,
@@ -10492,21 +10507,6 @@ pub mod argoproj_io {
                 pub se_linux_options: InitContainersItemSecurityContextSeLinuxOptions,
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                pub fs_group: i64,
-                pub fs_group_change_policy: String,
-                pub run_as_group: i64,
-                pub run_as_non_root: bool,
-                pub run_as_user: i64,
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                pub supplemental_groups: Vec<i64>,
-                pub sysctls: Vec<SysctlsItem>,
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]

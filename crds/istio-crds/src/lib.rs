@@ -781,23 +781,6 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
-                pub ca_certificates: String,
-                /// REQUIRED if mode is `MUTUAL`.
-                pub client_certificate: String,
-                pub credential_name: String,
-                pub insecure_skip_verify: Option<bool>,
-                pub mode: String,
-                /// REQUIRED if mode is `MUTUAL`.
-                pub private_key: String,
-                /// SNI string to present to the server during TLS handshake.
-                pub sni: String,
-                pub subject_alt_names: Vec<String>,
-            }
-
-            /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
@@ -815,7 +798,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -833,6 +816,23 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyTls {
+                pub ca_certificates: String,
+                /// REQUIRED if mode is `MUTUAL`.
+                pub client_certificate: String,
+                pub credential_name: String,
+                pub insecure_skip_verify: Option<bool>,
+                pub mode: String,
+                /// REQUIRED if mode is `MUTUAL`.
+                pub private_key: String,
+                /// SNI string to present to the server during TLS handshake.
+                pub sni: String,
+                pub subject_alt_names: Vec<String>,
+            }
+
+            /// TLS related settings for connections to the upstream service.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -879,6 +879,20 @@ pub mod networking_istio_io {
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecTrafficPolicy {
+                pub connection_pool: SpecTrafficPolicyConnectionPool,
+                /// Settings controlling the load balancer algorithms.
+                pub load_balancer: SpecTrafficPolicyLoadBalancer,
+                pub outlier_detection: SpecTrafficPolicyOutlierDetection,
+                /// Traffic policies specific to individual ports.
+                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSettingsItem>,
+                /// TLS related settings for connections to the upstream service.
+                pub tls: SpecTrafficPolicyTls,
+                pub tunnel: SpecTrafficPolicyTunnel,
+            }
+
             /// Traffic policies that apply to this subset.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -892,20 +906,6 @@ pub mod networking_istio_io {
                 /// TLS related settings for connections to the upstream service.
                 pub tls: SubsetsItemTrafficPolicyTls,
                 pub tunnel: SubsetsItemTrafficPolicyTunnel,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicy {
-                pub connection_pool: SpecTrafficPolicyConnectionPool,
-                /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SpecTrafficPolicyLoadBalancer,
-                pub outlier_detection: SpecTrafficPolicyOutlierDetection,
-                /// Traffic policies specific to individual ports.
-                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSettingsItem>,
-                /// TLS related settings for connections to the upstream service.
-                pub tls: SpecTrafficPolicyTls,
-                pub tunnel: SpecTrafficPolicyTunnel,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2992,23 +2992,6 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
-                pub ca_certificates: String,
-                /// REQUIRED if mode is `MUTUAL`.
-                pub client_certificate: String,
-                pub credential_name: String,
-                pub insecure_skip_verify: Option<bool>,
-                pub mode: String,
-                /// REQUIRED if mode is `MUTUAL`.
-                pub private_key: String,
-                /// SNI string to present to the server during TLS handshake.
-                pub sni: String,
-                pub subject_alt_names: Vec<String>,
-            }
-
-            /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
@@ -3026,7 +3009,7 @@ pub mod networking_istio_io {
             /// TLS related settings for connections to the upstream service.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
+            pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -3044,6 +3027,23 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyTls {
+                pub ca_certificates: String,
+                /// REQUIRED if mode is `MUTUAL`.
+                pub client_certificate: String,
+                pub credential_name: String,
+                pub insecure_skip_verify: Option<bool>,
+                pub mode: String,
+                /// REQUIRED if mode is `MUTUAL`.
+                pub private_key: String,
+                /// SNI string to present to the server during TLS handshake.
+                pub sni: String,
+                pub subject_alt_names: Vec<String>,
+            }
+
+            /// TLS related settings for connections to the upstream service.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
                 /// REQUIRED if mode is `MUTUAL`.
                 pub client_certificate: String,
@@ -3090,6 +3090,20 @@ pub mod networking_istio_io {
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecTrafficPolicy {
+                pub connection_pool: SpecTrafficPolicyConnectionPool,
+                /// Settings controlling the load balancer algorithms.
+                pub load_balancer: SpecTrafficPolicyLoadBalancer,
+                pub outlier_detection: SpecTrafficPolicyOutlierDetection,
+                /// Traffic policies specific to individual ports.
+                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSettingsItem>,
+                /// TLS related settings for connections to the upstream service.
+                pub tls: SpecTrafficPolicyTls,
+                pub tunnel: SpecTrafficPolicyTunnel,
+            }
+
             /// Traffic policies that apply to this subset.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -3103,20 +3117,6 @@ pub mod networking_istio_io {
                 /// TLS related settings for connections to the upstream service.
                 pub tls: SubsetsItemTrafficPolicyTls,
                 pub tunnel: SubsetsItemTrafficPolicyTunnel,
-            }
-
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecTrafficPolicy {
-                pub connection_pool: SpecTrafficPolicyConnectionPool,
-                /// Settings controlling the load balancer algorithms.
-                pub load_balancer: SpecTrafficPolicyLoadBalancer,
-                pub outlier_detection: SpecTrafficPolicyOutlierDetection,
-                /// Traffic policies specific to individual ports.
-                pub port_level_settings: Vec<SpecTrafficPolicyPortLevelSettingsItem>,
-                /// TLS related settings for connections to the upstream service.
-                pub tls: SpecTrafficPolicyTls,
-                pub tunnel: SpecTrafficPolicyTunnel,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]

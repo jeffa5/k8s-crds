@@ -2377,6 +2377,16 @@ pub mod monitoring_coreos_com {
                 pub resource: String,
             }
 
+            /// Define resources requests and limits for single Pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecResources {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub limits: SpecResourcesLimits,
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub requests: SpecResourcesRequests,
+            }
+
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -2395,16 +2405,6 @@ pub mod monitoring_coreos_com {
                 pub limits: InitContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub requests: InitContainersItemResourcesRequests,
-            }
-
-            /// Define resources requests and limits for single Pods.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecResources {
-                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecResourcesLimits,
-                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecResourcesRequests,
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -2538,18 +2538,6 @@ pub mod monitoring_coreos_com {
                 pub r#type: String,
             }
 
-            /// information about the secret data to project
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SourcesItemSecret {
-                /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemSecretItemsItem>,
-                /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
-                pub name: String,
-                /// Specify whether the Secret or its key must be defined
-                pub optional: bool,
-            }
-
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -2562,6 +2550,18 @@ pub mod monitoring_coreos_com {
                 pub optional: bool,
                 /// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
                 pub secret_name: String,
+            }
+
+            /// information about the secret data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SourcesItemSecret {
+                /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+                pub items: Vec<SourcesItemSecretItemsItem>,
+                /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
+                pub name: String,
+                /// Specify whether the Secret or its key must be defined
+                pub optional: bool,
             }
 
             /// Selects a key of a secret in the pod's namespace
@@ -2664,6 +2664,34 @@ pub mod monitoring_coreos_com {
                 pub name: String,
             }
 
+            /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+                ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+                ///  If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
+                pub fs_group: i64,
+                /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
+                pub fs_group_change_policy: String,
+                /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub run_as_group: i64,
+                /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+                pub run_as_non_root: bool,
+                /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub run_as_user: i64,
+                /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+                pub supplemental_groups: Vec<i64>,
+                /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
+                pub sysctls: Vec<SysctlsItem>,
+                /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -2718,34 +2746,6 @@ pub mod monitoring_coreos_com {
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
-                ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-                ///  If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
-                pub fs_group: i64,
-                /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
-                pub fs_group_change_policy: String,
-                /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub run_as_group: i64,
-                /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
-                pub run_as_non_root: bool,
-                /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub run_as_user: i64,
-                /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
-                pub supplemental_groups: Vec<i64>,
-                /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
-                pub sysctls: Vec<SysctlsItem>,
-                /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             /// A label query over volumes to consider for binding.
@@ -3019,6 +3019,22 @@ pub mod monitoring_coreos_com {
                 pub timeout_seconds: i32,
             }
 
+            /// Most recent observed status of the Alertmanager cluster. Read-only. Not included when requesting from the apiserver, only from the Prometheus Operator API itself. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Status {
+                /// Total number of available pods (ready for at least minReadySeconds) targeted by this Alertmanager cluster.
+                pub available_replicas: i32,
+                /// Represents whether any actions on the underlying managed objects are being performed. Only delete actions will be performed.
+                pub paused: bool,
+                /// Total number of non-terminated pods targeted by this Alertmanager cluster (their labels match the selector).
+                pub replicas: i32,
+                /// Total number of unavailable pods targeted by this Alertmanager cluster.
+                pub unavailable_replicas: i32,
+                /// Total number of non-terminated pods targeted by this Alertmanager cluster that have the desired version spec.
+                pub updated_replicas: i32,
+            }
+
             /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -3035,22 +3051,6 @@ pub mod monitoring_coreos_com {
                 pub phase: String,
                 /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
                 pub resize_status: String,
-            }
-
-            /// Most recent observed status of the Alertmanager cluster. Read-only. Not included when requesting from the apiserver, only from the Prometheus Operator API itself. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Status {
-                /// Total number of available pods (ready for at least minReadySeconds) targeted by this Alertmanager cluster.
-                pub available_replicas: i32,
-                /// Represents whether any actions on the underlying managed objects are being performed. Only delete actions will be performed.
-                pub paused: bool,
-                /// Total number of non-terminated pods targeted by this Alertmanager cluster (their labels match the selector).
-                pub replicas: i32,
-                /// Total number of unavailable pods targeted by this Alertmanager cluster.
-                pub unavailable_replicas: i32,
-                /// Total number of non-terminated pods targeted by this Alertmanager cluster that have the desired version spec.
-                pub updated_replicas: i32,
             }
 
             /// Storage is the definition of how storage will be used by the Alertmanager instances.
@@ -3259,19 +3259,6 @@ pub mod monitoring_coreos_com {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
-            ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
-            ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
-            ///  Required, must not be nil.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct StorageEphemeralVolumeClaimTemplate {
-                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
-                /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-                pub spec: StorageEphemeralVolumeClaimTemplateSpec,
-            }
-
             /// A PVC spec to be used by the Prometheus StatefulSets.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -3286,6 +3273,19 @@ pub mod monitoring_coreos_com {
                 pub spec: StorageVolumeClaimTemplateSpec,
                 /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub status: VolumeClaimTemplateStatus,
+            }
+
+            /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+            ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+            ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+            ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct StorageEphemeralVolumeClaimTemplate {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
+                /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+                pub spec: StorageEphemeralVolumeClaimTemplateSpec,
             }
 
             /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
@@ -3324,6 +3324,24 @@ pub mod monitoring_coreos_com {
             /// VolumeMount describes a mounting of a Volume within a container.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
+            pub struct SpecVolumeMountsItem {
+                /// Path within the container at which the volume should be mounted.  Must not contain ':'.
+                pub mount_path: String,
+                /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+                pub mount_propagation: String,
+                /// This must match the Name of a Volume.
+                pub name: String,
+                /// Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+                pub read_only: bool,
+                /// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+                pub sub_path: String,
+                /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
+                pub sub_path_expr: String,
+            }
+
+            /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
             pub struct ContainersItemVolumeMountsItem {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
@@ -3343,24 +3361,6 @@ pub mod monitoring_coreos_com {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItemVolumeMountsItem {
-                /// Path within the container at which the volume should be mounted.  Must not contain ':'.
-                pub mount_path: String,
-                /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
-                pub mount_propagation: String,
-                /// This must match the Name of a Volume.
-                pub name: String,
-                /// Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
-                pub read_only: bool,
-                /// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
-                pub sub_path: String,
-                /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
-                pub sub_path_expr: String,
-            }
-
-            /// VolumeMount describes a mounting of a Volume within a container.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecVolumeMountsItem {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -7898,6 +7898,16 @@ pub mod monitoring_coreos_com {
                 pub resource: String,
             }
 
+            /// Define resources requests and limits for single Pods.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecResources {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub limits: SpecResourcesLimits,
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub requests: SpecResourcesRequests,
+            }
+
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -7916,16 +7926,6 @@ pub mod monitoring_coreos_com {
                 pub limits: InitContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub requests: InitContainersItemResourcesRequests,
-            }
-
-            /// Define resources requests and limits for single Pods.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecResources {
-                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecResourcesLimits,
-                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecResourcesRequests,
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -8241,18 +8241,6 @@ pub mod monitoring_coreos_com {
                 pub optional: bool,
             }
 
-            /// information about the secret data to project
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SourcesItemSecret {
-                /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemSecretItemsItem>,
-                /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
-                pub name: String,
-                /// Specify whether the Secret or its key must be defined
-                pub optional: bool,
-            }
-
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -8265,6 +8253,18 @@ pub mod monitoring_coreos_com {
                 pub optional: bool,
                 /// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
                 pub secret_name: String,
+            }
+
+            /// information about the secret data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SourcesItemSecret {
+                /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+                pub items: Vec<SourcesItemSecretItemsItem>,
+                /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
+                pub name: String,
+                /// Specify whether the Secret or its key must be defined
+                pub optional: bool,
             }
 
             /// Secret containing data to use for the targets.
@@ -8403,6 +8403,34 @@ pub mod monitoring_coreos_com {
                 pub name: String,
             }
 
+            /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+                ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+                ///  If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
+                pub fs_group: i64,
+                /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
+                pub fs_group_change_policy: String,
+                /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub run_as_group: i64,
+                /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+                pub run_as_non_root: bool,
+                /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub run_as_user: i64,
+                /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+                pub supplemental_groups: Vec<i64>,
+                /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
+                pub sysctls: Vec<SysctlsItem>,
+                /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -8457,34 +8485,6 @@ pub mod monitoring_coreos_com {
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
-                ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-                ///  If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
-                pub fs_group: i64,
-                /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
-                pub fs_group_change_policy: String,
-                /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub run_as_group: i64,
-                /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
-                pub run_as_non_root: bool,
-                /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub run_as_user: i64,
-                /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
-                pub supplemental_groups: Vec<i64>,
-                /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
-                pub sysctls: Vec<SysctlsItem>,
-                /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             /// A label query over volumes to consider for binding.
@@ -8886,24 +8886,6 @@ pub mod monitoring_coreos_com {
                 pub timeout_seconds: i32,
             }
 
-            /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct VolumeClaimTemplateStatus {
-                /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-                pub access_modes: Vec<String>,
-                /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-                pub allocated_resources: AllocatedResources,
-                /// Represents the actual resources of the underlying volume.
-                pub capacity: Capacity,
-                /// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
-                pub conditions: Vec<VolumeClaimTemplateStatusConditionsItem>,
-                /// Phase represents the current phase of PersistentVolumeClaim.
-                pub phase: String,
-                /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-                pub resize_status: String,
-            }
-
             /// Most recent observed status of the Prometheus cluster. Read-only. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -8922,6 +8904,24 @@ pub mod monitoring_coreos_com {
                 pub unavailable_replicas: i32,
                 /// Total number of non-terminated pods targeted by this Prometheus deployment that have the desired version spec.
                 pub updated_replicas: i32,
+            }
+
+            /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct VolumeClaimTemplateStatus {
+                /// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+                pub access_modes: Vec<String>,
+                /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+                pub allocated_resources: AllocatedResources,
+                /// Represents the actual resources of the underlying volume.
+                pub capacity: Capacity,
+                /// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+                pub conditions: Vec<VolumeClaimTemplateStatusConditionsItem>,
+                /// Phase represents the current phase of PersistentVolumeClaim.
+                pub phase: String,
+                /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+                pub resize_status: String,
             }
 
             /// Storage spec to specify how storage shall be used.
@@ -9332,19 +9332,6 @@ pub mod monitoring_coreos_com {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
-            ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
-            ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
-            ///  Required, must not be nil.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct StorageEphemeralVolumeClaimTemplate {
-                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
-                /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-                pub spec: StorageEphemeralVolumeClaimTemplateSpec,
-            }
-
             /// A PVC spec to be used by the Prometheus StatefulSets.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -9359,6 +9346,19 @@ pub mod monitoring_coreos_com {
                 pub spec: StorageVolumeClaimTemplateSpec,
                 /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub status: VolumeClaimTemplateStatus,
+            }
+
+            /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+            ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+            ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+            ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct StorageEphemeralVolumeClaimTemplate {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
+                /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+                pub spec: StorageEphemeralVolumeClaimTemplateSpec,
             }
 
             /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
@@ -9392,6 +9392,24 @@ pub mod monitoring_coreos_com {
                 pub device_path: String,
                 /// name must match the name of a persistentVolumeClaim in the pod
                 pub name: String,
+            }
+
+            /// VolumeMount describes a mounting of a Volume within a container.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecVolumeMountsItem {
+                /// Path within the container at which the volume should be mounted.  Must not contain ':'.
+                pub mount_path: String,
+                /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+                pub mount_propagation: String,
+                /// This must match the Name of a Volume.
+                pub name: String,
+                /// Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+                pub read_only: bool,
+                /// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+                pub sub_path: String,
+                /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
+                pub sub_path_expr: String,
             }
 
             /// VolumeMount describes a mounting of a Volume within a container.
@@ -9434,24 +9452,6 @@ pub mod monitoring_coreos_com {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ThanosVolumeMountsItem {
-                /// Path within the container at which the volume should be mounted.  Must not contain ':'.
-                pub mount_path: String,
-                /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
-                pub mount_propagation: String,
-                /// This must match the Name of a Volume.
-                pub name: String,
-                /// Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
-                pub read_only: bool,
-                /// Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
-                pub sub_path: String,
-                /// Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
-                pub sub_path_expr: String,
-            }
-
-            /// VolumeMount describes a mounting of a Volume within a container.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecVolumeMountsItem {
                 /// Path within the container at which the volume should be mounted.  Must not contain ':'.
                 pub mount_path: String,
                 /// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
@@ -12653,6 +12653,16 @@ pub mod monitoring_coreos_com {
                 pub resource: String,
             }
 
+            /// Resources defines the resource requirements for single Pods. If not provided, no requests/limits will be set
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecResources {
+                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub limits: SpecResourcesLimits,
+                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+                pub requests: SpecResourcesRequests,
+            }
+
             /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -12671,16 +12681,6 @@ pub mod monitoring_coreos_com {
                 pub limits: InitContainersItemResourcesLimits,
                 /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
                 pub requests: InitContainersItemResourcesRequests,
-            }
-
-            /// Resources defines the resource requirements for single Pods. If not provided, no requests/limits will be set
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecResources {
-                /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub limits: SpecResourcesLimits,
-                /// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-                pub requests: SpecResourcesRequests,
             }
 
             /// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -12858,18 +12858,6 @@ pub mod monitoring_coreos_com {
                 pub optional: bool,
             }
 
-            /// information about the secret data to project
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SourcesItemSecret {
-                /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-                pub items: Vec<SourcesItemSecretItemsItem>,
-                /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
-                pub name: String,
-                /// Specify whether the Secret or its key must be defined
-                pub optional: bool,
-            }
-
             /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -12882,6 +12870,18 @@ pub mod monitoring_coreos_com {
                 pub optional: bool,
                 /// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
                 pub secret_name: String,
+            }
+
+            /// information about the secret data to project
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SourcesItemSecret {
+                /// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+                pub items: Vec<SourcesItemSecretItemsItem>,
+                /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names TODO: Add other useful fields. apiVersion, kind, uid?
+                pub name: String,
+                /// Specify whether the Secret or its key must be defined
+                pub optional: bool,
             }
 
             /// Selects a key of a secret in the pod's namespace
@@ -12984,6 +12984,34 @@ pub mod monitoring_coreos_com {
                 pub name: String,
             }
 
+            /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct SpecSecurityContext {
+                /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+                ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+                ///  If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
+                pub fs_group: i64,
+                /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
+                pub fs_group_change_policy: String,
+                /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub run_as_group: i64,
+                /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+                pub run_as_non_root: bool,
+                /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub run_as_user: i64,
+                /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
+                /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+                pub seccomp_profile: SpecSecurityContextSeccompProfile,
+                /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+                pub supplemental_groups: Vec<i64>,
+                /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
+                pub sysctls: Vec<SysctlsItem>,
+                /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+                pub windows_options: SpecSecurityContextWindowsOptions,
+            }
+
             /// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -13038,34 +13066,6 @@ pub mod monitoring_coreos_com {
                 pub seccomp_profile: InitContainersItemSecurityContextSeccompProfile,
                 /// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
                 pub windows_options: InitContainersItemSecurityContextWindowsOptions,
-            }
-
-            /// SecurityContext holds pod-level security attributes and common container settings. This defaults to the default PodSecurityContext.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct SpecSecurityContext {
-                /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
-                ///  1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-                ///  If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
-                pub fs_group: i64,
-                /// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
-                pub fs_group_change_policy: String,
-                /// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub run_as_group: i64,
-                /// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
-                pub run_as_non_root: bool,
-                /// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub run_as_user: i64,
-                /// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
-                pub se_linux_options: SpecSecurityContextSeLinuxOptions,
-                /// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
-                pub seccomp_profile: SpecSecurityContextSeccompProfile,
-                /// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
-                pub supplemental_groups: Vec<i64>,
-                /// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
-                pub sysctls: Vec<SysctlsItem>,
-                /// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
-                pub windows_options: SpecSecurityContextWindowsOptions,
             }
 
             /// A label query over volumes to consider for binding.
@@ -13342,6 +13342,22 @@ pub mod monitoring_coreos_com {
                 pub timeout_seconds: i32,
             }
 
+            /// Most recent observed status of the ThanosRuler cluster. Read-only. Not included when requesting from the apiserver, only from the ThanosRuler Operator API itself. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct Status {
+                /// Total number of available pods (ready for at least minReadySeconds) targeted by this ThanosRuler deployment.
+                pub available_replicas: i32,
+                /// Represents whether any actions on the underlying managed objects are being performed. Only delete actions will be performed.
+                pub paused: bool,
+                /// Total number of non-terminated pods targeted by this ThanosRuler deployment (their labels match the selector).
+                pub replicas: i32,
+                /// Total number of unavailable pods targeted by this ThanosRuler deployment.
+                pub unavailable_replicas: i32,
+                /// Total number of non-terminated pods targeted by this ThanosRuler deployment that have the desired version spec.
+                pub updated_replicas: i32,
+            }
+
             /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -13358,22 +13374,6 @@ pub mod monitoring_coreos_com {
                 pub phase: String,
                 /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
                 pub resize_status: String,
-            }
-
-            /// Most recent observed status of the ThanosRuler cluster. Read-only. Not included when requesting from the apiserver, only from the ThanosRuler Operator API itself. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct Status {
-                /// Total number of available pods (ready for at least minReadySeconds) targeted by this ThanosRuler deployment.
-                pub available_replicas: i32,
-                /// Represents whether any actions on the underlying managed objects are being performed. Only delete actions will be performed.
-                pub paused: bool,
-                /// Total number of non-terminated pods targeted by this ThanosRuler deployment (their labels match the selector).
-                pub replicas: i32,
-                /// Total number of unavailable pods targeted by this ThanosRuler deployment.
-                pub unavailable_replicas: i32,
-                /// Total number of non-terminated pods targeted by this ThanosRuler deployment that have the desired version spec.
-                pub updated_replicas: i32,
             }
 
             /// Storage spec to specify how storage shall be used.
@@ -13594,19 +13594,6 @@ pub mod monitoring_coreos_com {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
-            ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
-            ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
-            ///  Required, must not be nil.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
-            #[serde(rename_all = "camelCase")]
-            pub struct StorageEphemeralVolumeClaimTemplate {
-                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-                pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
-                /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-                pub spec: StorageEphemeralVolumeClaimTemplateSpec,
-            }
-
             /// A PVC spec to be used by the Prometheus StatefulSets.
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
@@ -13621,6 +13608,19 @@ pub mod monitoring_coreos_com {
                 pub spec: StorageVolumeClaimTemplateSpec,
                 /// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
                 pub status: VolumeClaimTemplateStatus,
+            }
+
+            /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+            ///  An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+            ///  This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+            ///  Required, must not be nil.
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[serde(rename_all = "camelCase")]
+            pub struct StorageEphemeralVolumeClaimTemplate {
+                /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+                pub metadata: StorageEphemeralVolumeClaimTemplateMetadata,
+                /// The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+                pub spec: StorageEphemeralVolumeClaimTemplateSpec,
             }
 
             /// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).

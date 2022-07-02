@@ -33,7 +33,7 @@ fn read_resource(file: &Path) -> anyhow::Result<Vec<Crd>> {
                 Ok(crd) => crd,
                 Err(err) => {
                     success = false;
-                    warn!(%err, "Failed to deserialize document");
+                    debug!(%err, "Failed to deserialize document");
                     continue;
                 }
             };
@@ -370,7 +370,7 @@ fn make_struct<W: Write>(
                 let ty = get_type(parents.clone(), property, props, rename_mapping);
                 writeln!(f, "{}{}pub {}: {},", indent, INDENT, name, ty)?;
             } else {
-                warn!(?name, "skipping writing field as already written");
+                debug!(?name, "skipping writing field as already written");
             }
         }
     } else if let Some(JSONSchemaPropsOrBool::Schema(properties)) = &props.additional_properties {
@@ -389,7 +389,7 @@ fn make_struct<W: Write>(
                 indent, INDENT, name, value_type
             )?;
         } else {
-            warn!(?name, "skipping writing field as already written");
+            debug!(?name, "skipping writing field as already written");
         }
     } else if Some(JSONSchemaPropsOrBool::Bool(true)) == props.additional_properties
         || props.additional_properties.is_none()
@@ -410,7 +410,7 @@ fn make_struct<W: Write>(
                 make_property_name("properties"),
             )?;
         } else {
-            warn!(?name, "skipping writing field as already written");
+            debug!(?name, "skipping writing field as already written");
         }
     } else if props.items.is_none() {
         warn!(?name, ?props, "Missing properties");

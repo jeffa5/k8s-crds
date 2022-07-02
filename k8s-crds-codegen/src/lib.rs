@@ -454,10 +454,18 @@ fn get_type(
             None => "f64".to_owned(),
         },
         Some("array") => {
-            let inner_type = if let Some(JSONSchemaPropsOrArray::Schema(schema)) = &props.items {
-                get_type(parents, &array_item_name(property), schema, rename_mapping)
-            } else {
-                todo!("missing schema in array");
+            let inner_type = match &props.items {
+                Some(JSONSchemaPropsOrArray::Schema(schema)) => {
+                    get_type(parents, &array_item_name(property), schema, rename_mapping)
+                }
+                Some(JSONSchemaPropsOrArray::Schemas(schemas)) => {
+                    todo!("handle schemas in array: {:?}", schemas);
+                }
+                None => {
+                    // missing schema
+                    warn!(?props, "missing schema in array")
+                    "()".to_owned()
+                }
             };
             format!("Vec<{}>", inner_type)
         }
@@ -470,7 +478,9 @@ fn get_type(
             } else if Some(true) == props.x_kubernetes_preserve_unknown_fields {
                 "std::collections::HashMap<String, String>".to_owned()
             } else {
-                todo!("no type given");
+                // no type given
+                warn!(?props, "no type given");
+                "serde_yaml::Value".to_owned()
             }
         }
     };

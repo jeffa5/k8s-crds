@@ -204,6 +204,19 @@ impl Crate {
         writeln!(ct, "name = \"{}\"", self.package_name())?;
         writeln!(ct, "version = \"{}\"", self.version)?;
         writeln!(ct, "edition = \"2021\"")?;
+        writeln!(ct, "authors = [\"Andrew Jeffery <dev@jeffas.io>\"]")?;
+        let description = format!("CRDs for the {} deployment", self.name);
+        writeln!(ct, "description = \"{}\"", description)?;
+        writeln!(ct, "repository = \"https://github.com/jeffa5/k8s-crds/\"")?;
+        writeln!(ct, "license = \"MIT\"")?;
+        writeln!(
+            ct,
+            "keywords = [\"kubernetes\", \"k8s\", \"crd\", \"openapi\"]"
+        )?;
+        writeln!(
+            ct,
+            "categories = [\"api-bindings\", \"config\", \"virtualization\"]"
+        )?;
         writeln!(ct)?;
         writeln!(ct, "[dependencies]")?;
         writeln!(

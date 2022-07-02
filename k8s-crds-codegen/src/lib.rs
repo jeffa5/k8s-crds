@@ -463,7 +463,6 @@ fn get_type(
                 }
                 None => {
                     // missing schema
-                    warn!(?props, "missing schema in array");
                     "serde_yaml::Value".to_owned()
                 }
             };
@@ -479,7 +478,6 @@ fn get_type(
                 "std::collections::HashMap<String, String>".to_owned()
             } else {
                 // no type given
-                warn!(?props, "no type given");
                 "serde_yaml::Value".to_owned()
             }
         }

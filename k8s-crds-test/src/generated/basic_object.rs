@@ -1,14 +1,14 @@
 pub mod stable_example_com {
     pub mod v1 {
         pub mod cron_tab {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CronTab {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub cron_spec: String,

@@ -1,7 +1,7 @@
 pub mod stable_example_com {
     pub mod v1 {
         pub mod cron_tab {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CronTab {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -9,25 +9,25 @@ pub mod stable_example_com {
                 pub obj2: Obj2,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Obj1A {
                 pub b: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Obj2A {
                 pub c: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Obj1 {
                 pub a: Obj1A,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Obj2 {
                 pub a: Obj2A,

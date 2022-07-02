@@ -1,7 +1,7 @@
 pub mod argoproj_io {
     pub mod v1alpha1 {
         pub mod app_project {
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AppProject {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
@@ -9,16 +9,16 @@ pub mod argoproj_io {
             }
 
             /// JWTToken holds the issuedAt and expiresAt values of a token
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
-            pub struct Item {
+            pub struct ItemsItem {
                 pub exp: i64,
                 pub iat: i64,
                 pub id: String,
             }
 
             /// JWTTokensByRole contains a list of JWT tokens issued for a given role
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct JwtTokensByRole {
                 /// JWTTokensByRole contains a list of JWT tokens issued for a given role
@@ -26,7 +26,7 @@ pub mod argoproj_io {
             }
 
             /// AppProjectStatus contains status information for AppProject CRs
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// JWTTokensByRole contains a list of JWT tokens issued for a given role
@@ -34,10 +34,10 @@ pub mod argoproj_io {
             }
 
             /// JWTTokens represents a list of JWT tokens
-            #[derive(serde::Serialize, serde::Deserialize, Debug)]
+            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
-                pub items: Vec<Item>,
+                pub items: Vec<ItemsItem>,
             }
 
             impl k8s_openapi::Resource for AppProject {

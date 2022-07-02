@@ -24,8 +24,11 @@ mod tests {
         };
 
         let s = serde_yaml::to_string(&ct).unwrap();
-
         insta::assert_snapshot!(s);
+
+        let ct_d = serde_yaml::from_str(&s).unwrap();
+
+        assert_eq!(ct, ct_d);
     }
 
     #[test]
@@ -46,6 +49,10 @@ mod tests {
         let s = serde_yaml::to_string(&ct).unwrap();
 
         insta::assert_snapshot!(s);
+
+        let ct_d = serde_yaml::from_str(&s).unwrap();
+
+        assert_eq!(ct, ct_d);
     }
 
     #[test]
@@ -70,5 +77,9 @@ mod tests {
         let s = serde_yaml::to_string(&ct).unwrap();
 
         insta::assert_snapshot!(s);
+
+        let ct_d = serde_yaml::from_str(&s).unwrap();
+
+        assert_eq!(ct, ct_d);
     }
 }

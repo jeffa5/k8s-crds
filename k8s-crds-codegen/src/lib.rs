@@ -544,7 +544,12 @@ fn array_item_name(s: &str) -> String {
 }
 
 fn write_derives<W: Write>(f: &mut W) -> anyhow::Result<()> {
-    let derives = ["serde::Serialize", "serde::Deserialize", "Debug"];
+    let derives = [
+        "serde::Serialize",
+        "serde::Deserialize",
+        "Debug",
+        "PartialEq",
+    ];
 
     writeln!(f, "#[derive({})]", derives.join(", "))?;
     writeln!(f, "#[serde(rename_all = \"camelCase\")]")?;

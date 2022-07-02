@@ -404,7 +404,7 @@ fn make_struct<W: Write>(
             }
             writeln!(
                 f,
-                "{}{}pub {}: serde_json::Map",
+                "{}{}pub {}: serde_json::Map<String, serde_json::Value>",
                 indent,
                 INDENT,
                 make_property_name("properties"),
@@ -484,7 +484,7 @@ fn get_type(
             if let Some(true) = props.x_kubernetes_int_or_string {
                 "k8s_openapi::apimachinery::pkg::util::intstr::IntOrString".to_owned()
             } else if Some(true) == props.x_kubernetes_preserve_unknown_fields {
-                "serde_json::Map".to_owned()
+                "serde_json::Map<String, serde_json::Value>".to_owned()
             } else {
                 // no type given
                 "serde_json::Value".to_owned()

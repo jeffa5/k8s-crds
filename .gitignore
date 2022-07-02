@@ -1,2 +1,5 @@
 /target
 /.direnv/
+
+crds/**/Cargo.lock
+crds/**/target/

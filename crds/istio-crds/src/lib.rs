@@ -32,7 +32,7 @@ pub mod extensions_istio_io {
             #[serde(rename_all = "camelCase")]
             pub struct PluginConfig {
                 /// The configuration that will be passed on to the plugin.
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -68,7 +68,7 @@ pub mod extensions_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Configuration for a Wasm VM.
@@ -675,7 +675,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1114,7 +1114,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1129,7 +1129,7 @@ pub mod networking_istio_io {
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 /// The JSON config of the object being patched.
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1221,7 +1221,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Set of TLS related options that govern the server's behavior.
@@ -1354,7 +1354,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Applicable only for MESH_INTERNAL services.
@@ -1489,7 +1489,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2032,7 +2032,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -2162,7 +2162,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             impl k8s_openapi::Resource for WorkloadEntry {
@@ -2297,7 +2297,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Health is determined by if the proxy is able to connect.
@@ -2886,7 +2886,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3222,7 +3222,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Set of TLS related options that govern the server's behavior.
@@ -3326,7 +3326,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             impl k8s_openapi::Resource for ProxyConfig {
@@ -3435,7 +3435,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Applicable only for MESH_INTERNAL services.
@@ -3570,7 +3570,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4113,7 +4113,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4243,7 +4243,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             impl k8s_openapi::Resource for WorkloadEntry {
@@ -4377,7 +4377,7 @@ pub mod networking_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Health is determined by if the proxy is able to connect.
@@ -4544,7 +4544,7 @@ pub mod security_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4640,7 +4640,7 @@ pub mod security_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -4734,7 +4734,7 @@ pub mod security_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             impl k8s_openapi::Resource for RequestAuthentication {
@@ -4924,7 +4924,7 @@ pub mod telemetry_istio_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             /// Optional.

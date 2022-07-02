@@ -1547,22 +1547,22 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EphemeralContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -1832,7 +1832,7 @@ pub mod argoproj_io {
                 pub termination_grace_period_seconds: i64,
                 pub tolerations: Vec<TolerationsItem>,
                 pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
-                pub volumes: std::collections::HashMap<String, String>,
+                pub volumes: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3693,22 +3693,22 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EphemeralContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -3967,7 +3967,7 @@ pub mod argoproj_io {
                 pub termination_grace_period_seconds: i64,
                 pub tolerations: Vec<TolerationsItem>,
                 pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
-                pub volumes: std::collections::HashMap<String, String>,
+                pub volumes: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -5817,22 +5817,22 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EphemeralContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -6091,7 +6091,7 @@ pub mod argoproj_io {
                 pub termination_grace_period_seconds: i64,
                 pub tolerations: Vec<TolerationsItem>,
                 pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
-                pub volumes: std::collections::HashMap<String, String>,
+                pub volumes: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -7798,22 +7798,22 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EphemeralContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -8005,7 +8005,7 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Service {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -8059,7 +8059,7 @@ pub mod argoproj_io {
                 pub termination_grace_period_seconds: i64,
                 pub tolerations: Vec<TolerationsItem>,
                 pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
-                pub volumes: std::collections::HashMap<String, String>,
+                pub volumes: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -10257,13 +10257,13 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct BlueGreenAntiAffinityRequiredDuringSchedulingIgnoredDuringExecution {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CanaryAntiAffinityRequiredDuringSchedulingIgnoredDuringExecution {
-                pub properties: std::collections::HashMap<String, String>,
+                pub properties: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -10319,22 +10319,22 @@ pub mod argoproj_io {
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EphemeralContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItemResources {
-                pub limits: std::collections::HashMap<String, String>,
-                pub requests: std::collections::HashMap<String, String>,
+                pub limits: serde_json::Map,
+                pub requests: serde_json::Map,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -10608,7 +10608,7 @@ pub mod argoproj_io {
                 pub termination_grace_period_seconds: i64,
                 pub tolerations: Vec<TolerationsItem>,
                 pub topology_spread_constraints: Vec<TopologySpreadConstraintsItem>,
-                pub volumes: Vec<std::collections::HashMap<String, String>>,
+                pub volumes: Vec<serde_json::Map>,
             }
 
             #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]

@@ -26,9 +26,23 @@ fn read_resource(file: &Path) -> anyhow::Result<Vec<Crd>> {
     let f = File::open(file)?;
 
     let mut crds = Vec::new();
+    let mut success = true;
     for document in serde_yaml::Deserializer::from_reader(f) {
-        let crd = Crd::deserialize(document)?;
-        crds.push(crd);
+        if success {
+            let crd = match Crd::deserialize(document) {
+                Ok(crd) => crd,
+                Err(err) => {
+                    success = false;
+                    warn!(%err, "Failed to deserialize document");
+                    continue;
+                }
+            };
+            crds.push(crd);
+        } else {
+            // last time failed to read resource so parse it and ignore it
+            serde_yaml::Value::deserialize(document)?;
+        }
+        success = true;
     }
     Ok(crds)
 }

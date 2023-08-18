@@ -95,7 +95,7 @@ fn build<W: Write>(writer: &mut W, crds: Vec<Crd>) -> anyhow::Result<()> {
                 .entry(version.name.clone())
                 .or_insert_with(BTreeMap::new)
                 .entry(crd.spec.names.kind.clone())
-                .or_insert(version);
+                .or_insert((version, crd.spec.scope.to_lowercase()));
         }
     }
 
@@ -103,13 +103,19 @@ fn build<W: Write>(writer: &mut W, crds: Vec<Crd>) -> anyhow::Result<()> {
         writeln!(writer, "pub mod {} {{", dotted_to_snake(&group))?;
         for (version_name, kinds) in version {
             writeln!(writer, "{}pub mod {} {{", INDENT, version_name)?;
-            for (kind, version_spec) in kinds {
+            for (kind, (version_spec, scope)) in kinds {
+                let scope = match scope.as_str() {
+                    "namespaced" => "NamespaceResourceScope",
+                    "cluster" => "ClusterResourceScope",
+                    _ => "NamespaceResourceScope",
+                };
                 build_resource(
                     writer,
                     &INDENT.repeat(2),
                     &group,
                     &version_name,
                     &kind,
+                    &scope,
                     version_spec
                         .schema
                         .as_ref()
@@ -133,6 +139,7 @@ fn build_resource<W: Write>(
     group: &str,
     version: &str,
     kind: &str,
+    scope: &str,
     schema: &JSONSchemaProps,
 ) -> anyhow::Result<()> {
     writeln!(f, "{}pub mod {} {{", indent, snake_case(kind))?;
@@ -201,7 +208,7 @@ fn build_resource<W: Write>(
     writeln!(
         f,
         "{indent}impl k8s_openapi::Resource for {struct_name} {{
-    {indent}type Scope = k8s_openapi::ClusterResourceScope;
+    {indent}type Scope = k8s_openapi::{scope};
 
     {indent}const API_VERSION : &'static str = \"{gv}\";
     {indent}const GROUP : &'static str = \"{group}\";
@@ -486,8 +493,9 @@ fn get_type(
                 // base64 encoded
                 "Vec<u8>".to_owned()
             }
-            Some("date") => "std::time::SystemTime".to_owned(),
-            Some("datetime") => "std::time::SystemTime".to_owned(),
+            Some("date") => "k8s_openapi::apimachinery::pkg::apis::meta::v1::Time".to_owned(),
+            Some("datetime") => "k8s_openapi::apimachinery::pkg::apis::meta::v1::Time".to_owned(),
+            Some("date-time") => "k8s_openapi::apimachinery::pkg::apis::meta::v1::Time".to_owned(),
             Some("duration") => "std::time::Duration".to_owned(),
             _ => "String".to_owned(),
         },
@@ -598,6 +606,7 @@ fn write_derives<W: Write>(f: &mut W) -> anyhow::Result<()> {
     let derives = [
         "serde::Serialize",
         "serde::Deserialize",
+        "Clone",
         "Debug",
         "PartialEq",
     ];
@@ -609,7 +618,7 @@ fn write_derives<W: Write>(f: &mut W) -> anyhow::Result<()> {
 }
 
 fn write_derives_top_level<W: Write>(f: &mut W) -> anyhow::Result<()> {
-    let derives = ["serde::Deserialize", "Debug", "PartialEq"];
+    let derives = ["serde::Deserialize", "Clone", "Debug", "PartialEq"];
 
     writeln!(f, "#[derive({})]", derives.join(", "))?;
 

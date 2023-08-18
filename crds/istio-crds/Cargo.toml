@@ -11,6 +11,6 @@ keywords = ["kubernetes", "k8s", "crd", "openapi"]
 categories = ["api-bindings", "config", "virtualization"]
 
 [dependencies]
-k8s-openapi = { version = "0.15.0", features = ["v1_20"] }
-serde = { version = "1.0.137", features = ["derive"] }
-serde_json = "1.0.82"
+k8s-openapi = { version = "0.19", features = ["v1_26"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

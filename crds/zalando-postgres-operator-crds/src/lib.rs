@@ -4,7 +4,7 @@
 pub mod acid_zalan_do {
     pub mod v1 {
         pub mod operator_configuration {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct OperatorConfiguration {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub configuration: Configuration,
@@ -12,7 +12,7 @@ pub mod acid_zalan_do {
             }
 
             impl k8s_openapi::Resource for OperatorConfiguration {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "acid.zalan.do/v1";
                 const GROUP: &'static str = "acid.zalan.do";
@@ -52,7 +52,7 @@ pub mod acid_zalan_do {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AwsOrGcp {
                 pub additional_secret_mount: String,
@@ -68,13 +68,13 @@ pub mod acid_zalan_do {
                 pub wal_s3_bucket: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ClusterLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Configuration {
                 pub aws_or_gcp: AwsOrGcp,
@@ -114,7 +114,7 @@ pub mod acid_zalan_do {
                 pub workers: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConnectionPooler {
                 pub connection_pooler_default_cpu_limit: String,
@@ -129,26 +129,26 @@ pub mod acid_zalan_do {
                 pub connection_pooler_user: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CustomPodAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CustomServiceAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Debug {
                 pub debug_logging: bool,
                 pub enable_database_access: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InfrastructureRolesSecretsItem {
                 pub defaultrolevalue: String,
@@ -161,7 +161,7 @@ pub mod acid_zalan_do {
                 pub userkey: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Kubernetes {
                 pub additional_pod_capabilities: Vec<String>,
@@ -208,7 +208,7 @@ pub mod acid_zalan_do {
                 pub watched_namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct LoadBalancer {
                 pub custom_service_annotations: CustomServiceAnnotations,
@@ -222,7 +222,7 @@ pub mod acid_zalan_do {
                 pub replica_dns_name_format: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct LoggingRestApi {
                 pub api_port: i64,
@@ -230,7 +230,7 @@ pub mod acid_zalan_do {
                 pub ring_log_lines: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct LogicalBackup {
                 pub logical_backup_docker_image: String,
@@ -247,7 +247,7 @@ pub mod acid_zalan_do {
                 pub logical_backup_schedule: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MajorVersionUpgrade {
                 pub major_version_upgrade_mode: String,
@@ -256,13 +256,13 @@ pub mod acid_zalan_do {
                 pub target_major_version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NodeReadinessLabel {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PostgresPodResources {
                 pub default_cpu_limit: String,
@@ -273,7 +273,7 @@ pub mod acid_zalan_do {
                 pub min_memory_limit: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Scalyr {
                 pub scalyr_api_key: String,
@@ -285,31 +285,31 @@ pub mod acid_zalan_do {
                 pub scalyr_server_url: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SidecarDockerImages {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SidecarsItem {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TeamApiRoleConfiguration {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TeamsApi {
                 pub enable_admin_role_for_users: bool,
@@ -328,7 +328,7 @@ pub mod acid_zalan_do {
                 pub teams_api_url: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Timeouts {
                 pub patroni_api_check_interval: String,
@@ -341,13 +341,13 @@ pub mod acid_zalan_do {
                 pub resource_check_timeout: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Toleration {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Users {
                 pub additional_owner_roles: Option<Vec<String>>,
@@ -359,14 +359,14 @@ pub mod acid_zalan_do {
             }
         }
         pub mod postgres_team {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct PostgresTeam {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
             }
 
             impl k8s_openapi::Resource for PostgresTeam {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "acid.zalan.do/v1";
                 const GROUP: &'static str = "acid.zalan.do";
@@ -406,7 +406,7 @@ pub mod acid_zalan_do {
             }
 
             /// Map for teamId and associated additional users
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AdditionalMembers {
                 /// Map for teamId and associated additional users
@@ -414,7 +414,7 @@ pub mod acid_zalan_do {
             }
 
             /// Map for teamId and associated additional superuser teams
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AdditionalSuperuserTeams {
                 /// Map for teamId and associated additional superuser teams
@@ -422,14 +422,14 @@ pub mod acid_zalan_do {
             }
 
             /// Map for teamId and associated additional teams
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AdditionalTeams {
                 /// Map for teamId and associated additional teams
                 pub properties: std::collections::HashMap<String, Option<Vec<String>>>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Map for teamId and associated additional users
@@ -441,7 +441,7 @@ pub mod acid_zalan_do {
             }
         }
         pub mod postgresql {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Postgresql {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -449,7 +449,7 @@ pub mod acid_zalan_do {
             }
 
             impl k8s_openapi::Resource for Postgresql {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "acid.zalan.do/v1";
                 const GROUP: &'static str = "acid.zalan.do";
@@ -489,7 +489,7 @@ pub mod acid_zalan_do {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AdditionalVolumesItem {
                 pub mount_path: String,
@@ -499,7 +499,7 @@ pub mod acid_zalan_do {
                 pub volume_source: VolumeSource,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Clone {
                 pub cluster: String,
@@ -512,7 +512,7 @@ pub mod acid_zalan_do {
                 pub uid: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConnectionPooler {
                 pub docker_image: String,
@@ -524,57 +524,57 @@ pub mod acid_zalan_do {
                 pub user: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Databases {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EnvItem {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Extensions {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Filter {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InitContainersItem {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Initdb {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConnectionPoolerResourcesLimits {
                 pub cpu: String,
                 pub memory: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesLimits {
                 pub cpu: String,
                 pub memory: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchExpressionsItem {
                 pub key: String,
@@ -582,7 +582,7 @@ pub mod acid_zalan_do {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermsItemMatchExpressionsItem {
                 pub key: String,
@@ -590,7 +590,7 @@ pub mod acid_zalan_do {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SelectorMatchExpressionsItem {
                 pub key: String,
@@ -598,7 +598,7 @@ pub mod acid_zalan_do {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PreferenceMatchFieldsItem {
                 pub key: String,
@@ -606,7 +606,7 @@ pub mod acid_zalan_do {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermsItemMatchFieldsItem {
                 pub key: String,
@@ -614,13 +614,13 @@ pub mod acid_zalan_do {
                 pub values: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NodeAffinity {
                 pub preferred_during_scheduling_ignored_during_execution:
@@ -629,20 +629,20 @@ pub mod acid_zalan_do {
                     RequiredDuringSchedulingIgnoredDuringExecution,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NodeSelectorTermsItem {
                 pub match_expressions: Vec<NodeSelectorTermsItemMatchExpressionsItem>,
                 pub match_fields: Vec<NodeSelectorTermsItemMatchFieldsItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Parameters {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Patroni {
                 pub initdb: Initdb,
@@ -657,105 +657,105 @@ pub mod acid_zalan_do {
                 pub ttl: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PodAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Postgresql {
                 pub parameters: Parameters,
                 pub version: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Preference {
                 pub match_expressions: Vec<PreferenceMatchExpressionsItem>,
                 pub match_fields: Vec<PreferenceMatchFieldsItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PreferredDuringSchedulingIgnoredDuringExecutionItem {
                 pub preference: Preference,
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PreparedDatabases {
                 pub properties: std::collections::HashMap<String, PreparedDatabasesValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConnectionPoolerResourcesRequests {
                 pub cpu: String,
                 pub memory: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecResourcesRequests {
                 pub cpu: String,
                 pub memory: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RequiredDuringSchedulingIgnoredDuringExecution {
                 pub node_selector_terms: Vec<NodeSelectorTermsItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecResources {
                 pub limits: SpecResourcesLimits,
                 pub requests: SpecResourcesRequests,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConnectionPoolerResources {
                 pub limits: ConnectionPoolerResourcesLimits,
                 pub requests: ConnectionPoolerResourcesRequests,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Schemas {
                 pub properties: std::collections::HashMap<String, SchemasValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_expressions: Vec<SelectorMatchExpressionsItem>,
                 pub match_labels: MatchLabels,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ServiceAnnotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SidecarsItem {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Slots {
                 pub properties: std::collections::HashMap<String, SlotsValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub additional_volumes: Vec<AdditionalVolumesItem>,
@@ -805,7 +805,7 @@ pub mod acid_zalan_do {
                 pub volume: Volume,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Standby {
                 pub gs_wal_path: String,
@@ -814,13 +814,13 @@ pub mod acid_zalan_do {
                 pub standby_port: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StreamsItem {
                 pub application_id: String,
@@ -830,13 +830,13 @@ pub mod acid_zalan_do {
                 pub tables: Tables,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Tables {
                 pub properties: std::collections::HashMap<String, TablesValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Tls {
                 pub ca_file: String,
@@ -846,7 +846,7 @@ pub mod acid_zalan_do {
                 pub secret_name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TolerationsItem {
                 pub effect: String,
@@ -856,19 +856,19 @@ pub mod acid_zalan_do {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Users {
                 pub properties: std::collections::HashMap<String, Option<Vec<String>>>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SlotsValue {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PreparedDatabasesValue {
                 pub default_users: bool,
@@ -877,14 +877,14 @@ pub mod acid_zalan_do {
                 pub secret_namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SchemasValue {
                 pub default_roles: bool,
                 pub default_users: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TablesValue {
                 pub event_type: String,
@@ -892,7 +892,7 @@ pub mod acid_zalan_do {
                 pub payload_column: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Volume {
                 pub iops: i64,
@@ -903,7 +903,7 @@ pub mod acid_zalan_do {
                 pub throughput: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct VolumeSource {
                 pub properties: serde_json::Map<String, serde_json::Value>,

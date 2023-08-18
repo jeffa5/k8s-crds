@@ -4,7 +4,7 @@
 pub mod extensions_istio_io {
     pub mod v1alpha1 {
         pub mod wasm_plugin {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct WasmPlugin {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -12,7 +12,7 @@ pub mod extensions_istio_io {
             }
 
             impl k8s_openapi::Resource for WasmPlugin {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "extensions.istio.io/v1alpha1";
                 const GROUP: &'static str = "extensions.istio.io";
@@ -52,7 +52,7 @@ pub mod extensions_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EnvItem {
                 pub name: String,
@@ -61,28 +61,28 @@ pub mod extensions_istio_io {
                 pub value_from: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// The configuration that will be passed on to the plugin.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PluginConfig {
                 /// The configuration that will be passed on to the plugin.
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_labels: MatchLabels,
             }
 
             /// Extend the functionality provided by the Istio proxy through WebAssembly filters. See more details at: https://istio.io/docs/reference/config/proxy_extensions/wasm-plugin.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub image_pull_policy: String,
@@ -105,14 +105,14 @@ pub mod extensions_istio_io {
                 pub vm_config: VmConfig,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Configuration for a Wasm VM.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct VmConfig {
                 /// Specifies environment variables to be injected to this VM.
@@ -124,13 +124,13 @@ pub mod extensions_istio_io {
 pub mod install_istio_io {
     pub mod v1alpha1 {
         pub mod istio_operator {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct IstioOperator {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
             }
 
             impl k8s_openapi::Resource for IstioOperator {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "install.istio.io/v1alpha1";
                 const GROUP: &'static str = "install.istio.io";
@@ -173,7 +173,7 @@ pub mod install_istio_io {
 pub mod networking_istio_io {
     pub mod v1alpha3 {
         pub mod destination_rule {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct DestinationRule {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -181,7 +181,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for DestinationRule {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -221,7 +221,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPool {
                 /// HTTP connection pool settings.
@@ -230,7 +230,7 @@ pub mod networking_istio_io {
                 pub tcp: SubsetsItemTrafficPolicyConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
@@ -239,7 +239,7 @@ pub mod networking_istio_io {
                 pub tcp: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPool {
                 /// HTTP connection pool settings.
@@ -248,7 +248,7 @@ pub mod networking_istio_io {
                 pub tcp: SpecTrafficPolicyConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
@@ -257,7 +257,7 @@ pub mod networking_istio_io {
                 pub tcp: SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
@@ -271,7 +271,7 @@ pub mod networking_istio_io {
                 pub use_source_ip: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
             /// Hash based on HTTP cookie.
@@ -285,7 +285,7 @@ pub mod networking_istio_io {
             pub use_source_ip: bool,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
@@ -299,7 +299,7 @@ pub mod networking_istio_io {
                 pub use_source_ip: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
@@ -314,7 +314,7 @@ pub mod networking_istio_io {
                 pub use_source_ip: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
                 /// Originating locality, '/' separated, e.g.
@@ -323,7 +323,7 @@ pub mod networking_istio_io {
                 pub to: SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
             /// Originating locality, '/' separated, e.g.
@@ -332,7 +332,7 @@ pub mod networking_istio_io {
             pub to: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
                 /// Originating locality, '/' separated, e.g.
@@ -341,7 +341,7 @@ pub mod networking_istio_io {
                 pub to: SpecTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
             /// Originating locality, '/' separated, e.g.
@@ -350,7 +350,7 @@ pub mod networking_istio_io {
             pub to: SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -358,7 +358,7 @@ pub mod networking_istio_io {
                 pub to: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -366,7 +366,7 @@ pub mod networking_istio_io {
                 pub to: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -374,7 +374,7 @@ pub mod networking_istio_io {
                 pub to: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -383,7 +383,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -402,7 +402,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -421,7 +421,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -440,7 +440,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -459,7 +459,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -471,7 +471,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -483,7 +483,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -495,7 +495,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -506,14 +506,14 @@ pub mod networking_istio_io {
                 pub ttl: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancer {
                 pub consistent_hash: SubsetsItemTrafficPolicyLoadBalancerConsistentHash,
@@ -524,7 +524,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancer {
                 pub consistent_hash:
@@ -537,7 +537,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancer {
                 pub consistent_hash: SpecTrafficPolicyLoadBalancerConsistentHash,
@@ -548,7 +548,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancer {
                 pub consistent_hash:
@@ -560,7 +560,7 @@ pub mod networking_istio_io {
                 pub warmup_duration_secs: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSetting {
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -575,7 +575,7 @@ pub mod networking_istio_io {
                 pub failover_priority: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
             /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -588,7 +588,7 @@ pub mod networking_istio_io {
             pub failover_priority: Vec<String>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSetting {
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -601,7 +601,7 @@ pub mod networking_istio_io {
                 pub failover_priority: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
             /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -614,13 +614,13 @@ pub mod networking_istio_io {
             pub failover_priority: Vec<String>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyOutlierDetection {
                 /// Minimum ejection duration.
@@ -639,7 +639,7 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
@@ -658,7 +658,7 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyOutlierDetection {
                 /// Minimum ejection duration.
@@ -677,7 +677,7 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
@@ -696,19 +696,19 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItem {
                 pub connection_pool: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool,
@@ -721,7 +721,7 @@ pub mod networking_istio_io {
                 pub tls: SubsetsItemTrafficPolicyPortLevelSettingsItemTls,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItem {
                 pub connection_pool: SpecTrafficPolicyPortLevelSettingsItemConnectionPool,
@@ -734,7 +734,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting load balancing, outlier detection, etc. See more details at: https://istio.io/docs/reference/config/networking/destination-rule.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// A list of namespaces to which this destination rule is exported.
@@ -746,13 +746,13 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItem {
                 pub labels: Labels,
@@ -763,7 +763,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -775,7 +775,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -788,7 +788,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -800,7 +800,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -813,7 +813,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -823,7 +823,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -833,7 +833,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -843,7 +843,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -853,7 +853,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyTls {
                 pub ca_certificates: String,
@@ -870,7 +870,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
@@ -887,7 +887,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyTls {
                 pub ca_certificates: String,
@@ -904,7 +904,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
@@ -921,7 +921,7 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
@@ -929,7 +929,7 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo
             {
@@ -938,7 +938,7 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
@@ -946,14 +946,14 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicy {
                 pub connection_pool: SpecTrafficPolicyConnectionPool,
@@ -968,7 +968,7 @@ pub mod networking_istio_io {
             }
 
             /// Traffic policies that apply to this subset.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicy {
                 pub connection_pool: SubsetsItemTrafficPolicyConnectionPool,
@@ -982,7 +982,7 @@ pub mod networking_istio_io {
                 pub tunnel: SubsetsItemTrafficPolicyTunnel,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyTunnel {
                 /// Specifies which protocol to use for tunneling the downstream connection.
@@ -993,7 +993,7 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyTunnel {
                 /// Specifies which protocol to use for tunneling the downstream connection.
@@ -1004,14 +1004,14 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub match_labels: MatchLabels,
             }
         }
         pub mod envoy_filter {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct EnvoyFilter {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1019,7 +1019,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for EnvoyFilter {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -1060,7 +1060,7 @@ pub mod networking_istio_io {
             }
 
             /// Match on envoy cluster attributes.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Cluster {
                 /// The exact name of the cluster to match.
@@ -1073,7 +1073,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConfigPatchesItem {
                 pub apply_to: String,
@@ -1084,7 +1084,7 @@ pub mod networking_istio_io {
             }
 
             /// The name of a specific filter to apply the patch to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Filter {
                 /// The filter name to match on.
@@ -1093,7 +1093,7 @@ pub mod networking_istio_io {
             }
 
             /// Match a specific filter chain in a listener.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct FilterChain {
                 /// Applies only to sidecars.
@@ -1110,14 +1110,14 @@ pub mod networking_istio_io {
                 pub transport_protocol: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Match on envoy listener attributes.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Listener {
                 /// Match a specific filter chain in a listener.
@@ -1129,7 +1129,7 @@ pub mod networking_istio_io {
             }
 
             /// Match on listener/route configuration/cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Match {
                 /// Match on envoy cluster attributes.
@@ -1144,14 +1144,14 @@ pub mod networking_istio_io {
                 pub route_configuration: RouteConfiguration,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Metadata {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// The patch to apply along with the operation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Patch {
                 /// Determines the filter insertion order.
@@ -1163,7 +1163,7 @@ pub mod networking_istio_io {
             }
 
             /// Match on properties associated with a proxy.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Proxy {
                 pub metadata: Metadata,
@@ -1171,7 +1171,7 @@ pub mod networking_istio_io {
             }
 
             /// Match a specific route within the virtual host.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Route {
                 /// Match a route with specific action type.
@@ -1180,7 +1180,7 @@ pub mod networking_istio_io {
             }
 
             /// Match on envoy HTTP route configuration attributes.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteConfiguration {
                 pub gateway: String,
@@ -1193,7 +1193,7 @@ pub mod networking_istio_io {
             }
 
             /// Customizing Envoy configuration generated by Istio. See more details at: https://istio.io/docs/reference/config/networking/envoy-filter.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// One or more patches with match conditions.
@@ -1203,13 +1203,13 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubFilter {
                 /// The filter name to match on.
@@ -1217,14 +1217,14 @@ pub mod networking_istio_io {
             }
 
             /// The JSON config of the object being patched.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 /// The JSON config of the object being patched.
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Vhost {
                 pub name: String,
@@ -1232,14 +1232,14 @@ pub mod networking_istio_io {
                 pub route: Route,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub labels: Labels,
             }
         }
         pub mod gateway {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Gateway {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1247,7 +1247,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for Gateway {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -1287,7 +1287,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Port {
                 /// Label assigned to the port.
@@ -1299,13 +1299,13 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ServersItem {
                 pub bind: String,
@@ -1320,7 +1320,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting edge load balancer. See more details at: https://istio.io/docs/reference/config/networking/gateway.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub selector: Selector,
@@ -1328,14 +1328,14 @@ pub mod networking_istio_io {
                 pub servers: Vec<ServersItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Set of TLS related options that govern the server's behavior.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Tls {
                 /// REQUIRED if mode is `MUTUAL`.
@@ -1359,7 +1359,7 @@ pub mod networking_istio_io {
             }
         }
         pub mod service_entry {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ServiceEntry {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1367,7 +1367,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for ServiceEntry {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -1407,7 +1407,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EndpointsItem {
                 pub address: String,
@@ -1424,28 +1424,28 @@ pub mod networking_istio_io {
             }
 
             /// One or more labels associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EndpointsItemLabels {
                 /// One or more labels associated with the endpoint.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelectorLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ports {
                 /// Set of ports associated with the endpoint.
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PortsItem {
                 /// Label assigned to the port.
@@ -1458,7 +1458,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting service registry. See more details at: https://istio.io/docs/reference/config/networking/service-entry.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The virtual IP addresses associated with the service.
@@ -1479,21 +1479,21 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Applicable only for MESH_INTERNAL services.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub labels: WorkloadSelectorLabels,
             }
         }
         pub mod sidecar {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Sidecar {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1501,7 +1501,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for Sidecar {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -1541,7 +1541,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressItem {
                 pub bind: String,
@@ -1551,7 +1551,7 @@ pub mod networking_istio_io {
                 pub port: EgressItemPort,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressProxy {
                 /// The name of a service from the service registry.
@@ -1562,7 +1562,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IngressItem {
                 /// The IP to which the listener should be bound.
@@ -1574,14 +1574,14 @@ pub mod networking_istio_io {
                 pub tls: Tls,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Configuration for the outbound traffic policy.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OutboundTrafficPolicy {
                 pub egress_proxy: EgressProxy,
@@ -1589,7 +1589,7 @@ pub mod networking_istio_io {
             }
 
             /// The port associated with the listener.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressItemPort {
                 /// Label assigned to the port.
@@ -1602,7 +1602,7 @@ pub mod networking_istio_io {
             }
 
             /// The port associated with the listener.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IngressItemPort {
                 /// Label assigned to the port.
@@ -1615,14 +1615,14 @@ pub mod networking_istio_io {
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressProxyPort {
                 pub number: i64,
             }
 
             /// Configuration affecting network reachability of a sidecar. See more details at: https://istio.io/docs/reference/config/networking/sidecar.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub egress: Vec<EgressItem>,
@@ -1632,13 +1632,13 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Tls {
                 /// REQUIRED if mode is `MUTUAL`.
@@ -1661,14 +1661,14 @@ pub mod networking_istio_io {
                 pub verify_certificate_spki: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub labels: Labels,
             }
         }
         pub mod virtual_service {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct VirtualService {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1676,7 +1676,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for VirtualService {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -1716,7 +1716,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Abort {
                 /// GRPC status code to use to abort the request.
@@ -1728,31 +1728,31 @@ pub mod networking_istio_io {
                 pub percentage: AbortPercentage,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersRequestAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersResponseAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersRequestAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersResponseAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AllowOriginsItem {
                 pub exact: String,
@@ -1761,7 +1761,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Authority {
                 pub exact: String,
@@ -1771,7 +1771,7 @@ pub mod networking_istio_io {
             }
 
             /// Cross-Origin Resource Sharing policy (CORS).
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CorsPolicy {
                 pub allow_credentials: Option<bool>,
@@ -1786,7 +1786,7 @@ pub mod networking_istio_io {
                 pub max_age: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Delay {
                 pub exponential_delay: String,
@@ -1798,7 +1798,7 @@ pub mod networking_istio_io {
                 pub percentage: DelayPercentage,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Delegate {
                 /// Name specifies the name of the delegate VirtualService.
@@ -1807,7 +1807,7 @@ pub mod networking_istio_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemRouteItemDestination {
                 /// The name of a service from the service registry.
@@ -1818,7 +1818,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemRouteItemDestination {
                 /// The name of a service from the service registry.
@@ -1829,7 +1829,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemRouteItemDestination {
                 /// The name of a service from the service registry.
@@ -1841,34 +1841,34 @@ pub mod networking_istio_io {
             }
 
             /// Fault injection policy to apply on HTTP traffic at the client side.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Fault {
                 pub abort: Abort,
                 pub delay: Delay,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeaders {
                 pub request: HttpItemHeadersRequest,
                 pub response: HttpItemHeadersResponse,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchItemHeaders {
                 pub properties: std::collections::HashMap<String, HeadersValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeaders {
                 pub request: RouteItemHeadersRequest,
                 pub response: RouteItemHeadersResponse,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItem {
                 /// Cross-Origin Resource Sharing policy (CORS).
@@ -1897,7 +1897,7 @@ pub mod networking_istio_io {
                 pub timeout: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemMatchItem {
                 pub authority: Authority,
@@ -1922,7 +1922,7 @@ pub mod networking_istio_io {
                 pub without_headers: WithoutHeaders,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemMatchItem {
                 /// IPv4 or IPv6 ip addresses of destination with optional subnet.
@@ -1938,7 +1938,7 @@ pub mod networking_istio_io {
                 pub source_subnet: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemMatchItem {
                 /// IPv4 or IPv6 ip addresses of destination with optional subnet.
@@ -1954,7 +1954,7 @@ pub mod networking_istio_io {
                 pub source_namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Method {
                 pub exact: String,
@@ -1963,7 +1963,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Mirror {
                 /// The name of a service from the service registry.
@@ -1975,56 +1975,56 @@ pub mod networking_istio_io {
             }
 
             /// Percentage of the traffic to be mirrored by the `mirror` field.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MirrorPercentage {
                 pub value: f64,
             }
 
             /// Percentage of requests to be aborted with the error code provided.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AbortPercentage {
                 pub value: f64,
             }
 
             /// Percentage of requests on which the delay will be injected.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DelayPercentage {
                 pub value: f64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MirrorPort {
                 pub number: i64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
             /// Query parameters for matching.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct QueryParams {
                 /// Query parameters for matching.
@@ -2032,7 +2032,7 @@ pub mod networking_istio_io {
             }
 
             /// A HTTP rule can either redirect or forward (default) traffic.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Redirect {
                 pub authority: String,
@@ -2045,7 +2045,7 @@ pub mod networking_istio_io {
                 pub uri: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersRequest {
                 pub add: HttpItemHeadersRequestAdd,
@@ -2053,7 +2053,7 @@ pub mod networking_istio_io {
                 pub set: HttpItemHeadersRequestSet,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersRequest {
                 pub add: RouteItemHeadersRequestAdd,
@@ -2061,7 +2061,7 @@ pub mod networking_istio_io {
                 pub set: RouteItemHeadersRequestSet,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersResponse {
                 pub add: HttpItemHeadersResponseAdd,
@@ -2069,7 +2069,7 @@ pub mod networking_istio_io {
                 pub set: HttpItemHeadersResponseSet,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersResponse {
                 pub add: RouteItemHeadersResponseAdd,
@@ -2078,7 +2078,7 @@ pub mod networking_istio_io {
             }
 
             /// Retry policy for HTTP requests.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Retries {
                 /// Number of retries to be allowed for a given request.
@@ -2092,7 +2092,7 @@ pub mod networking_istio_io {
             }
 
             /// Rewrite HTTP URIs and Authority headers.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Rewrite {
                 /// rewrite the Authority/Host header with this value.
@@ -2100,7 +2100,7 @@ pub mod networking_istio_io {
                 pub uri: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemRouteItem {
                 pub destination: HttpItemRouteItemDestination,
@@ -2109,7 +2109,7 @@ pub mod networking_istio_io {
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemRouteItem {
                 pub destination: TcpItemRouteItemDestination,
@@ -2117,7 +2117,7 @@ pub mod networking_istio_io {
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemRouteItem {
                 pub destination: TlsItemRouteItemDestination,
@@ -2125,7 +2125,7 @@ pub mod networking_istio_io {
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Scheme {
                 pub exact: String,
@@ -2134,50 +2134,50 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersRequestSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersResponseSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersRequestSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersResponseSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Configuration affecting label/content routing, sni routing, etc. See more details at: https://istio.io/docs/reference/config/networking/virtual-service.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// A list of namespaces to which this virtual service is exported.
@@ -2193,13 +2193,13 @@ pub mod networking_istio_io {
                 pub tls: Vec<TlsItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItem {
                 pub r#match: Vec<TcpItemMatchItem>,
@@ -2207,7 +2207,7 @@ pub mod networking_istio_io {
                 pub route: Vec<TcpItemRouteItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItem {
                 pub r#match: Vec<TlsItemMatchItem>,
@@ -2215,7 +2215,7 @@ pub mod networking_istio_io {
                 pub route: Vec<TlsItemRouteItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Uri {
                 pub exact: String,
@@ -2224,7 +2224,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HeadersValue {
                 pub exact: String,
@@ -2233,7 +2233,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct QueryParamsValue {
                 pub exact: String,
@@ -2242,7 +2242,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WithoutHeadersValue {
                 pub exact: String,
@@ -2252,7 +2252,7 @@ pub mod networking_istio_io {
             }
 
             /// withoutHeader has the same syntax with the header, but has opposite meaning.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WithoutHeaders {
                 /// withoutHeader has the same syntax with the header, but has opposite meaning.
@@ -2260,7 +2260,7 @@ pub mod networking_istio_io {
             }
         }
         pub mod workload_entry {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct WorkloadEntry {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2268,7 +2268,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for WorkloadEntry {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -2309,7 +2309,7 @@ pub mod networking_istio_io {
             }
 
             /// One or more labels associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 /// One or more labels associated with the endpoint.
@@ -2317,7 +2317,7 @@ pub mod networking_istio_io {
             }
 
             /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ports {
                 /// Set of ports associated with the endpoint.
@@ -2325,7 +2325,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting VMs onboarded into the mesh. See more details at: https://istio.io/docs/reference/config/networking/workload-entry.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub address: String,
@@ -2341,14 +2341,14 @@ pub mod networking_istio_io {
                 pub weight: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
         }
         pub mod workload_group {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct WorkloadGroup {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2356,7 +2356,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for WorkloadGroup {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1alpha3";
                 const GROUP: &'static str = "networking.istio.io";
@@ -2396,21 +2396,21 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Annotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Health is determined by how the command that is executed exited.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Exec {
                 /// Command to run.
                 pub command: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpGet {
                 /// Host name to connect to, defaults to the pod IP.
@@ -2424,21 +2424,21 @@ pub mod networking_istio_io {
                 pub scheme: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpHeadersItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// One or more labels associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TemplateLabels {
                 /// One or more labels associated with the endpoint.
@@ -2446,7 +2446,7 @@ pub mod networking_istio_io {
             }
 
             /// Metadata that will be used for all corresponding `WorkloadEntries`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Metadata {
                 pub annotations: Annotations,
@@ -2454,7 +2454,7 @@ pub mod networking_istio_io {
             }
 
             /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ports {
                 /// Set of ports associated with the endpoint.
@@ -2462,7 +2462,7 @@ pub mod networking_istio_io {
             }
 
             /// `ReadinessProbe` describes the configuration the user must provide for healthchecking on their workload.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Probe {
                 /// Health is determined by how the command that is executed exited.
@@ -2483,7 +2483,7 @@ pub mod networking_istio_io {
             }
 
             /// Describes a collection of workload instances. See more details at: https://istio.io/docs/reference/config/networking/workload-group.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Metadata that will be used for all corresponding `WorkloadEntries`.
@@ -2494,14 +2494,14 @@ pub mod networking_istio_io {
                 pub template: Template,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Health is determined by if the proxy is able to connect.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpSocket {
                 pub host: String,
@@ -2509,7 +2509,7 @@ pub mod networking_istio_io {
             }
 
             /// Template to be used for the generation of `WorkloadEntry` resources that belong to this `WorkloadGroup`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Template {
                 pub address: String,
@@ -2528,7 +2528,7 @@ pub mod networking_istio_io {
     }
     pub mod v1beta1 {
         pub mod destination_rule {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct DestinationRule {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2536,7 +2536,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for DestinationRule {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -2576,7 +2576,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPool {
                 /// HTTP connection pool settings.
@@ -2585,7 +2585,7 @@ pub mod networking_istio_io {
                 pub tcp: SubsetsItemTrafficPolicyConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
@@ -2594,7 +2594,7 @@ pub mod networking_istio_io {
                 pub tcp: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPool {
                 /// HTTP connection pool settings.
@@ -2603,7 +2603,7 @@ pub mod networking_istio_io {
                 pub tcp: SpecTrafficPolicyConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPool {
                 /// HTTP connection pool settings.
@@ -2612,7 +2612,7 @@ pub mod networking_istio_io {
                 pub tcp: SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
@@ -2626,7 +2626,7 @@ pub mod networking_istio_io {
                 pub use_source_ip: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
             /// Hash based on HTTP cookie.
@@ -2640,7 +2640,7 @@ pub mod networking_istio_io {
             pub use_source_ip: bool,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
@@ -2654,7 +2654,7 @@ pub mod networking_istio_io {
                 pub use_source_ip: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHash {
                 /// Hash based on HTTP cookie.
@@ -2669,7 +2669,7 @@ pub mod networking_istio_io {
                 pub use_source_ip: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
                 /// Originating locality, '/' separated, e.g.
@@ -2678,7 +2678,7 @@ pub mod networking_istio_io {
                 pub to: SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
             /// Originating locality, '/' separated, e.g.
@@ -2687,7 +2687,7 @@ pub mod networking_istio_io {
             pub to: SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSettingDistributeItem {
                 /// Originating locality, '/' separated, e.g.
@@ -2696,7 +2696,7 @@ pub mod networking_istio_io {
                 pub to: SpecTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItem {
             /// Originating locality, '/' separated, e.g.
@@ -2705,7 +2705,7 @@ pub mod networking_istio_io {
             pub to: SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -2713,7 +2713,7 @@ pub mod networking_istio_io {
                 pub to: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -2721,7 +2721,7 @@ pub mod networking_istio_io {
                 pub to: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -2729,7 +2729,7 @@ pub mod networking_istio_io {
                 pub to: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingFailoverItem {
                 /// Originating region.
@@ -2738,7 +2738,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -2757,7 +2757,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -2776,7 +2776,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -2795,7 +2795,7 @@ pub mod networking_istio_io {
             }
 
             /// HTTP connection pool settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolHttp {
                 /// Specify if http1.1 connection should be upgraded to http2 for the associated destination.
@@ -2814,7 +2814,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -2826,7 +2826,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -2838,7 +2838,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -2850,7 +2850,7 @@ pub mod networking_istio_io {
             }
 
             /// Hash based on HTTP cookie.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerConsistentHashHttpCookie {
                 /// Name of the cookie.
@@ -2861,14 +2861,14 @@ pub mod networking_istio_io {
                 pub ttl: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancer {
                 pub consistent_hash: SubsetsItemTrafficPolicyLoadBalancerConsistentHash,
@@ -2879,7 +2879,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancer {
                 pub consistent_hash:
@@ -2892,7 +2892,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancer {
                 pub consistent_hash: SpecTrafficPolicyLoadBalancerConsistentHash,
@@ -2903,7 +2903,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings controlling the load balancer algorithms.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancer {
                 pub consistent_hash:
@@ -2915,7 +2915,7 @@ pub mod networking_istio_io {
                 pub warmup_duration_secs: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSetting {
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -2930,7 +2930,7 @@ pub mod networking_istio_io {
                 pub failover_priority: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
             /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -2943,7 +2943,7 @@ pub mod networking_istio_io {
             pub failover_priority: Vec<String>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSetting {
                 /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -2956,7 +2956,7 @@ pub mod networking_istio_io {
                 pub failover_priority: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSetting {
             /// Optional: only one of distribute, failover or failoverPriority can be set.
@@ -2969,13 +2969,13 @@ pub mod networking_istio_io {
             pub failover_priority: Vec<String>,
         }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyOutlierDetection {
                 /// Minimum ejection duration.
@@ -2994,7 +2994,7 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
@@ -3013,7 +3013,7 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyOutlierDetection {
                 /// Minimum ejection duration.
@@ -3032,7 +3032,7 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemOutlierDetection {
                 /// Minimum ejection duration.
@@ -3051,19 +3051,19 @@ pub mod networking_istio_io {
                 pub split_external_local_origin_errors: bool,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemPort {
                 pub number: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItem {
                 pub connection_pool: SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPool,
@@ -3076,7 +3076,7 @@ pub mod networking_istio_io {
                 pub tls: SubsetsItemTrafficPolicyPortLevelSettingsItemTls,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItem {
                 pub connection_pool: SpecTrafficPolicyPortLevelSettingsItemConnectionPool,
@@ -3089,7 +3089,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting load balancing, outlier detection, etc. See more details at: https://istio.io/docs/reference/config/networking/destination-rule.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// A list of namespaces to which this destination rule is exported.
@@ -3101,13 +3101,13 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItem {
                 pub labels: Labels,
@@ -3118,7 +3118,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -3130,7 +3130,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -3143,7 +3143,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -3155,7 +3155,7 @@ pub mod networking_istio_io {
             }
 
             /// Settings common to both HTTP and TCP upstream connections.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcp {
                 /// TCP connection timeout.
@@ -3168,7 +3168,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -3178,7 +3178,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -3188,7 +3188,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -3198,7 +3198,7 @@ pub mod networking_istio_io {
             }
 
             /// If set then set SO_KEEPALIVE on the socket to enable TCP Keepalives.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemConnectionPoolTcpTcpKeepalive {
                 /// The time duration between keep-alive probes.
@@ -3208,7 +3208,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyTls {
                 pub ca_certificates: String,
@@ -3225,7 +3225,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
@@ -3242,7 +3242,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyTls {
                 pub ca_certificates: String,
@@ -3259,7 +3259,7 @@ pub mod networking_istio_io {
             }
 
             /// TLS related settings for connections to the upstream service.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemTls {
                 pub ca_certificates: String,
@@ -3276,7 +3276,7 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
@@ -3284,7 +3284,7 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo
             {
@@ -3293,7 +3293,7 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
@@ -3301,14 +3301,14 @@ pub mod networking_istio_io {
             }
 
             /// Map of upstream localities to traffic distribution weights.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyPortLevelSettingsItemLoadBalancerLocalityLbSettingDistributeItemTo {
                 /// Map of upstream localities to traffic distribution weights.
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicy {
                 pub connection_pool: SpecTrafficPolicyConnectionPool,
@@ -3323,7 +3323,7 @@ pub mod networking_istio_io {
             }
 
             /// Traffic policies that apply to this subset.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicy {
                 pub connection_pool: SubsetsItemTrafficPolicyConnectionPool,
@@ -3337,7 +3337,7 @@ pub mod networking_istio_io {
                 pub tunnel: SubsetsItemTrafficPolicyTunnel,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubsetsItemTrafficPolicyTunnel {
                 /// Specifies which protocol to use for tunneling the downstream connection.
@@ -3348,7 +3348,7 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecTrafficPolicyTunnel {
                 /// Specifies which protocol to use for tunneling the downstream connection.
@@ -3359,14 +3359,14 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub match_labels: MatchLabels,
             }
         }
         pub mod gateway {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Gateway {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3374,7 +3374,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for Gateway {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -3414,7 +3414,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Port {
                 /// Label assigned to the port.
@@ -3426,13 +3426,13 @@ pub mod networking_istio_io {
                 pub target_port: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ServersItem {
                 pub bind: String,
@@ -3447,7 +3447,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting edge load balancer. See more details at: https://istio.io/docs/reference/config/networking/gateway.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub selector: Selector,
@@ -3455,14 +3455,14 @@ pub mod networking_istio_io {
                 pub servers: Vec<ServersItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Set of TLS related options that govern the server's behavior.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Tls {
                 /// REQUIRED if mode is `MUTUAL`.
@@ -3486,7 +3486,7 @@ pub mod networking_istio_io {
             }
         }
         pub mod proxy_config {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ProxyConfig {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3494,7 +3494,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for ProxyConfig {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -3535,7 +3535,7 @@ pub mod networking_istio_io {
             }
 
             /// Additional environment variables for the proxy.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EnvironmentVariables {
                 /// Additional environment variables for the proxy.
@@ -3543,28 +3543,28 @@ pub mod networking_istio_io {
             }
 
             /// Specifies the details of the proxy image.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Image {
                 /// The image type of the image.
                 pub image_type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_labels: MatchLabels,
             }
 
             /// Provides configuration for individual workloads. See more details at: https://istio.io/docs/reference/config/networking/proxy-config.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The number of worker threads to run.
@@ -3577,14 +3577,14 @@ pub mod networking_istio_io {
                 pub selector: Selector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
         }
         pub mod service_entry {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ServiceEntry {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3592,7 +3592,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for ServiceEntry {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -3632,7 +3632,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EndpointsItem {
                 pub address: String,
@@ -3649,28 +3649,28 @@ pub mod networking_istio_io {
             }
 
             /// One or more labels associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EndpointsItemLabels {
                 /// One or more labels associated with the endpoint.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelectorLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ports {
                 /// Set of ports associated with the endpoint.
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PortsItem {
                 /// Label assigned to the port.
@@ -3683,7 +3683,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting service registry. See more details at: https://istio.io/docs/reference/config/networking/service-entry.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The virtual IP addresses associated with the service.
@@ -3704,21 +3704,21 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Applicable only for MESH_INTERNAL services.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub labels: WorkloadSelectorLabels,
             }
         }
         pub mod sidecar {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Sidecar {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3726,7 +3726,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for Sidecar {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -3766,7 +3766,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressItem {
                 pub bind: String,
@@ -3776,7 +3776,7 @@ pub mod networking_istio_io {
                 pub port: EgressItemPort,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressProxy {
                 /// The name of a service from the service registry.
@@ -3787,7 +3787,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IngressItem {
                 /// The IP to which the listener should be bound.
@@ -3799,14 +3799,14 @@ pub mod networking_istio_io {
                 pub tls: Tls,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Configuration for the outbound traffic policy.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OutboundTrafficPolicy {
                 pub egress_proxy: EgressProxy,
@@ -3814,7 +3814,7 @@ pub mod networking_istio_io {
             }
 
             /// The port associated with the listener.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressItemPort {
                 /// Label assigned to the port.
@@ -3827,7 +3827,7 @@ pub mod networking_istio_io {
             }
 
             /// The port associated with the listener.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IngressItemPort {
                 /// Label assigned to the port.
@@ -3840,14 +3840,14 @@ pub mod networking_istio_io {
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EgressProxyPort {
                 pub number: i64,
             }
 
             /// Configuration affecting network reachability of a sidecar. See more details at: https://istio.io/docs/reference/config/networking/sidecar.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub egress: Vec<EgressItem>,
@@ -3857,13 +3857,13 @@ pub mod networking_istio_io {
                 pub workload_selector: WorkloadSelector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Tls {
                 /// REQUIRED if mode is `MUTUAL`.
@@ -3886,14 +3886,14 @@ pub mod networking_istio_io {
                 pub verify_certificate_spki: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadSelector {
                 pub labels: Labels,
             }
         }
         pub mod virtual_service {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct VirtualService {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3901,7 +3901,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for VirtualService {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -3941,7 +3941,7 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Abort {
                 /// GRPC status code to use to abort the request.
@@ -3953,31 +3953,31 @@ pub mod networking_istio_io {
                 pub percentage: AbortPercentage,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersRequestAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersResponseAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersRequestAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersResponseAdd {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AllowOriginsItem {
                 pub exact: String,
@@ -3986,7 +3986,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Authority {
                 pub exact: String,
@@ -3996,7 +3996,7 @@ pub mod networking_istio_io {
             }
 
             /// Cross-Origin Resource Sharing policy (CORS).
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CorsPolicy {
                 pub allow_credentials: Option<bool>,
@@ -4011,7 +4011,7 @@ pub mod networking_istio_io {
                 pub max_age: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Delay {
                 pub exponential_delay: String,
@@ -4023,7 +4023,7 @@ pub mod networking_istio_io {
                 pub percentage: DelayPercentage,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Delegate {
                 /// Name specifies the name of the delegate VirtualService.
@@ -4032,7 +4032,7 @@ pub mod networking_istio_io {
                 pub namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemRouteItemDestination {
                 /// The name of a service from the service registry.
@@ -4043,7 +4043,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemRouteItemDestination {
                 /// The name of a service from the service registry.
@@ -4054,7 +4054,7 @@ pub mod networking_istio_io {
                 pub subset: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemRouteItemDestination {
                 /// The name of a service from the service registry.
@@ -4066,34 +4066,34 @@ pub mod networking_istio_io {
             }
 
             /// Fault injection policy to apply on HTTP traffic at the client side.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Fault {
                 pub abort: Abort,
                 pub delay: Delay,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeaders {
                 pub request: HttpItemHeadersRequest,
                 pub response: HttpItemHeadersResponse,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchItemHeaders {
                 pub properties: std::collections::HashMap<String, HeadersValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeaders {
                 pub request: RouteItemHeadersRequest,
                 pub response: RouteItemHeadersResponse,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItem {
                 /// Cross-Origin Resource Sharing policy (CORS).
@@ -4122,7 +4122,7 @@ pub mod networking_istio_io {
                 pub timeout: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemMatchItem {
                 pub authority: Authority,
@@ -4147,7 +4147,7 @@ pub mod networking_istio_io {
                 pub without_headers: WithoutHeaders,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemMatchItem {
                 /// IPv4 or IPv6 ip addresses of destination with optional subnet.
@@ -4163,7 +4163,7 @@ pub mod networking_istio_io {
                 pub source_subnet: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemMatchItem {
                 /// IPv4 or IPv6 ip addresses of destination with optional subnet.
@@ -4179,7 +4179,7 @@ pub mod networking_istio_io {
                 pub source_namespace: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Method {
                 pub exact: String,
@@ -4188,7 +4188,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Mirror {
                 /// The name of a service from the service registry.
@@ -4200,56 +4200,56 @@ pub mod networking_istio_io {
             }
 
             /// Percentage of the traffic to be mirrored by the `mirror` field.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MirrorPercentage {
                 pub value: f64,
             }
 
             /// Percentage of requests to be aborted with the error code provided.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AbortPercentage {
                 pub value: f64,
             }
 
             /// Percentage of requests on which the delay will be injected.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DelayPercentage {
                 pub value: f64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MirrorPort {
                 pub number: i64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
             /// Specifies the port on the host that is being addressed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemRouteItemDestinationPort {
                 pub number: i64,
             }
 
             /// Query parameters for matching.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct QueryParams {
                 /// Query parameters for matching.
@@ -4257,7 +4257,7 @@ pub mod networking_istio_io {
             }
 
             /// A HTTP rule can either redirect or forward (default) traffic.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Redirect {
                 pub authority: String,
@@ -4270,7 +4270,7 @@ pub mod networking_istio_io {
                 pub uri: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersRequest {
                 pub add: HttpItemHeadersRequestAdd,
@@ -4278,7 +4278,7 @@ pub mod networking_istio_io {
                 pub set: HttpItemHeadersRequestSet,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersRequest {
                 pub add: RouteItemHeadersRequestAdd,
@@ -4286,7 +4286,7 @@ pub mod networking_istio_io {
                 pub set: RouteItemHeadersRequestSet,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersResponse {
                 pub add: HttpItemHeadersResponseAdd,
@@ -4294,7 +4294,7 @@ pub mod networking_istio_io {
                 pub set: HttpItemHeadersResponseSet,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersResponse {
                 pub add: RouteItemHeadersResponseAdd,
@@ -4303,7 +4303,7 @@ pub mod networking_istio_io {
             }
 
             /// Retry policy for HTTP requests.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Retries {
                 /// Number of retries to be allowed for a given request.
@@ -4317,7 +4317,7 @@ pub mod networking_istio_io {
             }
 
             /// Rewrite HTTP URIs and Authority headers.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Rewrite {
                 /// rewrite the Authority/Host header with this value.
@@ -4325,7 +4325,7 @@ pub mod networking_istio_io {
                 pub uri: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemRouteItem {
                 pub destination: HttpItemRouteItemDestination,
@@ -4334,7 +4334,7 @@ pub mod networking_istio_io {
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemRouteItem {
                 pub destination: TcpItemRouteItemDestination,
@@ -4342,7 +4342,7 @@ pub mod networking_istio_io {
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemRouteItem {
                 pub destination: TlsItemRouteItemDestination,
@@ -4350,7 +4350,7 @@ pub mod networking_istio_io {
                 pub weight: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Scheme {
                 pub exact: String,
@@ -4359,50 +4359,50 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersRequestSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemHeadersResponseSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersRequestSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RouteItemHeadersResponseSet {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItemMatchItemSourceLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Configuration affecting label/content routing, sni routing, etc. See more details at: https://istio.io/docs/reference/config/networking/virtual-service.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// A list of namespaces to which this virtual service is exported.
@@ -4418,13 +4418,13 @@ pub mod networking_istio_io {
                 pub tls: Vec<TlsItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpItem {
                 pub r#match: Vec<TcpItemMatchItem>,
@@ -4432,7 +4432,7 @@ pub mod networking_istio_io {
                 pub route: Vec<TcpItemRouteItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TlsItem {
                 pub r#match: Vec<TlsItemMatchItem>,
@@ -4440,7 +4440,7 @@ pub mod networking_istio_io {
                 pub route: Vec<TlsItemRouteItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Uri {
                 pub exact: String,
@@ -4449,7 +4449,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HeadersValue {
                 pub exact: String,
@@ -4458,7 +4458,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct QueryParamsValue {
                 pub exact: String,
@@ -4467,7 +4467,7 @@ pub mod networking_istio_io {
                 pub regex: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WithoutHeadersValue {
                 pub exact: String,
@@ -4477,7 +4477,7 @@ pub mod networking_istio_io {
             }
 
             /// withoutHeader has the same syntax with the header, but has opposite meaning.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WithoutHeaders {
                 /// withoutHeader has the same syntax with the header, but has opposite meaning.
@@ -4485,7 +4485,7 @@ pub mod networking_istio_io {
             }
         }
         pub mod workload_entry {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct WorkloadEntry {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -4493,7 +4493,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for WorkloadEntry {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -4534,7 +4534,7 @@ pub mod networking_istio_io {
             }
 
             /// One or more labels associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 /// One or more labels associated with the endpoint.
@@ -4542,7 +4542,7 @@ pub mod networking_istio_io {
             }
 
             /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ports {
                 /// Set of ports associated with the endpoint.
@@ -4550,7 +4550,7 @@ pub mod networking_istio_io {
             }
 
             /// Configuration affecting VMs onboarded into the mesh. See more details at: https://istio.io/docs/reference/config/networking/workload-entry.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub address: String,
@@ -4566,14 +4566,14 @@ pub mod networking_istio_io {
                 pub weight: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
         }
         pub mod workload_group {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct WorkloadGroup {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -4581,7 +4581,7 @@ pub mod networking_istio_io {
             }
 
             impl k8s_openapi::Resource for WorkloadGroup {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "networking.istio.io/v1beta1";
                 const GROUP: &'static str = "networking.istio.io";
@@ -4621,21 +4621,21 @@ pub mod networking_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Annotations {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Health is determined by how the command that is executed exited.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Exec {
                 /// Command to run.
                 pub command: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpGet {
                 /// Host name to connect to, defaults to the pod IP.
@@ -4649,21 +4649,21 @@ pub mod networking_istio_io {
                 pub scheme: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HttpHeadersItem {
                 pub name: String,
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MetadataLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// One or more labels associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TemplateLabels {
                 /// One or more labels associated with the endpoint.
@@ -4671,7 +4671,7 @@ pub mod networking_istio_io {
             }
 
             /// Metadata that will be used for all corresponding `WorkloadEntries`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Metadata {
                 pub annotations: Annotations,
@@ -4679,7 +4679,7 @@ pub mod networking_istio_io {
             }
 
             /// Set of ports associated with the endpoint.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ports {
                 /// Set of ports associated with the endpoint.
@@ -4687,7 +4687,7 @@ pub mod networking_istio_io {
             }
 
             /// `ReadinessProbe` describes the configuration the user must provide for healthchecking on their workload.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Probe {
                 /// Health is determined by how the command that is executed exited.
@@ -4707,7 +4707,7 @@ pub mod networking_istio_io {
                 pub timeout_seconds: i32,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Metadata that will be used for all corresponding `WorkloadEntries`.
@@ -4718,14 +4718,14 @@ pub mod networking_istio_io {
                 pub template: Template,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Health is determined by if the proxy is able to connect.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TcpSocket {
                 pub host: String,
@@ -4733,7 +4733,7 @@ pub mod networking_istio_io {
             }
 
             /// Template to be used for the generation of `WorkloadEntry` resources that belong to this `WorkloadGroup`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Template {
                 pub address: String,
@@ -4754,7 +4754,7 @@ pub mod networking_istio_io {
 pub mod security_istio_io {
     pub mod v1beta1 {
         pub mod authorization_policy {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct AuthorizationPolicy {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -4762,7 +4762,7 @@ pub mod security_istio_io {
             }
 
             impl k8s_openapi::Resource for AuthorizationPolicy {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "security.istio.io/v1beta1";
                 const GROUP: &'static str = "security.istio.io";
@@ -4802,21 +4802,21 @@ pub mod security_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct FromItem {
                 /// Source specifies the source of a request.
                 pub source: Source,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Operation specifies the operation of a request.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Operation {
                 /// Optional.
@@ -4838,14 +4838,14 @@ pub mod security_istio_io {
             }
 
             /// Specifies detailed configuration of the CUSTOM action.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Provider {
                 /// Specifies the name of the extension provider.
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RulesItem {
                 /// Optional.
@@ -4857,14 +4857,14 @@ pub mod security_istio_io {
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_labels: MatchLabels,
             }
 
             /// Source specifies the source of a request.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Source {
                 /// Optional.
@@ -4890,7 +4890,7 @@ pub mod security_istio_io {
             }
 
             /// Configuration for access control on workloads. See more details at: https://istio.io/docs/reference/config/security/authorization-policy.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Optional.
@@ -4903,20 +4903,20 @@ pub mod security_istio_io {
                 pub selector: Selector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ToItem {
                 /// Operation specifies the operation of a request.
                 pub operation: Operation,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WhenItem {
                 /// The name of an Istio attribute.
@@ -4928,7 +4928,7 @@ pub mod security_istio_io {
             }
         }
         pub mod peer_authentication {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct PeerAuthentication {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -4936,7 +4936,7 @@ pub mod security_istio_io {
             }
 
             impl k8s_openapi::Resource for PeerAuthentication {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "security.istio.io/v1beta1";
                 const GROUP: &'static str = "security.istio.io";
@@ -4976,14 +4976,14 @@ pub mod security_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Mutual TLS settings for workload.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Mtls {
                 /// Defines the mTLS mode used for peer authentication.
@@ -4991,7 +4991,7 @@ pub mod security_istio_io {
             }
 
             /// Port specific mutual TLS settings.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PortLevelMtls {
                 /// Port specific mutual TLS settings.
@@ -4999,14 +4999,14 @@ pub mod security_istio_io {
             }
 
             /// The selector determines the workloads to apply the ChannelAuthentication on.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_labels: MatchLabels,
             }
 
             /// PeerAuthentication defines how traffic will be tunneled (or not) to the sidecar.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Mutual TLS settings for workload.
@@ -5017,13 +5017,13 @@ pub mod security_istio_io {
                 pub selector: Selector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 /// Defines the mTLS mode used for peer authentication.
@@ -5031,7 +5031,7 @@ pub mod security_istio_io {
             }
         }
         pub mod request_authentication {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct RequestAuthentication {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -5039,7 +5039,7 @@ pub mod security_istio_io {
             }
 
             impl k8s_openapi::Resource for RequestAuthentication {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "security.istio.io/v1beta1";
                 const GROUP: &'static str = "security.istio.io";
@@ -5079,7 +5079,7 @@ pub mod security_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct FromHeadersItem {
                 /// The HTTP header name.
@@ -5088,7 +5088,7 @@ pub mod security_istio_io {
                 pub prefix: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct JwtRulesItem {
                 pub audiences: Vec<String>,
@@ -5106,21 +5106,21 @@ pub mod security_istio_io {
                 pub output_payload_to_header: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_labels: MatchLabels,
             }
 
             /// RequestAuthentication defines what request authentication methods are supported by a workload.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Define the list of JWTs that can be validated at the selected workloads' proxy.
@@ -5129,7 +5129,7 @@ pub mod security_istio_io {
                 pub selector: Selector,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
@@ -5140,7 +5140,7 @@ pub mod security_istio_io {
 pub mod telemetry_istio_io {
     pub mod v1alpha1 {
         pub mod telemetry {
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Telemetry {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -5148,7 +5148,7 @@ pub mod telemetry_istio_io {
             }
 
             impl k8s_openapi::Resource for Telemetry {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "telemetry.istio.io/v1alpha1";
                 const GROUP: &'static str = "telemetry.istio.io";
@@ -5188,7 +5188,7 @@ pub mod telemetry_istio_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessLoggingItem {
                 /// Controls logging.
@@ -5202,7 +5202,7 @@ pub mod telemetry_istio_io {
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CustomTags {
                 /// Optional.
@@ -5210,7 +5210,7 @@ pub mod telemetry_istio_io {
             }
 
             /// Environment adds the value of an environment variable to each span.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Environment {
                 /// Optional.
@@ -5220,14 +5220,14 @@ pub mod telemetry_istio_io {
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Filter {
                 /// CEL expression for selecting when requests/connections should be logged.
                 pub expression: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Header {
                 /// Optional.
@@ -5237,7 +5237,7 @@ pub mod telemetry_istio_io {
             }
 
             /// Literal adds the same, hard-coded value to each span.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Literal {
                 /// The tag value to use.
@@ -5245,14 +5245,14 @@ pub mod telemetry_istio_io {
             }
 
             /// Allows tailoring of logging behavior to specific conditions.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessLoggingItemMatch {
                 pub mode: String,
             }
 
             /// Match allows provides the scope of the override.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OverridesItemMatch {
                 /// Allows free-form specification of a metric.
@@ -5263,19 +5263,19 @@ pub mod telemetry_istio_io {
             }
 
             /// Allows tailoring of behavior to specific conditions.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TracingItemMatch {
                 pub mode: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MetricsItem {
                 /// Optional.
@@ -5284,7 +5284,7 @@ pub mod telemetry_istio_io {
                 pub providers: Vec<MetricsItemProvidersItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct OverridesItem {
                 /// Optional.
@@ -5295,21 +5295,21 @@ pub mod telemetry_istio_io {
                 pub tag_overrides: TagOverrides,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessLoggingItemProvidersItem {
                 /// Required.
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MetricsItemProvidersItem {
                 /// Required.
                 pub name: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TracingItemProvidersItem {
                 /// Required.
@@ -5317,14 +5317,14 @@ pub mod telemetry_istio_io {
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Selector {
                 pub match_labels: MatchLabels,
             }
 
             /// Telemetry configuration for workloads. See more details at: https://istio.io/docs/reference/config/telemetry.html
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Optional.
@@ -5337,21 +5337,21 @@ pub mod telemetry_istio_io {
                 pub tracing: Vec<TracingItem>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub properties: serde_json::Map<String, serde_json::Value>,
             }
 
             /// Optional.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TagOverrides {
                 /// Optional.
                 pub properties: std::collections::HashMap<String, TagOverridesValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TracingItem {
                 /// Optional.
@@ -5366,7 +5366,7 @@ pub mod telemetry_istio_io {
                 pub use_request_id_for_trace_sampling: Option<bool>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct TagOverridesValue {
                 /// Operation controls whether or not to update/add a tag, or to remove it.
@@ -5375,7 +5375,7 @@ pub mod telemetry_istio_io {
                 pub value: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CustomTagsValue {
                 /// Environment adds the value of an environment variable to each span.

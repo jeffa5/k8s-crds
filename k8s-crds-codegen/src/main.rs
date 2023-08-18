@@ -221,9 +221,9 @@ impl Crate {
         writeln!(ct, "[dependencies]")?;
         writeln!(
             ct,
-            r#"k8s-openapi = {{ version = "0.15.0", features = ["v1_20"] }}
-serde = {{ version = "1.0.137", features = ["derive"] }}
-serde_json = "1.0.82""#
+            r#"k8s-openapi = {{ version = "0.19", features = ["v1_26"] }}
+serde = {{ version = "1", features = ["derive"] }}
+serde_json = "1""#
         )?;
         Ok(())
     }

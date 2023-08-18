@@ -5,7 +5,7 @@ pub mod longhorn_io {
     pub mod v1beta1 {
         pub mod backing_image {
             /// BackingImage is where Longhorn stores backing image object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackingImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -13,7 +13,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackingImage {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -55,7 +55,7 @@ pub mod longhorn_io {
         }
         pub mod backing_image_data_source {
             /// BackingImageDataSource is where Longhorn stores backing image data source object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackingImageDataSource {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -63,7 +63,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackingImageDataSource {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -105,7 +105,7 @@ pub mod longhorn_io {
         }
         pub mod backing_image_manager {
             /// BackingImageManager is where Longhorn stores backing image manager object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackingImageManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -113,7 +113,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackingImageManager {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -155,7 +155,7 @@ pub mod longhorn_io {
         }
         pub mod backup {
             /// Backup is where Longhorn stores backup object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Backup {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -163,7 +163,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Backup {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -205,7 +205,7 @@ pub mod longhorn_io {
         }
         pub mod backup_target {
             /// BackupTarget is where Longhorn stores backup target object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackupTarget {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -213,7 +213,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackupTarget {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -255,7 +255,7 @@ pub mod longhorn_io {
         }
         pub mod backup_volume {
             /// BackupVolume is where Longhorn stores backup volume object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackupVolume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -263,7 +263,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackupVolume {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -305,7 +305,7 @@ pub mod longhorn_io {
         }
         pub mod engine {
             /// Engine is where Longhorn stores engine object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Engine {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -313,7 +313,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Engine {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -355,7 +355,7 @@ pub mod longhorn_io {
         }
         pub mod engine_image {
             /// EngineImage is where Longhorn stores engine image object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct EngineImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -363,7 +363,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for EngineImage {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -405,7 +405,7 @@ pub mod longhorn_io {
         }
         pub mod instance_manager {
             /// InstanceManager is where Longhorn stores instance manager object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct InstanceManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -413,7 +413,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for InstanceManager {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -455,7 +455,7 @@ pub mod longhorn_io {
         }
         pub mod node {
             /// Node is where Longhorn stores Longhorn node object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Node {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -463,7 +463,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Node {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -505,7 +505,7 @@ pub mod longhorn_io {
         }
         pub mod recurring_job {
             /// RecurringJob is where Longhorn stores recurring job object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct RecurringJob {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -513,7 +513,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for RecurringJob {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -555,7 +555,7 @@ pub mod longhorn_io {
         }
         pub mod replica {
             /// Replica is where Longhorn stores replica object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Replica {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -563,7 +563,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Replica {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -605,14 +605,14 @@ pub mod longhorn_io {
         }
         pub mod setting {
             /// Setting is where Longhorn stores setting object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Setting {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub value: String,
             }
 
             impl k8s_openapi::Resource for Setting {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -653,7 +653,7 @@ pub mod longhorn_io {
         }
         pub mod share_manager {
             /// ShareManager is where Longhorn stores share manager object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ShareManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -661,7 +661,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for ShareManager {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -703,7 +703,7 @@ pub mod longhorn_io {
         }
         pub mod volume {
             /// Volume is where Longhorn stores volume object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Volume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: serde_json::Map<String, serde_json::Value>,
@@ -711,7 +711,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Volume {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta1";
                 const GROUP: &'static str = "longhorn.io";
@@ -755,7 +755,7 @@ pub mod longhorn_io {
     pub mod v1beta2 {
         pub mod backing_image {
             /// BackingImage is where Longhorn stores backing image object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackingImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -763,7 +763,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackingImage {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -804,7 +804,7 @@ pub mod longhorn_io {
             }
 
             /// Deprecated: Replaced by field `Progress` in `DiskFileStatusMap`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DiskDownloadProgressMap {
                 /// Deprecated: Replaced by field `Progress` in `DiskFileStatusMap`.
@@ -812,39 +812,39 @@ pub mod longhorn_io {
             }
 
             /// Deprecated: Replaced by field `State` in `DiskFileStatusMap`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DiskDownloadStateMap {
                 /// Deprecated: Replaced by field `State` in `DiskFileStatusMap`.
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DiskFileStatusMap {
                 pub properties: std::collections::HashMap<String, Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DiskLastRefAtMap {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Disks {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceParameters {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// BackingImageSpec defines the desired state of the Longhorn backing image
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub checksum: String,
@@ -856,7 +856,7 @@ pub mod longhorn_io {
             }
 
             /// BackingImageStatus defines the observed state of the Longhorn backing image status
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub checksum: String,
@@ -871,7 +871,7 @@ pub mod longhorn_io {
                 pub uuid: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 pub last_state_transition_time: String,
@@ -882,7 +882,7 @@ pub mod longhorn_io {
         }
         pub mod backing_image_data_source {
             /// BackingImageDataSource is where Longhorn stores backing image data source object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackingImageDataSource {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -890,7 +890,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackingImageDataSource {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -930,20 +930,20 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Parameters {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RunningParameters {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// BackingImageDataSourceSpec defines the desired state of the Longhorn backing image data source
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub checksum: String,
@@ -957,7 +957,7 @@ pub mod longhorn_io {
             }
 
             /// BackingImageDataSourceStatus defines the observed state of the Longhorn backing image data source
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub checksum: String,
@@ -973,7 +973,7 @@ pub mod longhorn_io {
         }
         pub mod backing_image_manager {
             /// BackingImageManager is where Longhorn stores backing image manager object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackingImageManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -981,7 +981,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackingImageManager {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1021,20 +1021,20 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct BackingImageFileMap {
                 pub properties: std::collections::HashMap<String, Value>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct BackingImages {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// BackingImageManagerSpec defines the desired state of the Longhorn backing image manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub backing_images: BackingImages,
@@ -1045,7 +1045,7 @@ pub mod longhorn_io {
             }
 
             /// BackingImageManagerStatus defines the observed state of the Longhorn backing image manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub api_min_version: i64,
@@ -1057,7 +1057,7 @@ pub mod longhorn_io {
                 pub storage_i_p: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 pub current_checksum: String,
@@ -1079,7 +1079,7 @@ pub mod longhorn_io {
         }
         pub mod backup {
             /// Backup is where Longhorn stores backup object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Backup {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1087,7 +1087,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Backup {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1128,7 +1128,7 @@ pub mod longhorn_io {
             }
 
             /// The labels of snapshot backup.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecLabels {
                 /// The labels of snapshot backup.
@@ -1136,7 +1136,7 @@ pub mod longhorn_io {
             }
 
             /// The labels of snapshot backup.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StatusLabels {
                 /// The labels of snapshot backup.
@@ -1144,7 +1144,7 @@ pub mod longhorn_io {
             }
 
             /// The error messages when calling longhorn engine on listing or inspecting backups.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Messages {
                 /// The error messages when calling longhorn engine on listing or inspecting backups.
@@ -1152,7 +1152,7 @@ pub mod longhorn_io {
             }
 
             /// BackupSpec defines the desired state of the Longhorn backup
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The labels of snapshot backup.
@@ -1160,11 +1160,11 @@ pub mod longhorn_io {
                 /// The snapshot name.
                 pub snapshot_name: String,
                 /// The time to request run sync the remote backup.
-                pub sync_requested_at: Option<String>,
+                pub sync_requested_at: Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
             }
 
             /// BackupStatus defines the observed state of the Longhorn backup
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// The snapshot backup upload finished time.
@@ -1174,7 +1174,7 @@ pub mod longhorn_io {
                 /// The labels of snapshot backup.
                 pub labels: Option<StatusLabels>,
                 /// The last time that the backup was synced with the remote backup target.
-                pub last_synced_at: Option<String>,
+                pub last_synced_at: Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
                 /// The error messages when calling longhorn engine on listing or inspecting backups.
                 pub messages: Option<Messages>,
                 /// The node ID on which the controller is responsible to reconcile this backup CR.
@@ -1205,7 +1205,7 @@ pub mod longhorn_io {
         }
         pub mod backup_target {
             /// BackupTarget is where Longhorn stores backup target object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackupTarget {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1213,7 +1213,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackupTarget {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1253,7 +1253,7 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// Last time we probed the condition.
@@ -1271,7 +1271,7 @@ pub mod longhorn_io {
             }
 
             /// BackupTargetSpec defines the desired state of the Longhorn backup target
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The backup target URL.
@@ -1281,11 +1281,11 @@ pub mod longhorn_io {
                 /// The interval that the cluster needs to run sync with the backup target.
                 pub poll_interval: String,
                 /// The time to request run sync the remote backup target.
-                pub sync_requested_at: Option<String>,
+                pub sync_requested_at: Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
             }
 
             /// BackupTargetStatus defines the observed state of the Longhorn backup target
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Available indicates if the remote backup target is available or not.
@@ -1293,14 +1293,14 @@ pub mod longhorn_io {
                 /// Records the reason on why the backup target is unavailable.
                 pub conditions: Option<Vec<ConditionsItem>>,
                 /// The last time that the controller synced with the remote backup target.
-                pub last_synced_at: Option<String>,
+                pub last_synced_at: Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
                 /// The node ID on which the controller is responsible to reconcile this backup target CR.
                 pub owner_i_d: String,
             }
         }
         pub mod backup_volume {
             /// BackupVolume is where Longhorn stores backup volume object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct BackupVolume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1308,7 +1308,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for BackupVolume {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1349,7 +1349,7 @@ pub mod longhorn_io {
             }
 
             /// The backup volume labels.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 /// The backup volume labels.
@@ -1357,7 +1357,7 @@ pub mod longhorn_io {
             }
 
             /// The error messages when call longhorn engine on list or inspect backup volumes.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Messages {
                 /// The error messages when call longhorn engine on list or inspect backup volumes.
@@ -1365,15 +1365,15 @@ pub mod longhorn_io {
             }
 
             /// BackupVolumeSpec defines the desired state of the Longhorn backup volume
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The time to request run sync the remote backup volume.
-                pub sync_requested_at: Option<String>,
+                pub sync_requested_at: Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
             }
 
             /// BackupVolumeStatus defines the observed state of the Longhorn backup volume
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// the backing image checksum.
@@ -1391,9 +1391,10 @@ pub mod longhorn_io {
                 /// The latest volume backup name.
                 pub last_backup_name: String,
                 /// The backup volume config last modification time.
-                pub last_modification_time: Option<String>,
+                pub last_modification_time:
+                    Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
                 /// The last time that the backup volume was synced into the cluster.
-                pub last_synced_at: Option<String>,
+                pub last_synced_at: Option<k8s_openapi::apimachinery::pkg::apis::meta::v1::Time>,
                 /// The error messages when call longhorn engine on list or inspect backup volumes.
                 pub messages: Option<Messages>,
                 /// The node ID on which the controller is responsible to reconcile this backup volume CR.
@@ -1404,7 +1405,7 @@ pub mod longhorn_io {
         }
         pub mod engine {
             /// Engine is where Longhorn stores engine object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Engine {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1412,7 +1413,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Engine {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1452,74 +1453,74 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct BackupStatus {
                 pub properties: std::collections::HashMap<String, BackupStatusValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Children {
                 pub properties: std::collections::HashMap<String, bool>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CloneStatus {
                 pub properties: std::collections::HashMap<String, CloneStatusValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CurrentReplicaAddressMap {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PurgeStatus {
                 pub properties: std::collections::HashMap<String, PurgeStatusValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RebuildStatus {
                 pub properties: std::collections::HashMap<String, RebuildStatusValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ReplicaAddressMap {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ReplicaModeMap {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RestoreStatus {
                 pub properties: std::collections::HashMap<String, RestoreStatusValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Snapshots {
                 pub properties: std::collections::HashMap<String, SnapshotsValue>,
             }
 
             /// EngineSpec defines the desired state of the Longhorn engine
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub active: bool,
@@ -1541,7 +1542,7 @@ pub mod longhorn_io {
             }
 
             /// EngineStatus defines the observed state of the Longhorn engine
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub backup_status: Option<BackupStatus>,
@@ -1571,13 +1572,13 @@ pub mod longhorn_io {
                 pub storage_i_p: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct UpgradedReplicaAddressMap {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct BackupStatusValue {
                 pub backup_u_r_l: String,
@@ -1588,7 +1589,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CloneStatusValue {
                 pub error: String,
@@ -1599,7 +1600,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PurgeStatusValue {
                 pub error: String,
@@ -1608,7 +1609,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RebuildStatusValue {
                 pub error: String,
@@ -1618,7 +1619,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RestoreStatusValue {
                 pub backup_u_r_l: String,
@@ -1631,7 +1632,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SnapshotsValue {
                 pub children: Option<Children>,
@@ -1646,7 +1647,7 @@ pub mod longhorn_io {
         }
         pub mod engine_image {
             /// EngineImage is where Longhorn stores engine image object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct EngineImage {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1654,7 +1655,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for EngineImage {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1694,7 +1695,7 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// Last time we probed the condition.
@@ -1711,21 +1712,21 @@ pub mod longhorn_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NodeDeploymentMap {
                 pub properties: std::collections::HashMap<String, bool>,
             }
 
             /// EngineImageSpec defines the desired state of the Longhorn engine image
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub image: String,
             }
 
             /// EngineImageStatus defines the observed state of the Longhorn engine image
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub build_date: String,
@@ -1747,7 +1748,7 @@ pub mod longhorn_io {
         }
         pub mod instance_manager {
             /// InstanceManager is where Longhorn stores instance manager object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct InstanceManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1755,7 +1756,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for InstanceManager {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1795,14 +1796,14 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Instances {
                 pub properties: std::collections::HashMap<String, Value>,
             }
 
             /// InstanceManagerSpec defines the desired state of the Longhorn instancer manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// TODO: deprecate this field
@@ -1812,14 +1813,14 @@ pub mod longhorn_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ValueSpec {
                 pub name: String,
             }
 
             /// InstanceManagerStatus defines the observed state of the Longhorn instance manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub api_min_version: i64,
@@ -1832,7 +1833,7 @@ pub mod longhorn_io {
                 pub proxy_api_version: i64,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ValueStatus {
                 pub endpoint: String,
@@ -1845,7 +1846,7 @@ pub mod longhorn_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Value {
                 pub spec: ValueSpec,
@@ -1854,7 +1855,7 @@ pub mod longhorn_io {
         }
         pub mod node {
             /// Node is where Longhorn stores Longhorn node object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Node {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1862,7 +1863,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Node {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -1902,7 +1903,7 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StatusConditionsItem {
                 /// Last time we probed the condition.
@@ -1919,7 +1920,7 @@ pub mod longhorn_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ValueConditionsItem {
                 /// Last time we probed the condition.
@@ -1936,26 +1937,26 @@ pub mod longhorn_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DiskStatus {
                 pub properties: std::collections::HashMap<String, DiskStatusValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Disks {
                 pub properties: std::collections::HashMap<String, DisksValue>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ScheduledReplica {
                 pub properties: std::collections::HashMap<String, i64>,
             }
 
             /// NodeSpec defines the desired state of the Longhorn node
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub allow_scheduling: bool,
@@ -1968,7 +1969,7 @@ pub mod longhorn_io {
             }
 
             /// NodeStatus defines the observed state of the Longhorn node
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Option<Vec<StatusConditionsItem>>,
@@ -1977,7 +1978,7 @@ pub mod longhorn_io {
                 pub zone: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DisksValue {
                 pub allow_scheduling: bool,
@@ -1987,7 +1988,7 @@ pub mod longhorn_io {
                 pub tags: Vec<String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DiskStatusValue {
                 pub conditions: Option<Vec<ValueConditionsItem>>,
@@ -2000,7 +2001,7 @@ pub mod longhorn_io {
         }
         pub mod orphan {
             /// Orphan is where Longhorn stores orphan object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Orphan {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2008,7 +2009,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Orphan {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2048,7 +2049,7 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// Last time we probed the condition.
@@ -2066,7 +2067,7 @@ pub mod longhorn_io {
             }
 
             /// The parameters of the orphaned data
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Parameters {
                 /// The parameters of the orphaned data
@@ -2074,7 +2075,7 @@ pub mod longhorn_io {
             }
 
             /// OrphanSpec defines the desired state of the Longhorn orphaned data
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The node ID on which the controller is responsible to reconcile this orphan CR.
@@ -2086,7 +2087,7 @@ pub mod longhorn_io {
             }
 
             /// OrphanStatus defines the observed state of the Longhorn orphaned data
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Option<Vec<ConditionsItem>>,
@@ -2095,7 +2096,7 @@ pub mod longhorn_io {
         }
         pub mod recurring_job {
             /// RecurringJob is where Longhorn stores recurring job object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct RecurringJob {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2103,7 +2104,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for RecurringJob {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2144,7 +2145,7 @@ pub mod longhorn_io {
             }
 
             /// The label of the snapshot/backup.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 /// The label of the snapshot/backup.
@@ -2152,7 +2153,7 @@ pub mod longhorn_io {
             }
 
             /// RecurringJobSpec defines the desired state of the Longhorn recurring job
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// The concurrency of taking the snapshot/backup.
@@ -2172,7 +2173,7 @@ pub mod longhorn_io {
             }
 
             /// RecurringJobStatus defines the observed state of the Longhorn recurring job
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// The owner ID which is responsible to reconcile this recurring job CR.
@@ -2181,7 +2182,7 @@ pub mod longhorn_io {
         }
         pub mod replica {
             /// Replica is where Longhorn stores replica object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Replica {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2189,7 +2190,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Replica {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2230,7 +2231,7 @@ pub mod longhorn_io {
             }
 
             /// ReplicaSpec defines the desired state of the Longhorn replica
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub active: bool,
@@ -2258,7 +2259,7 @@ pub mod longhorn_io {
             }
 
             /// ReplicaStatus defines the observed state of the Longhorn replica
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub current_image: String,
@@ -2276,14 +2277,14 @@ pub mod longhorn_io {
         }
         pub mod setting {
             /// Setting is where Longhorn stores setting object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Setting {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub value: String,
             }
 
             impl k8s_openapi::Resource for Setting {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2324,7 +2325,7 @@ pub mod longhorn_io {
         }
         pub mod share_manager {
             /// ShareManager is where Longhorn stores share manager object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ShareManager {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2332,7 +2333,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for ShareManager {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2373,14 +2374,14 @@ pub mod longhorn_io {
             }
 
             /// ShareManagerSpec defines the desired state of the Longhorn share manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub image: String,
             }
 
             /// ShareManagerStatus defines the observed state of the Longhorn share manager
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub endpoint: String,
@@ -2390,7 +2391,7 @@ pub mod longhorn_io {
         }
         pub mod snapshot {
             /// Snapshot is the Schema for the snapshots API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Snapshot {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2398,7 +2399,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Snapshot {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2438,28 +2439,28 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Children {
                 pub properties: std::collections::HashMap<String, bool>,
             }
 
             /// The labels of snapshot
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecLabels {
                 /// The labels of snapshot
                 pub properties: std::collections::HashMap<String, String>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct StatusLabels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// SnapshotSpec defines the desired state of Longhorn Snapshot
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// require creating a new snapshot
@@ -2471,7 +2472,7 @@ pub mod longhorn_io {
             }
 
             /// SnapshotStatus defines the observed state of Longhorn Snapshot
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub children: Option<Children>,
@@ -2489,7 +2490,7 @@ pub mod longhorn_io {
         }
         pub mod volume {
             /// Volume is where Longhorn stores volume object.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Volume {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2497,7 +2498,7 @@ pub mod longhorn_io {
             }
 
             impl k8s_openapi::Resource for Volume {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "longhorn.io/v1beta2";
                 const GROUP: &'static str = "longhorn.io";
@@ -2537,7 +2538,7 @@ pub mod longhorn_io {
                 }
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CloneStatus {
                 pub snapshot: String,
@@ -2545,7 +2546,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// Last time we probed the condition.
@@ -2562,7 +2563,7 @@ pub mod longhorn_io {
                 pub r#type: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct KubernetesStatus {
                 pub last_p_v_c_ref_at: String,
@@ -2576,14 +2577,14 @@ pub mod longhorn_io {
                 pub workloads_status: Option<Vec<WorkloadsStatusItem>>,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Labels {
                 pub properties: std::collections::HashMap<String, String>,
             }
 
             /// VolumeRecurringJobSpec is a deprecated struct. TODO: Should be removed when recurringJobs gets removed from the volume       spec.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct RecurringJobsItem {
                 pub concurrency: i64,
@@ -2596,7 +2597,7 @@ pub mod longhorn_io {
             }
 
             /// VolumeSpec defines the desired state of the Longhorn volume
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 pub standby: bool,
@@ -2627,7 +2628,7 @@ pub mod longhorn_io {
             }
 
             /// VolumeStatus defines the observed state of the Longhorn volume
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub actual_size: i64,
@@ -2653,7 +2654,7 @@ pub mod longhorn_io {
                 pub state: String,
             }
 
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct WorkloadsStatusItem {
                 pub pod_name: String,

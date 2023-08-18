@@ -5,7 +5,7 @@ pub mod helm_toolkit_fluxcd_io {
     pub mod v2beta1 {
         pub mod helm_release {
             /// HelmRelease is the Schema for the helmreleases API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct HelmRelease {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -13,7 +13,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for HelmRelease {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "helm.toolkit.fluxcd.io/v2beta1";
                 const GROUP: &'static str = "helm.toolkit.fluxcd.io";
@@ -54,7 +54,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Chart defines the template of the v1beta2.HelmChart that should be created for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Chart {
                 /// Spec holds the template for the v1beta2.HelmChartSpec for this HelmRelease.
@@ -63,11 +63,11 @@ pub mod helm_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -81,7 +81,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// NamespacedObjectReference contains enough information to locate the referenced Kubernetes resource object in any namespace.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DependsOnItem {
                 /// Name of the referent.
@@ -91,7 +91,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Image contains an image name, a new name, a new tag or digest, which will replace the original name and tag.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ImagesItem {
                 /// Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored.
@@ -105,7 +105,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Install holds the configuration for Helm install actions for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Install {
                 /// CRDs upgrade CRDs from the Helm Chart's crds directory according to the CRD upgrade policy provided here. Valid values are `Skip`, `Create` or `CreateReplace`. Default is `Create` and if omitted CRDs are installed but not updated.
@@ -136,7 +136,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// KubeConfig for reconciling the HelmRelease on a remote cluster. When used in combination with HelmReleaseSpec.ServiceAccountName, forces the controller to act on behalf of that Service Account at the target cluster. If the --default-service-account flag is set, its value will be used as a controller level fallback for when HelmReleaseSpec.ServiceAccountName is empty.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct KubeConfig {
                 /// SecretRef holds the name to a secret that contains a key with the kubeconfig file as the value. If no key is specified the key will default to 'value'. The secret must be in the same namespace as the HelmRelease. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the HelmRelease.
@@ -144,7 +144,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Kustomization to apply as PostRenderer.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Kustomize {
                 /// Images is a list of (image name, new name, new tag or digest) for changing image names, tags or digests. This can also be achieved with a patch, but this operator is simpler to specify.
@@ -158,7 +158,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// JSON6902 is a JSON6902 operation object. https://datatracker.ietf.org/doc/html/rfc6902#section-4
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchItem {
                 /// From contains a JSON-pointer value that references a location within the target document where the operation is performed. The meaning of the value depends on the value of Op, and is NOT taken into account by all operations.
@@ -172,7 +172,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Patch contains an inline StrategicMerge or JSON6902 patch, and the target the patch should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesItem {
                 /// Patch contains an inline StrategicMerge patch or an inline JSON6902 patch with an array of operation objects.
@@ -182,7 +182,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// JSON6902Patch contains a JSON6902 patch and the target the patch should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesJson6902Item {
                 /// Patch contains the JSON6902 patch document with an array of operation objects.
@@ -192,7 +192,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// PostRenderer contains a Helm PostRenderer specification.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PostRenderersItem {
                 /// Kustomization to apply as PostRenderer.
@@ -200,7 +200,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Remediation holds the remediation configuration for when the Helm install action for the HelmRelease fails. The default is to not perform any action.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct InstallRemediation {
                 /// IgnoreTestFailures tells the controller to skip remediation when the Helm tests are run after an install action but fail. Defaults to 'Test.IgnoreFailures'.
@@ -212,7 +212,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Remediation holds the remediation configuration for when the Helm upgrade action for the HelmRelease fails. The default is to not perform any action.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct UpgradeRemediation {
                 /// IgnoreTestFailures tells the controller to skip remediation when the Helm tests are run after an upgrade action but fail. Defaults to 'Test.IgnoreFailures'.
@@ -226,7 +226,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Rollback holds the configuration for Helm rollback actions for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Rollback {
                 /// CleanupOnFail allows deletion of new resources created during the Helm rollback action when it fails.
@@ -246,7 +246,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// SecretRef holds the name to a secret that contains a key with the kubeconfig file as the value. If no key is specified the key will default to 'value'. The secret must be in the same namespace as the HelmRelease. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Key in the Secret, when not specified an implementation-specific default key is used.
@@ -256,7 +256,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// The name and namespace of the v1beta2.Source the chart is available at.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// APIVersion of the referent.
@@ -270,7 +270,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// HelmReleaseSpec defines the desired state of a Helm release.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Chart defines the template of the v1beta2.HelmChart that should be created for this HelmRelease.
@@ -314,7 +314,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Spec holds the template for the v1beta2.HelmChartSpec for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ChartSpec {
                 /// The name or path the Helm chart is available at in the SourceRef.
@@ -334,7 +334,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// HelmReleaseStatus defines the observed state of a HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Conditions holds the conditions for the HelmRelease.
@@ -362,7 +362,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Target points to the resources that the patch document should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
@@ -382,7 +382,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Target points to the resources that the patch document should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesJson6902ItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
@@ -402,7 +402,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Test holds the configuration for Helm test actions for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Test {
                 /// Enable enables Helm test actions for this HelmRelease after an Helm install or upgrade action has been performed.
@@ -414,7 +414,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Uninstall holds the configuration for Helm uninstall actions for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Uninstall {
                 /// DisableHooks prevents hooks from running during the Helm rollback action.
@@ -428,7 +428,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// Upgrade holds the configuration for Helm upgrade actions for this HelmRelease.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Upgrade {
                 /// CleanupOnFail allows deletion of new resources created during the Helm upgrade action when it fails.
@@ -458,7 +458,7 @@ pub mod helm_toolkit_fluxcd_io {
             }
 
             /// ValuesReference contains a reference to a resource containing Helm values, and optionally the key they can be found at.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ValuesFromItem {
                 /// Kind of the values referent, valid values are ('Secret', 'ConfigMap').
@@ -479,7 +479,7 @@ pub mod image_toolkit_fluxcd_io {
     pub mod v1alpha1 {
         pub mod image_policy {
             /// ImagePolicy is the Schema for the imagepolicies API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImagePolicy {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -487,7 +487,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImagePolicy {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -528,7 +528,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Alphabetical set of rules to use for alphabetical ordering of the tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Alphabetical {
                 /// Order specifies the sorting order of the tags. Given the letters of the alphabet as tags, ascending order would select Z, and descending order would select A.
@@ -537,11 +537,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -555,7 +555,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// FilterTags enables filtering for only a subset of tags based on a set of rules. If no rules are provided, all the tags from the repository will be ordered and compared.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct FilterTags {
                 /// Extract allows a capture group to be extracted from the specified regular expression pattern, useful before tag evaluation.
@@ -565,7 +565,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositoryRef points at the object specifying the image being scanned
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ImageRepositoryRef {
                 /// Name of the referent.
@@ -573,7 +573,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Numerical set of rules to use for numerical ordering of the tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Numerical {
                 /// Order specifies the sorting order of the tags. Given the integer values from 0 to 9 as tags, ascending order would select 9, and descending order would select 0.
@@ -581,7 +581,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Policy gives the particulars of the policy to be followed in selecting the most recent image
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Policy {
                 /// Alphabetical set of rules to use for alphabetical ordering of the tags.
@@ -593,7 +593,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SemVer gives a semantic version range to check against the tags available.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Semver {
                 /// Range gives a semver range for the image tag; the highest version within the range that's a tag yields the latest image.
@@ -601,7 +601,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImagePolicySpec defines the parameters for calculating the ImagePolicy
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// FilterTags enables filtering for only a subset of tags based on a set of rules. If no rules are provided, all the tags from the repository will be ordered and compared.
@@ -613,7 +613,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImagePolicyStatus defines the observed state of ImagePolicy
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -624,7 +624,7 @@ pub mod image_toolkit_fluxcd_io {
         }
         pub mod image_repository {
             /// ImageRepository is the Schema for the imagerepositories API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImageRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -632,7 +632,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImageRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -675,7 +675,7 @@ pub mod image_toolkit_fluxcd_io {
             /// CertSecretRef can be given the name of a secret containing either or both of
             ///   - a PEM-encoded client certificate (`certFile`) and private  key (`keyFile`);  - a PEM-encoded CA certificate (`caFile`)
             ///   and whichever are supplied, will be used for connecting to the  registry. The client cert and key are useful if you are  authenticating with a certificate; the CA cert is useful if  you are using a self-signed server certificate.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CertSecretRef {
                 /// Name of the referent.
@@ -684,11 +684,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -702,15 +702,15 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// LastScanResult contains the number of fetched tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct LastScanResult {
-                pub scan_time: String,
+                pub scan_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 pub tag_count: i64,
             }
 
             /// SecretRef can be given the name of a secret containing credentials to use for the image registry. The secret should be created with `kubectl create secret docker-registry`, or the equivalent.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -718,7 +718,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositorySpec defines the parameters for scanning an image repository, e.g., `fluxcd/flux`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// CertSecretRef can be given the name of a secret containing either or both of
@@ -738,7 +738,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositoryStatus defines the observed state of ImageRepository
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// CanonicalName is the name of the image repository with all the implied bits made explicit; e.g., `docker.io/library/alpine` rather than `alpine`.
@@ -754,7 +754,7 @@ pub mod image_toolkit_fluxcd_io {
         }
         pub mod image_update_automation {
             /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImageUpdateAutomation {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -762,7 +762,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImageUpdateAutomation {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -803,7 +803,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Checkout gives the parameters for cloning the git repository, ready to make changes.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Checkout {
                 /// Branch gives the branch to clone from the git repository. If `.spec.push` is not supplied, commits will also be pushed to this branch.
@@ -813,7 +813,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Commit specifies how to commit to the git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Commit {
                 /// AuthorEmail gives the email to provide when making a commit
@@ -828,11 +828,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -846,7 +846,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// GitRepositoryRef refers to the resource giving access details to a git repository to update files in.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct GitRepositoryRef {
                 /// Name of the referent.
@@ -854,7 +854,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Push specifies how and where to push commits made by the automation. If missing, commits are pushed (back) to `.spec.checkout.branch`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Push {
                 /// Branch specifies that commits should be pushed to the branch named. The branch is created using `.spec.checkout.branch` as the starting point, if it doesn't already exist.
@@ -862,7 +862,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SecretRef holds the name to a secret that contains a 'git.asc' key corresponding to the ASCII Armored file containing the GPG signing keypair as the value. It must be in the same namespace as the ImageUpdateAutomation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -870,7 +870,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SigningKey provides the option to sign commits with a GPG key
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SigningKey {
                 /// SecretRef holds the name to a secret that contains a 'git.asc' key corresponding to the ASCII Armored file containing the GPG signing keypair as the value. It must be in the same namespace as the ImageUpdateAutomation.
@@ -878,7 +878,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageUpdateAutomationSpec defines the desired state of ImageUpdateAutomation
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Checkout gives the parameters for cloning the git repository, ready to make changes.
@@ -896,23 +896,23 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageUpdateAutomationStatus defines the observed state of ImageUpdateAutomation
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
                 /// LastAutomationRunTime records the last time the controller ran this automation through to completion (even if no updates were made).
-                pub last_automation_run_time: String,
+                pub last_automation_run_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// LastPushCommit records the SHA1 of the last commit made by the controller, for this automation object
                 pub last_push_commit: String,
                 /// LastPushTime records the time of the last pushed change.
-                pub last_push_time: String,
+                pub last_push_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 pub observed_generation: i64,
             }
 
             /// Update gives the specification for how to update the files in the repository. This can be left empty, to use the default value.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Update {
                 /// Path to the directory containing the manifests to be updated. Defaults to 'None', which translates to the root path of the GitRepositoryRef.
@@ -925,7 +925,7 @@ pub mod image_toolkit_fluxcd_io {
     pub mod v1alpha2 {
         pub mod image_policy {
             /// ImagePolicy is the Schema for the imagepolicies API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImagePolicy {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -933,7 +933,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImagePolicy {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -974,7 +974,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Alphabetical set of rules to use for alphabetical ordering of the tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Alphabetical {
                 /// Order specifies the sorting order of the tags. Given the letters of the alphabet as tags, ascending order would select Z, and descending order would select A.
@@ -983,11 +983,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1001,7 +1001,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// FilterTags enables filtering for only a subset of tags based on a set of rules. If no rules are provided, all the tags from the repository will be ordered and compared.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct FilterTags {
                 /// Extract allows a capture group to be extracted from the specified regular expression pattern, useful before tag evaluation.
@@ -1011,7 +1011,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositoryRef points at the object specifying the image being scanned
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ImageRepositoryRef {
                 /// Name of the referent.
@@ -1019,7 +1019,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Numerical set of rules to use for numerical ordering of the tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Numerical {
                 /// Order specifies the sorting order of the tags. Given the integer values from 0 to 9 as tags, ascending order would select 9, and descending order would select 0.
@@ -1027,7 +1027,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Policy gives the particulars of the policy to be followed in selecting the most recent image
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Policy {
                 /// Alphabetical set of rules to use for alphabetical ordering of the tags.
@@ -1039,7 +1039,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SemVer gives a semantic version range to check against the tags available.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Semver {
                 /// Range gives a semver range for the image tag; the highest version within the range that's a tag yields the latest image.
@@ -1047,7 +1047,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImagePolicySpec defines the parameters for calculating the ImagePolicy
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// FilterTags enables filtering for only a subset of tags based on a set of rules. If no rules are provided, all the tags from the repository will be ordered and compared.
@@ -1059,7 +1059,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImagePolicyStatus defines the observed state of ImagePolicy
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -1070,7 +1070,7 @@ pub mod image_toolkit_fluxcd_io {
         }
         pub mod image_repository {
             /// ImageRepository is the Schema for the imagerepositories API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImageRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1078,7 +1078,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImageRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -1121,7 +1121,7 @@ pub mod image_toolkit_fluxcd_io {
             /// CertSecretRef can be given the name of a secret containing either or both of
             ///   - a PEM-encoded client certificate (`certFile`) and private  key (`keyFile`);  - a PEM-encoded CA certificate (`caFile`)
             ///   and whichever are supplied, will be used for connecting to the  registry. The client cert and key are useful if you are  authenticating with a certificate; the CA cert is useful if  you are using a self-signed server certificate.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CertSecretRef {
                 /// Name of the referent.
@@ -1130,11 +1130,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1148,15 +1148,15 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// LastScanResult contains the number of fetched tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct LastScanResult {
-                pub scan_time: String,
+                pub scan_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 pub tag_count: i64,
             }
 
             /// SecretRef can be given the name of a secret containing credentials to use for the image registry. The secret should be created with `kubectl create secret docker-registry`, or the equivalent.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -1164,7 +1164,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositorySpec defines the parameters for scanning an image repository, e.g., `fluxcd/flux`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// CertSecretRef can be given the name of a secret containing either or both of
@@ -1184,7 +1184,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositoryStatus defines the observed state of ImageRepository
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// CanonicalName is the name of the image repository with all the implied bits made explicit; e.g., `docker.io/library/alpine` rather than `alpine`.
@@ -1200,7 +1200,7 @@ pub mod image_toolkit_fluxcd_io {
         }
         pub mod image_update_automation {
             /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImageUpdateAutomation {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1208,7 +1208,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImageUpdateAutomation {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1alpha2";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -1249,7 +1249,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Author gives the email and optionally the name to use as the author of commits.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Author {
                 /// Email gives the email to provide when making a commit.
@@ -1259,7 +1259,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Checkout gives the parameters for cloning the git repository, ready to make changes. If not present, the `spec.ref` field from the referenced `GitRepository` or its default will be used.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Checkout {
                 /// Reference gives a branch, tag or commit to clone from the Git repository.
@@ -1267,7 +1267,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Commit specifies how to commit to the git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Commit {
                 /// Author gives the email and optionally the name to use as the author of commits.
@@ -1280,11 +1280,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1298,7 +1298,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// GitSpec contains all the git-specific definitions. This is technically optional, but in practice mandatory until there are other kinds of source allowed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Git {
                 /// Checkout gives the parameters for cloning the git repository, ready to make changes. If not present, the `spec.ref` field from the referenced `GitRepository` or its default will be used.
@@ -1310,7 +1310,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Push specifies how and where to push commits made by the automation. If missing, commits are pushed (back) to `.spec.checkout.branch` or its default.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Push {
                 /// Branch specifies that commits should be pushed to the branch named. The branch is created using `.spec.checkout.branch` as the starting point, if it doesn't already exist.
@@ -1318,7 +1318,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Reference gives a branch, tag or commit to clone from the Git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ref {
                 /// The Git branch to checkout, defaults to master.
@@ -1332,7 +1332,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SecretRef holds the name to a secret that contains a 'git.asc' key corresponding to the ASCII Armored file containing the GPG signing keypair as the value. It must be in the same namespace as the ImageUpdateAutomation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -1340,7 +1340,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SigningKey provides the option to sign commits with a GPG key
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SigningKey {
                 /// SecretRef holds the name to a secret that contains a 'git.asc' key corresponding to the ASCII Armored file containing the GPG signing keypair as the value. It must be in the same namespace as the ImageUpdateAutomation.
@@ -1348,7 +1348,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SourceRef refers to the resource giving access details to a git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// API version of the referent
@@ -1360,7 +1360,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageUpdateAutomationSpec defines the desired state of ImageUpdateAutomation
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// GitSpec contains all the git-specific definitions. This is technically optional, but in practice mandatory until there are other kinds of source allowed.
@@ -1376,23 +1376,23 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageUpdateAutomationStatus defines the observed state of ImageUpdateAutomation
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
                 /// LastAutomationRunTime records the last time the controller ran this automation through to completion (even if no updates were made).
-                pub last_automation_run_time: String,
+                pub last_automation_run_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// LastPushCommit records the SHA1 of the last commit made by the controller, for this automation object
                 pub last_push_commit: String,
                 /// LastPushTime records the time of the last pushed change.
-                pub last_push_time: String,
+                pub last_push_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 pub observed_generation: i64,
             }
 
             /// Update gives the specification for how to update the files in the repository. This can be left empty, to use the default value.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Update {
                 /// Path to the directory containing the manifests to be updated. Defaults to 'None', which translates to the root path of the GitRepositoryRef.
@@ -1405,7 +1405,7 @@ pub mod image_toolkit_fluxcd_io {
     pub mod v1beta1 {
         pub mod image_policy {
             /// ImagePolicy is the Schema for the imagepolicies API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImagePolicy {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1413,7 +1413,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImagePolicy {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -1454,7 +1454,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Alphabetical set of rules to use for alphabetical ordering of the tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Alphabetical {
                 /// Order specifies the sorting order of the tags. Given the letters of the alphabet as tags, ascending order would select Z, and descending order would select A.
@@ -1463,11 +1463,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1481,7 +1481,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// FilterTags enables filtering for only a subset of tags based on a set of rules. If no rules are provided, all the tags from the repository will be ordered and compared.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct FilterTags {
                 /// Extract allows a capture group to be extracted from the specified regular expression pattern, useful before tag evaluation.
@@ -1491,7 +1491,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositoryRef points at the object specifying the image being scanned
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ImageRepositoryRef {
                 /// Name of the referent.
@@ -1501,7 +1501,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Numerical set of rules to use for numerical ordering of the tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Numerical {
                 /// Order specifies the sorting order of the tags. Given the integer values from 0 to 9 as tags, ascending order would select 9, and descending order would select 0.
@@ -1509,7 +1509,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Policy gives the particulars of the policy to be followed in selecting the most recent image
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Policy {
                 /// Alphabetical set of rules to use for alphabetical ordering of the tags.
@@ -1521,7 +1521,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SemVer gives a semantic version range to check against the tags available.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Semver {
                 /// Range gives a semver range for the image tag; the highest version within the range that's a tag yields the latest image.
@@ -1529,7 +1529,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImagePolicySpec defines the parameters for calculating the ImagePolicy
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// FilterTags enables filtering for only a subset of tags based on a set of rules. If no rules are provided, all the tags from the repository will be ordered and compared.
@@ -1541,7 +1541,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImagePolicyStatus defines the observed state of ImagePolicy
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -1552,7 +1552,7 @@ pub mod image_toolkit_fluxcd_io {
         }
         pub mod image_repository {
             /// ImageRepository is the Schema for the imagerepositories API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImageRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1560,7 +1560,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImageRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -1601,7 +1601,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// AccessFrom defines an ACL for allowing cross-namespace references to the ImageRepository object based on the caller's namespace labels.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -1611,7 +1611,7 @@ pub mod image_toolkit_fluxcd_io {
             /// CertSecretRef can be given the name of a secret containing either or both of
             ///   - a PEM-encoded client certificate (`certFile`) and private  key (`keyFile`);  - a PEM-encoded CA certificate (`caFile`)
             ///   and whichever are supplied, will be used for connecting to the  registry. The client cert and key are useful if you are  authenticating with a certificate; the CA cert is useful if  you are using a self-signed server certificate.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CertSecretRef {
                 /// Name of the referent.
@@ -1620,11 +1620,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1638,15 +1638,15 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// LastScanResult contains the number of fetched tags.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct LastScanResult {
-                pub scan_time: String,
+                pub scan_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 pub tag_count: i64,
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1654,7 +1654,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -1662,7 +1662,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SecretRef can be given the name of a secret containing credentials to use for the image registry. The secret should be created with `kubectl create secret docker-registry`, or the equivalent.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -1670,7 +1670,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositorySpec defines the parameters for scanning an image repository, e.g., `fluxcd/flux`.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom defines an ACL for allowing cross-namespace references to the ImageRepository object based on the caller's namespace labels.
@@ -1696,7 +1696,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageRepositoryStatus defines the observed state of ImageRepository
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// CanonicalName is the name of the image repository with all the implied bits made explicit; e.g., `docker.io/library/alpine` rather than `alpine`.
@@ -1712,7 +1712,7 @@ pub mod image_toolkit_fluxcd_io {
         }
         pub mod image_update_automation {
             /// ImageUpdateAutomation is the Schema for the imageupdateautomations API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct ImageUpdateAutomation {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1720,7 +1720,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for ImageUpdateAutomation {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "image.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "image.toolkit.fluxcd.io";
@@ -1761,7 +1761,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Author gives the email and optionally the name to use as the author of commits.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Author {
                 /// Email gives the email to provide when making a commit.
@@ -1771,7 +1771,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Checkout gives the parameters for cloning the git repository, ready to make changes. If not present, the `spec.ref` field from the referenced `GitRepository` or its default will be used.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Checkout {
                 /// Reference gives a branch, tag or commit to clone from the Git repository.
@@ -1779,7 +1779,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Commit specifies how to commit to the git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Commit {
                 /// Author gives the email and optionally the name to use as the author of commits.
@@ -1792,11 +1792,11 @@ pub mod image_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1810,7 +1810,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// GitSpec contains all the git-specific definitions. This is technically optional, but in practice mandatory until there are other kinds of source allowed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Git {
                 /// Checkout gives the parameters for cloning the git repository, ready to make changes. If not present, the `spec.ref` field from the referenced `GitRepository` or its default will be used.
@@ -1822,7 +1822,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Push specifies how and where to push commits made by the automation. If missing, commits are pushed (back) to `.spec.checkout.branch` or its default.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Push {
                 /// Branch specifies that commits should be pushed to the branch named. The branch is created using `.spec.checkout.branch` as the starting point, if it doesn't already exist.
@@ -1830,7 +1830,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// Reference gives a branch, tag or commit to clone from the Git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ref {
                 /// Branch to check out, defaults to 'master' if no other field is defined.
@@ -1846,7 +1846,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SecretRef holds the name to a secret that contains a 'git.asc' key corresponding to the ASCII Armored file containing the GPG signing keypair as the value. It must be in the same namespace as the ImageUpdateAutomation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -1854,7 +1854,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SigningKey provides the option to sign commits with a GPG key
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SigningKey {
                 /// SecretRef holds the name to a secret that contains a 'git.asc' key corresponding to the ASCII Armored file containing the GPG signing keypair as the value. It must be in the same namespace as the ImageUpdateAutomation.
@@ -1862,7 +1862,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// SourceRef refers to the resource giving access details to a git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// API version of the referent.
@@ -1876,7 +1876,7 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageUpdateAutomationSpec defines the desired state of ImageUpdateAutomation
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// GitSpec contains all the git-specific definitions. This is technically optional, but in practice mandatory until there are other kinds of source allowed.
@@ -1892,23 +1892,23 @@ pub mod image_toolkit_fluxcd_io {
             }
 
             /// ImageUpdateAutomationStatus defines the observed state of ImageUpdateAutomation
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
                 /// LastAutomationRunTime records the last time the controller ran this automation through to completion (even if no updates were made).
-                pub last_automation_run_time: String,
+                pub last_automation_run_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// LastHandledReconcileAt holds the value of the most recent reconcile request value, so a change of the annotation value can be detected.
                 pub last_handled_reconcile_at: String,
                 /// LastPushCommit records the SHA1 of the last commit made by the controller, for this automation object
                 pub last_push_commit: String,
                 /// LastPushTime records the time of the last pushed change.
-                pub last_push_time: String,
+                pub last_push_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 pub observed_generation: i64,
             }
 
             /// Update gives the specification for how to update the files in the repository. This can be left empty, to use the default value.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Update {
                 /// Path to the directory containing the manifests to be updated. Defaults to 'None', which translates to the root path of the GitRepositoryRef.
@@ -1923,7 +1923,7 @@ pub mod kustomize_toolkit_fluxcd_io {
     pub mod v1beta1 {
         pub mod kustomization {
             /// Kustomization is the Schema for the kustomizations API.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Kustomization {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -1931,7 +1931,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Kustomization {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "kustomize.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
@@ -1973,11 +1973,11 @@ pub mod kustomize_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -1991,7 +1991,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Decrypt Kubernetes secrets before applying them on the cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Decryption {
                 /// Provider is the name of the decryption engine.
@@ -2001,7 +2001,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// NamespacedObjectReference contains enough information to locate the referenced Kubernetes resource object in any namespace.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DependsOnItem {
                 /// Name of the referent.
@@ -2011,7 +2011,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Snapshot holds the metadata of namespaced Kubernetes objects
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EntriesItem {
                 /// The list of Kubernetes kinds.
@@ -2021,7 +2021,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// NamespacedObjectKindReference contains enough information to locate the typed referenced Kubernetes resource object in any namespace.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HealthChecksItem {
                 /// API version of the referent, if not specified the Kubernetes preferred version will be used.
@@ -2035,7 +2035,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Image contains an image name, a new name, a new tag or digest, which will replace the original name and tag.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ImagesItem {
                 /// Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored.
@@ -2049,7 +2049,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// The list of Kubernetes kinds.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Kinds {
                 /// The list of Kubernetes kinds.
@@ -2057,7 +2057,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// The KubeConfig for reconciling the Kustomization on a remote cluster. When specified, KubeConfig takes precedence over ServiceAccountName.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct KubeConfig {
                 /// SecretRef holds the name to a secret that contains a 'value' key with the kubeconfig file as the value. It must be in the same namespace as the Kustomization. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the Kustomization.
@@ -2065,7 +2065,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// JSON6902 is a JSON6902 operation object. https://datatracker.ietf.org/doc/html/rfc6902#section-4
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchItem {
                 /// From contains a JSON-pointer value that references a location within the target document where the operation is performed. The meaning of the value depends on the value of Op, and is NOT taken into account by all operations.
@@ -2079,7 +2079,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Patch contains an inline StrategicMerge or JSON6902 patch, and the target the patch should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesItem {
                 /// Patch contains an inline StrategicMerge patch or an inline JSON6902 patch with an array of operation objects.
@@ -2089,7 +2089,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// JSON6902Patch contains a JSON6902 patch and the target the patch should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesJson6902Item {
                 /// Patch contains the JSON6902 patch document with an array of operation objects.
@@ -2099,7 +2099,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// PostBuild describes which actions to perform on the YAML manifest generated by building the kustomize overlay.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PostBuild {
                 /// Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. ${var:=default}, ${var:position} and ${var/substring/replacement}.
@@ -2109,7 +2109,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// The secret name containing the private OpenPGP keys used for decryption.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DecryptionSecretRef {
                 /// Name of the referent.
@@ -2117,7 +2117,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// SecretRef holds the name to a secret that contains a 'value' key with the kubeconfig file as the value. It must be in the same namespace as the Kustomization. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the Kustomization.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct KubeConfigSecretRef {
                 /// Name of the referent.
@@ -2125,7 +2125,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// The last successfully applied revision metadata.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Snapshot {
                 /// The manifests sha1 checksum.
@@ -2135,7 +2135,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Reference of the source where the kustomization file is.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// API version of the referent
@@ -2149,7 +2149,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// KustomizationSpec defines the desired state of a kustomization.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Decrypt Kubernetes secrets before applying them on the cluster.
@@ -2195,7 +2195,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// KustomizationStatus defines the observed state of a kustomization.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -2212,7 +2212,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. ${var:=default}, ${var:position} and ${var/substring/replacement}.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Substitute {
                 /// Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. ${var:=default}, ${var:position} and ${var/substring/replacement}.
@@ -2220,7 +2220,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// SubstituteReference contains a reference to a resource containing the variables name and value.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubstituteFromItem {
                 /// Kind of the values referent, valid values are ('Secret', 'ConfigMap').
@@ -2230,7 +2230,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Target points to the resources that the patch document should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
@@ -2250,7 +2250,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Target points to the resources that the patch document should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesJson6902ItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
@@ -2273,7 +2273,7 @@ pub mod kustomize_toolkit_fluxcd_io {
     pub mod v1beta2 {
         pub mod kustomization {
             /// Kustomization is the Schema for the kustomizations API.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Kustomization {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2281,7 +2281,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Kustomization {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "kustomize.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "kustomize.toolkit.fluxcd.io";
@@ -2323,11 +2323,11 @@ pub mod kustomize_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -2341,7 +2341,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Decrypt Kubernetes secrets before applying them on the cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Decryption {
                 /// Provider is the name of the decryption engine.
@@ -2351,7 +2351,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// NamespacedObjectReference contains enough information to locate the referenced Kubernetes resource object in any namespace.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DependsOnItem {
                 /// Name of the referent.
@@ -2361,7 +2361,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// ResourceRef contains the information necessary to locate a resource within a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EntriesItem {
                 /// ID is the string representation of the Kubernetes resource object's metadata, in the format '<namespace>_<name>_<group>_<kind>'.
@@ -2371,7 +2371,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// NamespacedObjectKindReference contains enough information to locate the typed referenced Kubernetes resource object in any namespace.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct HealthChecksItem {
                 /// API version of the referent, if not specified the Kubernetes preferred version will be used.
@@ -2385,7 +2385,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Image contains an image name, a new name, a new tag or digest, which will replace the original name and tag.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ImagesItem {
                 /// Digest is the value used to replace the original image tag. If digest is present NewTag value is ignored.
@@ -2399,7 +2399,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Inventory contains the list of Kubernetes resource object references that have been successfully applied.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Inventory {
                 /// Entries of Kubernetes resource object references.
@@ -2407,7 +2407,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// The KubeConfig for reconciling the Kustomization on a remote cluster. When used in combination with KustomizationSpec.ServiceAccountName, forces the controller to act on behalf of that Service Account at the target cluster. If the --default-service-account flag is set, its value will be used as a controller level fallback for when KustomizationSpec.ServiceAccountName is empty.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct KubeConfig {
                 /// SecretRef holds the name of a secret that contains a key with the kubeconfig file as the value. If no key is set, the key will default to 'value'. The secret must be in the same namespace as the Kustomization. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the Kustomization.
@@ -2415,7 +2415,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// JSON6902 is a JSON6902 operation object. https://datatracker.ietf.org/doc/html/rfc6902#section-4
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchItem {
                 /// From contains a JSON-pointer value that references a location within the target document where the operation is performed. The meaning of the value depends on the value of Op, and is NOT taken into account by all operations.
@@ -2429,7 +2429,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Patch contains an inline StrategicMerge or JSON6902 patch, and the target the patch should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesItem {
                 /// Patch contains an inline StrategicMerge patch or an inline JSON6902 patch with an array of operation objects.
@@ -2439,7 +2439,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// JSON6902Patch contains a JSON6902 patch and the target the patch should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesJson6902Item {
                 /// Patch contains the JSON6902 patch document with an array of operation objects.
@@ -2449,7 +2449,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// PostBuild describes which actions to perform on the YAML manifest generated by building the kustomize overlay.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PostBuild {
                 /// Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. ${var:=default}, ${var:position} and ${var/substring/replacement}.
@@ -2459,7 +2459,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// The secret name containing the private OpenPGP keys used for decryption.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct DecryptionSecretRef {
                 /// Name of the referent.
@@ -2467,7 +2467,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// SecretRef holds the name of a secret that contains a key with the kubeconfig file as the value. If no key is set, the key will default to 'value'. The secret must be in the same namespace as the Kustomization. It is recommended that the kubeconfig is self-contained, and the secret is regularly updated if credentials such as a cloud-access-token expire. Cloud specific `cmd-path` auth helpers will not function without adding binaries and credentials to the Pod that is responsible for reconciling the Kustomization.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct KubeConfigSecretRef {
                 /// Key in the Secret, when not specified an implementation-specific default key is used.
@@ -2477,7 +2477,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Reference of the source where the kustomization file is.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// API version of the referent.
@@ -2491,7 +2491,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// KustomizationSpec defines the configuration to calculate the desired state from a Source using Kustomize.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Decrypt Kubernetes secrets before applying them on the cluster.
@@ -2539,7 +2539,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// KustomizationStatus defines the observed state of a kustomization.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -2556,7 +2556,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. ${var:=default}, ${var:position} and ${var/substring/replacement}.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Substitute {
                 /// Substitute holds a map of key/value pairs. The variables defined in your YAML manifests that match any of the keys defined in the map will be substituted with the set value. Includes support for bash string replacement functions e.g. ${var:=default}, ${var:position} and ${var/substring/replacement}.
@@ -2564,7 +2564,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// SubstituteReference contains a reference to a resource containing the variables name and value.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SubstituteFromItem {
                 /// Kind of the values referent, valid values are ('Secret', 'ConfigMap').
@@ -2576,7 +2576,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Target points to the resources that the patch document should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
@@ -2596,7 +2596,7 @@ pub mod kustomize_toolkit_fluxcd_io {
             }
 
             /// Target points to the resources that the patch document should be applied to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct PatchesJson6902ItemTarget {
                 /// AnnotationSelector is a string that follows the label selection expression https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#api It matches with the resource annotations.
@@ -2621,7 +2621,7 @@ pub mod notification_toolkit_fluxcd_io {
     pub mod v1beta1 {
         pub mod alert {
             /// Alert is the Schema for the alerts API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Alert {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2629,7 +2629,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Alert {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
@@ -2671,11 +2671,11 @@ pub mod notification_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -2689,7 +2689,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// CrossNamespaceObjectReference contains enough information to let you locate the typed referenced object at cluster level
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct EventSourcesItem {
                 /// API version of the referent
@@ -2705,7 +2705,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2713,7 +2713,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// Send events using this provider.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ProviderRef {
                 /// Name of the referent.
@@ -2721,7 +2721,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// AlertSpec defines an alerting rule for events involving a list of objects
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// Filter events based on severity, defaults to ('info'). If set to 'info' no events will be filtered.
@@ -2739,7 +2739,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// AlertStatus defines the observed state of Alert
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -2749,7 +2749,7 @@ pub mod notification_toolkit_fluxcd_io {
         }
         pub mod provider {
             /// Provider is the Schema for the providers API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Provider {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2757,7 +2757,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Provider {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
@@ -2798,7 +2798,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// CertSecretRef can be given the name of a secret containing a PEM-encoded CA certificate (`caFile`)
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct CertSecretRef {
                 /// Name of the referent.
@@ -2807,11 +2807,11 @@ pub mod notification_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -2825,7 +2825,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// Secret reference containing the provider webhook URL using "address" as data key
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -2833,7 +2833,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// ProviderSpec defines the desired state of Provider
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// HTTP/S webhook address of this provider
@@ -2855,7 +2855,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// ProviderStatus defines the observed state of Provider
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -2865,7 +2865,7 @@ pub mod notification_toolkit_fluxcd_io {
         }
         pub mod receiver {
             /// Receiver is the Schema for the receivers API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Receiver {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -2873,7 +2873,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Receiver {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "notification.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "notification.toolkit.fluxcd.io";
@@ -2915,11 +2915,11 @@ pub mod notification_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -2933,7 +2933,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -2941,7 +2941,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// CrossNamespaceObjectReference contains enough information to let you locate the typed referenced object at cluster level
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ResourcesItem {
                 /// API version of the referent
@@ -2957,7 +2957,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// Secret reference containing the token used to validate the payload authenticity
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -2965,7 +2965,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// ReceiverSpec defines the desired state of Receiver
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// A list of events to handle, e.g. 'push' for GitHub or 'Push Hook' for GitLab.
@@ -2981,7 +2981,7 @@ pub mod notification_toolkit_fluxcd_io {
             }
 
             /// ReceiverStatus defines the observed state of Receiver
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 pub conditions: Vec<ConditionsItem>,
@@ -2997,7 +2997,7 @@ pub mod source_toolkit_fluxcd_io {
     pub mod v1beta1 {
         pub mod bucket {
             /// Bucket is the Schema for the buckets API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Bucket {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3005,7 +3005,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Bucket {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -3046,7 +3046,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -3054,13 +3054,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of the last successful Bucket sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the artifact.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of this artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of this artifact.
                 pub path: String,
                 /// Revision is a human readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm index timestamp, a Helm chart version, etc.
@@ -3071,11 +3071,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -3089,7 +3089,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3097,7 +3097,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3105,7 +3105,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// The name of the secret containing authentication credentials for the Bucket.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -3113,7 +3113,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// BucketSpec defines the desired state of an S3 compatible bucket
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3141,7 +3141,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// BucketStatus defines the observed state of a bucket
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the output of the last successful Bucket sync.
@@ -3158,7 +3158,7 @@ pub mod source_toolkit_fluxcd_io {
         }
         pub mod git_repository {
             /// GitRepository is the Schema for the gitrepositories API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct GitRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3166,7 +3166,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for GitRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -3207,7 +3207,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -3215,13 +3215,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of the last successful repository sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the artifact.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of this artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of this artifact.
                 pub path: String,
                 /// Revision is a human readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm index timestamp, a Helm chart version, etc.
@@ -3232,11 +3232,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -3250,7 +3250,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositoryInclude defines a source with a from and to path.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IncludeItem {
                 /// The path to copy contents from, defaults to the root directory.
@@ -3262,13 +3262,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of a source synchronisation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IncludedArtifactsItem {
                 /// Checksum is the SHA256 checksum of the artifact.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of this artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of this artifact.
                 pub path: String,
                 /// Revision is a human readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm index timestamp, a Helm chart version, etc.
@@ -3278,7 +3278,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3286,7 +3286,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3294,7 +3294,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// The Git reference to checkout and monitor for changes, defaults to master branch.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ref {
                 /// The Git branch to checkout, defaults to master.
@@ -3308,7 +3308,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Reference to a GitRepository to include.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Repository {
                 /// Name of the referent.
@@ -3316,7 +3316,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// The secret name containing the Git credentials. For HTTPS repositories the secret must contain username and password fields. For SSH repositories the secret must contain identity and known_hosts fields.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSecretRef {
                 /// Name of the referent.
@@ -3324,7 +3324,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// The secret name containing the public keys of all trusted Git authors.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct VerifySecretRef {
                 /// Name of the referent.
@@ -3332,7 +3332,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositorySpec defines the desired state of a Git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3362,7 +3362,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositoryStatus defines the observed state of a Git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the output of the last successful repository sync.
@@ -3380,7 +3380,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Verify OpenPGP signature for the Git commit HEAD points to.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Verify {
                 /// Mode describes what git object should be verified, currently ('head').
@@ -3391,7 +3391,7 @@ pub mod source_toolkit_fluxcd_io {
         }
         pub mod helm_chart {
             /// HelmChart is the Schema for the helmcharts API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct HelmChart {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3399,7 +3399,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for HelmChart {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -3440,7 +3440,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -3448,13 +3448,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of the last successful chart sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the artifact.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of this artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of this artifact.
                 pub path: String,
                 /// Revision is a human readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm index timestamp, a Helm chart version, etc.
@@ -3465,11 +3465,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -3483,7 +3483,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3491,7 +3491,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3499,7 +3499,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// The reference to the Source the chart is available at.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// APIVersion of the referent.
@@ -3511,7 +3511,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmChartSpec defines the desired state of a Helm chart.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3535,7 +3535,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmChartStatus defines the observed state of the HelmChart.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the output of the last successful chart sync.
@@ -3552,7 +3552,7 @@ pub mod source_toolkit_fluxcd_io {
         }
         pub mod helm_repository {
             /// HelmRepository is the Schema for the helmrepositories API
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct HelmRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3560,7 +3560,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for HelmRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta1";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -3601,7 +3601,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -3609,13 +3609,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of the last successful repository sync.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the artifact.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of this artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of this artifact.
                 pub path: String,
                 /// Revision is a human readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm index timestamp, a Helm chart version, etc.
@@ -3626,11 +3626,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -3644,7 +3644,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3652,7 +3652,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3660,7 +3660,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// The name of the secret containing authentication credentials for the Helm repository. For HTTP/S basic auth the secret must contain username and password fields. For TLS the secret must contain a certFile and keyFile, and/or caCert fields.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -3668,7 +3668,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmRepositorySpec defines the reference to a Helm repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom defines an Access Control List for allowing cross-namespace references to this object.
@@ -3688,7 +3688,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmRepositoryStatus defines the observed state of the HelmRepository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the output of the last successful repository sync.
@@ -3707,7 +3707,7 @@ pub mod source_toolkit_fluxcd_io {
     pub mod v1beta2 {
         pub mod bucket {
             /// Bucket is the Schema for the buckets API.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct Bucket {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3715,7 +3715,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for Bucket {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -3756,7 +3756,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -3764,13 +3764,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the last successful Bucket reconciliation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the Artifact file.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of the Artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of the Artifact. It can be used to locate the file in the root of the Artifact storage on the local file system of the controller managing the Source.
                 pub path: String,
                 /// Revision is a human-readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm chart version, etc.
@@ -3783,11 +3783,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -3801,7 +3801,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3809,7 +3809,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3817,7 +3817,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// SecretRef specifies the Secret containing authentication credentials for the Bucket.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -3825,7 +3825,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// BucketSpec specifies the required configuration to produce an Artifact for an object storage bucket.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -3853,7 +3853,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// BucketStatus records the observed state of a Bucket.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the last successful Bucket reconciliation.
@@ -3870,7 +3870,7 @@ pub mod source_toolkit_fluxcd_io {
         }
         pub mod git_repository {
             /// GitRepository is the Schema for the gitrepositories API.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct GitRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -3878,7 +3878,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for GitRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -3919,7 +3919,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -3927,13 +3927,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the last successful GitRepository reconciliation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the Artifact file.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of the Artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of the Artifact. It can be used to locate the file in the root of the Artifact storage on the local file system of the controller managing the Source.
                 pub path: String,
                 /// Revision is a human-readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm chart version, etc.
@@ -3946,11 +3946,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -3964,7 +3964,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositoryInclude specifies a local reference to a GitRepository which Artifact (sub-)contents must be included, and where they should be placed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IncludeItem {
                 /// FromPath specifies the path to copy contents from, defaults to the root of the Artifact.
@@ -3976,13 +3976,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of a Source reconciliation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct IncludedArtifactsItem {
                 /// Checksum is the SHA256 checksum of the Artifact file.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of the Artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of the Artifact. It can be used to locate the file in the root of the Artifact storage on the local file system of the controller managing the Source.
                 pub path: String,
                 /// Revision is a human-readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm chart version, etc.
@@ -3994,7 +3994,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -4002,7 +4002,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -4010,7 +4010,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Reference specifies the Git reference to resolve and monitor for changes, defaults to the 'master' branch.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Ref {
                 /// Branch to check out, defaults to 'master' if no other field is defined.
@@ -4026,7 +4026,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositoryRef specifies the GitRepository which Artifact contents must be included.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Repository {
                 /// Name of the referent.
@@ -4034,7 +4034,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// SecretRef specifies the Secret containing authentication credentials for the GitRepository. For HTTPS repositories the Secret must contain 'username' and 'password' fields. For SSH repositories the Secret must contain 'identity' and 'known_hosts' fields.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SpecSecretRef {
                 /// Name of the referent.
@@ -4042,7 +4042,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// SecretRef specifies the Secret containing the public keys of trusted Git authors.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct VerifySecretRef {
                 /// Name of the referent.
@@ -4050,7 +4050,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositorySpec specifies the required configuration to produce an Artifact for a Git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -4080,7 +4080,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// GitRepositoryStatus records the observed state of a Git repository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the last successful GitRepository reconciliation.
@@ -4100,7 +4100,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Verification specifies the configuration to verify the Git commit signature(s).
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Verify {
                 /// Mode specifies what Git object should be verified, currently ('head').
@@ -4111,7 +4111,7 @@ pub mod source_toolkit_fluxcd_io {
         }
         pub mod helm_chart {
             /// HelmChart is the Schema for the helmcharts API.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct HelmChart {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -4119,7 +4119,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for HelmChart {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -4160,7 +4160,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -4168,13 +4168,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the output of the last successful reconciliation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the Artifact file.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of the Artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of the Artifact. It can be used to locate the file in the root of the Artifact storage on the local file system of the controller managing the Source.
                 pub path: String,
                 /// Revision is a human-readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm chart version, etc.
@@ -4187,11 +4187,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -4205,7 +4205,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -4213,7 +4213,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -4221,7 +4221,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// SourceRef is the reference to the Source the chart is available at.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SourceRef {
                 /// APIVersion of the referent.
@@ -4233,7 +4233,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmChartSpec specifies the desired state of a Helm chart.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -4257,7 +4257,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmChartStatus records the observed state of the HelmChart.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the output of the last successful reconciliation.
@@ -4278,7 +4278,7 @@ pub mod source_toolkit_fluxcd_io {
         }
         pub mod helm_repository {
             /// HelmRepository is the Schema for the helmrepositories API.
-            #[derive(serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Deserialize, Clone, Debug, PartialEq)]
             pub struct HelmRepository {
                 pub metadata: k8s_openapi::apimachinery::pkg::apis::meta::v1::ObjectMeta,
                 pub spec: Spec,
@@ -4286,7 +4286,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             impl k8s_openapi::Resource for HelmRepository {
-                type Scope = k8s_openapi::ClusterResourceScope;
+                type Scope = k8s_openapi::NamespaceResourceScope;
 
                 const API_VERSION: &'static str = "source.toolkit.fluxcd.io/v1beta2";
                 const GROUP: &'static str = "source.toolkit.fluxcd.io";
@@ -4327,7 +4327,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct AccessFrom {
                 /// NamespaceSelectors is the list of namespace selectors to which this ACL applies. Items in this list are evaluated using a logical OR operation.
@@ -4335,13 +4335,13 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// Artifact represents the last successful HelmRepository reconciliation.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Artifact {
                 /// Checksum is the SHA256 checksum of the Artifact file.
                 pub checksum: String,
                 /// LastUpdateTime is the timestamp corresponding to the last update of the Artifact.
-                pub last_update_time: String,
+                pub last_update_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// Path is the relative file path of the Artifact. It can be used to locate the file in the root of the Artifact storage on the local file system of the controller managing the Source.
                 pub path: String,
                 /// Revision is a human-readable identifier traceable in the origin source system. It can be a Git commit SHA, Git tag, a Helm chart version, etc.
@@ -4354,11 +4354,11 @@ pub mod source_toolkit_fluxcd_io {
 
             /// Condition contains details for one aspect of the current state of this API Resource. --- This struct is intended for direct use as an array at the field path .status.conditions.  For example, type FooStatus struct{     // Represents the observations of a foo's current state.     // Known .status.conditions.type are: "Available", "Progressing", and "Degraded"     // +patchMergeKey=type     // +patchStrategy=merge     // +listType=map     // +listMapKey=type     Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
             ///      // other fields }
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct ConditionsItem {
                 /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-                pub last_transition_time: String,
+                pub last_transition_time: k8s_openapi::apimachinery::pkg::apis::meta::v1::Time,
                 /// message is a human readable message indicating details about the transition. This may be an empty string.
                 pub message: String,
                 /// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
@@ -4372,7 +4372,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct MatchLabels {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -4380,7 +4380,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// NamespaceSelector selects the namespaces to which this ACL applies. An empty map of MatchLabels matches all namespaces in a cluster.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct NamespaceSelectorsItem {
                 /// MatchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -4388,7 +4388,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// SecretRef specifies the Secret containing authentication credentials for the HelmRepository. For HTTP/S basic auth the secret must contain 'username' and 'password' fields. For TLS the secret must contain a 'certFile' and 'keyFile', and/or 'caCert' fields.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct SecretRef {
                 /// Name of the referent.
@@ -4396,7 +4396,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmRepositorySpec specifies the required configuration to produce an Artifact for a Helm repository index YAML.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Spec {
                 /// AccessFrom specifies an Access Control List for allowing cross-namespace references to this object. NOTE: Not implemented, provisional as of https://github.com/fluxcd/flux2/pull/2092
@@ -4418,7 +4418,7 @@ pub mod source_toolkit_fluxcd_io {
             }
 
             /// HelmRepositoryStatus records the observed state of the HelmRepository.
-            #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
+            #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct Status {
                 /// Artifact represents the last successful HelmRepository reconciliation.

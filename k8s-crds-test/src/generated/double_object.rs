@@ -15,7 +15,7 @@ pub mod stable_example_com {
                 const GROUP: &'static str = "stable.example.com";
                 const KIND: &'static str = "CronTab";
                 const VERSION: &'static str = "v1";
-                const URL_PATH_SEGMENT: &'static str = "TODO";
+                const URL_PATH_SEGMENT: &'static str = "";
             }
 
             impl k8s_openapi::Metadata for CronTab {
